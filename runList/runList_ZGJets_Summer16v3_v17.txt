@@ -1,0 +1,2 @@
+/home/bkansal/t3store3/work/MET_analysis/v17_samples//SR_Summer16v3.ZNuNuGJets_MonoPhoton_PtG-130_TuneCUETP8M1_13TeV-madgraph-pythia8.root
+/home/bkansal/t3store3/work/MET_analysis/v17_samples//SR_Summer16v3.ZNuNuGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root
