@@ -875,7 +875,6 @@ class NtupleVariables : public TSelector {
    double  DeltaPhi(double, double);
    double  DeltaR(double eta1, double phi1, double eta2, double phi2);
    void    sortTLorVec(vector<TLorentzVector> *);   
-   double TransMass(double phi1, double phi2, double pt1, double pt2);
 };
 
 #endif
