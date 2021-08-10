@@ -1,0 +1,2 @@
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Autumn18.WGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Autumn18.WGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-madgraph_v18.root

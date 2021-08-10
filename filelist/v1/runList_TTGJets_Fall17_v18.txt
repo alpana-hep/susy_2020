@@ -1,0 +1,1 @@
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Fall17.TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8_v18.root
