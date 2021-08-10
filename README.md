@@ -4,6 +4,7 @@ Code can be run after invoking 'make'
 ./analyzeLightBSM filelist outputfile dataset sample_tag
   
 filelist - .txt file containing the path of file for the sample
+
 dataset - 2016,2017,2018 (for respective background samples)
               - signal (for signal samples)
       
