@@ -52,7 +52,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   if(s_data.Contains("2016")) lumiInfb=35.9;
   if(s_data.Contains("2017")) lumiInfb=41.59;
   if(s_data.Contains("2018")) lumiInfb=59.74;
-  if(s_data.Contains("signal"))lumiInfb= 1000*137;
+  if(s_data.Contains("signal"))lumiInfb= 137;
   
   cout<<lumiInfb<<endl;
   for (Long64_t jentry=0; jentry<nentries;jentry++)
@@ -63,7 +63,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       if(s_data.Contains("signal"))//lumiInfb= 1000*137;
 	wt = (0.165*137)/nentries;
       else
-	wt = Weight*lumiInfb;
+	wt = Weight*lumiInfb*1000.0;
 
       //checking for G+jets, QCD+jets sample
       if(s_sample.Contains("GJets_DR"))
@@ -146,7 +146,11 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 		      h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
 		    h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
 		    h_HT->Fill(ST,wt);
-
+		    
+		    // if(MET>250)
+		    //   {
+			
+		    //   }
 		    // int sBin7 = getBinNoV7(nHadJets);
 		    // h_SBins_v7_CD->Fill(sBin7,wt);
 		  }
