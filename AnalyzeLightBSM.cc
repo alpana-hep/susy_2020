@@ -16,14 +16,14 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-  if (argc < 3) {
+  if (argc < 4) {
     cerr << "Please give 4 arguments " << "runList " << " " << "outputFileName" << " " << "dataset" <<" "<<"N2-Mass"<< endl;
     return -1;
   }
   const char *inputFileList = argv[1];
   const char *outFileName   = argv[2];
   const char *data          = argv[3];
-  const char *sample=argv[3];
+  const char *sample=argv[4];
   AnalyzeLightBSM ana(inputFileList, outFileName, data,sample);
   cout << "dataset " << data << " " << endl;
 
@@ -53,8 +53,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   if(s_data.Contains("2017")) lumiInfb=41.59;
   if(s_data.Contains("2018")) lumiInfb=59.74;
   if(s_data.Contains("signal"))lumiInfb= 137;
-  
-  cout<<lumiInfb<<endl;
+  int count_QCD=0;
+  cout<<s_sample<<nentries<<endl;
   for (Long64_t jentry=0; jentry<nentries;jentry++)
     {
       // if(s_data.Contains("2016")) lumiInfb=35.9;
@@ -64,18 +64,18 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	wt = (0.165*137)/nentries;
       else
 	wt = Weight*lumiInfb*1000.0;
-
+      // if(s_sample.Contains("QCD_Jets"))
+      // 	{
+      // if(madMinPhotonDeltaR<0.4)
+      // 	{cout<<madMinPhotonDeltaR<<endl; count_QCD++;}// continue;}
+      // 	}
       //checking for G+jets, QCD+jets sample
-      if(s_sample.Contains("GJets_DR"))
-	{
-	  if(madMinPhotonDeltaR<0.4) continue;
-	}
-      if(s_sample.Contains("QCD_Jets"))
-	  {
-	    if(madMinPhotonDeltaR>0.4) continue;
-	  }
-	  
-      //           cout<<Weight<<endl;
+      // if(s_sample.Contains("GJets_DR") && madMinPhotonDeltaR<0.4) continue;//{ //cout<<"exiting the event"<<endl; continue;}
+      // else if(s_sample.Contains("QCD_Jets")&& madMinPhotonDeltaR>0.4) { cout<<madMinPhotonDeltaR<<endl; }
+      // else
+      // 	{
+	  // cout<<"enteringg the event"<<endl;
+	  // cout<<Weight<<endl;
       // ==============print number of events done == == == == == == == =
       double progress = 10.0 * jentry / (1.0 * nentries);
       int k = int (progress);
@@ -133,20 +133,62 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	      {
 		if(MET>100) 
 		  {
-		    //if(madMinPhotonDeltaR>0.4) continue;
-		    h_NJets->Fill(nHadJets,wt);
-		    h_NbJets->Fill(BTags,wt);
-		    if(MET<1170)
-		      h_MeT->Fill(MET,wt);
-		    else
-		      h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
-		    if(bestPhoton.Pt()<1000)
-		      h_PhoPt->Fill(bestPhoton.Pt(),wt);
-		    else
-		      h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
-		    h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
-		    h_HT->Fill(ST,wt);
-		    
+		    if(s_sample.Contains("GJets_DR"))
+		      {
+			if(madMinPhotonDeltaR<0.4) continue;
+			else
+			  {
+			    h_NJets->Fill(nHadJets,wt);
+			    h_NbJets->Fill(BTags,wt);
+			    if(MET<1170)
+			      h_MeT->Fill(MET,wt);
+			    else
+			      h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
+			    if(bestPhoton.Pt()<1000)
+			      h_PhoPt->Fill(bestPhoton.Pt(),wt);
+			    else
+			      h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
+			    h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
+			    h_HT->Fill(ST,wt);
+
+			  }
+		      }
+		    else if(s_sample.Contains("QCD_Jets"))
+		      {
+			if (madMinPhotonDeltaR>0.4) continue;
+			else
+			  {
+			    //  cout<<"success"<<endl;
+			    h_NJets->Fill(nHadJets,wt);
+                            h_NbJets->Fill(BTags,wt);
+                            if(MET<1170)
+                              h_MeT->Fill(MET,wt);
+                            else
+                              h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
+                            if(bestPhoton.Pt()<1000)
+                              h_PhoPt->Fill(bestPhoton.Pt(),wt);
+                            else
+                              h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
+                            h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
+                            h_HT->Fill(ST,wt);
+			  }
+		      }
+		    else if(s_sample.Contains("temp"))
+		      {
+			
+			h_NJets->Fill(nHadJets,wt);
+			h_NbJets->Fill(BTags,wt);
+			if(MET<1170)
+			  h_MeT->Fill(MET,wt);
+			else
+			  h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
+			if(bestPhoton.Pt()<1000)
+			  h_PhoPt->Fill(bestPhoton.Pt(),wt);
+			else
+			  h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
+			h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
+			h_HT->Fill(ST,wt);
+		      }
 		    // if(MET>250)
 		    //   {
 			
@@ -158,6 +200,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	  }
       }
     }
+  //    }
 }
 int AnalyzeLightBSM::getBinNoV7(int nHadJets){
   int sBin=-100,m_i=0;
