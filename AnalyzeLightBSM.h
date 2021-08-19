@@ -27,6 +27,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   int getBinNoV7(int);
   int getBinNoV6(int);
   TLorentzVector getBestPhoton();
+  double getGendRLepPho();
   //Long64_t transMass(float , float, float, float);
   void print(Long64_t);
   //  void findObjMatchedtoG(TLorentzVector);
@@ -56,8 +57,12 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_PhoPt;
   TH1F *h_HT;
   TH1F *h_check_PhoPt;
+  TH1F *h_minDR_PhoLep;
+  TH1F *h_madminPhotDeltaR;
+  TH1F *h_selectBaselineYields_;
   //
   TH1D *h_SBins_v7_CD;
+  TH1F *h_dPhi_Met_hadJets[6];
   
 };
 #endif
@@ -77,20 +82,24 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
       if(i_bin<=40) xbins_PhotPt[i_bin]=0+(5*(i_bin));
       if(i_bin>40 && i_bin<=70) xbins_PhotPt[i_bin]=200+(10*(i_bin-40));
       if(i_bin>70) xbins_PhotPt[i_bin]=500+(20*(i_bin-70));
-      cout<<xbins_PhotPt[i_bin]<<"\t"<<i_bin<<endl;
+      //cout<<xbins_PhotPt[i_bin]<<"\t"<<i_bin<<endl;
     }
+  
   //   h_PhoPt=new TH1F("h_PhoPt","",76,xbins_PhotPt);
   
   oFile = new TFile(outFileName, "recreate");
   TH1::SetDefaultSumw2(1);
+  h_selectBaselineYields_ = new TH1F("cutflows","cutflows",10,-0.5,9.5);
+  h_minDR_PhoLep = new TH1F("h_minDR_PhoLep","",300,0,2);
+  h_madminPhotDeltaR = new TH1F ("h_madminPhotDeltaR","",300,0,2);
   h_PhoPt=new TH1F("h_PhoPt","Photon -Pt >20GeV ",96,xbins_PhotPt);
   h_MeT=new TH1F ("h_MeT","MET >100",50,0,1500);
   h_NJets=new TH1D("h_NJets","N hadronic jets (>=2)",20,0,20);
   h_NbJets=new TH1D("h_NbJets","B-tagged jets",15,0,15);
   h_HT= new TH1F("h_HT","Sum of pt for all hadronic jets",100,0,10000);
   h_check_PhoPt= new TH1F("h_check_PhoPt","check Pt distribution",100,0,2000);
-  cout<<h_PhoPt->GetNbinsX()<<"\t"<<endl;
-
+  //  cout<<h_PhoPt->GetNbinsX()<<"\t"<<endl;
+ 
   h_SBins_v7_CD = new TH1D("AllSBins_v7_CD","search bins v7:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]_CD",31,0.5,31.5);
 
   

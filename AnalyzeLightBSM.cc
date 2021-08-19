@@ -54,21 +54,68 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   if(s_data.Contains("2018")) lumiInfb=59.74;
   if(s_data.Contains("signal"))lumiInfb= 137;
   int count_QCD=0;
+  Long64_t nSurvived = 0,bkg_comp=0,MET_rej=0,nocut=0;
   cout<<s_sample<<nentries<<endl;
   for (Long64_t jentry=0; jentry<nentries;jentry++)
     {
       // if(s_data.Contains("2016")) lumiInfb=35.9;
       // if(s_data.Contains("2017")) lumiInfb=41.59;
       // if(s_data.Contains("2018")) lumiInfb=59.74;
-      if(s_data.Contains("signal"))//lumiInfb= 1000*137;
-	wt = (0.165*137)/nentries;
-      else
-	wt = Weight*lumiInfb*1000.0;
-      // if(s_sample.Contains("QCD_Jets"))
-      // 	{
-      // if(madMinPhotonDeltaR<0.4)
-      // 	{cout<<madMinPhotonDeltaR<<endl; count_QCD++;}// continue;}
-      // 	}
+      // if(s_data.Contains("signal"))//lumiInfb= 1000*137;
+      // 	wt = (0.165*137)/nentries;
+      // else
+      //      cout<<jentry<<endl;
+      //cout<<madMinPhotonDeltaR<<endl;
+      double progress = 10.0 * jentry / (1.0 * nentries);
+      int k = int (progress);
+      if (k > decade)
+        cout << 10 * k << " %" << endl;
+      decade = k;
+
+
+      // ===============read this entry == == == == == == == == == == ==                                                                                                   
+      Long64_t ientry = LoadTree(jentry);
+      if (ientry < 0) break;
+      nb = fChain->GetEntry(jentry);   nbytes += nb;
+
+      double gendRLepPho = getGendRLepPho();
+      wt = Weight*lumiInfb*1000.0;
+      //cout<<madMinPhotonDeltaR<<endl;  
+      h_selectBaselineYields_->Fill("No cuts, evt in 1/fb",wt);
+      nocut++;
+      if(s_sample.Contains("QCD_Jets"))
+      	{
+	  if(madMinPhotonDeltaR>0.4) continue;
+	  if(jentry<3) cout<<"QCD jets"<<endl;
+     	}
+      if (s_sample.Contains("GJets_DR"))
+	{
+	  if(madMinPhotonDeltaR<0.4) continue;
+          if(jentry<3) cout<<"G jets"<<endl;
+	}
+      if(s_sample.Contains("ZJets") || s_sample.Contains("TTJets-HT") ||  s_sample.Contains("TTJets-inc"))
+	{
+	  if(hasGenPromptPhoton && gendRLepPho>0.5 && madMinPhotonDeltaR>0.3) continue;
+	  if(jentry<3) cout<<"Non-Prompt, dR(pho,q/g/lep) < 0.3 ";
+	}
+      if( s_sample.Contains("TTGJets") ||  s_sample.Contains("ZGJets"))
+	{
+	if(hasGenPromptPhoton && gendRLepPho < 0.5 && madMinPhotonDeltaR < 0.3)continue;
+	}
+      if(s_sample.Contains("WGJets"))
+	{
+	  if(hasGenPromptPhoton && gendRLepPho < 0.5 && madMinPhotonDeltaR <0.5) continue;
+	  if(jentry<3) cout<<"WGjets"<<endl;
+	}
+      if(s_sample.Contains("WJets"))
+        {
+          if(hasGenPromptPhoton && gendRLepPho > 0.5 && madMinPhotonDeltaR > 0.5) continue;
+          if(jentry<3) cout<<"Wjets"<<endl;
+        }
+
+      h_selectBaselineYields_->Fill("after bkg cmp",wt);
+      bkg_comp++;
+	  
       //checking for G+jets, QCD+jets sample
       // if(s_sample.Contains("GJets_DR") && madMinPhotonDeltaR<0.4) continue;//{ //cout<<"exiting the event"<<endl; continue;}
       // else if(s_sample.Contains("QCD_Jets")&& madMinPhotonDeltaR>0.4) { cout<<madMinPhotonDeltaR<<endl; }
@@ -77,17 +124,17 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	  // cout<<"enteringg the event"<<endl;
 	  // cout<<Weight<<endl;
       // ==============print number of events done == == == == == == == =
-      double progress = 10.0 * jentry / (1.0 * nentries);
-      int k = int (progress);
-      if (k > decade)
-	cout << 10 * k << " %" << endl;
-      decade = k;
+    //   double progress = 10.0 * jentry / (1.0 * nentries);
+    //   int k = int (progress);
+    //   if (k > decade)
+    // 	cout << 10 * k << " %" << endl;
+    //   decade = k;
     
 
-    // ===============read this entry == == == == == == == == == == == 
-    Long64_t ientry = LoadTree(jentry);
-    if (ientry < 0) break;
-    nb = fChain->GetEntry(jentry);   nbytes += nb;
+    // // ===============read this entry == == == == == == == == == == == 
+    // Long64_t ientry = LoadTree(jentry);
+    // if (ientry < 0) break;
+    // nb = fChain->GetEntry(jentry);   nbytes += nb;
     //my code starts from here .... 19Aug2020
     int branch_size = (*GenParticles).size();
     int ele_branch=(*Electrons).size();
@@ -114,7 +161,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	    int minDRindx=-100,phoMatchingJetIndx=-100,nHadJets=0;
 	    double minDR=99999,ST=0;
 	    vector<TLorentzVector> hadJets;
-
+	    //	    double gendRLepPho = getGendRLepPho();
 	    for(int i=0;i<Jets->size();i++)
 	      {
 		if( ((*Jets)[i].Pt() > 30.0) && (abs((*Jets)[i].Eta()) <= 2.4) ){
@@ -133,73 +180,38 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	      {
 		if(MET>100) 
 		  {
-		    if(s_sample.Contains("GJets_DR"))
-		      {
-			if(madMinPhotonDeltaR<0.4) continue;
-			else
-			  {
-			    h_NJets->Fill(nHadJets,wt);
-			    h_NbJets->Fill(BTags,wt);
-			    if(MET<1170)
-			      h_MeT->Fill(MET,wt);
-			    else
-			      h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
-			    if(bestPhoton.Pt()<1000)
-			      h_PhoPt->Fill(bestPhoton.Pt(),wt);
-			    else
-			      h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
-			    h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
-			    h_HT->Fill(ST,wt);
+		 	
+		    h_NJets->Fill(nHadJets,wt);
+		    h_NbJets->Fill(BTags,wt);
+		    if(MET<1170)
+		      h_MeT->Fill(MET,wt);
+		    else
+		      h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
+		    if(bestPhoton.Pt()<1000)
+		      h_PhoPt->Fill(bestPhoton.Pt(),wt);
+		    else
+		      h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
+		    h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
+		    h_HT->Fill(ST,wt);
+		    h_madminPhotDeltaR->Fill(madMinPhotonDeltaR,wt);
+		    h_minDR_PhoLep->Fill(gendRLepPho,wt);
 
-			  }
-		      }
-		    else if(s_sample.Contains("QCD_Jets"))
-		      {
-			if (madMinPhotonDeltaR>0.4) continue;
-			else
-			  {
-			    //  cout<<"success"<<endl;
-			    h_NJets->Fill(nHadJets,wt);
-                            h_NbJets->Fill(BTags,wt);
-                            if(MET<1170)
-                              h_MeT->Fill(MET,wt);
-                            else
-                              h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
-                            if(bestPhoton.Pt()<1000)
-                              h_PhoPt->Fill(bestPhoton.Pt(),wt);
-                            else
-                              h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
-                            h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
-                            h_HT->Fill(ST,wt);
-			  }
-		      }
-		    else if(s_sample.Contains("temp"))
-		      {
-			
-			h_NJets->Fill(nHadJets,wt);
-			h_NbJets->Fill(BTags,wt);
-			if(MET<1170)
-			  h_MeT->Fill(MET,wt);
-			else
-			  h_MeT->SetBinContent(h_MeT->GetNbinsX(),wt);
-			if(bestPhoton.Pt()<1000)
-			  h_PhoPt->Fill(bestPhoton.Pt(),wt);
-			else
-			  h_PhoPt->SetBinContent(h_PhoPt->GetNbinsX(),wt);
-			h_check_PhoPt->Fill(bestPhoton.Pt(),wt);
-			h_HT->Fill(ST,wt);
-		      }
+		  }
 		    // if(MET>250)
 		    //   {
 			
 		    //   }
 		    // int sBin7 = getBinNoV7(nHadJets);
 		    // h_SBins_v7_CD->Fill(sBin7,wt);
-		  }
 	      }
+	      
 	  }
       }
+    nSurvived++;
+    h_selectBaselineYields_->Fill("survived",wt);
+
     }
+  cout<<nocut<<"\t"<<nSurvived<<"\t"<<bkg_comp<<endl;
   //    }
 }
 int AnalyzeLightBSM::getBinNoV7(int nHadJets){
@@ -232,6 +244,7 @@ int AnalyzeLightBSM::getBinNoV7(int nHadJets){
   }
   return sBin;
 }
+
 TLorentzVector AnalyzeLightBSM::getBestPhoton(){
   TLorentzVector v1;
   vector<TLorentzVector> goodPho;
@@ -245,5 +258,24 @@ TLorentzVector AnalyzeLightBSM::getBestPhoton(){
   
 }
 
-
+double AnalyzeLightBSM::getGendRLepPho(){//MC only
+  TLorentzVector genPho1,genLep1;
+  int leadGenPhoIdx=-100;
+  // vector<TLorentzVector> goodPho;
+  // for(int iPhoton=0;iPhoton<Photons->size();iPhoton++){
+  //   if( ((*Photons_fullID)[iPhoton]) && ((*Photons_hasPixelSeed)[iPhoton]<0.001) ) goodPho.push_back((*Photons)[iPhoton]);
+  // }
+  // if(goodPho.size()!=0) 
+  genPho1 =getBestPhoton();
+  
+  for(int i=0;i<GenParticles->size();i++){
+     if((*GenParticles)[i].Pt()!=0){
+       if( (abs((*GenParticles_PdgId)[i])==11 || abs((*GenParticles_PdgId)[i])==13 || abs((*GenParticles_PdgId)[i])==15 ) && (abs((*GenParticles_ParentId)[i])<=25) && (abs((*GenParticles_ParentId)[i])!=15) ){
+	 if(genLep1.Pt() < ((*GenParticles)[i]).Pt()) genLep1 = ((*GenParticles)[i]);
+       }
+     }
+  }//for
+  if(genPho1.Pt() > 0. && genLep1.Pt() > 0.) return genLep1.DeltaR(genPho1);
+  else return 1000.0;
+}
 
