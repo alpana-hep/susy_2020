@@ -35,6 +35,7 @@ class AnalyzeLightBSM : public NtupleVariables{
 
   //  double   Weight;
   double wt,lumiInfb=35.9;//35.86;//36.814;//35.862824;//36.814;
+  int bestPhotonIndxAmongPhotons=-100;
   int N_0emt=0,N_all=0,N_1e=0,N_2e=0,N_1m=0,N_2m=0,N_1t=0,N_2t=0;
   int n_electrons,n_muon,n_tau;
   Int_t zeroleptons =0, Nzeroleptons =0, Nelectrons =0,Nmuons = 0,Ntaus =0;
@@ -51,19 +52,55 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1D *h_nEvts;
   TH1I *h_RunNum;
   TH1D *h_intLumi;
+  TH1D *h_Njets[13];
+  TH1D *h_Nbjets[13];
+  TH1F *h_MET_[13];
+  TH1F *h_PhotonPt[13];
+  TH1F *h_Mt_PhoMET[13];
+  TH1F *h_dPhi_PhoMET[13];
+  TH1F *h_St[13];
+  //Met>100GeV
   TH1D *h_NJets;
   TH1D *h_NbJets;
   TH1F *h_MeT;
   TH1F *h_PhoPt;
   TH1F *h_HT;
+  /* TH1F *h_dPhi_PhoMET; */
+  /* TH1F *h_Mt_PhoMET; */
   TH1F *h_check_PhoPt;
   TH1F *h_minDR_PhoLep;
   TH1F *h_madminPhotDeltaR;
   TH1F *h_selectBaselineYields_;
-  //
+  //MET>250GeV
+  TH1D *h_NJets_Met250GeV;
+  TH1D *h_NbJets_Met250GeV;
+  TH1F *h_MeT_Met250GeV;
+  TH1F *h_HT_Met250GeV;
+  TH1F *h_check_PhoPt_Met250GeV;
+  TH1F *h_Mt_PhoMET_Met250GeV;
+  TH1F *h_dPhi_PhoMET_Met250GeV;
+
+  //MET>600GeV
+  TH1D *h_NJets_Met600GeV;
+  TH1D *h_NbJets_Met600GeV;
+  TH1F *h_MeT_Met600GeV;
+  TH1F *h_HT_Met600GeV;
+  TH1F *h_check_PhoPt_Met600GeV;
+  TH1F *h_Mt_PhoMET_Met600GeV;
+  TH1F *h_dPhi_PhoMET_Met600GeV;
+
   TH1D *h_SBins_v7_CD;
   TH1F *h_dPhi_Met_hadJets[6];
-  
+  TH1F *h_dPhi_Met_hadJets_after[6];
+  TH2F *h_dPhivsMET[6];
+  TH2F *h_dPhivsMET_after[6];
+  TH2F *h_dPhi1vsdPhi2;
+  TH1F *h_madminPhotonDeltaR_;
+  TH1F *h_madminPhotonDeltaR_after;
+  TH1F *h_minPho_lep;
+  TH1F *h_minPho_lep_after;
+  TH1F *h_madHT;
+  TH1F *h_madHT_after;
 };
 #endif
 
@@ -75,7 +112,8 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   double xlow = 0.0,  xhigh = 3200, xhigh1 = 3500,xhigh2=300;//4.0*(2350-chi2_mass);
   //  int nbins = 2000;
   char name[100],title[100];
-
+  char hname[1000],hname1[1000], hname1_2d[1000],hname_2d[10000],hname_njets[10000],hname_nBjets[10000], hname_Met[10000],hname_PhoPt[10000],hname_Mt_phopt[10000],hname_dPhi[10000],hname_st[1000];
+  const char *baseline[14]= {"Nocut","bkg_comp","veto-lep","veto-iso","Phot-pt_20","NhadJetsCut","dPhi_Met","Met_100","Met_250","Met_600","st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
   Double_t xbins_PhotPt[97]={};//{20,25,30,35,40,,7,10,20,30,40,50,80,90,100,150};
   for(int i_bin=0;i_bin<97;i_bin++)
     {
@@ -85,10 +123,47 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
       //cout<<xbins_PhotPt[i_bin]<<"\t"<<i_bin<<endl;
     }
   
-  //   h_PhoPt=new TH1F("h_PhoPt","",76,xbins_PhotPt);
-  
   oFile = new TFile(outFileName, "recreate");
   TH1::SetDefaultSumw2(1);
+  h_madminPhotonDeltaR_= new TH1F("h_madminPhotonDeltaR_","madMinPhotonDeltaR",200,0,5);
+  h_madminPhotonDeltaR_after= new TH1F("h_madminPhotonDeltaR_after","madMinPhotonDeltaR",200,0,5);
+  h_minPho_lep = new TH1F("h_minPho_lep","mindR(best photon & gen lep)",200,0,5);
+  h_minPho_lep_after = new TH1F("h_minPho_lep_after","mindR(best photon & gen lep)",200,0,5);
+  h_madHT = new TH1F("h_madHT","madHT distributions",400,0,20000);
+  h_madHT_after = new TH1F("h_madHT_after","madHT distributions",400,0,20000);
+
+  for(int i=0;i<14;i++)
+    {
+      cout<<baseline[i]<<endl;
+      sprintf(hname_njets,"h_NhadJets_%s",baseline[i]);
+      sprintf(hname_nBjets,"h_NBJets_%s",baseline[i]);
+      sprintf(hname_Met,"h_MET_%s",baseline[i]);
+      sprintf(hname_PhoPt,"h_PhoPt_%s",baseline[i]);
+      sprintf(hname_Mt_phopt,"h_Mt_phoMET_%s",baseline[i]);
+      sprintf(hname_dPhi,"h_dPhi_phoMet_%s",baseline[i]);
+      sprintf(hname_st,"h_St_%s",baseline[i]);
+      h_Njets[i]= new TH1D(hname_njets, hname_njets,20,0,20);
+      h_Nbjets[i]= new TH1D(hname_nBjets, hname_nBjets,15,0,15);
+      h_MET_[i] = new TH1F(hname_Met,hname_Met,70,0,2100);
+      h_PhotonPt[i]= new TH1F(hname_PhoPt,hname_PhoPt,100,0,2000);
+      h_Mt_PhoMET[i]= new TH1F(hname_Mt_phopt,hname_Mt_phopt,500,0,2500);
+      h_dPhi_PhoMET[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
+      h_St[i]=new TH1F(hname_st,hname_st,100,0,10000);
+    }
+  for(int i=0;i<6;i++)
+    {
+      sprintf(hname,"h_dPhi_btw_Met_%02d_HadJets",i); 
+      sprintf(hname_2d,"h_dPhi_vs_Met_%02d_HadJets",i);
+      sprintf(hname1,"h_dPhi_btw_Met_%02d_HadJets_After",i);
+      sprintf(hname1_2d,"h_dPhi1_vs_MET_%02d_HadJets_After",i);
+      h_dPhi_Met_hadJets[i]= new TH1F(hname, hname,100,0,6);
+      h_dPhivsMET[i]=new TH2F(hname_2d,hname_2d,100,0,10,70,0,2100);
+      h_dPhi_Met_hadJets_after[i]= new TH1F(hname1, hname1,100,0,6);
+      h_dPhivsMET_after[i]=new TH2F(hname1_2d,hname1_2d,100,0,10,70,0,2100);
+
+      //      h_dPhi1vsdPhi2[i]=new TH2F(hname1_2d,hname1_2d,100,0,6);
+    }
+  h_dPhi1vsdPhi2= new TH2F("h_dPhi1vsdPhi2","dPhi1 vs dPhi2",100,0,6,100,0,6);
   h_selectBaselineYields_ = new TH1F("cutflows","cutflows",10,-0.5,9.5);
   h_minDR_PhoLep = new TH1F("h_minDR_PhoLep","",300,0,2);
   h_madminPhotDeltaR = new TH1F ("h_madminPhotDeltaR","",300,0,2);
@@ -98,6 +173,28 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_NbJets=new TH1D("h_NbJets","B-tagged jets",15,0,15);
   h_HT= new TH1F("h_HT","Sum of pt for all hadronic jets",100,0,10000);
   h_check_PhoPt= new TH1F("h_check_PhoPt","check Pt distribution",100,0,2000);
+  /* h_dPhi_PhoMET = new TH1F("h_dPhi_PhoMET","dPhi (Best Phot & MET)",200,0,5); */
+  /* h_Mt_PhoMET = new TH1F("h_Mt_PhoMET","Mt (Photon & MET)",500,0,2500); */
+  
+  
+  h_MeT_Met250GeV=new TH1F ("h_MeT_Met250GeV","MET >100",50,0,1500);
+  h_NJets_Met250GeV=new TH1D("h_NJets_Met250GeV","N hadronic jets (>_Met250GeV=2)",20,0,20);
+  h_NbJets_Met250GeV=new TH1D("h_NbJets_Met250GeV","B-tagged jets",15,0,15);
+  h_HT_Met250GeV= new TH1F("h_HT_Met250GeV","Sum of pt for all hadronic jets",100,0,10000);
+  h_check_PhoPt_Met250GeV= new TH1F("h_check_PhoPt_Met250GeV","check Pt distribution",100,0,2000);
+  h_dPhi_PhoMET_Met250GeV = new TH1F("h_dPhi_PhoMET_Met250GeV","dPhi (Best Phot & MET)",200,0,5);
+  h_Mt_PhoMET_Met250GeV = new TH1F("h_Mt_PhoMET_Met250GeV","Mt (Photon & MET)",500,0,2500);
+
+  h_MeT_Met600GeV=new TH1F ("h_MeT_Met600GeV","MET >100",50,500,1500);
+  h_NJets_Met600GeV=new TH1D("h_NJets_Met600GeV","N hadronic jets (>_Met600GeV=2)",20,0,20);
+  h_NbJets_Met600GeV=new TH1D("h_NbJets_Met600GeV","B-tagged jets",15,0,15);
+  h_HT_Met600GeV= new TH1F("h_HT_Met600GeV","Sum of pt for all hadronic jets",100,0,10000);
+  h_check_PhoPt_Met600GeV= new TH1F("h_check_PhoPt_Met600GeV","check Pt distribution",100,0,2000);
+  h_dPhi_PhoMET_Met600GeV = new TH1F("h_dPhi_PhoMET_Met600GeV","dPhi (Best Phot & MET)",200,0,5);
+  h_Mt_PhoMET_Met600GeV = new TH1F("h_Mt_PhoMET_Met600GeV","Mt (Photon & MET)",500,0,2500);
+
+
+
   //  cout<<h_PhoPt->GetNbinsX()<<"\t"<<endl;
  
   h_SBins_v7_CD = new TH1D("AllSBins_v7_CD","search bins v7:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]_CD",31,0.5,31.5);

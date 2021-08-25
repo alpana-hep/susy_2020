@@ -24,6 +24,24 @@ double NtupleVariables::TransMass(double phi1, double phi2, double pt1, double p
   double Cos= 1-cos(dphi);
   return std::sqrt(2*pt1*pt2*Cos);
 }
+double NtupleVariables::MinDr(TLorentzVector v1,vector<TLorentzVector> v2)
+{
+  double dr = 60;
+  for(int j=0;j<v2.size();j++)
+    { if(dr>=v1.DeltaR(v2[j]))
+	{ dr = v1.DeltaR(v2[j]);}
+    }
+  return dr;
+}
+double NtupleVariables::MinDr2(vector<TLorentzVector> v1,TLorentzVector v2)
+{
+  double dr = 60;
+  for(int j=0;j<v1.size();j++)
+    { if(dr>=v1[j].DeltaR(v2))
+	{ dr = v1[j].DeltaR(v2);}
+    }
+  return dr;
+}
 void NtupleVariables::sortTLorVec(vector<TLorentzVector> *vec){
   TLorentzVector temp;
   for(int i=1;i<vec->size();i++){
