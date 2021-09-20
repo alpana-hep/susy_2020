@@ -383,7 +383,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
     int Sbin_met100=getBinNoV6_WithOnlyBLSelec(BTags,nHadJets);
     h_Sbins_v6_withOnlyBL_Selec_Met100->Fill(Sbin_met100,wt);
-   
+    
     if(Ht>1000)
       {
 	h_selectBaselineYields_->Fill("Ht>1TeV",wt);
@@ -402,13 +402,6 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	int Sbin_met100=getBinNoV6_WithOnlyBLSelec(BTags,nHadJets);
 	h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met100->Fill(Sbin_met100,wt);
       }
-    if(nHadJets>=2 && nHadJets <=4)
-      h_HT_njets_2_4->Fill(Ht,wt);
-    else if(nHadJets>=5 && nHadJets <=6)
-      h_HT_njets_5_6->Fill(Ht,wt);
-    else if(nHadJets>=7)
-      h_HT_njets_7->Fill(Ht,wt);
-
     if (MET>250)
       h_selectBaselineYields_->Fill("MET>250",wt);
        else continue;
@@ -424,16 +417,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     h_njets_vs_ST[9]->Fill(nHadJets,ST,wt);
     h_njets_vs_HT[9]->Fill(nHadJets,Ht,wt);
     h_ST_vs_ptPho[9]->Fill(ST,bestPhoton.Pt(),wt);
-    
+
     int Sbin=getBinNoV6_WithOnlyBLSelec(BTags,nHadJets);                                                                                                                                
     h_Sbins_v6_withOnlyBL_Selec->Fill(Sbin,wt);  
-    if(nHadJets>=2 && nHadJets <=4)
-      h_HT_njets_2_4_Met250->Fill(Ht,wt);
-    else if(nHadJets>=5 && nHadJets <=6)
-      h_HT_njets_5_6_Met250->Fill(Ht,wt);
-    else if(nHadJets>=7)
-      h_HT_njets_7_Met250->Fill(Ht,wt);
-
     if(Ht>1000)
       {
 	h_selectBaselineYields_->Fill("Ht>1TeV & Met 250",wt);
