@@ -57,24 +57,30 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1D *h_nEvts;
   TH1I *h_RunNum;
   TH1D *h_intLumi;
-  TH1D *h_Njets[15];
-  TH1D *h_Nbjets[15];
-  TH1F *h_MET_[15];
-  TH1F *h_PhotonPt[15];
-  TH1F *h_Mt_PhoMET[15];
-  TH1F *h_dPhi_PhoMET[15];
-  TH1F *h_St[15];
-  TH1F *h_HT[15];
-  TH2F *h_njets_vs_ST[15];
-  TH2F *h_njets_vs_HT[15];
-  TH2F *h_ST_vs_ptPho[15];
+  TH1D *h_Njets[24];
+  TH1D *h_Nbjets[24];
+  TH1F *h_MET_[24];
+  TH1F *h_PhotonPt[24];
+  TH1F *h_Mt_PhoMET[24];
+  TH1F *h_dPhi_PhoMET[24];
+  TH1F *h_St[24];
+  TH1F *h_HT[24];
+  TH2F *h_njets_vs_ST[24];
+  TH2F *h_njets_vs_HT[24];
+  TH2F *h_ST_vs_ptPho[24];
+  TH1F *h_HT_njets_2_4;
+  TH1F *h_HT_njets_5_6;
+  TH1F *h_HT_njets_7;
+  TH1F *h_HT_njets_2_4_Met250;
+  TH1F *h_HT_njets_5_6_Met250;
+  TH1F *h_HT_njets_7_Met250;
 
   //Met>100GeV
   TH1D *h_NJets;
   TH1D *h_NbJets;
   TH1F *h_MeT;
   TH1F *h_PhoPt;
-  TH1F *h_HT;
+  //  TH1F *h_HT;
   /* TH1F *h_dPhi_PhoMET; */
   /* TH1F *h_Mt_PhoMET; */
   TH1F *h_check_PhoPt;
@@ -119,6 +125,21 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_Sbins_v6_withOnlyBL_Selec_Met100;
   TH1F *h_Sbins_v6_withOnlyBL_Selec;
   TH1F *h_Sbins_v6_withOnlyBL_Selec_PrevAna;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250_Pt100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250_Pt100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250_Pt100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100;
+
+
+  TH1F *h_Sbins_v6_withOnlyBL_njetsvsHTbin;
 };
 #endif
 
@@ -131,7 +152,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   //  int nbins = 2000;
   char name[100],title[100];
   char hname[1000],hname1[1000], hname1_2d[1000],hname_2d[10000],hname_njets[10000],hname_nBjets[10000], hname_Met[10000],hname_PhoPt[10000],hname_Mt_phopt[10000],hname_dPhi[10000],hname_st[1000],hname_ht[1000],hname_njet_vs_ST[1000],hname_njet_vs_HT[1000],hname_ST_vs_ptPho[1000];
-  const char *baseline[13]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
+  const char *baseline[24]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut",12"HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100",15"HT_1.5TeV_Met100","HT_1.5TeV_Met250","HT_1.5TeV_Met250_pt_100",18"HT_1.75TeV_Met100","HT_1.75TeV_Met250","HT_1.75TeV_Met250_pt_100","HT_2TeV_Met100","HT_2TeV_Met250","HT_2TeV_Met250_pt_100",};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
   Double_t xbins_PhotPt[97]={};//{20,25,30,35,40,,7,10,20,30,40,50,80,90,100,150};
   for(int i_bin=0;i_bin<97;i_bin++)
     {
@@ -150,9 +171,13 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_madHT = new TH1F("h_madHT","madHT distributions",400,0,20000);
   h_madHT_after = new TH1F("h_madHT_after","madHT distributions",400,0,20000);
 
-  for(int i=0;i<13;i++)
+  for(int i=0;i<24;i++)
     {
       cout<<baseline[i]<<endl;
+      sprintf(hname_njet_vs_ST,"h_njets_vs_ST_%s",baseline[i]);
+      sprintf(hname_njet_vs_HT,"h_njets_vs_HT_%s",baseline[i]);
+      sprintf(hname_ST_vs_ptPho,"h_ST_vs_ptPho_%s",baseline[i]);
+
       sprintf(hname_njets,"h_NhadJets_%s",baseline[i]);
       sprintf(hname_nBjets,"h_NBJets_%s",baseline[i]);
       sprintf(hname_Met,"h_MET_%s",baseline[i]);
@@ -168,7 +193,11 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
       h_Mt_PhoMET[i]= new TH1F(hname_Mt_phopt,hname_Mt_phopt,500,0,2500);
       h_dPhi_PhoMET[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
       h_St[i]=new TH1F(hname_st,hname_st,120,0,12000);
-      h_HT[i]= mew TH1F(hname_ht,hname_ht,120,0,12000);
+      h_HT[i]= new TH1F(hname_ht,hname_ht,120,0,12000);
+      h_njets_vs_ST[i]= new TH2F(hname_njet_vs_ST,hname_njet_vs_HT,20,0,20,120,0,12000);
+      h_njets_vs_HT[i] = new TH2F(hname_njet_vs_HT,hname_njet_vs_HT,20,0,20,120,0,12000);
+      h_ST_vs_ptPho[i]= new TH2F(hname_ST_vs_ptPho,hname_ST_vs_ptPho,100,0,2000,120,0,12000);
+      
     }
   for(int i=0;i<6;i++)
     {
@@ -183,6 +212,13 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
 
       //      h_dPhi1vsdPhi2[i]=new TH2F(hname1_2d,hname1_2d,100,0,6);
     }
+  h_HT_njets_2_4 = new TH1F("h_HT_njets_2_4","HT distribution for nhadjet >=2 & <=4",120,0,12000);
+  h_HT_njets_5_6 = new  TH1F("h_HT_njets_5_6","HT distribution for nhadjet >=5 & <=6",120,0,12000);
+  h_HT_njets_7 = new  TH1F("h_HT_njets_7","HT distribution for nhadjet >=7 ",120,0,12000);
+  h_HT_njets_2_4_Met250 = new TH1F("h_HT_njets_2_4_Met250","HT distribution for nhadjet >=2 & <=4",120,0,12000);
+  h_HT_njets_5_6_Met250 = new  TH1F("h_HT_njets_5_6_Met250","HT distribution for nhadjet >=5 & <=6",120,0,12000);
+  h_HT_njets_7_Met250 = new  TH1F("h_HT_njets_7_Met250","HT distribution for nhadjet >=7 ",120,0,12000);
+
 
   h_dPhi1vsdPhi2= new TH2F("h_dPhi1vsdPhi2","dPhi1 vs dPhi2",100,0,6,100,0,6);
   h_selectBaselineYields_ = new TH1F("cutflows","cutflows",10,-0.5,9.5);
@@ -192,7 +228,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_MeT=new TH1F ("h_MeT","MET >100",50,0,1500);
   h_NJets=new TH1D("h_NJets","N hadronic jets (>=2)",20,0,20);
   h_NbJets=new TH1D("h_NbJets","B-tagged jets",15,0,15);
-  h_HT= new TH1F("h_HT","Sum of pt for all hadronic jets",100,0,10000);
+  //  h_HT= new TH1F("h_HT","Sum of pt for all hadronic jets",100,0,10000);
   h_check_PhoPt= new TH1F("h_check_PhoPt","check Pt distribution",100,0,2000);
   /* h_dPhi_PhoMET = new TH1F("h_dPhi_PhoMET","dPhi (Best Phot & MET)",200,0,5); */
   /* h_Mt_PhoMET = new TH1F("h_Mt_PhoMET","Mt (Photon & MET)",500,0,2500); */
@@ -200,7 +236,26 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_Sbins_v6_withOnlyBL_Selec= new TH1F("h_Sbins_v6_withOnlyBL_Selec","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
   h_Sbins_v6_withOnlyBL_Selec_PrevAna= new TH1F("h_Sbins_v6_withOnlyBL_Selec_PrevAna","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
   h_Sbins_v6_withOnlyBL_Selec_Met100= new TH1F("h_Sbins_v6_withOnlyBL_Selec_Met100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_njetsvsHTbin = new TH1F("h_Sbins_v6_withOnlyBL_njetsvsHTbin","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52
+							 );
+  h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52
+							 );
+  h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=\
+7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+
+
   //					h_SBins_v7_CD_SP_elec1_closure = new TH1D("AllSBins_v7_CD_SP_elec1_closure","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",10,1,11);
+
   
   h_MeT_Met250GeV=new TH1F ("h_MeT_Met250GeV","MET >100",50,0,1500);
   h_NJets_Met250GeV=new TH1D("h_NJets_Met250GeV","N hadronic jets (>_Met250GeV=2)",20,0,20);

@@ -57,17 +57,17 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1D *h_nEvts;
   TH1I *h_RunNum;
   TH1D *h_intLumi;
-  TH1D *h_Njets[15];
-  TH1D *h_Nbjets[15];
-  TH1F *h_MET_[15];
-  TH1F *h_PhotonPt[15];
-  TH1F *h_Mt_PhoMET[15];
-  TH1F *h_dPhi_PhoMET[15];
-  TH1F *h_St[15];
-  TH1F *h_HT[15];
-  TH2F *h_njets_vs_ST[15];
-  TH2F *h_njets_vs_HT[15];
-  TH2F *h_ST_vs_ptPho[15];
+  TH1D *h_Njets[24];
+  TH1D *h_Nbjets[24];
+  TH1F *h_MET_[24];
+  TH1F *h_PhotonPt[24];
+  TH1F *h_Mt_PhoMET[24];
+  TH1F *h_dPhi_PhoMET[24];
+  TH1F *h_St[24];
+  TH1F *h_HT[24];
+  TH2F *h_njets_vs_ST[24];
+  TH2F *h_njets_vs_HT[24];
+  TH2F *h_ST_vs_ptPho[24];
   TH1F *h_HT_njets_2_4;
   TH1F *h_HT_njets_5_6;
   TH1F *h_HT_njets_7;
@@ -128,6 +128,17 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met100;
   TH1F *h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250;
   TH1F *h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250_Pt100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250_Pt100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250_Pt100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met100;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250;
+  TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100;
+
+
   TH1F *h_Sbins_v6_withOnlyBL_njetsvsHTbin;
 };
 #endif
@@ -141,7 +152,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   //  int nbins = 2000;
   char name[100],title[100];
   char hname[1000],hname1[1000], hname1_2d[1000],hname_2d[10000],hname_njets[10000],hname_nBjets[10000], hname_Met[10000],hname_PhoPt[10000],hname_Mt_phopt[10000],hname_dPhi[10000],hname_st[1000],hname_ht[1000],hname_njet_vs_ST[1000],hname_njet_vs_HT[1000],hname_ST_vs_ptPho[1000];
-  const char *baseline[15]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
+  const char *baseline[24]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","HT_175TeV_Met250","HT_175TeV_Met250_pt_100","HT_2TeV_Met100","HT_2TeV_Met250","HT_2TeV_Met250_pt_100"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
   Double_t xbins_PhotPt[97]={};//{20,25,30,35,40,,7,10,20,30,40,50,80,90,100,150};
   for(int i_bin=0;i_bin<97;i_bin++)
     {
@@ -160,7 +171,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_madHT = new TH1F("h_madHT","madHT distributions",400,0,20000);
   h_madHT_after = new TH1F("h_madHT_after","madHT distributions",400,0,20000);
 
-  for(int i=0;i<15;i++)
+  for(int i=0;i<24;i++)
     {
       cout<<baseline[i]<<endl;
       sprintf(hname_njet_vs_ST,"h_njets_vs_ST_%s",baseline[i]);
@@ -229,6 +240,20 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_Sbins_v6_withOnlyBL_njetsvsHTbin = new TH1F("h_Sbins_v6_withOnlyBL_njetsvsHTbin","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
   h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
   h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT1TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT15TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52
+							 );
+  h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT175TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52
+							 );
+  h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=\
+7)]",52,0,52);
+  h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met100 = new TH1F("h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met100","search bins SP:[(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+
+
   //					h_SBins_v7_CD_SP_elec1_closure = new TH1D("AllSBins_v7_CD_SP_elec1_closure","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",10,1,11);
 
   
