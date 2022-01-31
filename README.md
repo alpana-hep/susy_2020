@@ -35,12 +35,14 @@ mkdir datacards
 Script for making datacards :
 makeDatacard_SBins.C  .
 //Check script and make sure file name and directories are correctly mentioned
-
+root -l 'makeDatacard_SBins.C(2350,10,"Out_T5bbbbZG_2350_10_v18.root", "h_Sbins_v6_withOnlyBL_Selec","h_Sbins_v6_withOnlyBL_Selec")'
+Arguements : Mg, mX, output file containing all the histograms after basleine selections, histogram names
 
 
 Commands :
 
 ./worker_SP.sh analyzeLightBSM 2200 200 FastSim T5bbbbZg Summer16v3 <folder name>
+./worker_SP.sh analyzeLightBSM 2350 10 FastSim T5bbbbZG Summer16v3 h_Sbins_v6_withOnlyBL_Selec
 
 Condor job submission for making data-cards and calculating r value for various mass points :
 
