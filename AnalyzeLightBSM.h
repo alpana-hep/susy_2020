@@ -49,7 +49,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<double> METLowEdge2={100,200,270,350,450,2000};
   vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
   vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
-  TH1F *h_selectBaselineYields_;
+
   TH1F *h_isotrack;
   TH1F *h_zerolepton;
   TFile *oFile;
@@ -57,17 +57,17 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1D *h_nEvts;
   TH1I *h_RunNum;
   TH1D *h_intLumi;
-  TH1D *h_Njets[25];
-  TH1D *h_Nbjets[25];
-  TH1F *h_MET_[25];
-  TH1F *h_PhotonPt[25];
-  TH1F *h_Mt_PhoMET[25];
-  TH1F *h_dPhi_PhoMET[25];
-  TH1F *h_St[25];
-  TH1F *h_HT[25];
-  TH2F *h_njets_vs_ST[25];
-  TH2F *h_njets_vs_HT[25];
-  TH2F *h_ST_vs_ptPho[25];
+  TH1D *h_Njets[24];
+  TH1D *h_Nbjets[24];
+  TH1F *h_MET_[24];
+  TH1F *h_PhotonPt[24];
+  TH1F *h_Mt_PhoMET[24];
+  TH1F *h_dPhi_PhoMET[24];
+  TH1F *h_St[24];
+  TH1F *h_HT[24];
+  TH2F *h_njets_vs_ST[24];
+  TH2F *h_njets_vs_HT[24];
+  TH2F *h_ST_vs_ptPho[24];
   TH1F *h_HT_njets_2_4;
   TH1F *h_HT_njets_5_6;
   TH1F *h_HT_njets_7;
@@ -86,7 +86,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_check_PhoPt;
   TH1F *h_minDR_PhoLep;
   TH1F *h_madminPhotDeltaR;
-  //  TH1F *h_selectBaselineYields_;
+  TH1F *h_selectBaselineYields_;
   //MET>250GeV
   TH1D *h_NJets_Met250GeV;
   TH1D *h_NbJets_Met250GeV;
@@ -146,16 +146,14 @@ class AnalyzeLightBSM : public NtupleVariables{
 #ifdef AnalyzeLightBSM_cxx
 
 void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass) {
-  int chi2_mass= atoi(N2_mass);
+  //  int chi2_mass= atoi(N2_mass);
   //  char hname[200], htit[200];
   double xlow = 0.0,  xhigh = 3200, xhigh1 = 3500,xhigh2=300;//4.0*(2350-chi2_mass);
   //  int nbins = 2000;
   char name[100],title[100];
   char hname[1000],hname1[1000], hname1_2d[1000],hname_2d[10000],hname_njets[10000],hname_nBjets[10000], hname_Met[10000],hname_PhoPt[10000],hname_Mt_phopt[10000],hname_dPhi[10000],hname_st[1000],hname_ht[1000],hname_njet_vs_ST[1000],hname_njet_vs_HT[1000],hname_ST_vs_ptPho[1000];
-  //  const char *baseline[25]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","HT_175TeV_Met250","HT_175TeV_Met250_pt_100","HT_2TeV_Met100","HT_2TeV_Met250","HT_2TeV_Met250_pt_100","nocut_sam"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
+  const char *baseline[24]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","HT_175TeV_Met250","HT_175TeV_Met250_pt_100","HT_2TeV_Met100","HT_2TeV_Met250","HT_2TeV_Met250_pt_100"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"};
   Double_t xbins_PhotPt[97]={};//{20,25,30,35,40,,7,10,20,30,40,50,80,90,100,150};
-
-  const char *baseline[25]={"Nocut","nphotons_1","Phot_pT_30","nHadJets_2","phojet_match","bkg_cmp","cleanin_filters","lep_veto","iso_trk","dphi_MET","MET_100","ST_300","MET_250","pho_pt_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","nocut_sam","basic_sam"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"
   for(int i_bin=0;i_bin<97;i_bin++)
     {
       if(i_bin<=40) xbins_PhotPt[i_bin]=0+(5*(i_bin));
@@ -163,11 +161,9 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
       if(i_bin>70) xbins_PhotPt[i_bin]=500+(20*(i_bin-70));
       //cout<<xbins_PhotPt[i_bin]<<"\t"<<i_bin<<endl;
     }
-  //  h_selectBaselineYields_ = new TH1F("cutflows","cutflows",40,-0.5,40.5);
   
   oFile = new TFile(outFileName, "recreate");
   TH1::SetDefaultSumw2(1);
-  h_selectBaselineYields_ = new TH1F("cutflows","cutflows",40,-0.5,40.5);
   h_madminPhotonDeltaR_= new TH1F("h_madminPhotonDeltaR_","madMinPhotonDeltaR",200,0,5);
   h_madminPhotonDeltaR_after= new TH1F("h_madminPhotonDeltaR_after","madMinPhotonDeltaR",200,0,5);
   h_minPho_lep = new TH1F("h_minPho_lep","mindR(best photon & gen lep)",200,0,5);
@@ -192,12 +188,12 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
       sprintf(hname_ht,"h_HT_%s",baseline[i]);
       h_Njets[i]= new TH1D(hname_njets, hname_njets,20,0,20);
       h_Nbjets[i]= new TH1D(hname_nBjets, hname_nBjets,15,0,15);
-      h_MET_[i] = new TH1F(hname_Met,hname_Met,400,0,4000);
-      h_PhotonPt[i]= new TH1F(hname_PhoPt,hname_PhoPt,200,0,2000);
+      h_MET_[i] = new TH1F(hname_Met,hname_Met,70,0,2100);
+      h_PhotonPt[i]= new TH1F(hname_PhoPt,hname_PhoPt,100,0,2000);
       h_Mt_PhoMET[i]= new TH1F(hname_Mt_phopt,hname_Mt_phopt,500,0,2500);
       h_dPhi_PhoMET[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
-      h_St[i]=new TH1F(hname_st,hname_st,1200,0,12000);
-      h_HT[i]= new TH1F(hname_ht,hname_ht,1200,0,12000);
+      h_St[i]=new TH1F(hname_st,hname_st,120,0,12000);
+      h_HT[i]= new TH1F(hname_ht,hname_ht,120,0,12000);
       h_njets_vs_ST[i]= new TH2F(hname_njet_vs_ST,hname_njet_vs_HT,20,0,20,120,0,12000);
       h_njets_vs_HT[i] = new TH2F(hname_njet_vs_HT,hname_njet_vs_HT,20,0,20,120,0,12000);
       h_ST_vs_ptPho[i]= new TH2F(hname_ST_vs_ptPho,hname_ST_vs_ptPho,100,0,2000,120,0,12000);
@@ -225,7 +221,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
 
 
   h_dPhi1vsdPhi2= new TH2F("h_dPhi1vsdPhi2","dPhi1 vs dPhi2",100,0,6,100,0,6);
-  //  h_selectBaselineYields_ = new TH1F("cutflows","cutflows",10,-0.5,9.5);
+  h_selectBaselineYields_ = new TH1F("cutflows","cutflows",10,-0.5,9.5);
   h_minDR_PhoLep = new TH1F("h_minDR_PhoLep","",300,0,2);
   h_madminPhotDeltaR = new TH1F ("h_madminPhotDeltaR","",300,0,2);
   h_PhoPt=new TH1F("h_PhoPt","Photon -Pt >20GeV ",96,xbins_PhotPt);
@@ -308,9 +304,8 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
 
 AnalyzeLightBSM::AnalyzeLightBSM(const TString &inputFileList, const char *outFileName, const char* dataset, const char* N2_mass) {
   string nameData=dataset;//vvv
-  //  TDirectory * dir = new TDirectory("TreeMaker2");
-    TChain *tree = new TChain("TreeMaker2/PreSelection");
-  //  TChain *tree = new TChain("PreSelection");
+
+  TChain *tree = new TChain("PreSelection");
   if( ! FillChain(tree, inputFileList) ) {
     std::cerr << "Cannot get the tree " << std::endl;
   } else {
