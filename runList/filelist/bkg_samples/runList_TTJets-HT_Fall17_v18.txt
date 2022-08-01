@@ -1,0 +1,4 @@
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/lowphotonpt//SR_Fall17.TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/lowphotonpt//SR_Fall17.TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/lowphotonpt//SR_Fall17.TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/lowphotonpt//SR_Fall17.TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8_v18.root
