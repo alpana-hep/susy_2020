@@ -61,8 +61,21 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   std::string s_process = sample;
   double cross_section = getCrossSection(s_process);
   cout<<cross_section<<"\t"<<"analyzed process"<<endl;
-  //    nentries = 100;
+  //      nentries = 1000;
   cout<<"Event"<<"\t"<<"par-ID "<<"\t"<<"parentID"<<"\t"<<"GenMET"<<"\t"<<"MET"<<"\t"<<"pT"<<"\t"<<"Eta"<<"\t"<<"Phi"<<"\t"<<"E"<<endl;
+  float met=0.0,st=0.0, njets=0, btags=0,mTPhoMET=0.0,dPhi_PhoMET=0.0,dPhi_MetJet=0.0;
+  
+  TMVA::Reader *reader1 = new TMVA::Reader();
+  reader1->AddVariable( "MET", &met );
+  reader1->AddVariable( "NhadJets", &njets );
+  reader1->AddVariable( "BTags", &btags );
+  reader1->AddVariable("mTPhoMET_",&mTPhoMET);
+  reader1->AddVariable("dPhi_PhoMET_",&dPhi_PhoMET);
+  reader1->AddVariable("dPhi_Met_Jet",&dPhi_MetJet);
+  reader1->AddVariable( "ST", &st );
+
+
+  reader1->BookMVA( "BDT_100trees_2maxdepth method", "/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/Susy_Analysis_2020/BDT_training/dataset_bdt_all_Equalweight_pMSSM_allvariable_NominalBasleine_100trees_2maxdepth/weights/TMVAClassification_BDT_100trees_2maxdepth.weights.xml" );
    for (Long64_t jentry=0; jentry<nentries;jentry++)
     {
       double progress = 10.0 * jentry / (1.0 * nentries);
@@ -105,6 +118,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	  //cout<<cross_section<<"\t"<<"analyzed process"<<endl;
 	  wt = Weight*lumiInfb*1000.0; //(cross_section*lumiInfb*1000.0)/nentries;
 	}
+      //      cout<<"===load tree entry ==="<<"\t"<<jentry<<endl;
 
       h_selectBaselineYields_->Fill("No cuts, evt in 1/fb",wt);
       nocut++;
@@ -119,7 +133,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       int Ids[4]={11,13,15,22};
       const char* ids[4]={"e","mu","tau","pho"};
       // loop over gen particles
-      int count_genElec=0,count_genMu=0,count_genTau=0, igenPho=0, count_genEl_tau=0,count_genMu_tau=0;
+      int count_genElec=0,count_genMu=0,count_genTau=0, igenPho=0, count_genEl_tau=0,count_genMu_tau=0,count_haddecay=0;
       //      TLorentzVector 
       TLorentzVector genPho_W,genElec_W,genMu_W,genTau_W,genElec_Tau,genMu_Tau,genW,genNuElec_W,genNuMu_W,genNuTau_W,genElecNu_Tau,genMuNu_Tau;
       // for (int igen=0; igen<branch_size; igen++)
@@ -127,10 +141,12 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       // 	  pdgID= (*GenParticles_PdgId)[igen];
       // 	  parentId=(*GenParticles_ParentId)[igen];
 
-      // 	  cout<<jentry<<"\t"<<pdgID<<"\t"<<parentId<<"\t"<<GenMET<<"\t"<<MET<<"\t"<<(*GenParticles)[igen].Pt()<<"\t"<<(*GenParticles)[igen].Eta\
-      // 	    ()<<"\t"<<(*GenParticles)[igen].Phi()<<"\t"<<(*GenParticles)[igen].E()<<endl;
+      // 	  cout<<jentry<<"\t"<<pdgID<<"\t"<<parentId<<"\t"<<(*GenParticles_Status)[igen]<<"\t"<<GenMET<<"\t"<<MET<<"\t"<<(*GenParticles)[igen].Pt()<<"\t"<<(*GenParticles)[igen].Eta()<<"\t"<<(*GenParticles)[igen].Phi()<<"\t"<<(*GenParticles)[igen].E()<<endl;
       // 	}
-
+      
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////     Identifying the decay modes for W & TTbar  //////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       for (int igen=0; igen<branch_size; igen++)
 	{
 	  pdgID= (*GenParticles_PdgId)[igen];
@@ -156,19 +172,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	  //     cout<<pdgID<<"\t"<<parentId<<endl;
 	  //   }
 	  if(abs(parentId)==15)
-	    {
-	  //     if(abs(pdgID)==11)
-	  // 	{
-	  // 	  genElec_Tau.SetPtEtaPhiE((*GenParticles)[igen].Pt(),(*GenParticles)[igen].Eta(),(*GenParticles)[igen].Phi(),(*GenParticles)[igen].E());
-	  // 	  count_genEl_tau++;
-	  // 	}
-	  //     else if(abs(pdgID)==13)
-	  // 	{
-	  // 	genMu_Tau.SetPtEtaPhiE((*GenParticles)[igen].Pt(),(*GenParticles)[igen].Eta(),(*GenParticles)[igen].Phi(),(*GenParticles)[igen].E());
-	  // 	count_genMu_tau++;
-	  // 	}
-	  //     else
-		if(abs(pdgID)==12)
+	    {	if(abs(pdgID)==12)
                 genElecNu_Tau.SetPtEtaPhiE((*GenParticles)[igen].Pt(),(*GenParticles)[igen].Eta(),(*GenParticles)[igen].Phi(),(*GenParticles)[igen].E());
 	      else if(abs(pdgID)==14)
                 genMuNu_Tau.SetPtEtaPhiE((*GenParticles)[igen].Pt(),(*GenParticles)[igen].Eta(),(*GenParticles)[igen].Phi(),(*GenParticles)[igen].E());
@@ -180,8 +184,11 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	      if(abs(pdgID)==11) count_genElec++;
 	      else if(abs(pdgID)==13) count_genMu++;
 	      else if(abs(pdgID)==15) count_genTau++;
+	      else if (abs(pdgID)==1 || abs(pdgID)==2 ||abs(pdgID)==3 ||abs(pdgID)==4 || abs(pdgID)==5) count_haddecay++;
+	
 	      if(abs(pdgID)==11 || abs(pdgID)==13 ||abs(pdgID)==15)		
-		{count++;//t<<"lepton"<<"\t"<<jentry<<endl;
+		{
+		  count++;//t<<"lepton"<<"\t"<<jentry<<endl;
 		}
 	      else if (abs(pdgID)==12 ||abs(pdgID)==14||abs(pdgID)==16)
 		count++;//t<<"neutrino"<<"\t"<<jentry<<endl;
@@ -192,22 +199,6 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 		  //		  cout<<"pdgID"<<"\t"<<pdgID<<"\t"<<jentry<<endl;
 		}
 	      
-	      // 	dR_Ele++;
-	      // else
-	      // 	cout<<pdgID<<endl;
-	      // if(abs(pdgID)==11 || abs(pdgID)==13 ||abs(pdgID)==15) //||(pdgID==-11 || pdgID==-13||pdgID==-15))
-	      // 	//{
-	      // 	  h_Lep_pT->Fill((*GenParticles)[igen].Pt(),wt);
-		  
-	      // 	  //double mindR_lep_reco = getGenRecodRLep(recoLep1);
-	      // 	  //}
-	      // if(abs(pdgID)==11||abs(pdgID)==12) //||(pdgID==-11||pdgID==12))
-	      // 	//{
-	      // 	  h_2d_elec_nu_pT->Fill((*GenParticles)[igen].Pt(),wt);
-		  
-	      // //}
-	      // if(abs(pdgID)==12|| abs(pdgID)==14 || abs(pdgID)==16) //||pdgID==16)
-	      // 	h_2d_nu_MET_pT->Fill((*GenParticles)[igen].Pt(),MET,wt);
 	      for (int i=0; i<3;i++)
 		{
 		  if(abs(pdgID)==Ids[i])
@@ -221,10 +212,16 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       // 	{
 	  
       // 	}
+
+
+
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////            checking whether tau decayed to muon/electron or hadronically   ///////////////////////////////
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      int count_had_tau=0;
       if((*GenTaus).size()!=0 && GenTaus_had)
 	{
-      	  if((*GenElectrons).size()!=0)
-	    
+      	  if((*GenElectrons).size()!=0)	    
 	    {
 	      //cout<<"(*GenTaus).size()"<<"\t"<<(*GenTaus).size()<<endl;
 	      genElec_Tau.SetPtEtaPhiE((*GenElectrons)[0].Pt(),(*GenElectrons)[0].Eta(),(*GenElectrons)[0].Phi(),(*GenElectrons)[0].E());
@@ -236,6 +233,10 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	      count_genMu_tau++;
 	    }
 	}
+      else if ((*GenTaus).size()!=0 &&!GenTaus_had)
+	count_had_tau++;
+      
+      //      cout<<"===load tree entry ==="<<"\t"<<jentry<<endl;
 
       h_GenpTvsEta[0]->Fill(genW.Pt(),genW.Eta(),wt);
       h_GenEtavsPhi[0]->Fill(genW.Eta(),genW.Phi(),wt);
@@ -313,6 +314,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       h_GenPtvsPhi[14]->Fill(genTau_W.Pt(),genTau_W.Phi(),wt);
       h_GenMETvsGenpT[14]->Fill(GenMET,genTau_W.Pt(),wt);
 
+      if(Debug)
+      cout<<"===load tree entry check1 ==="<<"\t"<<jentry<<endl;
 
       
       
@@ -363,7 +366,10 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     h_njets_vs_ST[0]->Fill(nHadJets,ST,wt);
     h_njets_vs_HT[0]->Fill(nHadJets,Ht,wt);
     h_ST_vs_ptPho[0]->Fill(ST,bestPhoton.Pt(),wt);
+    if(Debug)
+      cout<<"===load tree entry variable define ==="<<"\t"<<jentry<<endl;
 
+    //    h_mvaResponse_baseline[0]->Fill(mvaValue,wt);
     //if (nHadJets<2) cout<<"wrong event"<<endl;
     if(bestPhotonIndxAmongPhotons<0) continue;
     bool bestPhoHasPxlSeed=true;
@@ -514,7 +520,20 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     if (bestPhoton.Pt()>=30)
       h_selectBaselineYields_->Fill("pho-pT>30",wt);
     else continue;
+    //cout<<"===load tree entry ==="<<"\t"<<jentry<<endl;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////   Evaluating the response from BDT  /////////////////////////////////////////
 
+    met = MET;
+    njets = nHadJets;
+    btags = BTags;
+    mTPhoMET = mTPhoMET;
+    dPhi_PhoMET = dPhi_phoMET;
+    dPhi_MetJet =dPhi_METjet1;
+    st = ST;
+    Double_t mvaValue = reader1->EvaluateMVA( "BDT_100trees_2maxdepth method");
+    h_mvaResponse->Fill(mvaValue,wt);
+    //    cout<<"===load tree entry1 ==="<<"\t"<<jentry<<endl;
     // h_Njets[7]->Fill(nHadJets,wt);
     // h_Nbjets[7]->Fill(BTags,wt);
     // h_MET_[7]->Fill(MET,wt);
@@ -526,16 +545,19 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // h_njets_vs_ST[7]->Fill(nHadJets,ST,wt);
     // h_njets_vs_HT[7]->Fill(nHadJets,Ht,wt);
     // h_ST_vs_ptPho[7]->Fill(ST,bestPhoton.Pt(),wt);
+    if(Debug)
+      cout<<"===load tree entry before SR ==="<<"\t"<<jentry<<endl;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////             SR region   ////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     if (NElectrons == 0 && NMuons == 0 )
       {
 	if(isoElectronTracks==0 && isoMuonTracks ==0 && isoPionTracks==0)
 	  {
 	    h_selectBaselineYields_->Fill("Iso track",wt);
-	  
-	//	else continue;
-	//cout<<count_genElec<<"\t"<<count_genMu<<"\t"<<count_genTau<<endl;
+	    h_mvaResponse_baseline[1]->Fill(mvaValue,wt);
 	    h_GenpT[1]->Fill(genW.Pt(),wt);
 	    h_GenEta[1]->Fill(genW.Eta(),wt);
 	    h_GenPhi[1]->Fill(genW.Phi(),wt);
@@ -548,6 +570,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	    h_GenEnvsEta[1]->Fill(genW.E(),genW.Eta(),wt);
 	    h_GenPtvsPhi[1]->Fill(genW.Pt(),genW.Phi(),wt);
 	    h_GenMETvsGenpT[1]->Fill(GenMET,genW.Pt(),wt);
+	    if(Debug)
+	      cout<<"===load tree entry SR region ==="<<"\t"<<jentry<<"\t"<<count_genElec<<"t"<<count_genMu<<"\t"<<count_genTau<<endl;
+
 
         h_Njets[1]->Fill(nHadJets,wt);
 	h_Nbjets[1]->Fill(BTags,wt);
@@ -560,9 +585,43 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_njets_vs_ST[1]->Fill(nHadJets,ST,wt);
 	h_njets_vs_HT[1]->Fill(nHadJets,Ht,wt);
 	h_ST_vs_ptPho[1]->Fill(ST,bestPhoton.Pt(),wt);
+	if(mvaValue>0.0)
+	  {
+	    h_Njets[18]->Fill(nHadJets,wt);
+	    h_Nbjets[18]->Fill(BTags,wt);
+	    h_MET_[18]->Fill(MET,wt);
+	    h_PhotonPt[18]->Fill(bestPhoton.Pt(),wt);
+	    h_Mt_PhoMET[18]->Fill(mTPhoMET,wt);
+	    h_dPhi_PhoMET[18]->Fill(dPhi_PhoMET,wt);
+	    h_St[18]->Fill(ST,wt);
+	    h_HT[18]->Fill(Ht,wt);
+	    h_njets_vs_ST[18]->Fill(nHadJets,ST,wt);
+	    h_njets_vs_HT[18]->Fill(nHadJets,Ht,wt);
+	    h_ST_vs_ptPho[18]->Fill(ST,bestPhoton.Pt(),wt);
+
+	  }
+	  
+	if(mvaValue>0.3)
+          {
+            h_Njets[33]->Fill(nHadJets,wt);
+            h_Nbjets[33]->Fill(BTags,wt);
+            h_MET_[33]->Fill(MET,wt);
+            h_PhotonPt[33]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[33]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[33]->Fill(dPhi_PhoMET,wt);
+            h_St[33]->Fill(ST,wt);
+            h_HT[33]->Fill(Ht,wt);
+            h_njets_vs_ST[33]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[33]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[33]->Fill(ST,bestPhoton.Pt(),wt);
+
+          }
+
 	if(count_genElec>0)
 	  {
-	    
+	    if(Debug)
+              cout<<"===load tree entry SR region ==="<<"\t"<<jentry<<endl;
+
 	    h_GenpTvsEta[9]->Fill(genElec_W.Pt(),genElec_W.Eta(),wt);
 	    h_GenEtavsPhi[9]->Fill(genElec_W.Eta(),genElec_W.Phi(),wt);
 	    h_GenEnvsEta[9]->Fill(genElec_W.E(),genElec_W.Eta(),wt);
@@ -586,15 +645,38 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_GenEn[3]->Fill(genW.E(),wt);
             h_GenMET[3]->Fill(GenMET,wt);
 	    h_RecoMET[3]->Fill(MET,wt);
+	    h_mvaResponse_baseline[2]->Fill(mvaValue,wt);
+	    if(mvaValue>0.0)
+	      {
+		h_Njets[20]->Fill(nHadJets,wt);
+		h_Nbjets[20]->Fill(BTags,wt);
+		h_MET_[20]->Fill(MET,wt);
+		h_PhotonPt[20]->Fill(bestPhoton.Pt(),wt);
+		h_Mt_PhoMET[20]->Fill(mTPhoMET,wt);
+		h_dPhi_PhoMET[20]->Fill(dPhi_PhoMET,wt);
+		h_St[20]->Fill(ST,wt);
+		h_HT[20]->Fill(Ht,wt);
+		h_njets_vs_ST[20]->Fill(nHadJets,ST,wt);
+		h_njets_vs_HT[20]->Fill(nHadJets,Ht,wt);
+		h_ST_vs_ptPho[20]->Fill(ST,bestPhoton.Pt(),wt);
 
+	      }
 
-	    // for (int igen=0; igen<branch_size; igen++)
-            //   {
-            //     pdgID= (*GenParticles_PdgId)[igen];
-            //     parentId=(*GenParticles_ParentId)[igen];
+	    if(mvaValue>0.3)
+	      {
+		h_Njets[35]->Fill(nHadJets,wt);
+		h_Nbjets[35]->Fill(BTags,wt);
+		h_MET_[35]->Fill(MET,wt);
+		h_PhotonPt[35]->Fill(bestPhoton.Pt(),wt);
+		h_Mt_PhoMET[35]->Fill(mTPhoMET,wt);
+		h_dPhi_PhoMET[35]->Fill(dPhi_PhoMET,wt);
+		h_St[35]->Fill(ST,wt);
+		h_HT[35]->Fill(Ht,wt);
+		h_njets_vs_ST[35]->Fill(nHadJets,ST,wt);
+		h_njets_vs_HT[35]->Fill(nHadJets,Ht,wt);
+		h_ST_vs_ptPho[35]->Fill(ST,bestPhoton.Pt(),wt);
 
-	    // cout<<jentry<<"\t"<<pdgID<<"\t"<<parentId<<"\t"<<GenMET<<"\t"<<MET<<"\t"<<(*GenParticles)[igen].Pt()<<"\t"<<(*GenParticles)[igen].Eta()<<"\t"<<(*GenParticles)[igen].Phi()<<"\t"<<(*GenParticles)[igen].E()<<endl;
-	    //   }
+	      }
 
 	    h_Njets[3]->Fill(nHadJets,wt);
 	    h_Nbjets[3]->Fill(BTags,wt);
@@ -607,6 +689,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	    h_njets_vs_ST[3]->Fill(nHadJets,ST,wt);
 	    h_njets_vs_HT[3]->Fill(nHadJets,Ht,wt);
 	    h_ST_vs_ptPho[3]->Fill(ST,bestPhoton.Pt(),wt);
+	    h_mvaResponse_baseline[3]->Fill(mvaValue,wt);
 
 	  }
 	else if(count_genMu>0)
@@ -634,7 +717,44 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_GenEn[4]->Fill(genW.E(),wt);
             h_GenMET[4]->Fill(GenMET,wt);
 	    h_RecoMET[4]->Fill(MET,wt);
+	    if(Debug)
+              cout<<"===load tree entry SR muon region ==="<<"\t"<<jentry<<"\t"<<count_genElec<<"\t"<<count_genMu<<"\t"<<count_genTau<<endl;
 
+	    if(mvaValue>0.0)
+              {
+		if(Debug)
+		  cout<<"===load tree entry SR muon 0region ==="<<"\t"<<jentry<<"\t"<<count_genElec<<"\t"<<count_genMu<<"\t"<<count_genTau<<endl;
+
+                h_Njets[21]->Fill(nHadJets,wt);
+                h_Nbjets[21]->Fill(BTags,wt);
+                h_MET_[21]->Fill(MET,wt);
+                h_PhotonPt[21]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[21]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[21]->Fill(dPhi_PhoMET,wt);
+                h_St[21]->Fill(ST,wt);
+                h_HT[21]->Fill(Ht,wt);
+                h_njets_vs_ST[21]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[21]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[21]->Fill(ST,bestPhoton.Pt(),wt);
+
+              }
+
+            if(mvaValue>0.3)
+              {
+                h_Njets[36]->Fill(nHadJets,wt);
+                h_Nbjets[36]->Fill(BTags,wt);
+                h_MET_[36]->Fill(MET,wt);
+                h_PhotonPt[36]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[36 ]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[36]->Fill(dPhi_PhoMET,wt);
+                h_St[36]->Fill(ST,wt);
+                h_HT[36]->Fill(Ht,wt);
+                h_njets_vs_ST[36]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[36]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[36]->Fill(ST,bestPhoton.Pt(),wt);
+		if(Debug)
+                  cout<<"===load tree entry SR muon  0.3region ==="<<"\t"<<jentry<<"\t"<<count_genElec<<"\t"<<count_genMu<<"\t"<<count_genTau<<endl;
+              }
 
             h_Njets[4]->Fill(nHadJets,wt);
             h_Nbjets[4]->Fill(BTags,wt);
@@ -647,6 +767,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_njets_vs_ST[4]->Fill(nHadJets,ST,wt);
             h_njets_vs_HT[4]->Fill(nHadJets,Ht,wt);
             h_ST_vs_ptPho[4]->Fill(ST,bestPhoton.Pt(),wt);
+	    h_mvaResponse_baseline[4]->Fill(mvaValue,wt);
+	    if(Debug)
+              cout<<"===load tree entry SR muon 1region ==="<<"\t"<<jentry<<"\t"<<count_genElec<<"\t"<<count_genMu<<"\t"<<count_genTau<<endl;
 
           }
 	else if(count_genTau>0)
@@ -679,9 +802,38 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_GenPhi[5]->Fill(genW.Phi(),wt);
             h_GenEn[5]->Fill(genW.E(),wt);
             h_GenMET[5]->Fill(GenMET,wt);
-	    h_RecoMET[5]->Fill(MET,wt);
+	    h_RecoMET[5]->Fill(MET,wt);	    
+	    if(mvaValue>0.0)
+              {
+                h_Njets[22]->Fill(nHadJets,wt);
+                h_Nbjets[22]->Fill(BTags,wt);
+		h_MET_[22]->Fill(MET,wt);
+                h_PhotonPt[22]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[22]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[22]->Fill(dPhi_PhoMET,wt);
+                h_St[22]->Fill(ST,wt);
+                h_HT[22]->Fill(Ht,wt);
+		h_njets_vs_ST[22]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[22]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[22]->Fill(ST,bestPhoton.Pt(),wt);
 
+              }
 
+            if(mvaValue>0.3)
+              {
+                h_Njets[37]->Fill(nHadJets,wt);
+		h_Nbjets[37]->Fill(BTags,wt);
+		h_MET_[37]->Fill(MET,wt);
+                h_PhotonPt[37]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[37]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[37]->Fill(dPhi_PhoMET,wt);
+                h_St[37]->Fill(ST,wt);
+                h_HT[37]->Fill(Ht,wt);
+                h_njets_vs_ST[37]->Fill(nHadJets,ST,wt);
+		h_njets_vs_HT[37]->Fill(nHadJets,Ht,wt);
+		h_ST_vs_ptPho[37]->Fill(ST,bestPhoton.Pt(),wt);
+
+              }
             h_Njets[5]->Fill(nHadJets,wt);
             h_Nbjets[5]->Fill(BTags,wt);
             h_MET_[5]->Fill(MET,wt);
@@ -693,7 +845,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_njets_vs_ST[5]->Fill(nHadJets,ST,wt);
             h_njets_vs_HT[5]->Fill(nHadJets,Ht,wt);
             h_ST_vs_ptPho[5]->Fill(ST,bestPhoton.Pt(),wt);
-	    
+	    h_mvaResponse_baseline[5]->Fill(mvaValue,wt);
+
 	    if(count_genEl_tau>0)
 	      {
 		h_Njets[13]->Fill(nHadJets,wt);
@@ -707,9 +860,43 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 		h_njets_vs_ST[13]->Fill(nHadJets,ST,wt);
 		h_njets_vs_HT[13]->Fill(nHadJets,Ht,wt);
 		h_ST_vs_ptPho[13]->Fill(ST,bestPhoton.Pt(),wt);
+		h_mvaResponse_baseline[13]->Fill(mvaValue,wt);
+		
+		if(mvaValue>0.0)
+		  {
+		    h_Njets[25]->Fill(nHadJets,wt);
+		    h_Nbjets[25]->Fill(BTags,wt);
+		    h_MET_[25]->Fill(MET,wt);
+		    h_PhotonPt[25]->Fill(bestPhoton.Pt(),wt);
+		    h_Mt_PhoMET[25]->Fill(mTPhoMET,wt);
+		    h_dPhi_PhoMET[25]->Fill(dPhi_PhoMET,wt);
+		    h_St[25]->Fill(ST,wt);
+		    h_HT[25]->Fill(Ht,wt);
+		    h_njets_vs_ST[25]->Fill(nHadJets,ST,wt);
+		    h_njets_vs_HT[25]->Fill(nHadJets,Ht,wt);
+		    h_ST_vs_ptPho[25]->Fill(ST,bestPhoton.Pt(),wt);
+
+		  }
+
+		if(mvaValue>0.3)
+		  {
+		    h_Njets[40]->Fill(nHadJets,wt);
+		    h_Nbjets[40]->Fill(BTags,wt);
+		    h_MET_[40]->Fill(MET,wt);
+		    h_PhotonPt[40]->Fill(bestPhoton.Pt(),wt);
+		    h_Mt_PhoMET[40]->Fill(mTPhoMET,wt);
+		    h_dPhi_PhoMET[40]->Fill(dPhi_PhoMET,wt);
+		    h_St[40]->Fill(ST,wt);
+		    h_HT[40]->Fill(Ht,wt);
+		    h_njets_vs_ST[40]->Fill(nHadJets,ST,wt);
+		    h_njets_vs_HT[40]->Fill(nHadJets,Ht,wt);
+		    h_ST_vs_ptPho[40]->Fill(ST,bestPhoton.Pt(),wt);
+
+		  }
+
 
 	      }
-	    if(count_genMu_tau>0)
+	    else if(count_genMu_tau>0)
               {
                 h_Njets[14]->Fill(nHadJets,wt);
                 h_Nbjets[14]->Fill(BTags,wt);
@@ -722,29 +909,107 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
                 h_njets_vs_ST[14]->Fill(nHadJets,ST,wt);
                 h_njets_vs_HT[14]->Fill(nHadJets,Ht,wt);
                 h_ST_vs_ptPho[14]->Fill(ST,bestPhoton.Pt(),wt);
+		h_mvaResponse_baseline[14]->Fill(mvaValue,wt);
+
+		if(mvaValue>0.0)
+                  {
+                    h_Njets[26]->Fill(nHadJets,wt);
+                    h_Nbjets[26]->Fill(BTags,wt);
+                    h_MET_[26]->Fill(MET,wt);
+                    h_PhotonPt[26]->Fill(bestPhoton.Pt(),wt);
+                    h_Mt_PhoMET[26]->Fill(mTPhoMET,wt);
+                    h_dPhi_PhoMET[26]->Fill(dPhi_PhoMET,wt);
+                    h_St[26]->Fill(ST,wt);
+                    h_HT[26]->Fill(Ht,wt);
+                    h_njets_vs_ST[26]->Fill(nHadJets,ST,wt);
+                    h_njets_vs_HT[26]->Fill(nHadJets,Ht,wt);
+                    h_ST_vs_ptPho[26]->Fill(ST,bestPhoton.Pt(),wt);
+
+                  }
+
+                if(mvaValue>0.3)
+                  {
+                    h_Njets[41]->Fill(nHadJets,wt);
+                    h_Nbjets[41]->Fill(BTags,wt);
+                    h_MET_[41]->Fill(MET,wt);
+                    h_PhotonPt[41]->Fill(bestPhoton.Pt(),wt);
+                    h_Mt_PhoMET[41]->Fill(mTPhoMET,wt);
+                    h_dPhi_PhoMET[41]->Fill(dPhi_PhoMET,wt);
+                    h_St[41]->Fill(ST,wt);
+                    h_HT[41]->Fill(Ht,wt);
+                    h_njets_vs_ST[41]->Fill(nHadJets,ST,wt);
+                    h_njets_vs_HT[41]->Fill(nHadJets,Ht,wt);
+                    h_ST_vs_ptPho[41]->Fill(ST,bestPhoton.Pt(),wt);
+
+                  }
 
               }
 
+	    else
+	      {
+		h_Njets[15]->Fill(nHadJets,wt);
+                h_Nbjets[15]->Fill(BTags,wt);
+                h_MET_[15]->Fill(MET,wt);
+                h_PhotonPt[15]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[15]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[15]->Fill(dPhi_PhoMET,wt);
+                h_St[15]->Fill(ST,wt);
+                h_HT[15]->Fill(Ht,wt);
+                h_njets_vs_ST[15]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[15]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[15]->Fill(ST,bestPhoton.Pt(),wt);
+                h_mvaResponse_baseline[15]->Fill(mvaValue,wt);
+
+
+		if(mvaValue>0.0)
+                  {
+                    h_Njets[27]->Fill(nHadJets,wt);
+                    h_Nbjets[27]->Fill(BTags,wt);
+                    h_MET_[27]->Fill(MET,wt);
+                    h_PhotonPt[27]->Fill(bestPhoton.Pt(),wt);
+                    h_Mt_PhoMET[27]->Fill(mTPhoMET,wt);
+                    h_dPhi_PhoMET[27]->Fill(dPhi_PhoMET,wt);
+                    h_St[27]->Fill(ST,wt);
+                    h_HT[27]->Fill(Ht,wt);
+                    h_njets_vs_ST[27]->Fill(nHadJets,ST,wt);
+                    h_njets_vs_HT[27]->Fill(nHadJets,Ht,wt);
+                    h_ST_vs_ptPho[27]->Fill(ST,bestPhoton.Pt(),wt);
+
+                  }
+
+                if(mvaValue>0.3)
+                  {
+                    h_Njets[42]->Fill(nHadJets,wt);
+                    h_Nbjets[42]->Fill(BTags,wt);
+                    h_MET_[42]->Fill(MET,wt);
+                    h_PhotonPt[42]->Fill(bestPhoton.Pt(),wt);
+                    h_Mt_PhoMET[42]->Fill(mTPhoMET,wt);
+                    h_dPhi_PhoMET[42]->Fill(dPhi_PhoMET,wt);
+                    h_St[42]->Fill(ST,wt);
+                    h_HT[42]->Fill(Ht,wt);
+                    h_njets_vs_ST[42]->Fill(nHadJets,ST,wt);
+                    h_njets_vs_HT[42]->Fill(nHadJets,Ht,wt);
+                    h_ST_vs_ptPho[42]->Fill(ST,bestPhoton.Pt(),wt);
+
+                  }
+
+	      }
 
           }
 
-	else if(igenPho>0)
+	else if(count_haddecay>0 && (count_genTau==0 || count_genElec==0 || count_genMu==0) && s_sample.Contains("TTG") )
 	  {
 	    h_GenpTvsEta[6]->Fill(genW.Pt(),genW.Eta(),wt);
 	    h_GenEtavsPhi[6]->Fill(genW.Eta(),genW.Phi(),wt);
 	    h_GenEnvsEta[6]->Fill(genW.E(),genW.Eta(),wt);
 	    h_GenPtvsPhi[6]->Fill(genW.Pt(),genW.Phi(),wt);
 	    h_GenMETvsGenpT[6]->Fill(GenMET,genW.Pt(),wt);
-
-	    //cout<<count_genTau<<"\t"<<count_genElec<<"\t"<<count_genMu<<endl;
 	    h_GenpT[6]->Fill(genW.Pt(),wt);
             h_GenEta[6]->Fill(genW.Eta(),wt);
             h_GenPhi[6]->Fill(genW.Phi(),wt);
             h_GenEn[6]->Fill(genW.E(),wt);
             h_GenMET[6]->Fill(GenMET,wt);
 	    h_RecoMET[6]->Fill(MET,wt);
-
-
 	    h_Njets[6]->Fill(nHadJets,wt);
             h_Nbjets[6]->Fill(BTags,wt);
             h_MET_[6]->Fill(MET,wt);
@@ -756,17 +1021,88 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_njets_vs_ST[6]->Fill(nHadJets,ST,wt);
             h_njets_vs_HT[6]->Fill(nHadJets,Ht,wt);
             h_ST_vs_ptPho[6]->Fill(ST,bestPhoton.Pt(),wt);
-	    // for (int igen=0; igen<branch_size; igen++)
-            //   {
-            //     pdgID= (*GenParticles_PdgId)[igen];
-            //     parentId=(*GenParticles_ParentId)[igen];
-	    // 	cout<<jentry<<"\t"<<pdgID<<"\t"<<parentId<<"\t"<<GenMET<<"\t"<<MET<<"\t"<<(*GenParticles)[igen].Pt()<<"\t"<<(*GenParticles)[igen].Eta()<<"\t"<<(*GenParticles)[igen].Phi()<<"\t"<<(*GenParticles)[igen].E()<<endl;
-	    // 	//                cout<<jentry<<"\t"<<pdgID<<"\t"<<parentId<<"\t"<<GenMET<<"\t"<<MET<<endl;
-            //   }
+	    h_mvaResponse_baseline[6]->Fill(mvaValue,wt);
+	    if(mvaValue>0.0)
+              {
+                h_Njets[23]->Fill(nHadJets,wt);
+                h_Nbjets[23]->Fill(BTags,wt);
+                h_MET_[23]->Fill(MET,wt);
+                h_PhotonPt[23]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[23]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[23]->Fill(dPhi_PhoMET,wt);
+                h_St[23]->Fill(ST,wt);
+                h_HT[23]->Fill(Ht,wt);
+                h_njets_vs_ST[23]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[23]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[23]->Fill(ST,bestPhoton.Pt(),wt);
+
+              }
+
+            if(mvaValue>0.3)
+              {
+                h_Njets[38]->Fill(nHadJets,wt);
+                h_Nbjets[38]->Fill(BTags,wt);
+                h_MET_[38]->Fill(MET,wt);
+                h_PhotonPt[38]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[38]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[38]->Fill(dPhi_PhoMET,wt);
+                h_St[38]->Fill(ST,wt);
+                h_HT[38]->Fill(Ht,wt);
+                h_njets_vs_ST[38]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[38]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[38]->Fill(ST,bestPhoton.Pt(),wt);
+
+	      }
+
 
 	  }
+	else if(igenPho>0 && s_sample.Contains("WG"))
+	       {
+		 h_Njets[6]->Fill(nHadJets,wt);
+		 h_Nbjets[6]->Fill(BTags,wt);
+		 h_MET_[6]->Fill(MET,wt);
+		 h_PhotonPt[6]->Fill(bestPhoton.Pt(),wt);
+		 h_Mt_PhoMET[6]->Fill(mTPhoMET,wt);
+		 h_dPhi_PhoMET[6]->Fill(dPhi_PhoMET,wt);
+		 h_St[6]->Fill(ST,wt);
+		 h_HT[6]->Fill(Ht,wt);
+		 h_njets_vs_ST[6]->Fill(nHadJets,ST,wt);
+		 h_njets_vs_HT[6]->Fill(nHadJets,Ht,wt);
+		 h_ST_vs_ptPho[6]->Fill(ST,bestPhoton.Pt(),wt);
+		 if(mvaValue>0.0)
+		   {
+		     h_Njets[23]->Fill(nHadJets,wt);
+		     h_Nbjets[23]->Fill(BTags,wt);
+		     h_MET_[23]->Fill(MET,wt);
+		     h_PhotonPt[23]->Fill(bestPhoton.Pt(),wt);
+		     h_Mt_PhoMET[23]->Fill(mTPhoMET,wt);
+		     h_dPhi_PhoMET[23]->Fill(dPhi_PhoMET,wt);
+		     h_St[23]->Fill(ST,wt);
+		     h_HT[23]->Fill(Ht,wt);
+		     h_njets_vs_ST[23]->Fill(nHadJets,ST,wt);
+		     h_njets_vs_HT[23]->Fill(nHadJets,Ht,wt);
+		     h_ST_vs_ptPho[23]->Fill(ST,bestPhoton.Pt(),wt);
+
+		   }
+
+		 if(mvaValue>0.3)
+		   {
+		     h_Njets[38]->Fill(nHadJets,wt);
+		     h_Nbjets[38]->Fill(BTags,wt);
+		     h_MET_[38]->Fill(MET,wt);
+		     h_PhotonPt[38]->Fill(bestPhoton.Pt(),wt);
+		     h_Mt_PhoMET[38]->Fill(mTPhoMET,wt);
+		     h_dPhi_PhoMET[38]->Fill(dPhi_PhoMET,wt);
+		     h_St[38]->Fill(ST,wt);
+		     h_HT[38]->Fill(Ht,wt);
+		     h_njets_vs_ST[38]->Fill(nHadJets,ST,wt);
+		     h_njets_vs_HT[38]->Fill(nHadJets,Ht,wt);
+		     h_ST_vs_ptPho[38]->Fill(ST,bestPhoton.Pt(),wt);
+		   }
+	       }
 	else
           {
+
 	    h_GenpTvsEta[7]->Fill(genW.Pt(),genW.Eta(),wt);
 	    h_GenEtavsPhi[7]->Fill(genW.Eta(),genW.Phi(),wt);
 	    h_GenEnvsEta[7]->Fill(genW.E(),genW.Eta(),wt);
@@ -780,16 +1116,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_GenMET[7]->Fill(GenMET,wt);
 	    h_RecoMET[7]->Fill(MET,wt);
 
-
-
-	    // for (int igen=0; igen<branch_size; igen++)
-	    //   {
-	    // 	pdgID= (*GenParticles_PdgId)[igen];
-	    // 	parentId=(*GenParticles_ParentId)[igen];
-	    // 	cout<<jentry<<"\t"<<pdgID<<"\t"<<parentId<<"\t"<<GenMET<<"\t"<<MET<<"\t"<<(*GenParticles)[igen].Pt()<<"\t"<<(*GenParticles)[igen].Eta()<<"\t"<<(*GenParticles)[igen].Phi()<<"\t"<<(*GenParticles)[igen].E()<<endl;
-	    //   }
-	    //  cout<<count_genTau<<"\t"<<count_genElec<<"\t"<<count_genMu<<endl;
-            h_Njets[11]->Fill(nHadJets,wt);
+	    h_Njets[11]->Fill(nHadJets,wt);
             h_Nbjets[11]->Fill(BTags,wt);
             h_MET_[11]->Fill(MET,wt);
             h_PhotonPt[11]->Fill(bestPhoton.Pt(),wt);
@@ -800,7 +1127,38 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_njets_vs_ST[11]->Fill(nHadJets,ST,wt);
             h_njets_vs_HT[11]->Fill(nHadJets,Ht,wt);
             h_ST_vs_ptPho[11]->Fill(ST,bestPhoton.Pt(),wt);
+	    h_mvaResponse_baseline[11]->Fill(mvaValue,wt);
+	    
+	    if(mvaValue>0.0)
+              {
+                h_Njets[24]->Fill(nHadJets,wt);
+                h_Nbjets[24]->Fill(BTags,wt);
+                h_MET_[24]->Fill(MET,wt);
+                h_PhotonPt[24]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[24]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[24]->Fill(dPhi_PhoMET,wt);
+                h_St[24]->Fill(ST,wt);
+                h_HT[24]->Fill(Ht,wt);
+                h_njets_vs_ST[24]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[24]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[24]->Fill(ST,bestPhoton.Pt(),wt);
 
+              }
+
+            if(mvaValue>0.3)
+              {
+                h_Njets[39]->Fill(nHadJets,wt);
+                h_Nbjets[39]->Fill(BTags,wt);
+                h_MET_[39]->Fill(MET,wt);
+                h_PhotonPt[39]->Fill(bestPhoton.Pt(),wt);
+                h_Mt_PhoMET[39]->Fill(mTPhoMET,wt);
+                h_dPhi_PhoMET[39]->Fill(dPhi_PhoMET,wt);
+                h_St[39]->Fill(ST,wt);
+                h_HT[39]->Fill(Ht,wt);
+                h_njets_vs_ST[39]->Fill(nHadJets,ST,wt);
+                h_njets_vs_HT[39]->Fill(nHadJets,Ht,wt);
+                h_ST_vs_ptPho[39]->Fill(ST,bestPhoton.Pt(),wt);
+	      }
           }
 
 	  }
@@ -808,6 +1166,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       }
     else // if(NElectrons == 1 || NMuons == 1 )
       {
+	if(Debug)
+	  cout<<"===load tree entry variable CR ==="<<"\t"<<jentry<<endl;
+
 
 	h_GenpT[2]->Fill(genW.Pt(),wt);
 	h_GenEta[2]->Fill(genW.Eta(),wt);
@@ -833,6 +1194,39 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
         h_njets_vs_ST[2]->Fill(nHadJets,ST,wt);
         h_njets_vs_HT[2]->Fill(nHadJets,Ht,wt);
         h_ST_vs_ptPho[2]->Fill(ST,bestPhoton.Pt(),wt);
+	
+	if(mvaValue>0.0)
+          {
+            h_Njets[19]->Fill(nHadJets,wt);
+            h_Nbjets[19]->Fill(BTags,wt);
+            h_MET_[19]->Fill(MET,wt);
+            h_PhotonPt[19]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[19]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[19]->Fill(dPhi_PhoMET,wt);
+            h_St[19]->Fill(ST,wt);
+            h_HT[19]->Fill(Ht,wt);
+            h_njets_vs_ST[19]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[19]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[19]->Fill(ST,bestPhoton.Pt(),wt);
+
+          }
+
+        if(mvaValue>0.3)
+          {
+            h_Njets[33]->Fill(nHadJets,wt);
+            h_Nbjets[33]->Fill(BTags,wt);
+            h_MET_[33]->Fill(MET,wt);
+            h_PhotonPt[33]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[33]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[33]->Fill(dPhi_PhoMET,wt);
+            h_St[33]->Fill(ST,wt);
+            h_HT[33]->Fill(Ht,wt);
+            h_njets_vs_ST[33]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[33]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[33]->Fill(ST,bestPhoton.Pt(),wt);
+
+          }
+
 	if(count_genElec>0)
           {
 	    h_GenpTvsEta[10]->Fill(genElec_W.Pt(),genElec_W.Eta(),wt);
@@ -840,12 +1234,10 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
             h_GenEnvsEta[10]->Fill(genElec_W.E(),genElec_W.Eta(),wt);
             h_GenPtvsPhi[10]->Fill(genElec_W.Pt(),genElec_W.Phi(),wt);
             h_GenMETvsGenpT[10]->Fill(GenMET,genElec_W.Pt(),wt);
-
 	    h_GenpT[10]->Fill(genElec_W.Pt(),wt);
             h_GenEta[10]->Fill(genElec_W.Eta(),wt);
             h_GenPhi[10]->Fill(genElec_W.Phi(),wt);
             h_GenEn[10]->Fill(genElec_W.E(),wt);
-
 	    h_Njets[7]->Fill(nHadJets,wt);
 	h_Nbjets[7]->Fill(BTags,wt);
 	h_MET_[7]->Fill(MET,wt);
@@ -857,11 +1249,38 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_njets_vs_ST[7]->Fill(nHadJets,ST,wt);
 	h_njets_vs_HT[7]->Fill(nHadJets,Ht,wt);
 	h_ST_vs_ptPho[7]->Fill(ST,bestPhoton.Pt(),wt);
-
+	h_mvaResponse_baseline[7]->Fill(mvaValue,wt);
+	if(mvaValue>0.0)
+	  {
+	    h_Njets[28]->Fill(nHadJets,wt);
+	    h_Nbjets[28]->Fill(BTags,wt);
+	    h_MET_[28]->Fill(MET,wt);
+	    h_PhotonPt[28]->Fill(bestPhoton.Pt(),wt);
+	    h_Mt_PhoMET[28]->Fill(mTPhoMET,wt);
+	    h_dPhi_PhoMET[28]->Fill(dPhi_PhoMET,wt);
+	    h_St[28]->Fill(ST,wt);
+	    h_HT[28]->Fill(Ht,wt);
+	    h_njets_vs_ST[28]->Fill(nHadJets,ST,wt);
+	    h_njets_vs_HT[28]->Fill(nHadJets,Ht,wt);
+	    h_ST_vs_ptPho[28]->Fill(ST,bestPhoton.Pt(),wt);
+	  }
+	if(mvaValue>0.3)
+	  {
+	    h_Njets[43]->Fill(nHadJets,wt);
+	    h_Nbjets[43]->Fill(BTags,wt);
+	    h_MET_[43]->Fill(MET,wt);
+	    h_PhotonPt[43]->Fill(bestPhoton.Pt(),wt);
+	    h_Mt_PhoMET[43]->Fill(mTPhoMET,wt);
+	    h_dPhi_PhoMET[43]->Fill(dPhi_PhoMET,wt);
+	    h_St[43]->Fill(ST,wt);
+	    h_HT[43]->Fill(Ht,wt);
+	    h_njets_vs_ST[43]->Fill(nHadJets,ST,wt);
+	    h_njets_vs_HT[43]->Fill(nHadJets,Ht,wt);
+	    h_ST_vs_ptPho[43]->Fill(ST,bestPhoton.Pt(),wt);
+	  }
       }
     else if(count_genMu>0)
       {
-
 	h_GenpTvsEta[13]->Fill(genMu_W.Pt(),genMu_W.Eta(),wt);
 	h_GenEtavsPhi[13]->Fill(genMu_W.Eta(),genMu_W.Phi(),wt);
 	h_GenEnvsEta[13]->Fill(genMu_W.E(),genMu_W.Eta(),wt);
@@ -871,7 +1290,6 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_GenEta[13]->Fill(genMu_W.Eta(),wt);
 	h_GenPhi[13]->Fill(genMu_W.Phi(),wt);
 	h_GenEn[13]->Fill(genMu_W.E(),wt);
-
 	h_Njets[8]->Fill(nHadJets,wt);
 	h_Nbjets[8]->Fill(BTags,wt);
 	h_MET_[8]->Fill(MET,wt);
@@ -883,6 +1301,35 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_njets_vs_ST[8]->Fill(nHadJets,ST,wt);
 	h_njets_vs_HT[8]->Fill(nHadJets,Ht,wt);
 	h_ST_vs_ptPho[8]->Fill(ST,bestPhoton.Pt(),wt);
+	h_mvaResponse_baseline[8]->Fill(mvaValue,wt);
+	if(mvaValue>0.0)
+          {
+            h_Njets[29]->Fill(nHadJets,wt);
+            h_Nbjets[29]->Fill(BTags,wt);
+            h_MET_[29]->Fill(MET,wt);
+            h_PhotonPt[29]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[29]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[29]->Fill(dPhi_PhoMET,wt);
+            h_St[29]->Fill(ST,wt);
+            h_HT[29]->Fill(Ht,wt);
+            h_njets_vs_ST[29]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[29]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[29]->Fill(ST,bestPhoton.Pt(),wt);
+          }
+        if(mvaValue>0.3)
+          {
+            h_Njets[44]->Fill(nHadJets,wt);
+            h_Nbjets[44]->Fill(BTags,wt);
+            h_MET_[44]->Fill(MET,wt);
+            h_PhotonPt[44]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[44]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[44]->Fill(dPhi_PhoMET,wt);
+            h_St[44]->Fill(ST,wt);
+            h_HT[44]->Fill(Ht,wt);
+            h_njets_vs_ST[44]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[44]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[44]->Fill(ST,bestPhoton.Pt(),wt);
+          }
 
       }
     else if(count_genTau>0)
@@ -915,9 +1362,85 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_njets_vs_ST[9]->Fill(nHadJets,ST,wt);
 	h_njets_vs_HT[9]->Fill(nHadJets,Ht,wt);
 	h_ST_vs_ptPho[9]->Fill(ST,bestPhoton.Pt(),wt);
+	h_mvaResponse_baseline[9]->Fill(mvaValue,wt);
+
+	if(mvaValue>0.0)
+          {
+            h_Njets[30]->Fill(nHadJets,wt);
+            h_Nbjets[30]->Fill(BTags,wt);
+            h_MET_[30]->Fill(MET,wt);
+            h_PhotonPt[30]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[30]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[30]->Fill(dPhi_PhoMET,wt);
+            h_St[30]->Fill(ST,wt);
+            h_HT[30]->Fill(Ht,wt);
+            h_njets_vs_ST[30]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[30]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[30]->Fill(ST,bestPhoton.Pt(),wt);
+          }
+        if(mvaValue>0.3)
+          {
+            h_Njets[45]->Fill(nHadJets,wt);
+            h_Nbjets[45]->Fill(BTags,wt);
+            h_MET_[45]->Fill(MET,wt);
+            h_PhotonPt[45]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[45]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[45]->Fill(dPhi_PhoMET,wt);
+            h_St[45]->Fill(ST,wt);
+            h_HT[45]->Fill(Ht,wt);
+            h_njets_vs_ST[45]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[45]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[45]->Fill(ST,bestPhoton.Pt(),wt);
+          }
 
       }
-    else if(igenPho>0)
+    else if(count_haddecay>0 && (count_genTau==0 || count_genElec==0 || count_genMu==0) && s_sample.Contains("TTG") )
+      {
+	h_Njets[10]->Fill(nHadJets,wt);
+	h_Nbjets[10]->Fill(BTags,wt);
+	h_MET_[10]->Fill(MET,wt);
+	h_PhotonPt[10]->Fill(bestPhoton.Pt(),wt);
+	h_Mt_PhoMET[10]->Fill(mTPhoMET,wt);
+	h_dPhi_PhoMET[10]->Fill(dPhi_PhoMET,wt);
+	h_St[10]->Fill(ST,wt);
+	h_HT[10]->Fill(Ht,wt);
+	h_njets_vs_ST[10]->Fill(nHadJets,ST,wt);
+	h_njets_vs_HT[10]->Fill(nHadJets,Ht,wt);
+	h_ST_vs_ptPho[10]->Fill(ST,bestPhoton.Pt(),wt);
+	h_mvaResponse_baseline[10]->Fill(mvaValue,wt);
+	if(mvaValue>0.0)
+          {
+            h_Njets[31]->Fill(nHadJets,wt);
+            h_Nbjets[31]->Fill(BTags,wt);
+            h_MET_[31]->Fill(MET,wt);
+            h_PhotonPt[31]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[31]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[31]->Fill(dPhi_PhoMET,wt);
+            h_St[31]->Fill(ST,wt);
+            h_HT[31]->Fill(Ht,wt);
+            h_njets_vs_ST[31]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[31]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[31]->Fill(ST,bestPhoton.Pt(),wt);
+          }
+        if(mvaValue>0.3)
+          {
+            h_Njets[46]->Fill(nHadJets,wt);
+            h_Nbjets[46]->Fill(BTags,wt);
+            h_MET_[46]->Fill(MET,wt);
+            h_PhotonPt[46]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[46]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[46]->Fill(dPhi_PhoMET,wt);
+            h_St[46]->Fill(ST,wt);
+            h_HT[46]->Fill(Ht,wt);
+            h_njets_vs_ST[46]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[46]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[46]->Fill(ST,bestPhoton.Pt(),wt);
+          }
+
+
+      }
+
+    else if(igenPho>0 && s_sample.Contains("WG"))
       {	    h_Njets[10]->Fill(nHadJets,wt);
 	    h_Nbjets[10]->Fill(BTags,wt);
 	    h_MET_[10]->Fill(MET,wt);
@@ -929,6 +1452,36 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	    h_njets_vs_ST[10]->Fill(nHadJets,ST,wt);
 	    h_njets_vs_HT[10]->Fill(nHadJets,Ht,wt);
 	    h_ST_vs_ptPho[10]->Fill(ST,bestPhoton.Pt(),wt);
+	    h_mvaResponse_baseline[10]->Fill(mvaValue,wt);
+	    if(mvaValue >0.0)
+	      {
+		h_Njets[31]->Fill(nHadJets,wt);
+		h_Nbjets[31]->Fill(BTags,wt);
+		h_MET_[31]->Fill(MET,wt);
+		h_PhotonPt[31]->Fill(bestPhoton.Pt(),wt);
+		h_Mt_PhoMET[31]->Fill(mTPhoMET,wt);
+		h_dPhi_PhoMET[31]->Fill(dPhi_PhoMET,wt);
+		h_St[31]->Fill(ST,wt);
+		h_HT[31]->Fill(Ht,wt);
+		h_njets_vs_ST[31]->Fill(nHadJets,ST,wt);
+		h_njets_vs_HT[31]->Fill(nHadJets,Ht,wt);
+		h_ST_vs_ptPho[31]->Fill(ST,bestPhoton.Pt(),wt);
+	      }
+	    if(mvaValue>0.3)
+	      {
+		h_Njets[46]->Fill(nHadJets,wt);
+		h_Nbjets[46]->Fill(BTags,wt);
+		h_MET_[46]->Fill(MET,wt);
+		h_PhotonPt[46]->Fill(bestPhoton.Pt(),wt);
+		h_Mt_PhoMET[46]->Fill(mTPhoMET,wt);
+		h_dPhi_PhoMET[46]->Fill(dPhi_PhoMET,wt);
+		h_St[46]->Fill(ST,wt);
+		h_HT[46]->Fill(Ht,wt);
+		h_njets_vs_ST[46]->Fill(nHadJets,ST,wt);
+		h_njets_vs_HT[46]->Fill(nHadJets,Ht,wt);
+		h_ST_vs_ptPho[46]->Fill(ST,bestPhoton.Pt(),wt);
+	      }
+
 
       }
 
@@ -946,6 +1499,35 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_njets_vs_ST[12]->Fill(nHadJets,ST,wt);
 	h_njets_vs_HT[12]->Fill(nHadJets,Ht,wt);
 	h_ST_vs_ptPho[12]->Fill(ST,bestPhoton.Pt(),wt);
+	h_mvaResponse_baseline[12]->Fill(mvaValue,wt);
+	if(mvaValue>0.0)
+	  {
+            h_Njets[32]->Fill(nHadJets,wt);
+            h_Nbjets[32]->Fill(BTags,wt);
+            h_MET_[32]->Fill(MET,wt);
+            h_PhotonPt[32]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[32]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[32]->Fill(dPhi_PhoMET,wt);
+            h_St[32]->Fill(ST,wt);
+            h_HT[32]->Fill(Ht,wt);
+            h_njets_vs_ST[32]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[32]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[32]->Fill(ST,bestPhoton.Pt(),wt);
+          }
+        if(mvaValue>0.3)
+          {
+            h_Njets[47]->Fill(nHadJets,wt);
+            h_Nbjets[47]->Fill(BTags,wt);
+            h_MET_[47]->Fill(MET,wt);
+            h_PhotonPt[47]->Fill(bestPhoton.Pt(),wt);
+            h_Mt_PhoMET[47]->Fill(mTPhoMET,wt);
+            h_dPhi_PhoMET[47]->Fill(dPhi_PhoMET,wt);
+            h_St[47]->Fill(ST,wt);
+            h_HT[47]->Fill(Ht,wt);
+            h_njets_vs_ST[47]->Fill(nHadJets,ST,wt);
+            h_njets_vs_HT[47]->Fill(nHadJets,Ht,wt);
+            h_ST_vs_ptPho[47]->Fill(ST,bestPhoton.Pt(),wt);
+          }
 
       }
 
@@ -953,6 +1535,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
     if(Debug)
       cout<<"filling the branches in tree"<<endl;
+    //    if(Debug)
+    //      cout<<"===load tree entry check2 ==="<<"\t"<<jentry<<endl;
 
  
     if (k > decade)

@@ -61,22 +61,22 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1D *h_nEvts;
   TH1I *h_RunNum;
   TH1D *h_intLumi;
-  TH1D *h_Njets[25];
-  TH1D *h_Nbjets[25];
-  TH1F *h_MET_[25];
-  TH1F *h_PhotonPt[25];
-  TH1F *h_Mt_PhoMET[25];
-  TH1F *h_dPhi_PhoMET[25];
-  TH1F *h_St[25];
-  TH1F *h_HT[25];
-  TH1D *h_Njets_CR[25];
-  TH1D *h_Nbjets_CR[25];
-  TH1F *h_MET__CR[25];
-  TH1F *h_PhotonPt_CR[25];
-  TH1F *h_Mt_PhoMET_CR[25];
-  TH1F *h_dPhi_PhoMET_CR[25];
-  TH1F *h_St_CR[25];
-  TH1F *h_HT_CR[25];
+  TH1D *h_Njets[60];
+  TH1D *h_Nbjets[60];
+  TH1F *h_MET_[60];
+  TH1F *h_PhotonPt[60];
+  TH1F *h_Mt_PhoMET[60];
+  TH1F *h_dPhi_PhoMET[60];
+  TH1F *h_St[60];
+  TH1F *h_HT[60];
+  TH1D *h_Njets_CR[60];
+  TH1D *h_Nbjets_CR[60];
+  TH1F *h_MET__CR[60];
+  TH1F *h_PhotonPt_CR[60];
+  TH1F *h_Mt_PhoMET_CR[60];
+  TH1F *h_dPhi_PhoMET_CR[60];
+  TH1F *h_St_CR[60];
+  TH1F *h_HT_CR[60];
 
   // Gen level plots
   TH1F *h_Lep_pT;
@@ -211,7 +211,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   //Double_t xbins_PhotPt[110]={};//{20,25,30,35,40,,7,10,20,30,40,50,80,90,100,150};
   //const char *baseline[24]= {"Nocut","skim","bkg_comp","Met-filter","veto-lep","veto-iso","dPhi_Met","pt_jet","ST_300","Met_250","pT_100","nocut","HT_1TeV_Met100","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","HT_175TeV_Met250","HT_175TeV_Met250_pt_100","HT_2TeV_Met100","HT_2TeV_Met250","HT_2TeV_Met250_pt_100"};
   //  const char *baseline[25]={"Nocut","photon_selec","Phot_pT_20","nHadJets_2","MET_100","ST_300","bkg_comp","Met_cleaning","lept_veto","veto_chargedTracks","dPhi_MET","jet_pT_Pho_pT","MET_250","pho_pt_100","Final","Pho_pT_30","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","nocut_sam","basic_sam"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"
-  const char *baseline[18]={"Nocut","SignalRegion","ControlRegion","lostElec_SR","lostMu_SR","lostTau_SR","else_pho_SR","lostElec_CR","lostMu_CR","lostTau_CR","else_pho_CR","else_SR","else_CR","lostElecTau_SR","lostMuTau_SR","lostElec_SR_iso","lostElec_SR_Accept","lostElec_SR_ident"};
+  const char *baseline[48]={"Nocut","SignalRegion","ControlRegion","lostElec_SR","lostMu_SR","lostTau_SR","else_pho_SR","lostElec_CR","lostMu_CR","lostTau_CR","else_pho_CR","else_SR","else_CR","lostElecTau_SR","lostMuTau_SR","Tau_hadronic_SR","lostElec_SR_Accept","lostElec_SR_ident","SignalRegion_BDTcut1","ControlRegion_BDTcut1","lostElec_SR_BDTcut1","lostMu_SR_BDTcut1","lostTau_SR_BDTcut1","else_pho_SR_BDTcut1","else_SR_BDTcut1","lostElecTau_SR_BDTcut1","lostMuTau_SR_BDTcut1","Tau_hadronic_SR_BDTcut1","lostElec_CR_BDTcut1","lostMu_CR_BDTcut1","lostTau_CR_BDTcut1","else_pho_CR_BDTcut1","else_CR_BDTcut1","SignalRegion_BDTcut2","ControlRegion_BDTcut2","lostElec_SR_BDTcut2","lostMu_SR_BDTcut2","lostTau_SR_BDTcut2","else_pho_SR_BDTcut2","else_SR_BDTcut2","lostElecTau_SR_BDTcut2","lostMuTau_SR_BDTcut2","Tau_hadronic_SR_BDTcut2","lostElec_CR_BDTcut2","lostMu_CR_BDTcut2","lostTau_CR_BDTcut2","else_pho_CR_BDTcut2","else_CR_BDTcut2"};
 
   const char *baseline1[31]={"Wjets_Inclusive","Wjets_SR","Wjets_CR","Wjets_lostElec","Wjets_lostMu","Wjets_lostTau","Wjets_photon","Wjets_unidentified","Elect_Inc","Elect_SR","Elect_CR","Mu_Inc","Mu_SR","Mu_CR","Tau_Inc","Tau_SR","Tau_CR","Tau_ElecSR","Tau_ElecCR","Tau_MuSR","Tau_MuCR","ElecNu_Inc","ElecNu_SR","MuNu_Inc","MuNu_SR","TauNu_Inc","TauNu_SR","ElecNu_CR","MuNu_CR","TauNu_CR",""};
 
@@ -294,7 +294,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   h_madHT = new TH1F("h_madHT","madHT distributions",400,0,20000);
   h_madHT_after = new TH1F("h_madHT_after","madHT distributions",400,0,20000);
 
-  for(int i=0;i<18;i++)
+  for(int i=0;i<48;i++)
     {
       cout<<baseline[i]<<endl;
       sprintf(hname_njet_vs_ST,"h_njets_vs_ST_%s",baseline[i]);
