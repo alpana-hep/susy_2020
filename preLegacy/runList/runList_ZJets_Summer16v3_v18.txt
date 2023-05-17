@@ -1,0 +1,7 @@
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-100To200_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-1200To2500_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-200To400_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-400To600_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-600To800_13TeV-madgraph_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Summer16v3.ZJetsToNuNu_HT-800To1200_13TeV-madgraph_v18.root

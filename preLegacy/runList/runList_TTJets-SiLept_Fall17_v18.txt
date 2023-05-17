@@ -1,0 +1,2 @@
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Fall17.TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8_v18.root
+/home/kalpana/t3store3/public/SUSY_GMSB_Aug_2020/CMSSW_11_1_0_pre3/src/GMSB_lowPtPhot_2021/Samples/Wjets/skims//SR_Fall17.TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8_v18.root
