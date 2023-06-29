@@ -1,7 +1,8 @@
 # Script to read UL ntuples & make plots to compare with pre legacy 
 ## (code for pre-legacy is under the directory "pre-legacy")
 to run the script -
-./analyzeLightBSM <runlist.txt> <outputfile> <year> <dataset name> <Lepton for which you are analysing > <pho ID to use>
+./analyzeLightBSM <runlist.txt> <outputfile> <year> <dataset_name> <Lepton for_which_you_are_analysing > <phoID>
+
 <dataset> should contain UL in it if you are analyzing UL ntuples and should not contain UL while analyzing pre-legacy ntuples.
 
 Example to run the script -
