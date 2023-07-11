@@ -160,10 +160,11 @@ TTree* FinalTree;
     fileopen = true;
   }
   else {
-  if(loop_count==10){
+    //if(loop_count==2){
+    //    outfile1->cd();
     outtree->Write();
-    outfile->Close();
-    }
+    outfile1->Close();
+    //}
   }
   //FinalTree = outtree->Clone(0);
   //cout<< "FInal tree entries  "<<FinalTree->GetEntries()<<endl;
