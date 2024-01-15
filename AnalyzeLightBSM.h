@@ -35,7 +35,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector <TLorentzVector> getLorentzVector(int, Float_t[],Float_t[],Float_t[],Float_t[]);
   void FillHistogram_Kinematics(int ,int, int, double , double, double, double,double);
   void FillHistogram_Kinematics_varBin(int , int , int , double , double, double );
-    void FillTFBins_Valid(int, int ,int, double);
+  void FillTFBins_Valid(int, int ,int, double, double, double,double, double);
   int Photons_OriginType();
   //  <vector>
   double getGendRLepPho(int);
@@ -49,6 +49,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   int getBinNoV1_le(int , int);
   int getBinNoV2_st(int,int, int, int);
   int   getBinNoV7_highMET(int, int);
+  int getBinNoV16_le(int, int, double);
   std::vector<int>dR_recoPho_GenParticle(TLorentzVector);
   
   //Long64_t transMass(float , float, float, float);
@@ -77,14 +78,21 @@ class AnalyzeLightBSM : public NtupleVariables{
   
   int BTags;
   bool isSignal=false;
-  vector<double> METLowEdge={200,270,350,450,750,2000};
-  vector<double> METLowEdge1={100,200,270,350,450,750,2000};
-  vector<double> METLowEdge2={100,200,270,350,450,2000};
-  vector<double> METLowEdge_v3={100,300,370,450,600,750,900};
-  vector<double> METLowEdge_v3_1={100,370,450,600,750};
+  /* vector<double> METLowEdge={200,270,350,450,750,2000}; */
+  /* vector<double> METLowEdge1={100,200,270,350,450,750,2000}; */
+  /* vector<double> METLowEdge2={100,200,270,350,450,2000}; */
+  /* vector<double> METLowEdge_v3={200,300,370,450,600,750,900,2000}; */
+  /* vector<double> METLowEdge_v3_1={200,300,370,450,600,900,2000}; */
   vector<double> METLowEdge_lowMET={100,370,450,600};
   vector<double> METLowEdge_highMET={300,370,450,600};
 
+
+  vector<double> METLowEdge_v1={100,250,270,350,450,600,750,900,2000};
+  vector<double> METLowEdge_v2={200,250,300,370,450,600,750,900,2000};
+  vector<double> METLowEdge_v2_1={200,250,300,370,450,600,750,2000};
+  vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
+  vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
+  vector<double> METLowEdge_v3_2={200,300,370,450,600};
   TH1F *h_selectBaselineYields_;
   TH1F *h_selectBaselineYields_v1;
   /* TH1F *h_selectBaselineYields_SR; */
@@ -108,7 +116,26 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_PhotonPt[60];
   /* TH1F *h_PhopT_fakeRate[60]; */
 
-  TH1F *h_PhotonPt_Varbin[10];
+  TH1F *h_PhotonPt_Varbin[100];
+  TH1F *h_PhotonPt_validation[100];
+  TH1D *h_Njets_validation[100];
+  TH1D *h_Nbjets_validation[100];
+  TH1F *h_MET_validation[100];
+  TH1F *h_St_validation[100];
+  
+  TH1F *h_PhotonPt_validation_TFbins_v2[100];
+  TH1D *h_Njets_validation_TFbins_v2[100];
+  TH1D *h_Nbjets_validation_TFbins_v2[100];
+  TH1F *h_MET_validation_TFbins_v2[100];
+  TH1F *h_St_validation_TFbins_v2[100];
+
+  TH1F *h_PhotonPt_validation_TFbins_v3[100];
+  TH1D *h_Njets_validation_TFbins_v3[100];
+  TH1D *h_Nbjets_validation_TFbins_v3[100];
+  TH1F *h_MET_validation_TFbins_v3[100];
+  TH1F *h_St_validation_TFbins_v3[100];
+  
+
   TH1F *h_Mt_PhoMET[60];
   TH1F *h_dPhi_PhoMET[60];
   TH1F *h_St[60];
@@ -160,10 +187,20 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_mindr_Pho_RecoEle[10];
   TH1F *h_TFbins_LL_v1[100];
   TH1F *h_TFbins_LL_v2[100];
+  TH1F *h_TFbins_LL_v3[100];
+  TH1F *h_TFbins_LL_v4[100];
   TH1F *h_Sbins_LL_Validation[100];
   TH1F *h_Sbins_LL[100];
   TH1F *h_TFbins_ElecLL_validation[100];
   TH1F *h_TFbins_ElecLL_validation_v1[100];
+  TH1F *h_Sbins_LL_Validation_TFbins_V2[100];
+  TH1F *h_TFbins_ElecLL_validation_TFbins_v2[100];
+  TH1F *h_TFbins_ElecLL_validation_TFbins_v2_v1[100];
+
+  TH1F *h_Sbins_LL_Validation_TFbins_V3[100];
+  TH1F *h_TFbins_ElecLL_validation_TFbins_v3[100];
+  TH1F *h_TFbins_ElecLL_validation_TFbins_v3_v1[100];
+
   TH1F *h_mindR_elec_pho[40];
   TH1F *h_pTratio_elec_pho[40];
   TH2F *h_mindR_Vs_pTratio_elec_pho[40];
@@ -671,16 +708,78 @@ char hist_name1[1000];
       h_dPhi_PhoMET[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
       h_St[i]=new TH1F(hname_st,hname_st,250,0,2500);
       h_HT[i]= new TH1F(hname_ht,hname_ht,250,0,2500);
+      
+      
+      sprintf(hname_njets,"h_NhadJets_validation_%s",baseline[i].c_str());
+      sprintf(hname_nBjets,"h_NBJets_validation_%s",baseline[i].c_str());
+      sprintf(hname_Met,"h_MET_validation_%s",baseline[i].c_str());
+      sprintf(hname_PhoPt,"h_PhoPt_validation_%s",baseline[i].c_str());
+      sprintf(hname_Mt_phopt,"h_Mt_phoMET_validation_%s",baseline[i].c_str());
+      sprintf(hname_dPhi,"h_dPhi_phoMet_validation_%s",baseline[i].c_str());
+      sprintf(hname_st,"h_St_validation_%s",baseline[i].c_str());
+      sprintf(hname_ht,"h_HT_validation_%s",baseline[i].c_str());
+      h_Njets_validation[i]= new TH1D(hname_njets, hname_njets,20,0,20);
+      h_Nbjets_validation[i]= new TH1D(hname_nBjets, hname_nBjets,15,0,15);
+      h_MET_validation[i] = new TH1F(hname_Met,hname_Met,400,0,1500);
+      h_PhotonPt_validation[i]= new TH1F(hname_PhoPt,hname_PhoPt,500,0,1000);
+      h_St_validation[i]=new TH1F(hname_st,hname_st,250,0,2500);
+
+      sprintf(hname_njets,"h_NhadJets_validation_TFbins_v2_%s",baseline[i].c_str());
+      sprintf(hname_nBjets,"h_NBJets_validation_TFbins_v2_%s",baseline[i].c_str());
+      sprintf(hname_Met,"h_MET_validation_TFbins_v2_%s",baseline[i].c_str());
+      sprintf(hname_PhoPt,"h_PhoPt_validation_TFbins_v2_%s",baseline[i].c_str());
+      sprintf(hname_st,"h_St_validation_TFbins_v2_%s",baseline[i].c_str());
+
+      h_Njets_validation_TFbins_v2[i]= new TH1D(hname_njets, hname_njets,20,0,20);
+      h_Nbjets_validation_TFbins_v2[i]= new TH1D(hname_nBjets, hname_nBjets,15,0,15);
+      h_MET_validation_TFbins_v2[i] = new TH1F(hname_Met,hname_Met,400,0,1500);
+      h_PhotonPt_validation_TFbins_v2[i]= new TH1F(hname_PhoPt,hname_PhoPt,500,0,1000);
+      h_St_validation_TFbins_v2[i]=new TH1F(hname_st,hname_st,250,0,2500);
+
+      sprintf(hname_njets,"h_NhadJets_validation_TFbins_v3_%s",baseline[i].c_str());
+      sprintf(hname_nBjets,"h_NBJets_validation_TFbins_v3_%s",baseline[i].c_str());
+      sprintf(hname_Met,"h_MET_validation_TFbins_v3_%s",baseline[i].c_str());
+      sprintf(hname_PhoPt,"h_PhoPt_validation_TFbins_v3_%s",baseline[i].c_str());
+      sprintf(hname_st,"h_St_validation_TFbins_v3_%s",baseline[i].c_str());
+
+      h_Njets_validation_TFbins_v3[i]= new TH1D(hname_njets, hname_njets,20,0,20);
+      h_Nbjets_validation_TFbins_v3[i]= new TH1D(hname_nBjets, hname_nBjets,15,0,15);
+      h_MET_validation_TFbins_v3[i] = new TH1F(hname_Met,hname_Met,400,0,1500);
+      h_PhotonPt_validation_TFbins_v3[i]= new TH1F(hname_PhoPt,hname_PhoPt,500,0,1000);
+      h_St_validation_TFbins_v3[i]=new TH1F(hname_st,hname_st,250,0,2500);
+
+      
       sprintf(hname_st,"h_TFbins_ElecLL_v1_%s",baseline[i].c_str());
       h_TFbins_LL_v1[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_TFbins_ElecLL_v2_%s",baseline[i].c_str());
       h_TFbins_LL_v2[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_v3_%s",baseline[i].c_str());
+      h_TFbins_LL_v3[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_v4_%s",baseline[i].c_str());
+      h_TFbins_LL_v4[i] = new TH1F(hname_st,hname_st,30,0,30);
+
       sprintf(hname_st,"h_TFbins_ElecLL_validation_v1_%s",baseline[i].c_str());
       h_TFbins_ElecLL_validation[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_TFbins_ElecLL_validation_v2_%s",baseline[i].c_str());
       h_TFbins_ElecLL_validation_v1[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_Sbins_LL_Validation_%s",baseline[i].c_str());
       h_Sbins_LL_Validation[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+
+      sprintf(hname_st,"h_TFbins_ElecLL_validation_TFbins_v2_v1_%s",baseline[i].c_str());
+      h_TFbins_ElecLL_validation_TFbins_v2[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_validation_TFbins_v2_v2_%s",baseline[i].c_str());
+      h_TFbins_ElecLL_validation_TFbins_v2_v1[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_Sbins_LL_Validation_TFbins_V2_%s",baseline[i].c_str());
+      h_Sbins_LL_Validation_TFbins_V2[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+      
+      sprintf(hname_st,"h_TFbins_ElecLL_validation_TFbins_v3_v1_%s",baseline[i].c_str());
+      h_TFbins_ElecLL_validation_TFbins_v3[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_validation_TFbins_v3_v2_%s",baseline[i].c_str());
+      h_TFbins_ElecLL_validation_TFbins_v3_v1[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_Sbins_LL_Validation_TFbins_V3_%s",baseline[i].c_str());
+      h_Sbins_LL_Validation_TFbins_V3[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+
+
       sprintf(hname_st,"h_Sbins_LL_%s",baseline[i].c_str());
       h_Sbins_LL[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
 
