@@ -85,7 +85,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   bool v17=true, v12=false;
   bool EWselection=true;
   bool Debug=false;
-  bool higMET=false, highdphi=false;
+  bool higMET=true, highdphi=false;
   double deepCSVvalue=0,p0=0,p1=0,p2=0;
   bool applyTrgEff=true;
   if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
@@ -139,7 +139,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     }
 
   cout<<"Calculating the weight for process "<<s_cross<<" deepCSVvalue  "<<deepCSVvalue<<"\t"<<"sdata  "<<s_data<<"\t"<<"s_sample "<<s_sample<<endl;
-  cout<<"Trigger efficiency flag "<<applyTrgEff<<" p0 "<<p0<<"  p1  "<<p1<<"  p2 "<< p2<<endl;
+ cout<<"Trigger efficiency flag "<<applyTrgEff<<" p0 "<<p0<<"  p1  "<<p1<<"  p2 "<< p2<<endl;
   std::string s_process = s_cross;
   TString s_Process = s_process;
   double cross_section = getCrossSection(s_process);
@@ -635,9 +635,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // // ********* This is to account into all visible energy: Adding photon matching with Jet ******************//
     if( minDR<0.3 ) ST=ST+bestPhoton.Pt(); 
     // //transverse mass of best photon+MET                                                                                  
-    double mTPhoMET=sqrt(2*(bestPhoton.Pt())*MET*(1-cos(DeltaPhi(METPhi,bestPhoton.Phi()))));
+    double mTPhoMET=0.0;//sqrt(2*(bestPhoton.Pt())*MET*(1-cos(DeltaPhi(METPhi,bestPhoton.Phi()))));
     // // ******* Dphi between MET and Best Photon     ******************** //                                                                 
-    double dPhi_PhoMET= abs(DeltaPhi(METPhi,bestPhoton.Phi()));
+    double dPhi_PhoMET= 0.0;//abs(DeltaPhi(METPhi,bestPhoton.Phi()));
     if(Debug)
       cout<<"===load tree entry ==="<<"\t"<<jentry<<" mTPhoMET "<<mTPhoMET<<" METPhi  "<<bestPhoton.Eta()<<" Photons_ "<<Photons_<<" hadJets.size() " <<"\t"<<hadJets.size()<<" NElectrons "<<NElectrons<< "  Jets  "<<Jets_<<"\t"<< "Jets size  "<<Jets_v1.size()<<endl;
     // h_leadJet_pT->Fill(hadJets[0].Pt(),wt);
@@ -649,7 +649,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     h_MET_[0]->Fill(MET,wt);
     //h_PhotonPt[0]->Fill(bestPhoton.Phi(),wt);
     h_Mt_PhoMET[0]->Fill(mTPhoMET,wt);
-    h_dPhi_PhoMET[0]->Fill(dPhi_PhoMET,wt);
+    //h_dPhi_PhoMET[0]->Fill(dPhi_PhoMET,wt);
     h_St[0]->Fill(ST,wt);
     h_HT[0]->Fill(HT,wt);
     if(jentry<10)
@@ -666,7 +666,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // h_recoPho_pT->Fill(bestPhoton.Pt(),wt); h_recoPho_Eta->Fill(bestPhoton.Eta(),wt);
     // h_recoPho_Phi->Fill(bestPhoton.Phi(),wt);
     h_PhotonPt[0]->Fill(bestPhoton.Pt(),wt);
-    deta_jet_pho = abs(bestPhoton.Eta()-hadJets[0].Eta());
+    //deta_jet_pho = abs(bestPhoton.Eta()-hadJets[0].Eta());
     double mT= 0.0, dPhi_METjet1=5, dPhi_METjet2=5, dPhi_phojet1=5, dPhi_phojet2=5, dPhi_phoMET=5;
     // if(hadJets.size() > 0) dPhi_phojet1 = abs(bestPhoton.DeltaPhi(hadJets[0]));
     // if(hadJets.size() > 1) dPhi_phojet2 = abs(bestPhoton.DeltaPhi(hadJets[1]));
@@ -866,11 +866,14 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
       double mTElecMET=sqrt(2*(Electrons_v1[e_index].Pt())*MET*(1-cos(DeltaPhi(METPhi,Electrons_v1[e_index].Phi()))));
       if(mTElecMET>100) { continue;}//h_selectBaselineYields_CR->Fill("e-CR: mT<100",wt);continue;} // remove signal contamination 
-      if(MET>100){
+      elec_CR = true;      
+      if(elec_CR){
       FillHistogram_Kinematics(6, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
       FillHistogram_Kinematics_varBin(2,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
       //      int TFbins = getBinNoV1_le(nHadJets,BTags);
       int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags);
+      if(nHadJets>=7)
+	cout<<"Entry: "<<jentry<<"\t"<<searchBin<<"\t"<<nHadJets<<"\t"<<BTags<<"\t"<<MET<<"\t"<<bestPhoton.Pt()<<"\t"<<wt<<endl;
       //double wt_LL = wt*h_TF->GetBinContent(TFbins+1);
       FillTFBins_Valid(6, nHadJets, BTags,wt_LL, wt_LL1, wt_LL2, bestPhoton.Pt(),ST);//
       // h_TFbins_ElecLL_validation[6]->Fill(TFbins+1,wt_LL);
@@ -895,20 +898,25 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
         cout<<"in Muon CR + with 1photon after dR cut ====== "<<jentry<<endl;
 
       mu_CR = true;
-      if(MET>100){     
+      if(mu_CR){     
       FillHistogram_Kinematics_varBin(4,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
-      FillHistogram_Kinematics(7, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
+      FillHistogram_Kinematics(7, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
       //int TFbins = getBinNoV1_le(nHadJets,BTags);
       int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags);
+      if(searchBin==35 || searchBin==34)
+	cout<<"entry: "<<jentry<<"\t"<<nHadJets<<"\t"<<BTags<<"\t"<<MET<<"\t"<<searchBin<<endl;
+      if(nHadJets>=7)
+	cout<<"Entry: "<<jentry<<"\t"<<searchBin<<"\t"<<nHadJets<<"\t"<<BTags<<"\t"<<MET<<"\t"<<bestPhoton.Pt()<<"\t"<<wt<<endl;
+   
       //double wt_LL = wt*h_TF->GetBinContent(TFbins+1);
       FillTFBins_Valid(7, nHadJets, BTags,wt_LL,wt_LL1, wt_LL2, bestPhoton.Pt(),ST);
       // h_TFbins_ElecLL_validation[7]->Fill(TFbins+1,wt_LL);
       // h_TFbins_ElecLL_validation_v1[7]->Fill(TFbins+1,wt_LL);
       // h_Sbins_LL_Validation[7]->Fill(searchBin,wt_LL);
-      
+      } 
     }
     
-    
+     
     // filling the histograms for various different scenarios
     if(elec_CR && MET>100){ //filling events based on reco-photon origin
       if(Debug)
@@ -1029,7 +1037,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
         else {genMu_passAccep = false; if(v_genMu2[i].Pt()<10) genMu_passpTcut = false; if(abs(v_genMu2[i].Eta())>2.5) genMu_passEtacut=false;}
 	if(genMu_passAccep){ if(Muons_v1.size()!=0) dR = MinDr(v_genMu2[i],Muons_v1);
 	  if(dR>0.2) genMu_passId= false; else  genMu_passId= true;
-	 if(dR<0.2 && Mu_passIso) genMu_passIso=true; else genMu_passIso=false;
+	 if(dR<=0.2 && Mu_passIso) genMu_passIso=true; else genMu_passIso=false;
         }
       }
       }
@@ -1071,17 +1079,17 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       }
 
     ///   filling histogram for avrious sub-categories of different signal regions
-    if(elec_SR && MET>100) { if(!genElec_passAccep){ FillHistogram_Kinematics(9,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	if(!genElec_passpTcut)  FillHistogram_Kinematics(13,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	else if(!genElec_passEtacut) FillHistogram_Kinematics(12,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
-      else if(!genElec_passId) FillHistogram_Kinematics(10,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-      else if(!genElec_passIso) FillHistogram_Kinematics(11,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt); }
+    if(elec_SR && MET>100) { if(!genElec_passAccep) FillHistogram_Kinematics(9,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	// if(!genElec_passpTcut)  FillHistogram_Kinematics(13,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	// else if(!genElec_passEtacut) FillHistogram_Kinematics(12,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
+	else if(!genElec_passId && genElec_passAccep) FillHistogram_Kinematics(10,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	else if(!genElec_passIso && genElec_passId && genElec_passAccep) FillHistogram_Kinematics(11,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt); }
                                 
-    if(mu_SR && !tauHad_SR && MET>100) { if(!genMu_passAccep){ FillHistogram_Kinematics(15,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	if(!genMu_passpTcut)  FillHistogram_Kinematics(19,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	else if(!genMu_passEtacut) FillHistogram_Kinematics(18,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
-      else if(!genMu_passId) FillHistogram_Kinematics(16,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-      else if(!genMu_passIso) FillHistogram_Kinematics(17,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt); }
+    if(mu_SR && !tauHad_SR && MET>100) { if(!genMu_passAccep) FillHistogram_Kinematics(15,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	// if(!genMu_passpTcut)  FillHistogram_Kinematics(19,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	// else if(!genMu_passEtacut) FillHistogram_Kinematics(18,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
+      else if(!genMu_passId && genMu_passAccep) FillHistogram_Kinematics(16,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+      else if(!genMu_passIso && genMu_passId && genMu_passAccep) FillHistogram_Kinematics(17,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt); }
 	 }
 
 
