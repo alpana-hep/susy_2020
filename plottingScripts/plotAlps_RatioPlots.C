@@ -174,7 +174,7 @@ TH1D* setMyRange(TH1D *h1,double xLow,double xHigh){
   }
   return h1;
 }
-void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="", char const *xlabel="",char const *ylabel="",float energyy=0.1,int rebin=-1,double ymin=0,double ymax=0, double xmin=0,double xmax=0,char const *leg_head="",bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title=""){    
+void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name="", char const *xlabel="",char const *ylabel="",float energyy=0.1,int rebin=-1,double ymin=0,double ymax=0, double xmin=0,double xmax=0,char const *leg_head="",bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title=""){    
    TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,750);//600,600,1200,1200);
    canvas_n1->Range(-60.25,-0.625,562.25,0.625);
    canvas_n1->SetFillColor(0);
@@ -331,6 +331,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   hs_var->GetYaxis()->SetTitle("Entries");
 
   hs_var->GetXaxis()->SetRangeUser(xmin,xmax+4);
+  
   hs_var->GetXaxis()->SetTitle(xlabel);
   hs_var->GetXaxis()->SetTitleOffset(1.2);
   //  hist.at(i)->GetXaxis()->SetLabelOffset(1.2);
@@ -450,8 +451,9 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     // if(DoRebin)
     //   hist_ratio->Rebin(rebin);
-
+    
     hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+4);
+    setLastBinAsOverFlow(hist_ratio);
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
     hist_ratio->GetYaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetLabelSize(0.08);
@@ -460,14 +462,14 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
    pad_1->cd();
    pad_1->SetGrid();
-   TLine *l =new TLine(xmin,1.0,xmax,1.0);
+   TLine *l =new TLine(xmin,1.0,xmax+4,1.0);
    hist_ratio->SetMarkerStyle(20);
    hist_ratio->Draw("E1");
    l->Draw("sames");
-   TLine *l1 =new TLine(xmin,1.5,xmax,1.5);
+   TLine *l1 =new TLine(xmin,1.5,xmax+4,1.5);
    l1->SetLineStyle(7);
    l1->Draw("sames");
-   TLine *l2 =new TLine(xmin,0.5,xmax,0.5);
+   TLine *l2 =new TLine(xmin,0.5,xmax+4,0.5);
    l2->SetLineStyle(7);
 
    l2->Draw("sames");
@@ -758,7 +760,7 @@ void plotAlps_RatioPlots(string pathname, int which_Lept, int which_year)
   vector <string>  xLabel;
   xLabel={"Sum of P_{T}^{Jets} & P_{T}^{#gamma} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{#gamma} [GeV]"};//,"BDT response","M_{T}^{miss & #gamma} [GeV]","dPhi(#gamma,MET)"};
   vector <int> rebin;
-  rebin={8,8,1,1,8,8,8,8,8};
+  rebin={4,4,1,1,8,8,4,4,4};
   vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
   vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000};
   vector<double> xmin ={300,300,2,0,100,20,0,0,0};
@@ -816,6 +818,8 @@ void plotAlps_RatioPlots(string pathname, int which_Lept, int which_year)
       hNjets_total->Add(hist_list_Njets.at(3));
       TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(4)->Clone();
       hNjets_ratio->Divide(hNjets_total);
+      //      hNjets_ratio->Rebin(rebin[ivar]);
+
       sprintf(full_path,"%s/%s_%s_%s_DataMC_CR_compare",pathname.c_str(),string_png,year,varName[ivar].c_str());
       generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[ivar].c_str(),"Entries",energy,rebin[ivar],ymin[ivar],ymax[ivar],xmin[ivar],xmax[ivar],leg_head,false,true,false,true,dataset);
       
