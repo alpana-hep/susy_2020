@@ -24,29 +24,29 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
    
 // Fixed size dimensions of array or collections stored in the TTree if any.
-   static constexpr Int_t kMaxElectrons = 999;
-   static constexpr Int_t kMaxGenElectrons = 999;
-   static constexpr Int_t kMaxGenJets = 999;
-   static constexpr Int_t kMaxGenJetsAK8 = 999;
-   static constexpr Int_t kMaxGenMuons = 999;
-   static constexpr Int_t kMaxGenParticles = 999;
-   static constexpr Int_t kMaxGenTaus = 999;
-   static constexpr Int_t kMaxGenVertices = 999;
-   static constexpr Int_t kMaxJets = 999;
-   static constexpr Int_t kMaxJetsAK8 = 999;
-   static constexpr Int_t kMaxJetsAK8_subjets = 999;
-   static constexpr Int_t kMaxMuons = 999;
-   static constexpr Int_t kMaxPhotons = 999;
-   static constexpr Int_t kMaxPrimaryVertices = 999;
-   static constexpr Int_t kMaxTAPElectronTracks = 999;
-   static constexpr Int_t kMaxTAPMuonTracks = 999;
-   static constexpr Int_t kMaxTAPPionTracks = 999;
-   static constexpr Int_t kMaxTracks = 999;
-   static constexpr Int_t kMaxTracks_referencePoint =999;
-   static constexpr Int_t kMaxGenJetsAK15 = 999;
-   static constexpr Int_t kMaxJetsAK15 = 999;
-   static constexpr Int_t kMaxJetsAK15_subjets = 999;
-   static constexpr Int_t kMaxJetsConstituents = 999;
+   static constexpr Int_t kMaxElectrons = 9999;
+   static constexpr Int_t kMaxGenElectrons = 9999;
+   static constexpr Int_t kMaxGenJets = 9999;
+   static constexpr Int_t kMaxGenJetsAK8 = 9999;
+   static constexpr Int_t kMaxGenMuons = 9999;
+   static constexpr Int_t kMaxGenParticles = 9999;
+   static constexpr Int_t kMaxGenTaus = 9999;
+   static constexpr Int_t kMaxGenVertices = 9999;
+   static constexpr Int_t kMaxJets = 9999;
+   static constexpr Int_t kMaxJetsAK8 = 9999;
+   static constexpr Int_t kMaxJetsAK8_subjets = 9999;
+   static constexpr Int_t kMaxMuons = 9999;
+   static constexpr Int_t kMaxPhotons = 9999;
+   static constexpr Int_t kMaxPrimaryVertices = 9999;
+   static constexpr Int_t kMaxTAPElectronTracks = 9999;
+   static constexpr Int_t kMaxTAPMuonTracks = 9999;
+   static constexpr Int_t kMaxTAPPionTracks = 9999;
+   static constexpr Int_t kMaxTracks = 9999;
+   static constexpr Int_t kMaxTracks_referencePoint =9999;
+   static constexpr Int_t kMaxGenJetsAK15 = 9999;
+   static constexpr Int_t kMaxJetsAK15 = 9999;
+   static constexpr Int_t kMaxJetsAK15_subjets = 9999;
+   static constexpr Int_t kMaxJetsConstituents = 9999;
    
 
    /* static constexpr Int_t kMaxElectrons = 99999; */

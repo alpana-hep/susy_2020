@@ -87,7 +87,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   bool Debug=false;
   bool higMET=true, highdphi=false;
   double deepCSVvalue=0,p0=0,p1=0,p2=0;
-  bool applyTrgEff=true;
+  bool applyTrgEff=false;
   if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
   if(s_data.Contains("2016postVFP")) { lumiInfb=16.5; deepCSVvalue = 0.5847; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;} //2016
 
@@ -357,7 +357,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       int pho_branch = Photons_;
       if(Debug)
     	        cout<<"Photons "<<"\t"<<Photons_<<endl;
-      
+           
     //   //variables to be used in getting dR
       float iGenEle_eta =99999.0, iGenEle_phi=99999.0, iRecEle_eta =99999.0, iRecEle_phi=99999.0, iRecphot_eta =99999.0, iRecphot_phi=99999.0,iGen_Wpt=99999.0,iGen_Wp=99999.0,iGen_WEta=99999.0,iGen_WPhi=99999.0;
       float dR_Ele=0, min_dR=9999, min_dR_pho=9999;
@@ -432,7 +432,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       v_genTau1.clear();
       v_genTau2.clear();
 
-      int leadGenPhoIdx=-100, mu_index=-100;
+           int leadGenPhoIdx=-100, mu_index=-100;
       int pass_accep_elec=0,fail_accep_elec=0,fail_isoEle=0,pass_isoElec=0,fail_IdElec=0,pass_IdElec=0;
       int pass_accep_mu=0,fail_accep_mu=0,fail_isoMu=0,pass_isoMu=0,fail_IdMu=0,pass_IdMu=0;
       if(!s_sample.Contains("data")){
@@ -812,7 +812,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	 }
     h_selectBaselineYields_v1->Fill("Pre-Selection",wt);
     FillHistogram_Kinematics(1,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	 //    h_madminPhotonDeltaR_preSelection->Fill(madMinPhotonDeltaR,wt);
+     	 //    h_madminPhotonDeltaR_preSelection->Fill(madMinPhotonDeltaR,wt);
     if(Debug)
       cout<<" just before photon identification - prompt/non-prompt ========   ===="<<jentry<<endl;
     ////////////////////////////////////////////////////////////////////////////////////
@@ -979,7 +979,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
       proc = v_genEle2.size()==1;//(s_sample.Contains("WGJets")|| s_sample.Contains("WJets"));                                                  
       proc1 = v_genEle2.size()>1;//( (s_sample.Contains("TTGJets") || s_sample.Contains("TTJets")));                                            
-      fakeElectron =(proc && (bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8))||(proc1 && ((bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8)|| (v_genEle2.size()>1 && (bestPhoton.DeltaR(v_genEle2[1])<0.2 && v_genEle2[1].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[1].Pt()/bestPhoton.Pt()>0.8))));
+      fakeElectron =(proc && (bestPhoton.DeltaR(v_genEle2[0])<0.2 && bestPhoton.Pt()/v_genEle2[0].Pt()<1.2 && bestPhoton.Pt()/v_genEle2[0].Pt()>0.8))||(proc1 && ((bestPhoton.DeltaR(v_genEle2[0])<0.2 && bestPhoton.Pt()/v_genEle2[0].Pt()<1.2 && bestPhoton.Pt()/v_genEle2[0].Pt()>0.8)|| (v_genEle2.size()>1 && (bestPhoton.DeltaR(v_genEle2[1])<0.2 && bestPhoton.Pt()/v_genEle2[1].Pt()<1.2 && bestPhoton.Pt()/v_genEle2[1].Pt()>0.8))));
+
+      //      fakeElectron =(proc && (bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8))||(proc1 && ((bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8)|| (v_genEle2.size()>1 && (bestPhoton.DeltaR(v_genEle2[1])<0.2 && v_genEle2[1].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[1].Pt()/bestPhoton.Pt()>0.8))));
       //if(fakeElectron) continue;// should contribute in FR estimation
       if(!fakeElectron) elec_SR = true;      
       if(!fakeElectron && MET>100) {h_mindR_elec_pho[3]->Fill(bestPhoton.DeltaR(v_genEle2[0]),wt);
@@ -1000,7 +1002,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	}    
       }
     }
-    
+     
 //mu_SR
     bool tauHad_SR=false;
     if(Debug) cout<<"=== Just before muon SR === "<<jentry<<endl;
@@ -1016,7 +1018,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       proc1 = v_genEle2.size()>1;
       bool fakeElectron=false;
       if(v_genEle2.size()!=0 ){
-	fakeElectron =(proc && (bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8))||(proc1 && ((bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8)|| (v_genEle2.size()>1 && (bestPhoton.DeltaR(v_genEle2[1])<0.2 && v_genEle2[1].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[1].Pt()/bestPhoton.Pt()>0.8))));}
+	fakeElectron =(proc && (bestPhoton.DeltaR(v_genEle2[0])<0.2 && bestPhoton.Pt()/v_genEle2[0].Pt()<1.2 && bestPhoton.Pt()/v_genEle2[0].Pt()>0.8))||(proc1 && ((bestPhoton.DeltaR(v_genEle2[0])<0.2 && bestPhoton.Pt()/v_genEle2[0].Pt()<1.2 && bestPhoton.Pt()/v_genEle2[0].Pt()>0.8)|| (v_genEle2.size()>1 && (bestPhoton.DeltaR(v_genEle2[1])<0.2 && bestPhoton.Pt()/v_genEle2[1].Pt()<1.2 && bestPhoton.Pt()/v_genEle2[1].Pt()>0.8))));
+
+      }	//	fakeElectron =(proc && (bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8))||(proc1 && ((bestPhoton.DeltaR(v_genEle2[0])<0.2 && v_genEle2[0].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[0].Pt()/bestPhoton.Pt()>0.8)|| (v_genEle2.size()>1 && (bestPhoton.DeltaR(v_genEle2[1])<0.2 && v_genEle2[1].Pt()/bestPhoton.Pt()<1.2 && v_genEle2[1].Pt()/bestPhoton.Pt()>0.8))));}
       //checking minDr condition for fake electron
       if(!fakeElectron && v_genEle2.size()!=0 && MET>100) {h_mindR_elec_pho[5]->Fill(bestPhoton.DeltaR(v_genEle2[0]),wt);
       h_pTratio_elec_pho[5]->Fill(v_genEle2[0].Pt()/bestPhoton.Pt(),wt);
@@ -1041,7 +1045,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
         }
       }
       }
-    }
+      }
     
     // filling the histograms for various different scenarios based on photon origin in that event
 	 if(!s_sample.Contains("data")){
@@ -1095,7 +1099,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
       
     nsurVived+=wt;
-     } //loop over entries
+    } //loop over entries
 
   if(Debug)
     cout<<"filling the branches in tree"<<endl;
