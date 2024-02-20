@@ -434,7 +434,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     hist_ratio->GetYaxis()->SetTitle("Exp/Pred");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetTitle("Bin No.");                              
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.0,3.0);
+    hist_ratio->GetYaxis()->SetRangeUser(-0.5,3.0);
 
     hist_ratio->GetYaxis()->SetNdivisions(505);
     hist_ratio->GetXaxis()->SetRangeUser(0,39);
@@ -792,6 +792,11 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
       // hNjets_total->Add(hist_list_Njets.at(3));
       TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(0)->Clone();
       hNjets_ratio->Divide(hNjets_total);
+      for(int ij =0;ij<hist_list_Njets.at(1)->GetNbinsX();ij++){
+        //if(hist_list_Njets.at(1)->GetBinContent(ij)>0 && ij==35)
+          cout<<ij<<"\t"<<hist_list_Njets.at(0)->GetBinContent(ij)<<"\t"<<hist_list_Njets.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<endl;
+      }
+
       sprintf(full_path,"%s/%s_%s_%s_DataMC_PredVsExp_compare",pathname.c_str(),string_png,year,varName[i_cut].c_str());
       generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Entries",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,false,true,false,true,dataset, which_Lept);
       

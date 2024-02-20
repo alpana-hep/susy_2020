@@ -234,7 +234,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     //  hist.at(i)->Rebin(2);
 
     // }
-    hist.at(i)= setLastBinAsOverFlow(hist.at(i),xrange);
+    //    hist.at(i)= setLastBinAsOverFlow(hist.at(i),xrange);
      
 
     //    normalize = true;
@@ -272,7 +272,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     hist.at(i)->GetYaxis()->SetTitleOffset(1.2);
     hist.at(i)->GetXaxis()->SetLabelOffset(1.2);
     hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
-    decorate(hist.at(i),i, which_Lept);
+    //decorate(hist.at(i),i, which_Lept);
     hist.at(i)->SetMarkerSize(.8);
     hist.at(i)->SetMarkerStyle(20);
     hist.at(i)->SetMarkerColor(line_color[i]);
@@ -593,7 +593,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetTitle("Exp/Pred");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.0,2.0);
+    hist_ratio->GetYaxis()->SetRangeUser(-0.5,3.0);
     
     hist_ratio->GetYaxis()->SetNdivisions(505);
     // if(which_TFbins==1) //default 8 bins                                                                                                    
@@ -862,7 +862,7 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
       f[12] = new TFile("./Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
       f[13] = new TFile("./Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
       f[14] = new TFile("./FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-            f[15] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
+      f[15] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
       f[16] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
       f[17]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
 
@@ -880,11 +880,15 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
   //   const char *baseline1[3]={"Nocut","Mu_SR","Mu_CR"};
       //   const char *baseline1[9]={"Nocut","SignalRegion","lostElec_SR","lostMu_SR","lostTau_SR","lostElec_SR_iso","lostElec_SR_Accept","lostElec_SR_ident"};
   //  const char* filetag[8]={"TTGJets_2018","TTGJets_2017","TTGJets_2016","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016","Run2_WGJets"};
-  vector<string> filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
-  vector<float> energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
+vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
+ vector<float> energyy={59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
+
+
+  // vector<string> filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
+  // vector<float> energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
   if(which_Lept==3){
     energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,36.0,36.0,36.0};
-    filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVF\            P","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
+    filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
   }
 
   bool flag=false;
@@ -998,6 +1002,10 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
       // //hNjets_ratio2->Divide(hNjets_ratio1);
       hist_list_MET.push_back(hNjets_ratio);
       hist_list_MET.push_back(hNjets_ratio1);
+      for(int ij =0;ij<hNjets_ratio->GetNbinsX();ij++){
+	if(hNjets_ratio1->GetBinContent(ij)>0 && ij==35)
+	  cout<<ij<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<hNjets_ratio1->GetBinContent(ij)<<"\t"<<hNjets_ratio2->GetBinContent(ij)<<"\t"<<f[i_file]->GetName()<<endl;
+      }
       //hist_list_MET.push_back(hNjets_ratio2);
 
       // hist_list_Njets.at(3)->Divide(hNjets_ratio1);
@@ -1052,6 +1060,10 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
 	//   {
 	//     file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
 	//   }
+	 for(int ij =0;ij<hist_list_Njets.at(1)->GetNbinsX();ij++){
+        if(hist_list_Njets.at(1)->GetBinContent(ij)>0 && ij==35)
+          cout<<ij<<"\t"<<hist_list_Njets.at(0)->GetBinContent(ij)<<"\t"<<hist_list_Njets.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<f[i_file]->GetName()<<endl;
+      }
 	generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,energy,40,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
       }
       else if(which_Lept==2){
@@ -1077,6 +1089,11 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
 	
 	// hist_list_Njets.at(2)->Divide(hNjets_ratio1);
 	// hist_list_Njets.at(2)->GetXaxis()->SetRangeUser(0,10);
+
+	   for(int ij =0;ij<hist_list_MET.at(1)->GetNbinsX();ij++){
+        if(hist_list_MET.at(1)->GetBinContent(ij)>0 && ij==35)
+          cout<<ij<<"\t"<<hist_list_MET.at(0)->GetBinContent(ij)<<"\t"<<hist_list_MET.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<f[i_file]->GetName()<<"\t"<<i_file<<"\t"<<filetag[i_file].c_str()<<endl;
+      }
 
 	float  xbin_cr=0, xbin_sr=0;
         sprintf(full_path,"%s/%s_%s",pathname.c_str(),string_png,filetag[i_file].c_str());
