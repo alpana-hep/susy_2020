@@ -39,7 +39,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector <TLorentzVector> getLorentzVector(int, Float_t[],Float_t[],Float_t[],Float_t[]);
   void FillHistogram_Kinematics(int ,int, int, double , double, double, double,float,float,double,float,double,double,double,double,double,TLorentzVector,vector<TLorentzVector>,TLorentzVector, int, double, double);
   void FillHistogram_Kinematics_varBin(int , int , int , double , double,double, double);//float,float,double,float,double,double,double,double );
-  void FillTFBins_Valid(int, int ,int, double, double, double,double, double);
+  void FillTFBins_Valid(int, int, int, double , double, double, double,float,float,double,float,double,double,double,double,double,TLorentzVector,vector<TLorentzVector>,TLorentzVector, int, double,double,double, double);
   
   int Photons_OriginType();
   //  <vector>
@@ -98,9 +98,9 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
   vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
   vector<double> METLowEdge_v3_2={200,300,370,450,600};
-  vector<double> BestPhotonPtBinLowEdge={40,70,100,120,140,160,180,200,220,240,260,300,400,600,1000};
+  vector<double> BestPhotonPtBinLowEdge={40,70,100,120,140,160,200,240,300,450,600,1000};
   vector<double> QMultLowedge={0,2,4,7,100};
-  vector<double>  nJetsLowedge={2,5,20};
+  vector<double>  nJetsLowedge={2,5,10,20};
   vector<double>  nbtagsLowedge={0,1,10};
   TH1F *h_selectBaselineYields;
   TH1F *h_selectBaselineYields_v1;
@@ -196,7 +196,30 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F* h_HT5HT[60];
   TH2F* h_Emobje_pt_vs_Jet_Pt[60];
   TH1F* h_dPhi_METJet[4][60];
-  
+  TH2F* h_dPhi_METJet_vsMET[4][60];
+
+  //validation plots
+  TH1F *h_Mt_PhoMET_validation[60]; 
+  TH1F *h_dPhi_PhoMET_validation[60];  
+  TH1F *h_Photon_Eta_validation[60];
+  TH1F *h_Photon_Phi_validation[60];
+  TH1F *h_Photon_E_validation[60];  
+  TH1F *h_MET_Phi_validation[60];
+  TH1F *h_qmulti_1_validation[60];  
+  TH1F *h_leadJets_qmulti_validation[60];
+  TH1F *h_leadJet_Pt_validation[60];      
+  TH1F *h_leadbjet_tag_validation[60];  
+  TH1F* h_nvrtx_validation[60]; 
+  TH1F* h_minDR_Jets_EMObject_validation[60]; 
+  TH1F* h_Phi_leadJet_validation[4][60]; 
+  TH1F* h_Eta_leadJet_validation[4][60]; 
+  TH1F* h_Pt_leadJet_validation[4][60]; 
+  TH1F* h_Phi_matchedJet_validation[60]; 
+  TH1F* h_Eta_matchedJet_validation[60]; 
+  TH1F* h_Pt_matchedJet_validation[60];   
+  TH1F* h_HT5HT_validation[60];  
+  TH1F* h_dPhi_METJet_validation[4][60]; 
+
   /* TH1D *h_Njets_CR[60]; */
   /* TH1D *h_Nbjets_CR[60]; */
   /* TH1F *h_MET__CR[60]; */
@@ -777,8 +800,12 @@ char hist_name1[1000];
       h_dPhi_PhoMET[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
       h_St[i]=new TH1F(hname_st,hname_st,250,0,2500);
       h_HT[i]= new TH1F(hname_ht,hname_ht,250,0,2500);
-      
-      
+      sprintf(hname_Mt_phopt,"h_Mt_phoMET_validation_%s",baseline[i].c_str());
+      sprintf(hname_dPhi,"h_dPhi_phoMet_validation_%s",baseline[i].c_str());
+
+      h_Mt_PhoMET_validation[i]= new TH1F(hname_Mt_phopt,hname_Mt_phopt,500,0,2500);
+      h_dPhi_PhoMET_validation[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
+
       sprintf(hname_njets,"h_NhadJets_validation_%s",baseline[i].c_str());
       sprintf(hname_nBjets,"h_NBJets_validation_%s",baseline[i].c_str());
       sprintf(hname_Met,"h_MET_validation_%s",baseline[i].c_str());
@@ -856,7 +883,37 @@ char hist_name1[1000];
       h_TFbins_ElecLL_validation_TFbins_v3_v1[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_Sbins_LL_Validation_TFbins_V3_%s",baseline[i].c_str());
       h_Sbins_LL_Validation_TFbins_V3[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+      //validation plots
+      /* sprintf(hname_st,"mindr_Pho_genlep_validation_%s",baseline[i].c_str()); */
+      /* h_mindr_Pho_genlep_validation[i]= new TH1F(hname_st,"mindR(gen-l,#gamma)",1000,0,10); */
+      /* sprintf(hname_st,"mindr_Pho_genElec_validation_%s",baseline[i].c_str()); */
+      /* h_mindr_Pho_genElec_validation[i] = new TH1F(hname_st,"mindR(gen e,#gamma)",1000,0,10); */
+      /* sprintf(hname_st,"mindr_Pho_RecoElec_validation_%s",baseline[i].c_str()); */
+      /* h_mindr_Pho_RecoEle_validation[i] = new TH1F(hname_st,"mindR(reco e, #gamma)",1000,0,10); */
+      sprintf(hname_st,"h_Photon_Eta_validation_%s",baseline[i].c_str());
+      h_Photon_Eta_validation[i] = new TH1F(hname_st,"eta for EM obj",200,-5,5);
+      sprintf(hname_st,"h_Photon_Phi_validation_%s",baseline[i].c_str());
+      h_Photon_Phi_validation[i] = new TH1F(hname_st,"phi for EM obj",200,-5,5);
+      sprintf(hname_st,"h_Photon_E_validation_%s",baseline[i].c_str());
+      h_Photon_E_validation[i]= new  TH1F(hname_st,"Energy for EM obj",500,0,1000);
+      sprintf(hname_st,"h_MET_Phi_validation_%s",baseline[i].c_str());
+      h_MET_Phi_validation[i] = new TH1F(hname_st,"Phi MET",200,-5,5);
 
+      sprintf(hname_st,"h_qmulti_validation_%s",baseline[i].c_str());
+      h_qmulti_1_validation[i] = new TH1F(hname_st,"multiplicity for the jets near to EM objs",500,0,500);
+      sprintf(hname_st,"h_leadJets_qmulti_validation_%s",baseline[i].c_str());
+      h_leadJets_qmulti_validation[i] = new TH1F(hname_st,"",500,0,500);
+
+      sprintf(hname_st,"h_leadJet_Pt_validation_%s",baseline[i].c_str());
+      h_leadJet_Pt_validation[i] = new TH1F(hname_st,"",500,0,1000);
+      sprintf(hname_st,"h_leadbjet_tag_validation_%s",baseline[i].c_str());
+      h_leadbjet_tag_validation[i] = new TH1F(hname_st,"h_leadbjet_tag",500,0,1);
+      sprintf(hname_st,"h_nvrtx_validation_%s",baseline[i].c_str());
+      h_nvrtx_validation[i] = new TH1F(hname_st,"",500,0,500);
+      sprintf(hname_st,"h_minDR_Jets_EMObject_validation_%s",baseline[i].c_str());
+      h_minDR_Jets_EMObject_validation[i] = new TH1F(hname_st,"",1000,0,10);
+
+      
 
       sprintf(hname_st,"h_Sbins_LL_%s",baseline[i].c_str());
       h_Sbins_LL[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
@@ -936,6 +993,19 @@ char hist_name1[1000];
 
       sprintf(hname_st,"h_dPhi_METJet%i_%s",j+1,baseline[i].c_str());
       h_dPhi_METJet[j][i] = new TH1F(hname_st,hname_st,500,-5,5);
+      sprintf(hname_st,"h_dPhi_METJet%i_vsMET_%s",j+1,baseline[i].c_str());
+      h_dPhi_METJet_vsMET[j][i] = new TH2F(hname_st,hname_st,400,0,1500,500,-5,5);
+
+      sprintf(hname_st,"h_Phi_leadJet%i_validation_%s",j+1,baseline[i].c_str());
+      h_Phi_leadJet_validation[j][i] = new TH1F(hname_st,hname_st,500,-5,5);
+      sprintf(hname_st,"h_Eta_leadJet%i_validation_%s",j+1,baseline[i].c_str());
+      h_Eta_leadJet_validation[j][i] = new TH1F(hname_st,hname_st,500,-5,5);
+      sprintf(hname_st,"h_Pt_leadJet%i_validation_%s",j+1,baseline[i].c_str());
+      h_Pt_leadJet_validation[j][i] = new TH1F(hname_st,hname_st,500,0,1000);
+      sprintf(hname_st,"h_dPhi_METJet%i_validation_%s",j+1,baseline[i].c_str());
+      h_dPhi_METJet_validation[j][i] = new TH1F(hname_st,hname_st,500,-5,5);
+
+
       }
       //cout<<i<<"\t"<<baseline[i]<<endl;
       sprintf(hname_st,"h_Phi_matchedJet_%s",baseline[i].c_str());
@@ -945,6 +1015,17 @@ char hist_name1[1000];
       sprintf(hname_st,"h_Pt_matchedJet_%s",baseline[i].c_str());
       h_Pt_matchedJet[i] = new  TH1F(hname_st,hname_st,500,0,1000);
       
+
+      //validation
+      sprintf(hname_st,"h_Phi_matchedJet_validation_%s",baseline[i].c_str());
+      h_Phi_matchedJet_validation[i] = new TH1F(hname_st,hname_st,500,-5,5);
+      sprintf(hname_st,"h_Eta_matchedJet_validation_%s",baseline[i].c_str());
+      h_Eta_matchedJet_validation[i] = new TH1F(hname_st,hname_st,500,-5,5);
+      sprintf(hname_st,"h_Pt_matchedJet_validation_%s",baseline[i].c_str());
+      h_Pt_matchedJet_validation[i] = new  TH1F(hname_st,hname_st,500,0,1000);
+      sprintf(hname_st,"h_HT5HT_validation_%s",baseline[i].c_str());
+      h_HT5HT_validation[i] = new TH1F(hname_st,hname_st,500,0,2);
+
       sprintf(hname_st,"h_EtavsPhi_matchedJet_%s",baseline[i].c_str());
       h_EtavsPhi_matchedJet[i] = new TH2F(hname_st,hname_st,500,-5,5,500,-5,5);
       sprintf(hname_st,"h_PtvsPhi_matchedJet_%s",baseline[i].c_str());
