@@ -85,9 +85,14 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   bool v17=true, v12=false;
   bool EWselection=true;
   bool Debug=false;
-  bool higMET=true, highdphi=false;
+  bool higMET=false, highdphi=false;
   double deepCSVvalue=0,p0=0,p1=0,p2=0;
-  bool applyTrgEff=false;
+  bool applyTrgEff=true;
+  bool applyHEMveto=true;
+  bool applyL1TrigFire_cal=true;
+  bool applyL1TrigFire_prob=true;
+  bool applyPUwt=true;
+  TString puwt="central";
   if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
   if(s_data.Contains("2016postVFP")) { lumiInfb=16.5; deepCSVvalue = 0.5847; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;} //2016
 
@@ -214,6 +219,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
  //       {cout<<i<<"\t"<<h_TF->GetBinContent(i)<<endl;}
  //   }
 
+ double count_ematchJets=0;
+ double   count_ematchJets1=0;
   int coutt=0;
   //nentries=1000;
   for (Long64_t jentry=0; jentry<nentries;jentry++)
@@ -350,6 +357,33 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
       // }
 
+
+      //applying hemveto                                                                                                                                              
+      bool HEMaffected=false;
+      if(s_data.Contains("2018") && applyHEMveto){
+	for(int i=0; i<Electrons_v1.size();i++){
+          if(Electrons_v1[i].Pt() >30 && Electrons_v1[i].Eta() > -3.0 && Electrons_v1[i].Eta() < -1.4 && Electrons_v1[i].Phi() > -1.57 && Electrons_v1[i].Phi() < -0.87) {HEMaffected = true; break;}
+        }
+        for(int i=0; i<Jets_v1.size();i++){
+          if(Jets_v1[i].Pt() > 30 && Jets_v1[i].Eta() > -3.2 && Jets_v1[i].Eta() < -1.2 && Jets_v1[i].Phi() > -1.77 && Jets_v1[i].Phi() < -0.67 && DeltaPhi(Jets_v1[i].Pt(),METPhi)<0.5) {HEMaffected = true; break;}
+        }
+	if(HEMaffected == true) continue;                                                                                                                           
+      }
+      if(jentry<100 && (s_data.Contains("2016") ||  s_data.Contains("2017") ))
+	cout<<"before applying L1 trig prefire "<<wt<<endl;
+
+      //adding l1trigger prefire issue probability
+      if(applyL1TrigFire_prob && (s_data.Contains("2016") ||  s_data.Contains("2017") ))
+	{
+	  wt =wt*NonPrefiringProb;
+	}
+
+      // applying PU weight
+      if(!s_sample.Contains("data"))
+	wt = wt*puWeight;
+      
+      if(jentry<100 && (s_data.Contains("2016") ||  s_data.Contains("2017") ))
+	cout<<"after applying L1 trig prefire "<<wt<<"\t"<< NonPrefiringProb<<endl;
       int ele_branch=Electrons_;
       if(Debug)
         cout<<"Electrons "<<"\t"<<Electrons_<<endl;
@@ -571,7 +605,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       hadJets.clear();
       bjets.clear();
       vector<int> jetMatchindx;
-      bool recoJetMatch_recoPho=false, genJetMatch_recoPho=false;
+      bool recoJetMatch_recoPho=false, genJetMatch_recoPho=false, flag_jetIDmiss=false;
       if(Debug)
         cout<<"===load tree entry check2 at entry ==="<<"\t"<<jentry<<endl;
       for(int i=0;i<Jets_;i++)
@@ -606,7 +640,24 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 		  bjets.push_back(Jets_v1[i]); bJet1Idx = i;}
 		// hadJets.push_back((*Jets)[i]);
 		jetMatchindx.push_back(i);
+
+		// if(nelec_reco!=0){
+                //   float Dr = Electrons_v1[e_index].DeltaR(Jets_v1[i]);
+                //   if( Dr<0.3 )
+		//     flag_jetIDmiss=true;
+                //     //cout<<"v1_ALp testing 1234==   "<<jentry<<"\t"<<nelec_reco<<"\t"<<Dr<<"\t"<<i<<"\t"<<minDRindx<<"\t"<<endl;
+                //     //count_ematchJets1+=wt;		
+		// }
 	      }
+	      // else {
+	      // 	if(nelec_reco!=0){
+	      // 	  float Dr = Electrons_v1[e_index].DeltaR(Jets_v1[i]);
+	      // 	  if( Dr<0.3)
+	      // 	    flag_jetIDmiss=false;
+	      // 	    //cout<<"ALp testing 1234==   "<<jentry<<"\t"<<nelec_reco<<"\t"<<Dr<<"\t"<<i<<"\t"<<minDRindx<<"\t"<<endl;
+	      // 	  //count_ematchJets+=wt;		  
+	      // 	}
+	      // }
     	    }
     	}
       }
@@ -868,6 +919,10 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       if(mTElecMET>100) { continue;}//h_selectBaselineYields_CR->Fill("e-CR: mT<100",wt);continue;} // remove signal contamination 
       elec_CR = true;      
       if(elec_CR){
+	// if(flag_jetIDmiss)
+	//   count_ematchJets1+=wt;
+	// else
+	//   count_ematchJets+=wt;
       FillHistogram_Kinematics(6, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
       FillHistogram_Kinematics_varBin(2,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
       //      int TFbins = getBinNoV1_le(nHadJets,BTags);
@@ -1103,6 +1158,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
   if(Debug)
     cout<<"filling the branches in tree"<<endl;
+  cout<<" event where a Jet matched to electron and rejected by JET ID "<< count_ematchJets<<endl;
+  cout<<" events where a Jet matched to electron and not rejected by JET ID "<< count_ematchJets1<<endl;
    //  cout<<nocut<<"\t"<<nSurvived<<"\t"<<bkg_comp<<endl;
   cout<<"Alpana-check"<<"\t"<<"events not falling in any LL CR/SR"<<"\t"<<counter<<endl;
 
