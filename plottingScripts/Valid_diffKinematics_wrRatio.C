@@ -200,22 +200,33 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
 		     bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title="", vector<string> legend_texts={"nil"}, int which_TFbins=-1, int which_Lept=-1){  
   
 
-   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,750);//600,600,1200,1200);
+   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,850);//600,600,1200,1200);
    canvas_n1->Range(-60.25,-0.625,562.25,0.625);
    canvas_n1->SetFillColor(0);
    canvas_n1->SetBorderMode(0);
    canvas_n1->SetBorderSize(2);
-   auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
-   pad_1->SetTopMargin(0.013);
-   pad_1->SetBottomMargin(0.3);
-   pad_1->SetRightMargin(0.025);
-   pad_1->SetLeftMargin(0.14);
+       auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
+       pad_1->SetTopMargin(0.04);
+       pad_1->SetBottomMargin(0.33);
+       pad_1->SetRightMargin(0.035);
+       pad_1->SetLeftMargin(0.13);
+       auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+       p1->SetBottomMargin(0.026);
+       p1->SetRightMargin(0.035);
+       p1->SetLeftMargin(0.13);
+       p1->SetTopMargin(0.1);
    
-   auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
-   p1->SetBottomMargin(0.01);
-   p1->SetRightMargin(0.025);
-   p1->SetLeftMargin(0.14);
-   p1->SetTopMargin(0.05);
+   // auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
+   // pad_1->SetTopMargin(0.013);
+   // pad_1->SetBottomMargin(0.3);
+   // pad_1->SetRightMargin(0.025);
+   // pad_1->SetLeftMargin(0.14);
+   
+   // auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+   // p1->SetBottomMargin(0.01);
+   // p1->SetRightMargin(0.025);
+   // p1->SetLeftMargin(0.14);
+   // p1->SetTopMargin(0.05);
    p1->cd();
    p1->SetGridx();
    pad_1->SetGridx();
@@ -248,8 +259,8 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   double y = 0.90;
   TLegend *legend;
   //legend = new TLegend(0.60,0.88,0.98,0.72);  
-  legend = new TLegend(0.2,0.82,0.95,0.93);  
-  legend->SetTextSize(0.055);
+  legend = new TLegend(0.2,0.75,0.95,0.88);  
+  legend->SetTextSize(0.045);
   legend->SetLineColor(kWhite);
   legend->SetNColumns(4);
   char* lhead = new char[100];
@@ -323,6 +334,17 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     hist.at(i)->SetMarkerSize(0.8);
     hist.at(i)->SetMarkerStyle(20);
     hist.at(i)->SetMarkerColor(line_color[i]);
+        hist.at(i)->GetXaxis()->SetTitleSize(0.08);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetYaxis()->SetTitleSize(0.06);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetXaxis()->SetTitleOffset(3);
+    hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
+
+    hist.at(i)->GetYaxis()->SetTitleOffset(1.1);
+
     // if(DoRebin) {
     //  hist.at(i)->Rebin(2);
     //   //hist.at(i)->Rebin(1);
@@ -436,14 +458,14 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   //   gPad->SetLogx();
   gPad->Update(); 
   TLatex* textOnTop = new TLatex();
-  textOnTop->SetTextSize(0.04);
-  textOnTop->DrawLatexNDC(0.15,0.96,"CMS #it{#bf{Preliminary}}");
+  textOnTop->SetTextSize(0.054);
+  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
   
   char* en_lat = new char[500];
-  textOnTop->SetTextSize(0.04);
+  textOnTop->SetTextSize(0.054);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
-  textOnTop->DrawLatexNDC(0.7,0.96,en_lat);
+  textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
   // TLine *line1V7=new TLine( 8.0,0.001,  8.0,5400);
   //   TLine *line2V7=new TLine(14.0,0.001, 14.0,5400);
   //   TLine *line3V7=new TLine(20.0,0.001, 20.0,5400);
@@ -660,6 +682,20 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     hist_ratio->GetYaxis()->SetNdivisions(505);
     //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
+
+        hist_ratio->GetYaxis()->CenterTitle(true);
+     hist_ratio->GetXaxis()->SetTitleSize(0.05);
+    hist_ratio->GetXaxis()->SetLabelSize(0.12);
+    hist_ratio->GetYaxis()->SetTitleSize(0.1);
+    hist_ratio->GetYaxis()->SetNdivisions(505);
+
+    hist_ratio->GetXaxis()->SetTitleOffset(1);
+    hist_ratio->GetYaxis()->SetTitleOffset(0.51);
+    hist_ratio->GetXaxis()->SetTitleSize(0.14);
+
+    hist_ratio->GetYaxis()->SetLabelSize(0.12);
+
+
    pad_1->cd();
    //   pad_1->SetGrid();
    // if(which_TFbins==1){
@@ -798,122 +834,122 @@ void Valid_diffKinematics_wrRatio(string pathname, int which_Lept, int which_TFB
   if(which_Lept==1)
     {
       n=2;
-      f[0] = new TFile("Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[1] = new TFile("Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[2] = new TFile("Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[3]= new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
+      f[0] = new TFile("Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[3]= new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
 
-      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[7]= new TFile("FullRun2_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[11]= new TFile("FullRun2_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[20] = new TFile("Summer20UL18_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[21] = new TFile("Summer20UL17_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[22] = new TFile("Summer20UL16_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[23] = new TFile("FullRun2_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[28] = new TFile("Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[35] = new TFile("Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
 
     }
   else if(which_Lept==2)
     {
       n=3;
-      f[0] = new TFile("Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[1] = new TFile("Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[2] = new TFile("Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[3]= new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+      f[0] = new TFile("Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[3]= new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 
-      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[7]= new TFile("FullRun2_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[11]= new TFile("FullRun2_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[20] = new TFile("Summer20UL18_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[21] = new TFile("Summer20UL17_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[22] = new TFile("Summer20UL16_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[23] = new TFile("FullRun2_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-        f[28] = new TFile("Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+        f[28] = new TFile("Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 
-            f[35] = new TFile("Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
+            f[35] = new TFile("Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 
 
     }
   if (which_Lept ==3)
     {
-       f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[1] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[2] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[3] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[4] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[5] = new TFile("./Summer20UL16APV_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[6] = new TFile("./Summer20UL16_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[7] = new TFile("./Summer20UL17_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[8] = new TFile("./Summer20UL18_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[9] = new TFile("./FullRun2_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[10] = new TFile("./Summer20UL16APV_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[11] = new TFile("./Summer20UL16_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[12] = new TFile("./Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[13] = new TFile("./Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[14] = new TFile("./FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
+       f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[1] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[2] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[3] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[4] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[5] = new TFile("./Summer20UL16APV_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[6] = new TFile("./Summer20UL16_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[7] = new TFile("./Summer20UL17_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[8] = new TFile("./Summer20UL18_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[9] = new TFile("./FullRun2_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[10] = new TFile("./Summer20UL16APV_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[11] = new TFile("./Summer20UL16_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[12] = new TFile("./Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[13] = new TFile("./Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[14] = new TFile("./FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
 
-      f[15] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[16] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton.root");
-      f[17]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
+      f[15] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[16] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+      f[17]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
 
 
     }
@@ -993,8 +1029,8 @@ ma} [GeV]","dPhi(#gamma,MET)"};
    /*    vector<TH1D*> hist_list_ST; */
    /*    vector<TH1D*> hist_list_HT; */
 
-  //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron.root","RECREATE");
-  sprintf(hname1,"temp.root");//,hname); 
+  //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron_HEMveto_PU_L1prefire.root","RECREATE");
+  sprintf(hname1,"temp_HEMveto_PU_L1prefire.root");//,hname); 
   TFile* fout = new TFile(hname1,"RECREATE");
   // sprintf(hname,"EventYields_TF_LL_muon_allProcess_binsV3_phoID_loose_09Jan24.txt");
   // std::ofstream file_;

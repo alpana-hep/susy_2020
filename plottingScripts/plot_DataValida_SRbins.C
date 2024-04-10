@@ -147,22 +147,34 @@ TH1D* setMyRange(TH1D *h1,double xLow,double xHigh){
   return h1;
 }
 void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="", char const *xlabel="",char const *ylabel="",float energyy=0.1,int rebin=-1,double ymin=0,double ymax=0, double xmin=0,double xmax=0,char const *leg_head="",bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title="", int which_lept=-1){    
-   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,750);//600,600,1200,1200);
+   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,850);//600,600,1200,1200);
    canvas_n1->Range(-60.25,-0.625,562.25,0.625);
    canvas_n1->SetFillColor(0);
    canvas_n1->SetBorderMode(0);
    canvas_n1->SetBorderSize(2);
-   auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
-   pad_1->SetTopMargin(0.022);
-   pad_1->SetBottomMargin(0.3);
-   pad_1->SetRightMargin(0.018);
-   pad_1->SetLeftMargin(0.12);
+          auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
+       pad_1->SetTopMargin(0.04);
+       pad_1->SetBottomMargin(0.33);
+       pad_1->SetRightMargin(0.035);
+       pad_1->SetLeftMargin(0.13);
+       auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+       p1->SetBottomMargin(0.026);
+       p1->SetRightMargin(0.035);
+       p1->SetLeftMargin(0.13);
+       p1->SetTopMargin(0.1);
+
    
-   auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
-   p1->SetBottomMargin(0.023);
-   p1->SetRightMargin(0.018);
-   p1->SetLeftMargin(0.12);
-   p1->SetTopMargin(0.07);
+   // auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
+   // pad_1->SetTopMargin(0.022);
+   // pad_1->SetBottomMargin(0.3);
+   // pad_1->SetRightMargin(0.018);
+   // pad_1->SetLeftMargin(0.12);
+   
+   // auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+   // p1->SetBottomMargin(0.023);
+   // p1->SetRightMargin(0.018);
+   // p1->SetLeftMargin(0.12);
+   // p1->SetTopMargin(0.07);
    p1->cd();
    // p1->SetGrid();
    
@@ -195,8 +207,8 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   double y = 0.90;
   TLegend *legend;
   //legend = new TLegend(0.60,0.88,0.98,0.72);  
-  legend = new TLegend(0.35,0.75,0.9,0.91);  
-  legend->SetTextSize(0.05);
+  legend = new TLegend(0.3,0.75,0.9,0.91);  
+  legend->SetTextSize(0.045);
   //  legend->SetLineColor(kWhite);
   legend->SetNColumns(2);
   char* lhead = new char[100];
@@ -281,6 +293,19 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     hist.at(i)->SetMarkerSize(.8);
     hist.at(i)->SetMarkerStyle(20);
     hist.at(i)->SetMarkerColor(line_color[i]);
+    //new ones
+    hist.at(i)->GetXaxis()->SetTitleSize(0.08);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetYaxis()->SetTitleSize(0.07);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetXaxis()->SetTitleOffset(3);
+    hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
+
+    hist.at(i)->GetYaxis()->SetTitleOffset(0.9);
+
+
     vector<string>legend_texts;
     if(which_lept==1)
       legend_texts ={"Exp MC: (0e,1#gamma)","Pred Data : TF x (1e,1#gamma)"};
@@ -380,14 +405,14 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
 
  
   TLatex* textOnTop = new TLatex();
-  textOnTop->SetTextSize(0.045);
-  textOnTop->DrawLatexNDC(0.12,0.94,"CMS #it{#bf{Preliminary}}");
+  textOnTop->SetTextSize(0.054);
+  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Preliminary}}");
   
     char* en_lat = new char[500];
-  textOnTop->SetTextSize(0.045);
+  textOnTop->SetTextSize(0.054);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
-  textOnTop->DrawLatexNDC(0.78,0.94,en_lat);
+  textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
   // char* en_lat = new char[500];
   // textOnTop->SetTextSize(0.04);
   // float inlumi=energy;
@@ -444,6 +469,20 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     hist_ratio->SetMarkerSize(1.0);
     hist_ratio->SetMarkerStyle(20);
     hist_ratio->SetMarkerColor(kBlue);
+
+    //new
+        hist_ratio->GetYaxis()->CenterTitle(true);
+     hist_ratio->GetXaxis()->SetTitleSize(0.05);
+    hist_ratio->GetXaxis()->SetLabelSize(0.12);
+    hist_ratio->GetYaxis()->SetTitleSize(0.125);
+    hist_ratio->GetYaxis()->SetNdivisions(505);
+
+    hist_ratio->GetXaxis()->SetTitleOffset(1);
+    hist_ratio->GetYaxis()->SetTitleOffset(0.41);
+    hist_ratio->GetXaxis()->SetTitleSize(0.14);
+
+    hist_ratio->GetYaxis()->SetLabelSize(0.12);
+
    pad_1->cd();
    pad_1->SetGrid();
    TLine *l =new TLine(0,1.0,39,1.0);
@@ -551,32 +590,32 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
   if(which_Lept==1)
     {
       if(which_year==2){
-       f[0] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[1]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
+       f[0] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[1]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
       }
        if(which_year==1)
 	 {
-	   f[0] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	   f[1]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
+	   f[0] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	   f[1]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
 	 }
        if(which_year==3){
-	 f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	 f[1]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
+	 f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	 f[1]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
        }
        if(which_year==4)
          {
-	   f[0] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	   f[1]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
+	   f[0] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	   f[1]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
 	 }
        if(which_year==0)
          {
-	   f[0] = new TFile("./Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-           f[1]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
+	   f[0] = new TFile("./Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
 	 }
        if(which_year==5)
         {
-	  f[0] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	  f[1]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
+	  f[0] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	  f[1]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
 
 	}
        
@@ -585,32 +624,32 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
   else if(which_Lept==3)
     {
       if(which_year==2){
-       f[0] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-       f[1]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+       f[0] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+       f[1]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
       }
        if(which_year==1)
          {
-           f[0] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-           f[1]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+           f[0] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
          }
        if(which_year==3){
-         f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-        f[1]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+         f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+        f[1]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
        }
        if(which_year==4)
          {
-           f[0] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-           f[1]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+           f[0] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
          }
        if(which_year==0)
          {
-           f[0] = new TFile("./Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-           f[1]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+           f[0] = new TFile("./Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
          }
        if(which_year==5)
         {
-          f[0] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton.root");
-          f[1]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+          f[0] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+          f[1]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
          }
 
       
@@ -618,32 +657,32 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
   else if (which_Lept==2)
     {
       if(which_year==2){
-       f[0] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[1]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+       f[0] = new TFile("./Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[1]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
       }
        if(which_year==1)
          {
-           f[0] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-           f[1]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+           f[0] = new TFile("./Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
          }
        if(which_year==3){
-         f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-         f[1]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+         f[0] = new TFile("./Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+         f[1]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
        }
        if(which_year==4)
          {
-           f[0] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-           f[1]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+           f[0] = new TFile("./Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
          }
        if(which_year==0)
          {
-           f[0] = new TFile("./Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-           f[1]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+           f[0] = new TFile("./Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+           f[1]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
          }
        if(which_year==5)
         {
-          f[0] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL.root");
-          f[1]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+          f[0] = new TFile("./FullRun2_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+          f[1]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
 
          }
     
@@ -794,7 +833,7 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
       hNjets_ratio->Divide(hNjets_total);
       for(int ij =0;ij<hist_list_Njets.at(1)->GetNbinsX();ij++){
         //if(hist_list_Njets.at(1)->GetBinContent(ij)>0 && ij==35)
-          cout<<ij<<"\t"<<hist_list_Njets.at(0)->GetBinContent(ij)<<"\t"<<hist_list_Njets.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<endl;
+	cout<<ij<<"\t"<<hist_list_Njets.at(1)->GetBinContent(ij)<<"\t"<<hist_list_Njets.at(1)->GetBinError(ij)<<"\t"<<endl;//hist_list_Njets.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<endl;
       }
 
       sprintf(full_path,"%s/%s_%s_%s_DataMC_PredVsExp_compare",pathname.c_str(),string_png,year,varName[i_cut].c_str());

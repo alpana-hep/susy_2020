@@ -175,22 +175,34 @@ TH1D* setMyRange(TH1D *h1,double xLow,double xHigh){
   return h1;
 }
 void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name="", char const *xlabel="",char const *ylabel="",float energyy=0.1,int rebin=-1,double ymin=0,double ymax=0, double xmin=0,double xmax=0,char const *leg_head="",bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title=""){    
-   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,750);//600,600,1200,1200);
+   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,850);//600,600,1200,1200);
    canvas_n1->Range(-60.25,-0.625,562.25,0.625);
    canvas_n1->SetFillColor(0);
    canvas_n1->SetBorderMode(0);
    canvas_n1->SetBorderSize(2);
    auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
-   pad_1->SetTopMargin(0.013);
-   pad_1->SetBottomMargin(0.3);
-   pad_1->SetRightMargin(0.018);
-   pad_1->SetLeftMargin(0.12);
+       pad_1->SetTopMargin(0.04);
+       pad_1->SetBottomMargin(0.33);
+       pad_1->SetRightMargin(0.035);
+       pad_1->SetLeftMargin(0.13);
+       auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+       p1->SetBottomMargin(0.026);
+       p1->SetRightMargin(0.035);
+       p1->SetLeftMargin(0.13);
+       p1->SetTopMargin(0.1);
+
    
-   auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
-   p1->SetBottomMargin(0.01);
-   p1->SetRightMargin(0.018);
-   p1->SetLeftMargin(0.12);
-   p1->SetTopMargin(0.07);
+   // auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
+   // pad_1->SetTopMargin(0.013);
+   // pad_1->SetBottomMargin(0.3);
+   // pad_1->SetRightMargin(0.018);
+   // pad_1->SetLeftMargin(0.12);
+   
+   // auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+   // p1->SetBottomMargin(0.01);
+   // p1->SetRightMargin(0.018);
+   // p1->SetLeftMargin(0.12);
+   // p1->SetTopMargin(0.07);
    p1->cd();
    // p1->SetGrid();
    
@@ -282,6 +294,18 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist.at(i)->GetYaxis()->SetTitleOffset(1.1);
     hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
     decorate(hist.at(i),i);
+    //new
+       hist.at(i)->GetXaxis()->SetTitleSize(0.08);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetYaxis()->SetTitleSize(0.07);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetXaxis()->SetTitleOffset(3);
+    hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
+
+    hist.at(i)->GetYaxis()->SetTitleOffset(0.9);
+
     if(i<5){
     legName.push_back(hist.at(i)->GetName());
     //leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"f");
@@ -347,6 +371,18 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   hs_var->GetYaxis()->SetLabelSize(0.04);
   hs_var->GetYaxis()->SetTitleSize(00.065);
   hs_var->GetYaxis()->SetTitleOffset(0.8);
+
+
+  hs_var->GetXaxis()->SetTitleSize(0.08);
+    hs_var->GetXaxis()->SetLabelSize(0.06);
+
+    hs_var->GetYaxis()->SetTitleSize(0.07);
+    hs_var->GetYaxis()->SetLabelSize(0.06);
+
+    hs_var->GetXaxis()->SetTitleOffset(3);
+    hs_var->GetXaxis()->SetLabelOffset(1.6);
+
+    hs_var->GetYaxis()->SetTitleOffset(0.9);
   
 
   legend->Draw();
@@ -367,14 +403,14 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
 
  
   TLatex* textOnTop = new TLatex();
-  textOnTop->SetTextSize(0.045);
-  textOnTop->DrawLatexNDC(0.12,0.94,"CMS #it{#bf{Preliminary}}");
+  textOnTop->SetTextSize(0.054);
+  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Preliminary}}");
   
   char* en_lat = new char[500];
-  textOnTop->SetTextSize(0.045);
+  textOnTop->SetTextSize(0.054);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
-  textOnTop->DrawLatexNDC(0.78,0.94,en_lat);
+  textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
    TArrow *arrow1 = new TArrow( 1.0,0.10, 2.0,0.1,0.01,"<|>");
     TArrow *arrow2 = new TArrow( 2.0,0.10,3.0,0.1,0.01,"<|>");
     TArrow *arrow3 = new TArrow(3.0,0.10,4.0,0.1,0.01,"<|>");
@@ -461,6 +497,19 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     hist_ratio->GetYaxis()->SetLabelSize(0.08);
     hist_ratio->GetYaxis()->SetTitleOffset(.3);
     hist_ratio->GetYaxis()->SetNdivisions(505);
+
+        hist_ratio->GetYaxis()->CenterTitle(true);
+     hist_ratio->GetXaxis()->SetTitleSize(0.05);
+    hist_ratio->GetXaxis()->SetLabelSize(0.12);
+    hist_ratio->GetYaxis()->SetTitleSize(0.125);
+    hist_ratio->GetYaxis()->SetNdivisions(505);
+
+    hist_ratio->GetXaxis()->SetTitleOffset(1);
+    hist_ratio->GetYaxis()->SetTitleOffset(0.41);
+    hist_ratio->GetXaxis()->SetTitleSize(0.14);
+
+    hist_ratio->GetYaxis()->SetLabelSize(0.12);
+
     //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
    pad_1->cd();
    pad_1->SetGrid();
@@ -569,56 +618,56 @@ void plot_DataValida_kinem(string pathname, int which_Lept, int which_year, int 
   if(which_Lept==1)
     {
       if(which_year==2){
-       f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
-       f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");}
+       f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");}
        if(which_year==1)
 	 {
-	   f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
-       f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
+	   f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
 	 }
 
        if(which_year==3){
-       f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
-       f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");}
+       f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");}
        if(which_year==4)
          {
-           f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-       f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
-       f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
+           f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
          }
 
        if(which_year==0)
          {
-	   f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	   f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	   f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	   f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-	   f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
-	   f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
+	   f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	   f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	   f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	   f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+	   f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
+	   f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
 	 }
        if(which_year==5)
         {
-          f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
-          f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-          f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_ElectronLL.root");
-          f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL.root");
-          f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Electron.root");
-          f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL.root");
+          f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+          f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+          f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+          f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
+          f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Electron_HEMveto_PU_L1prefire.root");
+          f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_ElectronLL_HEMveto_PU_L1prefire.root");
 
          }
 
@@ -628,58 +677,58 @@ void plot_DataValida_kinem(string pathname, int which_Lept, int which_year, int 
     {
       if(which_year==0)
          {
-	   f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	   f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	   f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	   f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	   f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
-	   f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+	   f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	   f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	   f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	   f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	   f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
+	   f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
 	 }
        if(which_year==2)
         {
-            f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
-           f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-           f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
-       f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+            f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+           f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+           f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
 
          }
          if(which_year==1)
         {
-	  f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	  f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	  f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	  f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
-	  f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
-	  f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+	  f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	  f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	  f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	  f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+	  f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
+	  f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
 
          }
 	    if(which_year==5)
         {
-          f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
-          f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-          f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-          f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
-          f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
-          f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+          f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+          f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+          f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+          f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+          f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
+          f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
 
          }
 	    if(which_year==3){
-       f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
-       f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");}
+       f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");}
        if(which_year==4)
          {
-           f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
-       f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
-       f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+           f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL_HEMveto_PU_L1prefire.root");
          }
 
 
@@ -690,59 +739,59 @@ void plot_DataValida_kinem(string pathname, int which_Lept, int which_year, int 
     {
       if(which_year==2)
 	{
-	    f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-           f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-           f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
-       f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+	    f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+           f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+           f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 
 	 }
       if(which_year==5)
         {
-          f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-          f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-          f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-          f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-          f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
-          f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+          f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+          f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+          f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+          f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+          f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
+          f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 
          }
 
       if(which_year==1)
 	{
-	  f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
-       f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+	  f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 	}
       if(which_year==0)
 	{
-	  f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
-       f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+	  f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
 
 	}
       if(which_year==3){
-       f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
-       f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");}
+       f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");}
        if(which_year==4)
          {
-           f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
-       f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
-       f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+           f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
+       f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Muon_HEMveto_PU_L1prefire.root");
+       f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL_HEMveto_PU_L1prefire.root");
          }
 
     
@@ -825,7 +874,7 @@ void plot_DataValida_kinem(string pathname, int which_Lept, int which_year, int 
       sprintf(hist_name3,"%s",varName3[i_cut].c_str());
       sprintf(hist_name4,"%s",varName4[i_cut].c_str());
       //vector<TH1D*> hist_list_Njets;
-      for(int i_file=0; i_file<6;i_file++)
+      for(int i_file=0; i_file<5;i_file++)
 	{
 	  cout<<hist_name<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<endl;
 	  TH1D* h_resp = (TH1D*)f[i_file]->Get(hist_name);
