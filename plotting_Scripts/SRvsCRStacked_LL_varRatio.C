@@ -743,19 +743,19 @@ void SRvsCRStacked_LL_varRatio(string pathname, int which_TFBins)
     sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
     cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
 
-    f[0] = new TFile("Summer20UL18_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
-    f[1] = new TFile("Summer20UL17_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
-    f[2] = new TFile("Summer20UL16_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
-    f[3] = new TFile("Summer20UL16APV_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
-    f[4] = new TFile("Summer20UL_total2016_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
-    f[5] = new TFile("FullRun2_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
+    f[0] = new TFile("Summer20UL18_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
+    f[1] = new TFile("Summer20UL17_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
+    f[2] = new TFile("Summer20UL16_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
+    f[3] = new TFile("Summer20UL16APV_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
+    f[4] = new TFile("Summer20UL_total2016_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
+    f[5] = new TFile("FullRun2_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
     
-    f1[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt100_MET200.root");
-    f1[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt100_MET200.root");
-    f1[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt100_MET200.root");
-    f1[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt100_MET200.root");
-    f1[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt100_MET200.root");
-    f1[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+    f1[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt40_MET200.root");
+    f1[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt40_MET200.root");
+    f1[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt40_MET200.root");
+    f1[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt40_MET200.root");
+    f1[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt40_MET200.root");
+    f1[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt40_MET200.root");
 
     vector<string> filetag=  {"2018","2017","2016postVFP","2016preVFP","2016","FullRun2"};
     vector<float> energyy={59.74,41.53,16.5,19.5,36,137.19};//,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};

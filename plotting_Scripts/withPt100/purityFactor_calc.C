@@ -9,11 +9,11 @@ int line_width[12] = {2,2,2,2,2,2,2,2,2,2,2,2};
 int line_style[12] = {1,1,1,1,1,1,1,1,1,1,1,1};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};                                                                               
-int line_color[9] = {kBlue,kBlack,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};//{9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};
+int line_color[9] = {kMagenta,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};//{9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};
 int line_color1[9]= {kMagenta,kGreen+2,kGray+1,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};
-int line_color2[9] = {kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta};
+int line_color2[9] = {kMagenta,kGreen+2,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta};
 //int line_color[9] = {kMagenta+2, kGray+2, kRed, kGreen+2, kMagenta, kRed - 3, kBlue + 2 , kCyan + 1 , kGreen + 3 };
-vector<int> col={kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
+vector<int> col={kMagenta,kGreen+2,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
 vector<int> Style={3008,1001,3008,1001};
 //int line_color[11] = {kPink+1, kRed, kBlue,kGray+1 , kGreen+2, kMagenta, kYellow + 2 , kCyan+3,  kBlue + 2 ,kRed+2,kGreen + 3 };
 void decorate(TH1D*,int,int );
@@ -345,7 +345,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     decorate(hist.at(i),i, which_Lept);
     hist.at(i)->SetMarkerSize(0.8);
     hist.at(i)->SetMarkerStyle(20);
-    //    hist.at(i)->SetMarkerColor(line_color[i]);
+    hist.at(i)->SetMarkerColor(line_color[i]);
     //new ones
     hist.at(i)->GetXaxis()->SetTitleSize(0.08);
     hist.at(i)->GetXaxis()->SetLabelSize(0.06);
@@ -401,9 +401,9 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   if(ymin<0.0) ymin = 1e-4;
   //  if(ymax<=10) ymax=10;
   for(int i = 0;i<(int)hist.size(); i++) {
-    if(!normalize) hist.at(i)->GetYaxis()->SetRangeUser(0.01,10.0*ymax);
+    if(!normalize) hist.at(i)->GetYaxis()->SetRangeUser(0.001,10000.0*ymax);
     else
-      {  hist.at(i)->GetYaxis()->SetRangeUser(0.01,ymax*1000.0);
+      {  hist.at(i)->GetYaxis()->SetRangeUser(0.001,ymax*10000.0);
 	//	hist.at(i)->GetXaxis()->SetRangeUser(0,xmax_[i]);
       }
     //    p1->SetGrid();
@@ -478,7 +478,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   TLatex* textOnTop = new TLatex();
   //new
     textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.146,0.925,"CMS #it{#bf{Preliminary}}");
+  textOnTop->DrawLatexNDC(0.146,0.925,"CMS #it{#bf{Simulation Preliminary}}");
 
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
@@ -688,9 +688,9 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetTitle("SF = #frac{N_{#beta*Data}}{N_{MC}}");//#frac{N_{Data}}{N_{MC}}");//SF = #frac{N_{#beta*Data}}{N_{MC}}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    hist_ratio->GetYaxis()->SetTitle("#beta = #frac{Non-DY}{DY}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.5,2.);
+    hist_ratio->GetYaxis()->SetRangeUser(0.5,1.5);
     //hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+4);
     // hist_ratio= setMyRange(hist_ratio,xmin,xmax+6);
     // setLastBinAsOverFlow(hist_ratio);
@@ -719,7 +719,6 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
 
     hist_ratio->GetXaxis()->SetTitleOffset(1);
     hist_ratio->GetYaxis()->SetTitleOffset(0.41);
-    hist_ratio->GetYaxis()->CenterTitle(true);
     hist_ratio->GetXaxis()->SetTitleSize(0.14);
 
     hist_ratio->GetYaxis()->SetLabelSize(0.12);
@@ -781,7 +780,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
+void purityFactor_calc(string pathname, int which_Lept)
 {
   char* hname = new char[200];
   char* hname1 = new char[200];
@@ -815,7 +814,7 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
   char *dataset=new char[200];
   char *year =new char[200];
   //  float energyy[2]={};
-  int n_files=24;
+  int n_files=5;
   char *string_png = new char[200];
   vector<string>baseline1;
   vector<string> legend_texts;
@@ -828,15 +827,15 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
   // else if (which_TFBins==2)
   //   sprintf(TFbins_str,"TFbins_v2_nJetsBjets_PhoPt");
   // else if(which_TFBins==3)
-  sprintf(TFbins_str,"Default");
-  //if(which_Lept==1){
-    //    sprintf(string_png,"Electron_LL");
-    baseline1={"Elec_CR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
-    
-    legend_texts ={"Total MC","#beta^{b-tag}_{MC}*Data"};//(tag e,probe #gamma) SR","(tag e, probe e) CR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
+  sprintf(TFbins_str,"MC_Default");
+  if(which_Lept==1)
+    sprintf(TFbins_str,"Data_Default");
+  baseline1={"Elec_CR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
+  
+    legend_texts ={"Non-DY","DY"};//(tag e,probe #gamma) SR","(tag e, probe e) CR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
-    sprintf(string_png,"SF_CRvsSR_Zinv_DatavsMC%s",TFbins_str);
+    sprintf(string_png,"purityFactor_Calc_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_29Jan24",string_png);
     // }
     // else if (which_Lept==1){
@@ -887,22 +886,54 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
       // f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
       // f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
       cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
-      f[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      if(which_Lept==0){
+	f[0] =  new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
+	f[1] =  new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
+	f[2] =  new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
+	f[3] =  new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
+	f[4] =  new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
+	f[5] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
+	f1[0] = new TFile("Summer20UL18_totalCR_PhoIdloose_phopt100_MET200.root");
+	f1[1] = new TFile("Summer20UL17_totalCR_PhoIdloose_phopt100_MET200.root");
+	f1[2] = new TFile("Summer20UL16_totalCR_PhoIdloose_phopt100_MET200.root");
+	f1[3] = new TFile("Summer20UL16APV_totalCR_PhoIdloose_phopt100_MET200.root");
+	f1[4] = new TFile("Summer20UL_total2016_totalCR_PhoIdloose_phopt100_MET200.root");
+	f1[5] = new TFile("FullRun2_totalCR_PhoIdloose_phopt100_MET200.root");
+      }
+      else {
+	f[0] = new TFile("out_Data_UL2018_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
+	f[1] = new TFile("out_Data_UL2017_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
+	f[2] = new TFile("out_Data_UL2016_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
+	f[3] = new TFile("out_Data_UL2016APV_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
+	f[4] = new TFile("out_Data_UL20_total2016_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
+	f[5] = new TFile("FullRun2_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
+	f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
 
-      
+
+
+      }
+      // f[0] = new TFile("Summer20UL18_totalCR_PhoIdloose_phopt100_MET200.root");
+      // f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      // f[1] = new TFile("Summer20UL17_totalCR_PhoIdloose_phopt100_MET200.root");
+      // f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      // f[2] = new TFile("Summer20UL16_totalCR_PhoIdloose_phopt100_MET200.root");
+      // f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      // f[3] = new TFile("Summer20UL16APV_totalCR_PhoIdloose_phopt100_MET200.root");
+      // f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      // f[4] = new TFile("Summer20UL_total2016_totalCR_PhoIdloose_phopt100_MET200.root");
+      // f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      // f[5] = new TFile("FullRun2_totalCR_PhoIdloose_phopt100_MET200.root");
+      // f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
       n_files=6;
-    vector<string> filetag=  {"2018","2017","2016postVFP","2016preVFP","2016","FullRun2"};
+    vector<string> filetag1=  {"2018","2017","2016postVFP","2016preVFP","2016","FullRun2"};
+    vector<string> filetag=  {"MC : 2018","MC : 2017","MC : 2016postVFP","MC : 2016preVFP","MC : 2016","MC : FullRun2"};
+    if(which_Lept==1)
+      filetag=  {"Data : 2018","Data : 2017","Data : 2016postVFP","Data : 2016preVFP","Data : 2016","Data : FullRun2"};
     vector<float> energyy={59.74,41.53,16.5,19.5,36,137.19};
     
 
@@ -916,7 +947,7 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
     // if(which_plots==0){
   varName ={"h_St_Elec_CR","h_HT_Elec_CR","h_NhadJets_Elec_CR","h_NBJets_Elec_CR","h_MET_Elec_CR","h_PhoPt_Elec_CR","h_qmulti_Elec_CR","h_Photon_Eta_Elec_CR","h_Photon_Phi_Elec_CR","h_MET_Phi_Elec_CR","h_leadJets_qmulti_Elec_CR","h_leadJet_Pt_Elec_CR","h_leadbjet_tag_Elec_CR","h_nvrtx_Elec_CR","h_minDR_Jets_EMObject_Elec_CR","h_Phi_leadJet1_Elec_CR","h_Eta_leadJet1_Elec_CR","h_Pt_leadJet1_Elec_CR","h_dPhi_METJet1_Elec_CR","h_Phi_leadJet2_Elec_CR","h_Eta_leadJet2_Elec_CR","h_Pt_leadJet2_Elec_CR","h_dPhi_METJet2_Elec_CR","h_Phi_leadJet3_Elec_CR","h_Eta_leadJet3_Elec_CR","h_Pt_leadJet3_Elec_CR","h_dPhi_METJet3_Elec_CR","h_Phi_leadJet4_Elec_CR","h_Eta_leadJet4_Elec_CR","h_Pt_leadJet4_Elec_CR","h_dPhi_METJet4_Elec_CR","h_Phi_matchedJet_Elec_CR","h_Eta_matchedJet_Elec_CR","h_Pt_matchedJet_Elec_CR","h_HT5HT_Elec_CR","h_invariantMass_Elec_CR","h_invariantMass_noCut_Elec_CR","FR_nbtagBins_Elec_CR","h_tagEle_pT_Elec_CR","h_tagEle_Eta_Elec_CR","h_tagEle_Phi_Elec_CR","h_ZpT_Elec_CR"};  
 
-  varName2={"h_St_Pho_SR","h_HT_Pho_SR","h_NhadJets_Pho_SR","h_NBJets_Pho_SR","h_MET_Pho_SR","h_PhoPt_Pho_SR","h_qmulti_Pho_SR","h_Photon_Eta_Pho_SR","h_Photon_Phi_Pho_SR","h_MET_Phi_Pho_SR","h_leadJets_qmulti_Pho_SR","h_leadJet_Pt_Pho_SR","h_leadbjet_tag_Pho_SR","h_nvrtx_Pho_SR","h_minDR_Jets_EMObject_Pho_SR","h_Phi_leadJet1_Pho_SR","h_Eta_leadJet1_Pho_SR","h_Pt_leadJet1_Pho_SR","h_dPhi_METJet1_Pho_SR","h_Phi_leadJet2_Pho_SR","h_Eta_leadJet2_Pho_SR","h_Pt_leadJet2_Pho_SR","h_dPhi_METJet2_Pho_SR","h_Phi_leadJet3_Pho_SR","h_Eta_leadJet3_Pho_SR","h_Pt_leadJet3_Pho_SR","h_dPhi_METJet3_Pho_SR","h_Phi_leadJet4_Pho_SR","h_Eta_leadJet4_Pho_SR","h_Pt_leadJet4_Pho_SR","h_dPhi_METJet4_Pho_SR","h_Phi_matchedJet_Pho_SR","h_Eta_matchedJet_Pho_SR","h_Pt_matchedJet_Pho_SR","h_HT5HT_Pho_SR","h_invariantMass_Pho_SR","h_invariantMass_noCut_Pho_SR","FR_nbtagBins_Pho_SR","h_tagEle_pT_Pho_SR","h_tagEle_Eta_Pho_SR","h_tagEle_Phi_Pho_SR","h_ZpT_Pho_SR"};
+  varName2={"h_St_EleMu_CR","h_HT_EleMu_CR","h_NhadJets_EleMu_CR","h_NBJets_EleMu_CR","h_MET_EleMu_CR","h_PhoPt_EleMu_CR","h_qmulti_EleMu_CR","h_Photon_Eta_EleMu_CR","h_Photon_Phi_EleMu_CR","h_MET_Phi_EleMu_CR","h_leadJets_qmulti_EleMu_CR","h_leadJet_Pt_EleMu_CR","h_leadbjet_tag_EleMu_CR","h_nvrtx_EleMu_CR","h_minDR_Jets_EMObject_EleMu_CR","h_Phi_leadJet1_EleMu_CR","h_Eta_leadJet1_EleMu_CR","h_Pt_leadJet1_EleMu_CR","h_dPhi_METJet1_EleMu_CR","h_Phi_leadJet2_EleMu_CR","h_Eta_leadJet2_EleMu_CR","h_Pt_leadJet2_EleMu_CR","h_dPhi_METJet2_EleMu_CR","h_Phi_leadJet3_EleMu_CR","h_Eta_leadJet3_EleMu_CR","h_Pt_leadJet3_EleMu_CR","h_dPhi_METJet3_EleMu_CR","h_Phi_leadJet4_EleMu_CR","h_Eta_leadJet4_EleMu_CR","h_Pt_leadJet4_EleMu_CR","h_dPhi_METJet4_EleMu_CR","h_Phi_matchedJet_EleMu_CR","h_Eta_matchedJet_EleMu_CR","h_Pt_matchedJet_EleMu_CR","h_HT5HT_EleMu_CR","h_invariantMass_EleMu_CR","h_invariantMass_noCut_EleMu_CR","FR_nbtagBins_EleMu_CR","h_tagEle_pT_EleMu_CR","h_tagEle_Eta_EleMu_CR","h_tagEle_Phi_EleMu_CR","h_ZpT_EleMu_CR"};
 
    vector <string>  xLabel;
 
@@ -930,45 +961,8 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
 
   cout<<"different vector sizes "<<endl;
   cout<<varName.size()<<"\t"<<varName2.size()<<"\t"<<xLabel.size()<<"\t"<<rebin.size()<<"\t"<<xmax.size()<<"\t"<<xmin.size()<<endl;
-  //  vector<string>baseline1;
-  // vector<string> baseline = {"Nocut", "PreSmuontion","Electron_CR","Electron_SR","FailAcep_ElectronSR","FailId_ElectronSR","FailIso_ElectronSR","Mu_CR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Electron_CR_BDTcut1","Electron_SR_BDTcut1","FailAcep_ElectronSR_BDTcut1","FailId_ElectronSR_BDTcut1","FailIso_ElectronSR_BDTcut1","Mu_CR_BDTcut1","Mu_SR_BDTcut1","FailAcep_MuSR_BDTcut1","FailId_MuSR_BDTcut1","FailIso_MuSR_BDTcut1","Electron_CR_BDTcut2","Electron_SR_BDTcut2","FailAcep_ElectronSR_BDTcut2","FailId_ElectronSR_BDTcut2","FailIso_ElectronSR_BDTcut2","Mu_CR_BDTcut2","Mu_SR_BDTcut2","FailAcep_MuSR_BDTcut2","FailId_MuSR_BDTcut2","FailIso_MuSR_BDTcut2"};
-
-  //     vector<string> baseline1 = {"FailId_ElecSR","FailIso_ElecSR","FailAcep_ElecSR"};
-  // if(which_Lept)
-  //   baseline1={"Elec_CR","Mu_CR","TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
-  // else
-  //   baseline1 = {"Mu_CR","Mu_SR","TauHad_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","FailAcep_MuSR","Mu_SR","Mu_"};
-  //   const char *baseline1[3]={"Nocut","Mu_SR","Mu_CR"};
-      //   const char *baseline1[9]={"Nocut","SignalRegion","lostElec_SR","lostMu_SR","lostTau_SR","lostElec_SR_iso","lostElec_SR_Accept","lostElec_SR_ident"};
-  //  const char* filetag[8]={"TTGJets_2018","TTGJets_2017","TTGJets_2016","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016","Run2_WGJets"};
-  // vector<string> filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
-  // vector<float> energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
- 
-  // vector<string> filetag=  {"WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","MC_2016preVFP","WGJets+WJets_2016","TTGJets+TTJets_2016","MC_2016","DY+Jets_2016postVFP","DY+Jets_2016preVFP","DY+Jets_2017","DY+Jets_2018","DY+Jets_2016","DY+Jets_FullRun2","ZeeGJets_2016postVFP","ZeeGJets_2016preVFP","ZeeGJets_2017","ZeeGJets_2018","ZeeGJets_2016","ZeeGJets_FullRun2"};
-  // cout<<filetag.size()<<endl;
-  // vector<float> energyy={59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,36,36,36,16.5,19.5, 41.529,59.74 ,36,137.19,16.5,19.5, 41.529,59.74 ,36,137.19};// 59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
-
-  // if(which_Lept==1){
-  //   filetag=  {"Data_2018","Data_2017","Data_2016postVFP","Data_2016preVFP","Data_2016"};
-  //   energyy={59.74,41.529,16.5,19.59,36};
-
-  // }
-  // cout<<filetag.size()<<"\t"<<energyy.size()<<endl;
-
- // if(which_Lept==3){
- //    energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,36.0,36.0,36.0};
- //    filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
- //  }
   
   bool flag=false;
-  //  const char* filetag[10]={"TTGJets","pMSSM_MCMC_70_90438","pMSSM_MCMC_106_19786","pMSSM_MCMC_473_54451","WJets","GJets","T5bbbbZG_10","T5bbbbZG_50","T5bbbbZG_200","T5bbbbZG_1500"};
-   /* vector<TH1D*> hist_list_Njets; */
-   /*    vector<TH1D*> hist_list_Bjets; */
-   /*    vector<TH1D*> hist_list_MET; */
-   /*    vector<TH1D*> hist_list_PhoPt; */
-   /*    //vector<TH1D*> hist_list_Mt;                                                                                                                                    */
-   /*    vector<TH1D*> hist_list_ST; */
-   /*    vector<TH1D*> hist_list_HT; */
 
   //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron.root","RECREATE");
   sprintf(hname1,"out_%s.root",string_png);//,hname); 
@@ -984,21 +978,20 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
       vector<TH1D*> hist_list_MET;
       vector<TH1D*> hist_list_PhoPt;
       vector<TH1D*> hist_list_ST;
-      for(int i_cut=varName.size()-5; i_cut<varName.size()-4;i_cut++)
+      for(int i_cut=0; i_cut<varName.size();i_cut++)
 	{
 	  //if(i_cut==1) continue;
 	  vector<TH1D*> hist_list_Njets;
 	  sprintf(hist_name,"%s",varName[i_cut].c_str());
-	  sprintf(hist_name2,"%s",varName[i_cut].c_str());
+	  sprintf(hist_name2,"%s",varName2[i_cut].c_str());
 	  //name = "hname";
 	  cout<<hist_name<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<"\t"<<varName[i_cut].c_str()<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
 	  if (f[i_file]->GetListOfKeys()->Contains(hist_name))printf ("%s exist \n", hist_name2);//gDirectory->FindObject(hist_name2)) printf ("%s exist \n", hist_name2);
 	  else  continue;//printf ("%s doesn't exist \n", hist_name2);
-	  cout<<hist_name<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<"\t"<<varName[i_cut].c_str()<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
-          TH1D* h_resp = (TH1D*)f[i_file]->Get(hist_name);
-	  TH1D* h_resp2 = (TH1D*)f1[i_file]->Get(hist_name2);
-	  cout<<"resp "<<"\t"<<"resp2"<<endl;
-	  cout<<h_resp->Integral()<<"\t"<<h_resp2->Integral()<<endl;
+	  cout<<hist_name<<"\t"<<hist_name2<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<"\t"<<varName[i_cut].c_str()<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
+          TH1D* h_resp = (TH1D*)f[i_file]->Get(hist_name2);
+	  TH1D* h_resp2 = (TH1D*)f1[i_file]->Get(hist_name);
+	  cout<<"resp "<<h_resp->Integral()<<"\t"<<"resp2 "<<h_resp2->Integral()<<"\t"<<endl;
 	  h_resp->Rebin(rebin[i_cut]);
 	  h_resp2->Rebin(rebin[i_cut]);
 	  if(rebin[i_cut]!=1){                                                                                                                                            
@@ -1009,8 +1002,8 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
 	  setLastBinAsOverFlow(h_resp2);
 	  h_resp= setMyRange(h_resp,xmin[i_cut],xmax[i_cut]+0.01*xmax[i_cut]);
 	  setLastBinAsOverFlow(h_resp);
-	  hist_list_Njets.push_back(h_resp2);
 	  hist_list_Njets.push_back(h_resp);
+	  hist_list_Njets.push_back(h_resp2);
 	  cout<<h_resp->Integral()<<"\t"<<f[i_file]->GetName()<<endl;	 
 	  cout<<" hist_list_Njets.size() "<<hist_list_Njets.size()<<"\t "<<endl;//hist_list_Bjets.size() "<<hist_list_Bjets.size()<<endl;
 	  //path to save the png file
@@ -1020,13 +1013,14 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
 	  TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(0)->Clone();
 	  hNjets_ratio->Divide(hNjets_total);
 	  //setLastBinAsOverFlow(hNjets_ratio);
-	  sprintf(full_path,"%s/%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag[i_file].c_str());
-	  sprintf(full_path1,"%s_%s",varName[i_cut].c_str(),filetag[i_file].c_str());
+	  sprintf(full_path,"%s/%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag1[i_file].c_str());
+	  sprintf(full_path1,"%s_%s",varName[i_cut].c_str(),filetag1[i_file].c_str());
 	  hNjets_ratio->SetName(full_path1);
-	  for(int i =0; i<hNjets_ratio->GetNbinsX();i++){
-	    cout<<hNjets_ratio->GetBinContent(i)<<"\t"<<hNjets_ratio->GetBinError(i)<<endl;
-	  }
 	  fout->cd();
+	  for(int i=0 ; i<hNjets_ratio->GetNbinsX() ; ++i) {
+	    if(hNjets_ratio->GetBinContent(i)!=0)
+	    hNjets_ratio->SetBinContent(i,1-hNjets_ratio->GetBinContent(i));
+	  }
 	  hNjets_ratio->Write();
 	  if(i_cut==2 || i_cut==3)
 	    generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Entries",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);

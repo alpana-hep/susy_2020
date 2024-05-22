@@ -688,9 +688,9 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetTitle("SF = #frac{N_{#beta*Data}}{N_{MC}}");//#frac{N_{Data}}{N_{MC}}");//SF = #frac{N_{#beta*Data}}{N_{MC}}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    hist_ratio->GetYaxis()->SetTitle("#frac{N_{Data}}{N_{MC}}");//SF = #frac{N_{#beta*Data}}{N_{MC}}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.5,2.);
+    hist_ratio->GetYaxis()->SetRangeUser(0.5,2.5);
     //hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+4);
     // hist_ratio= setMyRange(hist_ratio,xmin,xmax+6);
     // setLastBinAsOverFlow(hist_ratio);
@@ -833,7 +833,7 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
     //    sprintf(string_png,"Electron_LL");
     baseline1={"Elec_CR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
     
-    legend_texts ={"Total MC","#beta^{b-tag}_{MC}*Data"};//(tag e,probe #gamma) SR","(tag e, probe e) CR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
+    legend_texts ={"Total MC","Data"};//#beta^{b-tag}_{MC}*Data"};//(tag e,probe #gamma) SR","(tag e, probe e) CR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
     sprintf(string_png,"SF_CRvsSR_Zinv_DatavsMC%s",TFbins_str);
@@ -887,18 +887,18 @@ void DataMC_SRvsCR_kinem(string pathname, int which_Lept)
       // f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
       // f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
       cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
-      f[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-      f[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-      f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      f[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+      f1[0] = new TFile("out_Data_UL2018_Allruns_SingleElectron_phoID_loose_pt100_MET200.root");
+      f[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+      f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      f[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+      f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      f[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+      f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      f[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+      f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      f[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+      f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
 
       
       n_files=6;

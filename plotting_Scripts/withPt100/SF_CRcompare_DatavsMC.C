@@ -1,10 +1,9 @@
-
 const int n_pl = 4;
 bool logx = false;
 TString pls[n_pl] = {"FTFP_BERT_EMN","QGSP_FTFP_BERT_EMN","FTFP_BERT_EMM","QGSP_BERT"};
 TString dRs[9] = {"dR < 0.56cm","dR < 1.0cm","dR < 2.0cm","dR < 3.0cm","dR < 5.0cm","dR < 8.0cm","dR < 12.0cm","dR < 18.0cm","dR < 20.0cm"};
 //TString legend_text[11] = {"No cuts","skimmed","lep-veto","isotrk-veto","Pho-Pt>20","Njets>=2","Dphi-cut","MET>100","MET>250","ST>300","Pho-pt>100"};
-TString legend_text[6] ={"t #bar{t} + jets","Z(ee) + Jets","Z(ee)#gamma + jets","Data"};//"single t/#bar{t}","t #bar{t}","W(l#nu) + jets","Data"};//(1#mu,1#gamma) CR","(0#mu,1#gamma) SR","Failed Id","Failed Iso"};//,"Failed acceptance","1e CR"};// {"(0e,0e) SR","(1e,0e) CR","pMSSM_MCMC_106_19786","pMSSM_MCMC_473_54451"};//{"No cuts","skimmed","lep-veto","isotrk-veto","Dphi-cut","MET>250","ST>300","Pho-pt>100"};
+TString legend_text[6] ={"Z(ee) + Jets","Z(ee)#gamma + jets","#beta^{MC}*Data"};//"single t/#bar{t}","t #bar{t}","W(l#nu) + jets","Data"};//(1#mu,1#gamma) CR","(0#mu,1#gamma) SR","Failed Id","Failed Iso"};//,"Failed acceptance","1e CR"};// {"(0e,0e) SR","(1e,0e) CR","pMSSM_MCMC_106_19786","pMSSM_MCMC_473_54451"};//{"No cuts","skimmed","lep-veto","isotrk-veto","Dphi-cut","MET>250","ST>300","Pho-pt>100"};
 //  if(lName.Contains("ZGZJ")){lName="Z(#nu#bar{#nu}) + #gamma";}
   //  else if(lName.Contains("ZJets")){lName="Z(#nu#bar{#nu}) + jets";}                                                                           
   // else if(lName.Contains("DYJetsToLL")){lName="DY(l^{+}l^{-})";}
@@ -20,10 +19,10 @@ int line_width[12] = {2,2,2,2,3,2,2,2,2,2,2,2};
 int line_style[12] = {1,1,1,1,1,1,1,1,1,1,1,1};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};                                                                               
-int line_color[9] = {kGreen+2,kBlue-9,kRed-7,kBlack,kRed,kBlue+2,kMagenta,kCyan};
+int line_color[9] = {kBlue-9,kRed-7,kBlack,kRed,kBlue+2,kMagenta,kCyan};
 //vector <int>col;
 //col.resize(0);
-vector<int> col={kGreen+2,kBlue-9,kRed-7,kBlack,kTeal+9,kOrange,kBlack,kBlue,kMagenta,kBlack,kPink+4,kGreen+2,kOrange+1,kBlue+2};
+vector<int> col={kBlue-9,kRed-7,kBlack,kTeal+9,kOrange,kBlack,kBlue,kMagenta,kBlack,kPink+4,kGreen+2,kOrange+1,kBlue+2};
 
 //int line_color[9] = {kMagenta+2, kGray+2, kRed, kGreen+2, kMagenta, kRed - 3, kBlue + 2 , kCyan + 1 , kGreen + 3 };
 //vector<int> col={kBlue,kBlack,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
@@ -266,7 +265,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     else {
       hist.at(i)->GetYaxis()->SetTitle("Entries");
     }
-     hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+0.01*xrange);
+     hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+4);
     hist.at(i)->SetLineWidth(line_width[i]);
     //    setLastBinAsOverFlow(hist.at(i));
     hist.at(i)->SetLineStyle(line_style[i]);
@@ -286,7 +285,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     if(i<5){
       legName.push_back(hist.at(i)->GetName());
       //leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"f");
-    if(i==3)
+    if(i==2)
       leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"e2p");
     else
       leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"f");
@@ -311,7 +310,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    p1->SetGrid();
     hist.at(i)= setMyRange(hist.at(i),xmin,xmax);
     setLastBinAsOverFlow(hist.at(i));
-    if(i<3)
+    if(i<2)
       hs_var->Add(hist.at(i));
     hs_var->SetMinimum(ymin);
     hs_var->SetMaximum(ymax*0.01);
@@ -352,11 +351,11 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   
   legend->SetTextSize(0.04);
   legend->Draw();
-  hist.at(3)->SetLineWidth(1);
-  hist.at(3)->SetMarkerStyle(20);
-  hist.at(3)->GetYaxis()->SetTitle("Entries");
-  //  hist.at(4)->SetLineStyle(2);
-  hist.at(3)->Draw("E1same");
+  hist.at(2)->SetLineWidth(1);
+  hist.at(2)->SetMarkerStyle(20);
+  hist.at(2)->GetYaxis()->SetTitle("Entries");
+  //  hist2.at(4)->SetLineStyle(2);
+  hist.at(2)->Draw("E1same");
 
   if(log_flag) {
       gPad->SetLogy();
@@ -448,7 +447,7 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetTitle("Data/MC");//TF = #frac{(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.,3.5);
+    hist_ratio->GetYaxis()->SetRangeUser(0.,3);
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     // if(DoRebin)
     //   hist_ratio->Rebin(rebin);
@@ -494,7 +493,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
+void SF_CRcompare_DatavsMC(string pathname, int which_Lept, int which_year)
 {
   char* hname = new char[200];
   char* hist_name  = new char[200];
@@ -555,7 +554,7 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
   }
      //}
   else if(which_Lept==2){
-     sprintf(string_png,"Lept_CR_zinv");
+     sprintf(string_png,"SF_zinv_stackPlots_");
     if(which_year==0) {sprintf(dataset,"2016: (2l, 1#gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}
     if(which_year==1) {sprintf(dataset,"2017: (2l, 1#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
     if(which_year==2) {sprintf(dataset,"2018: (2l, 1#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
@@ -565,53 +564,53 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
   }
 
   if(which_year==2){
-    f[0] = new TFile("Summer20UL18_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-    f[1] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");
-    f[2] = new TFile("Summer20UL18_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-    f[3] = new TFile("Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+    f[0] = new TFile("Summer20UL18_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+    f[1] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt100_MET200.root");
+    f[2] = new TFile("Summer20UL18_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
+    f[3] = new TFile("Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt100_MET200.root");
   }
        if(which_year==1)
 	 {
-	   f[0] = new TFile("Summer20UL17_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");
-	   f[2] = new TFile("Summer20UL17_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	   f[3] = new TFile("Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	   f[0] = new TFile("Summer20UL17_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	   f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt100_MET200.root");
+	   f[2] = new TFile("Summer20UL17_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
+	   f[3] = new TFile("Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
 	 }
        if(which_year==3){
-	 f[0] = new TFile("Summer20UL16APV_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	 f[1] = new TFile("Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root");
-	 f[2] = new TFile("Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	 f[3] = new TFile("Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	 f[0] = new TFile("Summer20UL16APV_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	 f[1] = new TFile("Summer20UL16APV_TTGJets_PhoIdloose_phopt100_MET200.root");
+	 f[2] = new TFile("Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
+	 f[3] = new TFile("Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
 
        }
        if(which_year==4)
          {
-	   f[0] = new TFile("Summer20UL16_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[1] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
-	   f[2] = new TFile("Summer20UL16_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	   f[3] = new TFile("Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	   f[0] = new TFile("Summer20UL16_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	   f[1] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt100_MET200.root");
+	   f[2] = new TFile("Summer20UL16_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
+	   f[3] = new TFile("Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
 
 	 }
 
        if(which_year==0)
          {
-	     f[0] = new TFile("Summer20UL_total2016_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	     f[1] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloose_phopt40_MET200.root");
-	     f[2] = new TFile("Summer20UL_total2016_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	     f[3] = new TFile("Summer20UL_total2016_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	     f[0] = new TFile("Summer20UL_total2016_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	     f[1] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloose_phopt100_MET200.root");
+	     f[2] = new TFile("Summer20UL_total2016_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
+	     f[3] = new TFile("Summer20UL_total2016_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
 	 }
        if(which_year==5)
         {
-	  f[0] = new TFile("FullRun2_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	  f[1] = new TFile("FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
-	  f[2] = new TFile("FullRun2_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	  f[3] = new TFile("FullRun2_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	  f[0] = new TFile("FullRun2_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	  f[1] = new TFile("FullRun2_TTGJets_PhoIdloose_phopt100_MET200.root");
+	  f[2] = new TFile("FullRun2_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
+	  f[3] = new TFile("FullRun2_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
+	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
          }
 
   vector<string>varName;
@@ -638,11 +637,11 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
   vector <string>  xLabel;
   xLabel={"Sum of P_{T}^{Jets} & P_{T}^{elec} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{EM-obj} [GeV]","q-multi","#eta_{elec}","#phi_{elec}","MET phi","q multi of leading jets","P_{T}^{lead jet1)}","b-tagger deep csv value","number of vertices","mindR(matched Jet, Electron)","#phi^{lead Jet1}","#eta^{lead Jet1}","P_{T}^{lead Jet1}","d#phi(P_{T}^{miss},lead Jet1)","#phi^{lead Jet2}","#eta^{lead Jet2}","P_{T}^{lead Jet2}","d#phi(P_{T}^{miss},lead Jet2)","#phi^{lead Jet3}","#eta^{lead Jet3}","P_{T}^{lead Jet3}","d#phi(P_{T}^{miss},lead Jet3)","#phi^{lead Jet4}","#eta^{lead Jet4}","P_{T}^{lead Jet4}","d#phi(P_{T}^{miss},lead Jet4)","#phi of matched Jet","#eta of matched Jet","P_{T} of matched Jet","HT5/HT","M_{T}^{miss & elec} [GeV]","dPhi(elec,MET)","M^{inv}_{tag & probe}","P_{T}^{Z}","Bin no.","P_{T}^{tag-e}","#eta^{tag-e}","#phi^{tag-e}","P_{T}^{Z}"};
   vector <int> rebin;
-  rebin={4,4,1,1,8,8,1,4,4,4,1,4,4,1,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,4,4,15,1,1,4,4,4,5};
-  vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
-  vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
+  rebin={4,4,1,1,8,8,1,4,4,4,1,4,4,1,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,4,4,15,1,4,4,4,5};
+  vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+  vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
   vector<double> xmin ={100,100,2,0,200,20,0,-10,-10,-10,0,0,0,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0.9,0,0,80,0,0,0,0,-5,-5,0,0};
-  vector<double> xmax={1500,1500,8,4,800,400,20,10,10,10,100,1000,1,50,0.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,2,150,3,100,1000,3,600,3,5,5,1000,1000};
+  vector<double> xmax={1500,1500,8,4,800,400,20,10,10,10,100,1000,1,50,0.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,2,150,3,100,1000,100,600,3,5,5,1000,1000};
      
   vector<string>baseline1;
   vector<string> baseline = {"Nocut", "PreSmuontion","Electron_CR","Electron_SR","FailAcep_ElectronSR","FailId_ElectronSR","FailIso_ElectronSR","Mu_CR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Electron_CR_BDTcut1","Electron_SR_BDTcut1","FailAcep_ElectronSR_BDTcut1","FailId_ElectronSR_BDTcut1","FailIso_ElectronSR_BDTcut1","Mu_CR_BDTcut1","Mu_SR_BDTcut1","FailAcep_MuSR_BDTcut1","FailId_MuSR_BDTcut1","FailIso_MuSR_BDTcut1","Electron_CR_BDTcut2","Electron_SR_BDTcut2","FailAcep_ElectronSR_BDTcut2","FailId_ElectronSR_BDTcut2","FailIso_ElectronSR_BDTcut2","Mu_CR_BDTcut2","Mu_SR_BDTcut2","FailAcep_MuSR_BDTcut2","FailId_MuSR_BDTcut2","FailIso_MuSR_BDTcut2"};
@@ -674,7 +673,7 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
   for(int ivar=0;ivar<varName.size()-4;ivar++)
     {
       vector<TH1D*> hist_list_Njets;
-      for(int i_file=1; i_file<5;i_file++)
+      for(int i_file=2; i_file<5;i_file++)
 	{
 	  sprintf(hist_name,"%s",varName[ivar].c_str());
 	  cout<<hist_name<<"\t"<<ivar<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<endl;
@@ -692,11 +691,11 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
       int xrange=0.0;
       TH1D* hNjets_total =(TH1D*)hist_list_Njets.at(0)->Clone();
       hNjets_total->Add(hist_list_Njets.at(1));
-      hNjets_total->Add(hist_list_Njets.at(2));
+      //      hNjets_total->Add(hist_list_Njets.at());
       //      hNjets_total->Add(hist_list_Njets.at());
       //hNjets_total->Add(hist_list_Njets.at(4));
 
-      TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(3)->Clone();
+      TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(2)->Clone();
       hNjets_ratio->Divide(hNjets_total);
       setLastBinAsOverFlow(hNjets_ratio);
       //      hNjets_ratio->Rebin(rebin[ivar]);

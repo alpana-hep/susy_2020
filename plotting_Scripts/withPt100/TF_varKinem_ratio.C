@@ -307,10 +307,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     // hist.at(i)->GetXaxis()->SetLabelSize(0.06);
 
     // hist.at(i)->GetYaxis()->SetTitleSize(0.07);
-    //hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+    // hist.at(i)->GetYaxis()->SetLabelSize(0.06);
 
     // hist.at(i)->GetXaxis()->SetTitleOffset(3);
- hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
+    //       hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
 
     // hist.at(i)->GetYaxis()->SetTitleOffset(0.9);
 
@@ -647,21 +647,21 @@ void TF_varKinem_ratio(string pathname, int which_plots)
     //legend_texts ={"(0e,1#gamma) SR","(1e,0#gamma) CR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     legend_texts ={"Z -> #nu#nu + #gamma","Z -> ll + #gamma"};
     //sprintf(hname,"");
-    sprintf(string_png,"Zinv_CRvsSR_%s",TFbins_str);
+    sprintf(string_png,"FR_CRvsSR_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_29Jan24",string_png);
-    f[0] = new TFile("Summer20UL18_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
-    f[1] = new TFile("Summer20UL17_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
-    f[2] = new TFile("Summer20UL16_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
-    f[3] = new TFile("Summer20UL16APV_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
-    f[4] = new TFile("Summer20UL_total2016_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
-    f[5] = new TFile("FullRun2_totalZtoNuNu_PhoIdloose_phopt40_MET200.root");
+    f[0] = new TFile("Summer20UL18_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
+    f[1] = new TFile("Summer20UL17_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
+    f[2] = new TFile("Summer20UL16_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
+    f[3] = new TFile("Summer20UL16APV_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
+    f[4] = new TFile("Summer20UL_total2016_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
+    f[5] = new TFile("FullRun2_totalZtoNuNu_PhoIdloose_phopt100_MET200.root");
 
-    f1[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-    f1[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-    f1[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-    f1[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-    f1[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt40_MET200.root");
-    f1[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt40_MET200.root");
+    f1[0] = new TFile("Summer20UL18_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+    f1[1] = new TFile("Summer20UL17_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+    f1[2] = new TFile("Summer20UL16_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+    f1[3] = new TFile("Summer20UL16APV_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+    f1[4] = new TFile("Summer20UL_total2016_totalZtoLL_PhoIdloose_phopt100_MET200.root");
+    f1[5] = new TFile("FullRun2_totalZtoLL_PhoIdloose_phopt100_MET200.root");
 
     vector<string> filetag=  {"2018","2017","2016postVFP","2016preVFP","2016","FullRun2"};
     vector<float> energyy={59.74,41.53,16.5,19.5,36,137.19};

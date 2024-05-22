@@ -887,48 +887,48 @@ void purityFactor_calc(string pathname, int which_Lept)
       // f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
       cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
       if(which_Lept==0){
-	f[0] =  new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
-	f[1] =  new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
-	f[2] =  new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
-	f[3] =  new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
-	f[4] =  new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
-	f[5] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloose_phopt100_MET200.root");
-	f1[0] = new TFile("Summer20UL18_totalCR_PhoIdloose_phopt100_MET200.root");
-	f1[1] = new TFile("Summer20UL17_totalCR_PhoIdloose_phopt100_MET200.root");
-	f1[2] = new TFile("Summer20UL16_totalCR_PhoIdloose_phopt100_MET200.root");
-	f1[3] = new TFile("Summer20UL16APV_totalCR_PhoIdloose_phopt100_MET200.root");
-	f1[4] = new TFile("Summer20UL_total2016_totalCR_PhoIdloose_phopt100_MET200.root");
-	f1[5] = new TFile("FullRun2_totalCR_PhoIdloose_phopt100_MET200.root");
+	f[0] =  new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
+	f[1] =  new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
+	f[2] =  new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
+	f[3] =  new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
+	f[4] =  new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
+	f[5] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
+	f1[0] = new TFile("Summer20UL18_totalCR_PhoIdloose_phopt40_MET200.root");
+	f1[1] = new TFile("Summer20UL17_totalCR_PhoIdloose_phopt40_MET200.root");
+	f1[2] = new TFile("Summer20UL16_totalCR_PhoIdloose_phopt40_MET200.root");
+	f1[3] = new TFile("Summer20UL16APV_totalCR_PhoIdloose_phopt40_MET200.root");
+	f1[4] = new TFile("Summer20UL_total2016_totalCR_PhoIdloose_phopt40_MET200.root");
+	f1[5] = new TFile("FullRun2_totalCR_PhoIdloose_phopt40_MET200.root");
       }
       else {
-	f[0] = new TFile("out_Data_UL2018_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
-	f[1] = new TFile("out_Data_UL2017_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
-	f[2] = new TFile("out_Data_UL2016_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
-	f[3] = new TFile("out_Data_UL2016APV_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
-	f[4] = new TFile("out_Data_UL20_total2016_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
-	f[5] = new TFile("FullRun2_Allruns_SingleMuon_phoID_loose_pt100_MET200.root");
-	f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-	f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-	f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-	f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-	f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-	f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	f[0] = new TFile("out_Data_UL2018_Allruns_SingleMuon_phoID_loose_pt40_MET200.root");
+	f[1] = new TFile("out_Data_UL2017_Allruns_SingleMuon_phoID_loose_pt40_MET200.root");
+	f[2] = new TFile("out_Data_UL2016_Allruns_SingleMuon_phoID_loose_pt40_MET200.root");
+	f[3] = new TFile("out_Data_UL2016APV_Allruns_SingleMuon_phoID_loose_pt40_MET200.root");
+	f[4] = new TFile("out_Data_UL20_total2016_Allruns_SingleMuon_phoID_loose_pt40_MET200.root");
+	f[5] = new TFile("FullRun2_Allruns_SingleMuon_phoID_loose_pt40_MET200.root");
+	f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
 
 
 
       }
-      // f[0] = new TFile("Summer20UL18_totalCR_PhoIdloose_phopt100_MET200.root");
-      // f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-      // f[1] = new TFile("Summer20UL17_totalCR_PhoIdloose_phopt100_MET200.root");
-      // f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-      // f[2] = new TFile("Summer20UL16_totalCR_PhoIdloose_phopt100_MET200.root");
-      // f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-      // f[3] = new TFile("Summer20UL16APV_totalCR_PhoIdloose_phopt100_MET200.root");
-      // f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-      // f[4] = new TFile("Summer20UL_total2016_totalCR_PhoIdloose_phopt100_MET200.root");
-      // f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
-      // f[5] = new TFile("FullRun2_totalCR_PhoIdloose_phopt100_MET200.root");
-      // f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+      // f[0] = new TFile("Summer20UL18_totalCR_PhoIdloose_phopt40_MET200.root");
+      // f1[0] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      // f[1] = new TFile("Summer20UL17_totalCR_PhoIdloose_phopt40_MET200.root");
+      // f1[1] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      // f[2] = new TFile("Summer20UL16_totalCR_PhoIdloose_phopt40_MET200.root");
+      // f1[2] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      // f[3] = new TFile("Summer20UL16APV_totalCR_PhoIdloose_phopt40_MET200.root");
+      // f1[3] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      // f[4] = new TFile("Summer20UL_total2016_totalCR_PhoIdloose_phopt40_MET200.root");
+      // f1[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+      // f[5] = new TFile("FullRun2_totalCR_PhoIdloose_phopt40_MET200.root");
+      // f1[5] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
       n_files=6;
     vector<string> filetag1=  {"2018","2017","2016postVFP","2016preVFP","2016","FullRun2"};
     vector<string> filetag=  {"MC : 2018","MC : 2017","MC : 2016postVFP","MC : 2016preVFP","MC : 2016","MC : FullRun2"};

@@ -1,10 +1,9 @@
-
 const int n_pl = 4;
 bool logx = false;
 TString pls[n_pl] = {"FTFP_BERT_EMN","QGSP_FTFP_BERT_EMN","FTFP_BERT_EMM","QGSP_BERT"};
 TString dRs[9] = {"dR < 0.56cm","dR < 1.0cm","dR < 2.0cm","dR < 3.0cm","dR < 5.0cm","dR < 8.0cm","dR < 12.0cm","dR < 18.0cm","dR < 20.0cm"};
 //TString legend_text[11] = {"No cuts","skimmed","lep-veto","isotrk-veto","Pho-Pt>20","Njets>=2","Dphi-cut","MET>100","MET>250","ST>300","Pho-pt>100"};
-TString legend_text[6] ={"t #bar{t} + jets","Z(ee) + Jets","Z(ee)#gamma + jets","Data"};//"single t/#bar{t}","t #bar{t}","W(l#nu) + jets","Data"};//(1#mu,1#gamma) CR","(0#mu,1#gamma) SR","Failed Id","Failed Iso"};//,"Failed acceptance","1e CR"};// {"(0e,0e) SR","(1e,0e) CR","pMSSM_MCMC_106_19786","pMSSM_MCMC_473_54451"};//{"No cuts","skimmed","lep-veto","isotrk-veto","Dphi-cut","MET>250","ST>300","Pho-pt>100"};
+TString legend_text[6] ={"t #bar{t} + #gamma","W(l#nu) + #gamma","single t/#bar{t}","t #bar{t}","W(l#nu) + jets","Data"};//(1#mu,1#gamma) CR","(0#mu,1#gamma) SR","Failed Id","Failed Iso"};//,"Failed acceptance","1e CR"};// {"(0e,0e) SR","(1e,0e) CR","pMSSM_MCMC_106_19786","pMSSM_MCMC_473_54451"};//{"No cuts","skimmed","lep-veto","isotrk-veto","Dphi-cut","MET>250","ST>300","Pho-pt>100"};
 //  if(lName.Contains("ZGZJ")){lName="Z(#nu#bar{#nu}) + #gamma";}
   //  else if(lName.Contains("ZJets")){lName="Z(#nu#bar{#nu}) + jets";}                                                                           
   // else if(lName.Contains("DYJetsToLL")){lName="DY(l^{+}l^{-})";}
@@ -20,10 +19,10 @@ int line_width[12] = {2,2,2,2,3,2,2,2,2,2,2,2};
 int line_style[12] = {1,1,1,1,1,1,1,1,1,1,1,1};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};                                                                               
-int line_color[9] = {kGreen+2,kBlue-9,kRed-7,kBlack,kRed,kBlue+2,kMagenta,kCyan};
+int line_color[9] = {9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};
 //vector <int>col;
 //col.resize(0);
-vector<int> col={kGreen+2,kBlue-9,kRed-7,kBlack,kTeal+9,kOrange,kBlack,kBlue,kMagenta,kBlack,kPink+4,kGreen+2,kOrange+1,kBlue+2};
+vector<int> col={kGray,kCyan-1,kRed,kTeal+9,kOrange,kBlack,kBlue,kMagenta,kBlack,kPink+4,kGreen+2,kOrange+1,kBlue+2};
 
 //int line_color[9] = {kMagenta+2, kGray+2, kRed, kGreen+2, kMagenta, kRed - 3, kBlue + 2 , kCyan + 1 , kGreen + 3 };
 //vector<int> col={kBlue,kBlack,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
@@ -266,7 +265,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     else {
       hist.at(i)->GetYaxis()->SetTitle("Entries");
     }
-     hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+0.01*xrange);
+     hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+4);
     hist.at(i)->SetLineWidth(line_width[i]);
     //    setLastBinAsOverFlow(hist.at(i));
     hist.at(i)->SetLineStyle(line_style[i]);
@@ -283,10 +282,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist.at(i)->GetYaxis()->SetTitleOffset(1.1);
     hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
     decorate(hist.at(i),i);
-    if(i<5){
+    if(i<6){
       legName.push_back(hist.at(i)->GetName());
       //leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"f");
-    if(i==3)
+    if(i==5)
       leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"e2p");
     else
       leg_entry[i] = legend->AddEntry(hist.at(i),legend_text[i],"f");
@@ -311,10 +310,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    p1->SetGrid();
     hist.at(i)= setMyRange(hist.at(i),xmin,xmax);
     setLastBinAsOverFlow(hist.at(i));
-    if(i<3)
+    if(i<5)
       hs_var->Add(hist.at(i));
     hs_var->SetMinimum(ymin);
-    hs_var->SetMaximum(ymax*0.01);
+    hs_var->SetMaximum(ymax*50);
   }
     // 	if(!i) hist.at(i)->Draw("");
     // else   hist.at(i)->Draw(" sames");
@@ -352,11 +351,11 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   
   legend->SetTextSize(0.04);
   legend->Draw();
-  hist.at(3)->SetLineWidth(1);
-  hist.at(3)->SetMarkerStyle(20);
-  hist.at(3)->GetYaxis()->SetTitle("Entries");
+  hist.at(5)->SetLineWidth(1);
+  hist.at(5)->SetMarkerStyle(20);
+  hist.at(5)->GetYaxis()->SetTitle("Entries");
   //  hist.at(4)->SetLineStyle(2);
-  hist.at(3)->Draw("E1same");
+  hist.at(5)->Draw("E1same");
 
   if(log_flag) {
       gPad->SetLogy();
@@ -448,13 +447,11 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetTitle("Data/MC");//TF = #frac{(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.,3.5);
+    hist_ratio->GetYaxis()->SetRangeUser(0.,2);
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     // if(DoRebin)
     //   hist_ratio->Rebin(rebin);
     
-    //hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax);
-    //    setLastBinAsOverFlow(hist_ratio);
     hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+0.01*xmax);
     setLastBinAsOverFlow(hist_ratio);
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
@@ -494,7 +491,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
+void plotAlps_RatioPlots(string pathname, int which_Lept, int which_year)
 {
   char* hname = new char[200];
   char* hist_name  = new char[200];
@@ -527,133 +524,266 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
   float energyy[2]={};
   char *string_png = new char[200];
   
-  if(which_Lept==0){
-    sprintf(string_png,"Elec_CR_zinv");
-    if(which_year==0) {sprintf(dataset,"2016: (2e, 1#gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}    
-    if(which_year==1) {sprintf(dataset,"2017: (2e, 1#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
-    if(which_year==2) {sprintf(dataset,"2018: (2e, 1#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
-    if(which_year==3){sprintf(dataset,"2016preVFP: (2e, 1#gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
-    if(which_year==4){sprintf(dataset,"2016postVFP: (2e, 1#gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
-    if(which_year==5){sprintf(dataset,"Run2: (2e, 1#gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
-  }
-  else if(which_Lept==1){
-       sprintf(string_png,"Muon_CR_zinv");
-       if(which_year==0) {sprintf(dataset,"2016: (2#mu, 1#gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}
-       if(which_year==1) {sprintf(dataset,"2017: (2#mu, 1#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
-       if(which_year==2) {sprintf(dataset,"2018: (2#mu, 1#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
-       if(which_year==3){sprintf(dataset,"2016preVFP: (2#mu, 1#gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
-       if(which_year==4){sprintf(dataset,"2016postVFP: (2#mu, 1#gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
-       if(which_year==5){sprintf(dataset,"Run2: (2#mu, 1#gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
-
-    // if(which_year==0) {sprintf(dataset,"2016: (tag e, probe #gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}
-    // if(which_year==1) {sprintf(dataset,"2017: (tag e, probe #gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
-    // if(which_year==2) {sprintf(dataset,"2018: (tag e, probe #gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
-    // if(which_year==3){sprintf(dataset,"2016preVFP: (tag e, probe #gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
-    // if(which_year==4){sprintf(dataset,"2016postVFP: (tag e, probe #gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
-    // if(which_year==5){sprintf(dataset,"Run2: (tag e, probe #gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
-
-  }
+  //  if(which_Lept==1){
+    sprintf(string_png,"Electron_LL");
+    if(which_year==0) {sprintf(dataset,"2016: (1e, 0#gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}    
+    if(which_year==1) {sprintf(dataset,"2017: (1e, 0#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
+    if(which_year==2) {sprintf(dataset,"2018: (1e, 0#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
+    if(which_year==3){sprintf(dataset,"2016preVFP: (1e, 0#gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
+    if(which_year==4){sprintf(dataset,"2016postVFP: (1e, 0#gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
+     if(which_year==5){sprintf(dataset,"Run2: (1e, 0#gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
      //}
-  else if(which_Lept==2){
-     sprintf(string_png,"Lept_CR_zinv");
-    if(which_year==0) {sprintf(dataset,"2016: (2l, 1#gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}
-    if(which_year==1) {sprintf(dataset,"2017: (2l, 1#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
-    if(which_year==2) {sprintf(dataset,"2018: (2l, 1#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
-    if(which_year==3){sprintf(dataset,"2016preVFP: (2l, 1#gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
-    if(which_year==4){sprintf(dataset,"2016postVFP: (2l, 1#gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
-    if(which_year==5){sprintf(dataset,"Run2: (2l, 1#gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
-  }
+  // else if(which_Lept==2){
+  //   sprintf(string_png,"HEM_veto");
+  //   // if(which_year==0) {sprintf(dataset,"2016: (1l, 1#gamma)"); sprintf(year,"SummerUL16");energyy[0]=35.922;}
+  //   // if(which_year==1) {sprintf(dataset,"2017: (1l, 1#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
+  //   // if(which_year==2) {sprintf(dataset,"2018: (1l, 1#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
+  //   // if(which_year==3){sprintf(dataset,"2016preVFP: (1l, 1#gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
+  //   // if(which_year==4){sprintf(dataset,"2016postVFP: (1l, 1#gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
+  //   // if(which_year==5){sprintf(dataset,"Run2: (1l, 1#gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
 
-  if(which_year==2){
-    f[0] = new TFile("Summer20UL18_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-    f[1] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");
-    f[2] = new TFile("Summer20UL18_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-    f[3] = new TFile("Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-  }
+  // }
+  // else
+  //   {
+  //     sprintf(string_png,"Muon_LL");
+  //     // if(which_year==0) {sprintf(dataset,"2016: (1#mu, 1#gamma)"); sprintf(year,"Summer20UL16");energyy[0]=35.922;}
+  //     // if(which_year==1) {sprintf(dataset,"2017: (1#mu, 1#gamma)");sprintf(year,"Summer20UL17");energyy[0]=41.529;}
+  //     // if(which_year==2) {sprintf(dataset,"2018: (1#mu, 1#gamma)");sprintf(year,"Summer20UL18");energyy[0]=59.74;}
+  //     // if(which_year==3){sprintf(dataset,"2016preVFP: (1#mu, 1#gamma)"); sprintf(year,"SummerUL16preVFP");energyy[0]=19.5;}
+  //     // if(which_year==4){sprintf(dataset,"2016postVFP: (1#mu, 1#gamma)"); sprintf(year,"SummerUL16postVFP");energyy[0]=16.5;}
+  //     //  if(which_year==5){sprintf(dataset,"Run2: (1#mu, 1#gamma)"); sprintf(year,"FullRun2");energyy[0]=137.19;}
+      
+  //   }
+
+  // if(which_Lept==1)
+  //   {
+      if(which_year==2){
+       f[0] = new TFile("./Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");
+       f[1] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200.root");
+       f[3] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200.root");
+       f[4] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
+       f[2] = new TFile("./Summer20UL18_singleTop_PhoIdloose_phopt40_MET200.root");
+       f[5]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200.root");
+       //       f[5]= new TFile("./Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");}
+      }
        if(which_year==1)
 	 {
-	   f[0] = new TFile("Summer20UL17_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");
-	   f[2] = new TFile("Summer20UL17_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	   f[3] = new TFile("Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	   f[0] = new TFile("./Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");
+       f[1] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200.root");
+       f[3] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200.root");
+       f[4] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
+       f[2] = new TFile("./Summer20UL17_singleTop_PhoIdloose_phopt40_MET200.root");
+       f[5]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200.root");
+       //f[5]= new TFile("./Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");}
+    
 	 }
        if(which_year==3){
-	 f[0] = new TFile("Summer20UL16APV_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	 f[1] = new TFile("Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root");
-	 f[2] = new TFile("Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	 f[3] = new TFile("Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-
+	        f[0] = new TFile("./Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root");
+       f[1] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200.root");
+       f[3] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200.root");
+       f[4] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
+       f[2] = new TFile("./Summer20UL16APV_singleTop_PhoIdloose_phopt40_MET200.root");
+       f[5]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200.root");
+       //f[5]= new TFile("./Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root");}
        }
        if(which_year==4)
          {
-	   f[0] = new TFile("Summer20UL16_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[1] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
-	   f[2] = new TFile("Summer20UL16_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	   f[3] = new TFile("Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
-
+	   f[0] = new TFile("./Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
+	   f[1] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200.root");
+	   f[3] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200.root");
+	   f[4] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
+	   f[2] = new TFile("./Summer20UL16_singleTop_PhoIdloose_phopt40_MET200.root");
+	   f[5]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200.root");
+	   //f[5]= new TFile("./Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
 	 }
 
        if(which_year==0)
          {
-	     f[0] = new TFile("Summer20UL_total2016_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	     f[1] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloose_phopt40_MET200.root");
-	     f[2] = new TFile("Summer20UL_total2016_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	     f[3] = new TFile("Summer20UL_total2016_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	   
+	   f[0] = new TFile("./Summer20UL_total2016_TTGJets_PhoIdloose_phopt40_MET200.root");
+	   f[1] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200.root");
+	   f[3] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200.root");
+	   f[4] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
+	   f[2]= new TFile("./Summer20UL_total2016_singleTop_PhoIdloose_phopt40_MET200.root");
+	   f[5]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200.root");
+	   //f[5]= new TFile("./Summer20UL_total2016_TTGJets_PhoIdloose_phopt40_MET200.root");
 	 }
        if(which_year==5)
         {
-	  f[0] = new TFile("FullRun2_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	  f[1] = new TFile("FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
-	  f[2] = new TFile("FullRun2_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
-	  f[3] = new TFile("FullRun2_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+          f[0] = new TFile("./FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
+	  f[1] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200.root");
+          f[3] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200.root");
+          f[4] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root");
+	  f[2] = new TFile("./FullRun2_singleTop_PhoIdloose_phopt40_MET200.root");
+          f[5]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200.root");
+	  //          f[5]= new TFile("./FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
+
          }
+
+
+       //}
+  // else if(which_Lept==2)
+  //   {
+  //     if(which_year==0)
+  //        {
+  // 	   f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	   f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	   f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	   f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	   f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+  // 	   f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	 }
+  //      if(which_year==2)
+  //       {
+  //           f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //          f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //          f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+  //      f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+
+  //        }
+  //        if(which_year==1)
+  //       {
+  // 	  f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	  f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	  f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	  f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  // 	  f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+  // 	  f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+
+  //        }
+  // 	    if(which_year==5)
+  //       {
+  //         f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //         f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //         f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //         f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //         f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+  //         f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+
+  //        }
+  // 	    if(which_year==3){
+  //      f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+  //      f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");}
+  //      if(which_year==4)
+  //        {
+  //          f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Lepton.root");
+  //      f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_LeptonLL.root");
+  //        }
+
+
+
+
+  //   }
+  // else
+  //   {
+  //     if(which_year==2)
+  // 	{
+  // 	    f[0] = new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //          f[1] = new TFile("./Summer20UL18_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //          f[3] = new TFile("./Summer20UL18_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[2] = new TFile("./Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2018_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+  //      f[5]= new TFile("./Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+
+  // 	 }
+  //     if(which_year==5)
+  //       {
+  //         f[0] = new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //         f[1] = new TFile("./FullRun2_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //         f[3] = new TFile("./FullRun2_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //         f[2] = new TFile("./FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //         f[4]= new TFile("./out_Data_FullRun2_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+  //         f[5]= new TFile("./FullRun2_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+
+  //        }
+
+  //     if(which_year==1)
+  // 	{
+  // 	  f[0] = new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[1] = new TFile("./Summer20UL17_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[3] = new TFile("./Summer20UL17_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[2] = new TFile("./Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2017_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+  //      f[5]= new TFile("./Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  // 	}
+  //     if(which_year==0)
+  // 	{
+  // 	  f[0] = new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[1] = new TFile("./Summer20UL_total2016_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[3] = new TFile("./Summer20UL_total2016_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[2] = new TFile("./Summer20UL_total2016_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[4]= new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+  //      f[5]= new TFile("./Summer20UL_total2016_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+
+  // 	}
+  //     if(which_year==3){
+  //      f[0] = new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[1] = new TFile("./Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[3] = new TFile("./Summer20UL16APV_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[2] = new TFile("./Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+  //      f[5]= new TFile("./Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");}
+  //      if(which_year==4)
+  //        {
+  //          f[0] = new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[1] = new TFile("./Summer20UL16_TTJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[3] = new TFile("./Summer20UL16_WGJets_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[2] = new TFile("./Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //      f[4]= new TFile("./out_Data_UL2016_Allruns_MET_phoID_loose_pt40_MET200_Muon.root");
+  //      f[5]= new TFile("./Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_MET200_MuonLL.root");
+  //        }
+
+    
+  //   }
 
   vector<string>varName;
   vector<string>varName1;
-  
-  // if(which_Lept==0)
-  //   {
-  varName ={"h_St_Elec_CR","h_HT_Elec_CR","h_NhadJets_Elec_CR","h_NBJets_Elec_CR","h_MET_Elec_CR","h_PhoPt_Elec_CR","h_qmulti_Elec_CR","h_Photon_Eta_Elec_CR","h_Photon_Phi_Elec_CR","h_MET_Phi_Elec_CR","h_leadJets_qmulti_Elec_CR","h_leadJet_Pt_Elec_CR","h_leadbjet_tag_Elec_CR","h_nvrtx_Elec_CR","h_minDR_Jets_EMObject_Elec_CR","h_Phi_leadJet1_Elec_CR","h_Eta_leadJet1_Elec_CR","h_Pt_leadJet1_Elec_CR","h_dPhi_METJet1_Elec_CR","h_Phi_leadJet2_Elec_CR","h_Eta_leadJet2_Elec_CR","h_Pt_leadJet2_Elec_CR","h_dPhi_METJet2_Elec_CR","h_Phi_leadJet3_Elec_CR","h_Eta_leadJet3_Elec_CR","h_Pt_leadJet3_Elec_CR","h_dPhi_METJet3_Elec_CR","h_Phi_leadJet4_Elec_CR","h_Eta_leadJet4_Elec_CR","h_Pt_leadJet4_Elec_CR","h_dPhi_METJet4_Elec_CR","h_Phi_matchedJet_Elec_CR","h_Eta_matchedJet_Elec_CR","h_Pt_matchedJet_Elec_CR","h_HT5HT_Elec_CR","h_Mt_phoMET_Elec_CR","h_dPhi_phoMet_Elec_CR","h_invariantMass_Elec_CR","h_ZpT_Elec_CR","FR_nbtagBins_Elec_CR","h_tagEle_pT_Elec_CR","h_tagEle_Eta_Elec_CR","h_tagEle_Phi_Elec_CR","h_ZpT_Elec_CR"};//,"h_BDT_response_Elec_CR","h_Mt_phoMET_Elec_CR","h_dPhi_phoMet_Elec_CR"};
+
+  if(which_Lept==0)
+    {
+      varName ={"h_St_Elec_CR","h_HT_Elec_CR","h_NhadJets_Elec_CR","h_NBJets_Elec_CR","h_MET_Elec_CR","h_PhoPt_Elec_CR","h_qmulti_Elec_CR","h_Photon_Eta_Elec_CR","h_Photon_Phi_Elec_CR","h_MET_Phi_Elec_CR","h_leadJets_qmulti_Elec_CR","h_leadJet_Pt_Elec_CR","h_leadbjet_tag_Elec_CR","h_nvrtx_Elec_CR","h_minDR_Jets_EMObject_Elec_CR","h_Phi_leadJet1_Elec_CR","h_Eta_leadJet1_Elec_CR","h_Pt_leadJet1_Elec_CR","h_dPhi_METJet1_Elec_CR","h_Phi_leadJet2_Elec_CR","h_Eta_leadJet2_Elec_CR","h_Pt_leadJet2_Elec_CR","h_dPhi_METJet2_Elec_CR","h_Phi_leadJet3_Elec_CR","h_Eta_leadJet3_Elec_CR","h_Pt_leadJet3_Elec_CR","h_dPhi_METJet3_Elec_CR","h_Phi_leadJet4_Elec_CR","h_Eta_leadJet4_Elec_CR","h_Pt_leadJet4_Elec_CR","h_dPhi_METJet4_Elec_CR","h_Phi_matchedJet_Elec_CR","h_Eta_matchedJet_Elec_CR","h_Pt_matchedJet_Elec_CR","h_HT5HT_Elec_CR","h_Mt_phoMET_Elec_CR","h_dPhi_phoMet_Elec_CR"};//,"h_BDT_response_Elec_CR","h_Mt_phoMET_Elec_CR","h_dPhi_phoMet_Elec_CR"};
       //varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
       
-      //}
-  // else if (which_Lept==1)
-  //   {
-  //     varName ={"h_St_Pho_SR","h_HT_Pho_SR","h_NhadJets_Pho_SR","h_NBJets_Pho_SR","h_MET_Pho_SR","h_PhoPt_Pho_SR","h_qmulti_Pho_SR","h_Photon_Eta_Pho_SR","h_Photon_Phi_Pho_SR","h_MET_Phi_Pho_SR","h_leadJets_qmulti_Pho_SR","h_leadJet_Pt_Pho_SR","h_leadbjet_tag_Pho_SR","h_nvrtx_Pho_SR","h_minDR_Jets_EMObject_Pho_SR","h_Phi_leadJet1_Pho_SR","h_Eta_leadJet1_Pho_SR","h_Pt_leadJet1_Pho_SR","h_dPhi_METJet1_Pho_SR","h_Phi_leadJet2_Pho_SR","h_Eta_leadJet2_Pho_SR","h_Pt_leadJet2_Pho_SR","h_dPhi_METJet2_Pho_SR","h_Phi_leadJet3_Pho_SR","h_Eta_leadJet3_Pho_SR","h_Pt_leadJet3_Pho_SR","h_dPhi_METJet3_Pho_SR","h_Phi_leadJet4_Pho_SR","h_Eta_leadJet4_Pho_SR","h_Pt_leadJet4_Pho_SR","h_dPhi_METJet4_Pho_SR","h_Phi_matchedJet_Pho_SR","h_Eta_matchedJet_Pho_SR","h_Pt_matchedJet_Pho_SR","h_HT5HT_Pho_SR","h_Mt_phoMET_Pho_SR","h_dPhi_phoMet_Pho_SR","h_invariantMass_Pho_SR","h_invariantMass_noCut_Pho_SR","h_tagEle_pT_Pho_SR","h_tagEle_Eta_Pho_SR","h_tagEle_Phi_Pho_SR","h_ZpT_Pho_SR"};
-  //     //varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
-  //   }
-  // else if (which_Lept==2)
-  //   {
-  //     varName ={"h_St_ProbL1Trig_Elec_CR","h_HT_ProbL1Trig_Elec_CR","h_NhadJets_ProbL1Trig_Elec_CR","h_NBJets_ProbL1Trig_Elec_CR","h_MET_ProbL1Trig_Elec_CR","h_PhoPt_ProbL1Trig_Elec_CR","h_qmulti_ProbL1Trig_Elec_CR","h_Photon_Eta_ProbL1Trig_Elec_CR","h_Photon_Phi_ProbL1Trig_Elec_CR","h_MET_Phi_ProbL1Trig_Elec_CR","h_leadJets_qmulti_ProbL1Trig_Elec_CR","h_leadJet_Pt_ProbL1Trig_Elec_CR","h_leadbjet_tag_ProbL1Trig_Elec_CR","h_nvrtx_ProbL1Trig_Elec_CR","h_minDR_Jets_EMObject_ProbL1Trig_Elec_CR","h_Phi_leadJet1_ProbL1Trig_Elec_CR","h_Eta_leadJet1_ProbL1Trig_Elec_CR","h_Pt_leadJet1_ProbL1Trig_Elec_CR","h_dPhi_METJet1_ProbL1Trig_Elec_CR","h_Phi_leadJet2_ProbL1Trig_Elec_CR","h_Eta_leadJet2_ProbL1Trig_Elec_CR","h_Pt_leadJet2_ProbL1Trig_Elec_CR","h_dPhi_METJet2_ProbL1Trig_Elec_CR","h_Phi_leadJet3_ProbL1Trig_Elec_CR","h_Eta_leadJet3_ProbL1Trig_Elec_CR","h_Pt_leadJet3_ProbL1Trig_Elec_CR","h_dPhi_METJet3_ProbL1Trig_Elec_CR","h_Phi_leadJet4_ProbL1Trig_Elec_CR","h_Eta_leadJet4_ProbL1Trig_Elec_CR","h_Pt_leadJet4_ProbL1Trig_Elec_CR","h_dPhi_METJet4_ProbL1Trig_Elec_CR","h_Phi_matchedJet_ProbL1Trig_Elec_CR","h_Eta_matchedJet_ProbL1Trig_Elec_CR","h_Pt_matchedJet_ProbL1Trig_Elec_CR","h_HT5HT_ProbL1Trig_Elec_CR","h_Mt_phoMET_ProbL1Trig_Elec_CR","h_dPhi_phoMet_ProbL1Trig_Elec_CR"};//,"h_BDT_response_ProbL1Trig_Elec_CR","h_Mt_phoMET_ProbL1Trig_Elec_CR","h_dPhi_phoMet_ProbL1Trig_Elec_CR"};
-  //     //varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
-  //   }
+    }
+  else if (which_Lept==1)
+    {
+      varName ={"h_St_HEM_veto_Elec_CR","h_HT_HEM_veto_Elec_CR","h_NhadJets_HEM_veto_Elec_CR","h_NBJets_HEM_veto_Elec_CR","h_MET_HEM_veto_Elec_CR","h_PhoPt_HEM_veto_Elec_CR","h_qmulti_HEM_veto_Elec_CR","h_Photon_Eta_HEM_veto_Elec_CR","h_Photon_Phi_HEM_veto_Elec_CR","h_MET_Phi_HEM_veto_Elec_CR","h_leadJets_qmulti_HEM_veto_Elec_CR","h_leadJet_Pt_HEM_veto_Elec_CR","h_leadbjet_tag_HEM_veto_Elec_CR","h_nvrtx_HEM_veto_Elec_CR","h_minDR_Jets_EMObject_HEM_veto_Elec_CR","h_Phi_leadJet1_HEM_veto_Elec_CR","h_Eta_leadJet1_HEM_veto_Elec_CR","h_Pt_leadJet1_HEM_veto_Elec_CR","h_dPhi_METJet1_HEM_veto_Elec_CR","h_Phi_leadJet2_HEM_veto_Elec_CR","h_Eta_leadJet2_HEM_veto_Elec_CR","h_Pt_leadJet2_HEM_veto_Elec_CR","h_dPhi_METJet2_HEM_veto_Elec_CR","h_Phi_leadJet3_HEM_veto_Elec_CR","h_Eta_leadJet3_HEM_veto_Elec_CR","h_Pt_leadJet3_HEM_veto_Elec_CR","h_dPhi_METJet3_HEM_veto_Elec_CR","h_Phi_leadJet4_HEM_veto_Elec_CR","h_Eta_leadJet4_HEM_veto_Elec_CR","h_Pt_leadJet4_HEM_veto_Elec_CR","h_dPhi_METJet4_HEM_veto_Elec_CR","h_Phi_matchedJet_HEM_veto_Elec_CR","h_Eta_matchedJet_HEM_veto_Elec_CR","h_Pt_matchedJet_HEM_veto_Elec_CR","h_HT5HT_HEM_veto_Elec_CR","h_Mt_phoMET_HEM_veto_Elec_CR","h_dPhi_phoMet_HEM_veto_Elec_CR"};
+      //varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
+    }
+  else if (which_Lept==2)
+    {
+      varName ={"h_St_ProbL1Trig_Elec_CR","h_HT_ProbL1Trig_Elec_CR","h_NhadJets_ProbL1Trig_Elec_CR","h_NBJets_ProbL1Trig_Elec_CR","h_MET_ProbL1Trig_Elec_CR","h_PhoPt_ProbL1Trig_Elec_CR","h_qmulti_ProbL1Trig_Elec_CR","h_Photon_Eta_ProbL1Trig_Elec_CR","h_Photon_Phi_ProbL1Trig_Elec_CR","h_MET_Phi_ProbL1Trig_Elec_CR","h_leadJets_qmulti_ProbL1Trig_Elec_CR","h_leadJet_Pt_ProbL1Trig_Elec_CR","h_leadbjet_tag_ProbL1Trig_Elec_CR","h_nvrtx_ProbL1Trig_Elec_CR","h_minDR_Jets_EMObject_ProbL1Trig_Elec_CR","h_Phi_leadJet1_ProbL1Trig_Elec_CR","h_Eta_leadJet1_ProbL1Trig_Elec_CR","h_Pt_leadJet1_ProbL1Trig_Elec_CR","h_dPhi_METJet1_ProbL1Trig_Elec_CR","h_Phi_leadJet2_ProbL1Trig_Elec_CR","h_Eta_leadJet2_ProbL1Trig_Elec_CR","h_Pt_leadJet2_ProbL1Trig_Elec_CR","h_dPhi_METJet2_ProbL1Trig_Elec_CR","h_Phi_leadJet3_ProbL1Trig_Elec_CR","h_Eta_leadJet3_ProbL1Trig_Elec_CR","h_Pt_leadJet3_ProbL1Trig_Elec_CR","h_dPhi_METJet3_ProbL1Trig_Elec_CR","h_Phi_leadJet4_ProbL1Trig_Elec_CR","h_Eta_leadJet4_ProbL1Trig_Elec_CR","h_Pt_leadJet4_ProbL1Trig_Elec_CR","h_dPhi_METJet4_ProbL1Trig_Elec_CR","h_Phi_matchedJet_ProbL1Trig_Elec_CR","h_Eta_matchedJet_ProbL1Trig_Elec_CR","h_Pt_matchedJet_ProbL1Trig_Elec_CR","h_HT5HT_ProbL1Trig_Elec_CR","h_Mt_phoMET_ProbL1Trig_Elec_CR","h_dPhi_phoMet_ProbL1Trig_Elec_CR"};//,"h_BDT_response_ProbL1Trig_Elec_CR","h_Mt_phoMET_ProbL1Trig_Elec_CR","h_dPhi_phoMet_ProbL1Trig_Elec_CR"};
+      //varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
+    }
   //    vector<string>varName1;
   varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
   vector <string>  xLabel;
-  xLabel={"Sum of P_{T}^{Jets} & P_{T}^{elec} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{EM-obj} [GeV]","q-multi","#eta_{elec}","#phi_{elec}","MET phi","q multi of leading jets","P_{T}^{lead jet1)}","b-tagger deep csv value","number of vertices","mindR(matched Jet, Electron)","#phi^{lead Jet1}","#eta^{lead Jet1}","P_{T}^{lead Jet1}","d#phi(P_{T}^{miss},lead Jet1)","#phi^{lead Jet2}","#eta^{lead Jet2}","P_{T}^{lead Jet2}","d#phi(P_{T}^{miss},lead Jet2)","#phi^{lead Jet3}","#eta^{lead Jet3}","P_{T}^{lead Jet3}","d#phi(P_{T}^{miss},lead Jet3)","#phi^{lead Jet4}","#eta^{lead Jet4}","P_{T}^{lead Jet4}","d#phi(P_{T}^{miss},lead Jet4)","#phi of matched Jet","#eta of matched Jet","P_{T} of matched Jet","HT5/HT","M_{T}^{miss & elec} [GeV]","dPhi(elec,MET)","M^{inv}_{tag & probe}","P_{T}^{Z}","Bin no.","P_{T}^{tag-e}","#eta^{tag-e}","#phi^{tag-e}","P_{T}^{Z}"};
+  xLabel={"Sum of P_{T}^{Jets} & P_{T}^{elec} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{elec} [GeV]","q-multi","#eta_{elec}","#phi_{elec}","MET phi","q multi of leading jets","P_{T}^{lead jet1)","b-tagger deep csv value","number of vertices","mindR(matched Jet, Electron)","#phi^{lead Jet1}","#eta^{lead Jet1}","P_{T}^{lead Jet1}","d#phi(P_{T}^{miss},lead Jet1)","#phi^{lead Jet2}","#eta^{lead Jet2}","P_{T}^{lead Jet2}","d#phi(P_{T}^{miss},lead Jet2)","#phi^{lead Jet3}","#eta^{lead Jet3}","P_{T}^{lead Jet3}","d#phi(P_{T}^{miss},lead Jet3)","#phi^{lead Jet4}","#eta^{lead Jet4}","P_{T}^{lead Jet4}","d#phi(P_{T}^{miss},lead Jet4)","#phi of matched Jet","#eta of matched Jet","P_{T} of matched Jet","HT5/HT","M_{T}^{miss & elec} [GeV]","dPhi(elec,MET)"};
   vector <int> rebin;
-  rebin={4,4,1,1,8,8,1,4,4,4,1,4,4,1,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,4,4,15,1,1,4,4,4,5};
-  vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
-  vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
-  vector<double> xmin ={100,100,2,0,200,20,0,-10,-10,-10,0,0,0,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0.9,0,0,80,0,0,0,0,-5,-5,0,0};
-  vector<double> xmax={1500,1500,8,4,800,400,20,10,10,10,100,1000,1,50,0.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,2,150,3,100,1000,3,600,3,5,5,1000,1000};
+  rebin={4,4,1,1,8,8,4,4,4,4,1,4,4,1,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,4};
+  vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+  vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
+  vector<double> xmin ={300,300,2,0,100,20,0,-10,-10,-10,0,0,0,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0.9,0,0};
+  vector<double> xmax={1500,1500,16,12,1000,400,100,10,10,10,100,1000,1,50,0.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,3.5,5,5,1000,2,150,3};
      
   vector<string>baseline1;
   vector<string> baseline = {"Nocut", "PreSmuontion","Electron_CR","Electron_SR","FailAcep_ElectronSR","FailId_ElectronSR","FailIso_ElectronSR","Mu_CR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Electron_CR_BDTcut1","Electron_SR_BDTcut1","FailAcep_ElectronSR_BDTcut1","FailId_ElectronSR_BDTcut1","FailIso_ElectronSR_BDTcut1","Mu_CR_BDTcut1","Mu_SR_BDTcut1","FailAcep_MuSR_BDTcut1","FailId_MuSR_BDTcut1","FailIso_MuSR_BDTcut1","Electron_CR_BDTcut2","Electron_SR_BDTcut2","FailAcep_ElectronSR_BDTcut2","FailId_ElectronSR_BDTcut2","FailIso_ElectronSR_BDTcut2","Mu_CR_BDTcut2","Mu_SR_BDTcut2","FailAcep_MuSR_BDTcut2","FailId_MuSR_BDTcut2","FailIso_MuSR_BDTcut2"};
 
-    cout<<varName.size()<<"\t"<<xLabel.size()<<"\t"<<rebin.size()<<"\t"<<xmax.size()<<"\t"<<xmin.size()<<endl;
-
   //     vector<string> baseline1 = {"FailId_ElecSR","FailIso_ElecSR","FailAcep_ElecSR"};
-  // if(which_Lept)
-  //   baseline1={"Elec_CR","Mu_CR","Elec_SR","Elec_SR","Mu_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
-  // else
-  //   baseline1 = {"Mu_CR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","FailAcep_MuSR","Mu_SR","Mu_"};
+  if(which_Lept)
+    baseline1={"Elec_CR","Mu_CR","Elec_SR","Elec_SR","Mu_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
+  else
+    baseline1 = {"Mu_CR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","FailAcep_MuSR","Mu_SR","Mu_"};
   //   const char *baseline1[3]={"Nocut","Mu_SR","Mu_CR"};
       //   const char *baseline1[9]={"Nocut","SignalRegion","lostElec_SR","lostMu_SR","lostTau_SR","lostElec_SR_iso","lostElec_SR_Accept","lostElec_SR_ident"};
   //  const char* filetag[8]={"TTGJets_2018","TTGJets_2017","TTGJets_2016","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016","Run2_WGJets"};
@@ -671,20 +801,20 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
   vector<TH1D*> hist_list_HT;
   vector<TH1D*> hist_list_dPhiPhoMET;
   vector<TH1D*> hist_list_BDTresponse;
-  for(int ivar=0;ivar<varName.size()-4;ivar++)
+  for(int ivar=0;ivar<varName.size();ivar++)
     {
       vector<TH1D*> hist_list_Njets;
-      for(int i_file=1; i_file<5;i_file++)
+      for(int i_file=0; i_file<6;i_file++)
 	{
 	  sprintf(hist_name,"%s",varName[ivar].c_str());
 	  cout<<hist_name<<"\t"<<ivar<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<endl;
 	  TH1D* h_resp = (TH1D*)f[i_file]->Get(hist_name);
 	  // sprintf(hist_name,"%s",varName1[ivar].c_str());
 	  // TH1D* h_resp1 = (TH1D*)f[i_file]->Get(hist_name);
-	  cout<<h_resp->Integral()<<"\t"<<f[i_file]->GetName()<<"\t"<<rebin[ivar]<<"\t"<<xmin[ivar]<<"\t"<<xmax[ivar]<<endl;
-	  setLastBinAsOverFlow(h_resp);//, xmax[ivar]);
+	  cout<<h_resp->Integral()<<"\t"<<f[i_file]->GetName()<<endl;
+	  //setLastBinAsOverFlow(h_resp);//, xmax[ivar]);
 	  h_resp->Rebin(rebin[ivar]);
-	  setLastBinAsOverFlow(h_resp);
+	  //setLastBinAsOverFlow(h_resp);
 	  hist_list_Njets.push_back(h_resp);
 	}
       //path to save the png file
@@ -693,15 +823,14 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
       TH1D* hNjets_total =(TH1D*)hist_list_Njets.at(0)->Clone();
       hNjets_total->Add(hist_list_Njets.at(1));
       hNjets_total->Add(hist_list_Njets.at(2));
-      //      hNjets_total->Add(hist_list_Njets.at());
-      //hNjets_total->Add(hist_list_Njets.at(4));
+      hNjets_total->Add(hist_list_Njets.at(3));
+      hNjets_total->Add(hist_list_Njets.at(4));
 
-      TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(3)->Clone();
+      TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(5)->Clone();
       hNjets_ratio->Divide(hNjets_total);
-      setLastBinAsOverFlow(hNjets_ratio);
       //      hNjets_ratio->Rebin(rebin[ivar]);
 
-      sprintf(full_path,"%s/%s_%s_%s_DataMC_compare",pathname.c_str(),string_png,year,varName[ivar].c_str());
+      sprintf(full_path,"%s/%s_%s_%s_DataMC_CR_compare",pathname.c_str(),string_png,year,varName[ivar].c_str());
       generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[ivar].c_str(),"Entries",energy,rebin[ivar],ymin[ivar],ymax[ivar],xmin[ivar],xmax[ivar],leg_head,false,true,false,true,dataset);
       
       

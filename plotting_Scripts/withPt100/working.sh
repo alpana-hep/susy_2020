@@ -21,21 +21,21 @@
 # ## Transfer factors
 # root -b 'SRvsCRStacked_LL_varRatio.C("Results/TransferFactors/TFbins_v1_nJets_BJets",1)'
 # ## MC-Data comparisons 1 electron CR
-                                                                                                          
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,0)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,1)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,2)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,3)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,4)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,5)'
+## For SF                                                                                                          
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,0)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,1)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,2)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,3)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,4)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Electron/",0,5)'
 
 
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,0)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,1)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,2)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,3)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,4)'
-# root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,5)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,0)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,1)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,2)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,3)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,4)'
+root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Muon/",1,5)'
 
 root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Lepton/",2,0)'
 root -b -q 'CRcompare_DataVsMC.C("Results/data_mcComparisons/Lepton/",2,1)'

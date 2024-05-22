@@ -564,53 +564,53 @@ void SF_CRcompare_DatavsMC(string pathname, int which_Lept, int which_year)
   }
 
   if(which_year==2){
-    f[0] = new TFile("Summer20UL18_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-    f[1] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt100_MET200.root");
-    f[2] = new TFile("Summer20UL18_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
-    f[3] = new TFile("Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+    f[0] = new TFile("Summer20UL18_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+    f[1] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");
+    f[2] = new TFile("Summer20UL18_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
+    f[3] = new TFile("Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
   }
        if(which_year==1)
 	 {
-	   f[0] = new TFile("Summer20UL17_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	   f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt100_MET200.root");
-	   f[2] = new TFile("Summer20UL17_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
-	   f[3] = new TFile("Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	   f[0] = new TFile("Summer20UL17_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	   f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");
+	   f[2] = new TFile("Summer20UL17_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
+	   f[3] = new TFile("Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
 	 }
        if(which_year==3){
-	 f[0] = new TFile("Summer20UL16APV_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	 f[1] = new TFile("Summer20UL16APV_TTGJets_PhoIdloose_phopt100_MET200.root");
-	 f[2] = new TFile("Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
-	 f[3] = new TFile("Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	 f[0] = new TFile("Summer20UL16APV_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	 f[1] = new TFile("Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root");
+	 f[2] = new TFile("Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
+	 f[3] = new TFile("Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
 
        }
        if(which_year==4)
          {
-	   f[0] = new TFile("Summer20UL16_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	   f[1] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt100_MET200.root");
-	   f[2] = new TFile("Summer20UL16_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
-	   f[3] = new TFile("Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	   f[0] = new TFile("Summer20UL16_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	   f[1] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
+	   f[2] = new TFile("Summer20UL16_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
+	   f[3] = new TFile("Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
 
 	 }
 
        if(which_year==0)
          {
-	     f[0] = new TFile("Summer20UL_total2016_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	     f[1] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloose_phopt100_MET200.root");
-	     f[2] = new TFile("Summer20UL_total2016_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
-	     f[3] = new TFile("Summer20UL_total2016_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	     f[0] = new TFile("Summer20UL_total2016_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	     f[1] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloose_phopt40_MET200.root");
+	     f[2] = new TFile("Summer20UL_total2016_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
+	     f[3] = new TFile("Summer20UL_total2016_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
 	 }
        if(which_year==5)
         {
-	  f[0] = new TFile("FullRun2_WGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	  f[1] = new TFile("FullRun2_TTGJets_PhoIdloose_phopt100_MET200.root");
-	  f[2] = new TFile("FullRun2_DYJets_Mt50_PhoIdloose_phopt100_MET200.root");
-	  f[3] = new TFile("FullRun2_ZLLGJets_MonoPhoton_PhoIdloose_phopt100_MET200.root");
-	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt100_MET200.root");
+	  f[0] = new TFile("FullRun2_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	  f[1] = new TFile("FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
+	  f[2] = new TFile("FullRun2_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
+	  f[3] = new TFile("FullRun2_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
+	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
          }
 
   vector<string>varName;
@@ -637,7 +637,7 @@ void SF_CRcompare_DatavsMC(string pathname, int which_Lept, int which_year)
   vector <string>  xLabel;
   xLabel={"Sum of P_{T}^{Jets} & P_{T}^{elec} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{EM-obj} [GeV]","q-multi","#eta_{elec}","#phi_{elec}","MET phi","q multi of leading jets","P_{T}^{lead jet1)}","b-tagger deep csv value","number of vertices","mindR(matched Jet, Electron)","#phi^{lead Jet1}","#eta^{lead Jet1}","P_{T}^{lead Jet1}","d#phi(P_{T}^{miss},lead Jet1)","#phi^{lead Jet2}","#eta^{lead Jet2}","P_{T}^{lead Jet2}","d#phi(P_{T}^{miss},lead Jet2)","#phi^{lead Jet3}","#eta^{lead Jet3}","P_{T}^{lead Jet3}","d#phi(P_{T}^{miss},lead Jet3)","#phi^{lead Jet4}","#eta^{lead Jet4}","P_{T}^{lead Jet4}","d#phi(P_{T}^{miss},lead Jet4)","#phi of matched Jet","#eta of matched Jet","P_{T} of matched Jet","HT5/HT","M_{T}^{miss & elec} [GeV]","dPhi(elec,MET)","M^{inv}_{tag & probe}","P_{T}^{Z}","Bin no.","P_{T}^{tag-e}","#eta^{tag-e}","#phi^{tag-e}","P_{T}^{Z}"};
   vector <int> rebin;
-  rebin={4,4,1,1,8,8,1,4,4,4,1,4,4,1,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,4,4,15,1,4,4,4,5};
+  rebin={4,4,1,1,5,5,1,4,4,4,1,4,4,1,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,4,4,15,1,4,4,4,5};
   vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
   vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
   vector<double> xmin ={100,100,2,0,200,20,0,-10,-10,-10,0,0,0,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0.9,0,0,80,0,0,0,0,-5,-5,0,0};
