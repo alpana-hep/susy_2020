@@ -152,6 +152,16 @@
    float nCR_elec =0,nCR_mu=0,nCR_Tau=0,nSR_elec =0,nSR_mu=0,nSR_Tau=0, FailIso_Elec=0,FailIso_Mu=0, FailAccept_Elec=0,FailAccept_Mu=0, FailId_Elec=0,FailId_Mu=0, PassIso_Elec=0,PassIso_Mu=0, PassAccept_Elec=0,PassAccept_Mu=0, PassId_Elec=0,PassId_Mu=0, nfakeRatePho=0,wt_LL=0.0;
 
   //  // counters for events yields after each selection/rejection
+   char* hname = new char [200];
+   sprintf(hname, "out_purityFactor_Calc_MC_Default.root");
+   TFile* f_PuriFact= new TFile(hname);
+   char* histname = new char[2000];
+   TH1F* h_PF;
+   sprintf(histname,"FR_nbtagBins_Elec_CR_FullRun2");//,year_string);
+   cout<<"Reading MC purity factor:  "<<"\t"<<histname<<endl;
+   h_PF = (TH1F*)f_PuriFact->Get(histname);
+   for(int i=0; i<h_PF->GetNbinsX();i++)
+     {cout<<"Nbitags bins_v0"<<"\t"<<i<<"\t"<<h_PF->GetBinContent(i)<<endl;}
    float nEvents_Selec[100]={};
    const char* out_nEventsTags[100] ={};
    int coutt=0;
@@ -561,7 +571,7 @@
 	if(Debug)
 	  cout<<"Entrye: "<<jentry<<" inside CR loop "<<NElectrons<<"\t"<<NMuons<<"\t"<<(*Muons_passIso)[0]<<"\t"<<nlep<<"\t"<<mu_index<<endl;
 
-	if(NElectrons==2 && (s_sample.Contains("Electron") || s_sample.Contains("EGamma"))){
+	if(NElectrons==2 || (NElectrons==2 && (s_sample.Contains("data") && (s_sample.Contains("Electron") || s_sample.Contains("EGamma"))))){
 	  //  if(!(elec && !muon) )continue;
 	  //h_selectbaselineyields_v1
 	  if(Debug)
@@ -603,7 +613,7 @@
 	    cout<<"Entrye: "<<jentry<<" just last line in  CR loop "<<endl;
 
 	}
-	else if(NMuons==2 && s_sample.Contains("Muon")) {
+	else if(NMuons==2 || (NMuons==2 && (s_sample.Contains("data") && s_sample.Contains("Muon")))) {
 	  //if(!(!elec && muon) )continue;       
 	  //       if(!(!elec && muon && tightmu_trgpass) )continue;
 	  h_selectBaselineYields_v1->Fill("neve with 2mu",wt);
@@ -645,7 +655,7 @@
 
 	}
 
-	else if(NMuons==1 && NElectrons==1 && s_sample.Contains("Muon")){
+	else if((NMuons==1 && NElectrons==1 ) || ((NMuons==1 && NElectrons==1 ) && s_sample.Contains("data") && s_sample.Contains("Muon"))){
 	  //if(!(tighte_trgpass || tightmu_trgpass)) continue;                                                    
 	  if(! tightmu_trgpass) continue;
 	  if(Debug)
@@ -1041,6 +1051,18 @@
       //      mt_ele=sqrt(2*bestEMObj.Pt()*MET*(1-cos(DeltaPhi(METPhi,bestEMObj.Phi()))));
       //double mTElecMET=sqrt(2*(Electrons_v1[e_index].Pt())*MET*(1-cos(DeltaPhi(METPhi,Electrons_v1[e_index].Phi()))));
       //if(mt_ele>100) { continue;}//h_selectBaselineYields_CR->Fill("e-CR: mT<100",wt);continue;} // remove signal contamination 
+      double SF_data = h_PF->GetBinContent(2);
+      double pure_MC = 1.0;
+      if(BTags==0)
+	pure_MC = h_PF->GetBinContent(2);
+      else
+	pure_MC = h_PF->GetBinContent(3);
+      double wt_pf=0.0;
+      if(s_sample.Contains("data"))
+	{
+	  wt  = wt*pure_MC;
+	}
+
       elec_CR = true;      
       int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags,metstar.Pt());
       if(nHadJets>=7 && Debug)
