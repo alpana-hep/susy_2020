@@ -1,0 +1,1 @@
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV17/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2200_10_unSkimmed.root

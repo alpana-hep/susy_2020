@@ -1,0 +1,17 @@
+universe = vanilla
+Executable = worker2.sh
+request_disk = 1000000
+request_cpus = 1
+request_memory = 2GB
+Should_Transfer_Files = YES
+WhenToTransferOutput = ON_EXIT_OR_EVICT
+Transfer_Input_Files = map_crosssection_SMprocess_v1.txt,analyzeLightBSM,FileList_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_job0.txt,
+Output = phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200_job0.stdout
+Error = phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200_job0.stderr
+Log = phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200_job0.condor
+x509userproxy = $ENV(X509_USER_PROXY)
+use_x509userproxy = True
+Arguments = analyzeLightBSM FileList_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_job0.txt phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200_job0.root 2017 WGJets_MonoPhoton_PtG-40to130UL loose
++LENGTH="SHORT"
+
+Queue 1

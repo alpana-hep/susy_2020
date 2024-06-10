@@ -1,0 +1,17 @@
+universe = vanilla
+Executable = worker2.sh
+request_disk = 1000000
+request_cpus = 1
+request_memory = 2GB
+Should_Transfer_Files = YES
+WhenToTransferOutput = ON_EXIT_OR_EVICT
+Transfer_Input_Files = map_crosssection_SMprocess_v1.txt,analyzeLightBSM,FileList_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_job6.txt,
+Output = phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_pt100_MET200_job6.stdout
+Error = phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_pt100_MET200_job6.stderr
+Log = phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_pt100_MET200_job6.condor
+x509userproxy = $ENV(X509_USER_PROXY)
+use_x509userproxy = True
+Arguments = analyzeLightBSM FileList_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_job6.txt phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_pt100_MET200_job6.root 2016preVFP WJetsToLNu_HTUL loose
++LENGTH="SHORT"
+
+Queue 1
