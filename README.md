@@ -30,6 +30,7 @@ root -l -q -b 'makeDatacard_SBins.C(2200,200,'${outRootFile}.root','${hist1}','$
 ```
 
 Where hist and hist1 are the search bins  histogram to be read
+
 Run a job interactively -
 ```
 ./worker_SP.sh >executable> <mg> <mnlsp> <signal model> <Extension to read the file > <hist name>
