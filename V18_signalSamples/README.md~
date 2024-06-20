@@ -1,0 +1,10 @@
+# Running combine tool and making limit plots
+makeDatacard_SBins.C - create the data cards
+make sure you don't give empty datacards , combine won't run.
+worker_SP.sh - shell scripts run your analyzer script over signal models files one by one, create datacards, and run combine tool and save the output tree in a root file
+
+combine.sh - submit the jobs for all the grid points and take input the mass scan
+
+Commands to execute-
+```
+git clone -b   https://github.com/alpana-hep/susy_2020.git .
