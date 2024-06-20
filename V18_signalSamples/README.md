@@ -17,7 +17,7 @@ git checkout v10.0.1
 scramv1 b clean; scramv1 b
 cd CMSSW_14_1_0_pre4/src
 tar -xvf  higgsAnalysis.tar HiggsAnalysis
-``
+```
 
 Commands to execute-
 ```
