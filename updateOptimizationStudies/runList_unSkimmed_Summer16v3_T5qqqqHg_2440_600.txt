@@ -1,0 +1,1 @@
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5qqqqHg/Summer16v3_T5qqqqHg_2440_600_unSkimmed.root

@@ -1,0 +1,172 @@
+## T5bbbZG model
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_10.txt out_T5bbbbZg_2200_10.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_50.txt out_T5bbbbZg_2200_50.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_100.txt out_T5bbbbZg_2200_100.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_200.txt out_T5bbbbZg_2200_200.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_400.txt out_T5bbbbZg_2200_400.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_600.txt out_T5bbbbZg_2200_600.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2200_1000.txt out_T5bbbbZg_2200_1000.root Run2 T5bbZgsignal loose
+
+
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_10.txt out_T5bbbbZg_2300_10.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_50.txt out_T5bbbbZg_2300_50.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_100.txt out_T5bbbbZg_2300_100.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_200.txt out_T5bbbbZg_2300_200.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_400.txt out_T5bbbbZg_2300_400.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_600.txt out_T5bbbbZg_2300_600.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2300_1000.txt out_T5bbbbZg_2300_1000.root Run2 T5bbZgsignal loose
+
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_10.txt out_T5bbbbZg_2400_10.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_50.txt out_T5bbbbZg_2400_50.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_100.txt out_T5bbbbZg_2400_100.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_200.txt out_T5bbbbZg_2400_200.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_400.txt out_T5bbbbZg_2400_400.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_600.txt out_T5bbbbZg_2400_600.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2400_1000.txt out_T5bbbbZg_2400_1000.root Run2 T5bbZgsignal loose
+
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_10.txt out_T5bbbbZg_2500_10.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_50.txt out_T5bbbbZg_2500_50.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_100.txt out_T5bbbbZg_2500_100.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_200.txt out_T5bbbbZg_2500_200.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_400.txt out_T5bbbbZg_2500_400.root Run2 T5bbZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_600.txt out_T5bbbbZg_2500_600.root Run2 T5bbZgsignal loose
+
+./analyzeLightBSM  runList_unSkimmed_Autumn18_T5bbbbZg_2500_1000.txt out_T5bbbbZg_2500_1000.root Run2 T5bbZgsignal loose
+
+#T5qqqHG model
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2300_127.txt out_T5qqqqHg_2300_127.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2300_150.txt out_T5qqqqHg_2300_150.root	Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2300_200.txt out_T5qqqqHg_2300_200.root	Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2300_400.txt out_T5qqqqHg_2300_400.root	Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2300_600.txt out_T5qqqqHg_2300_600.root	Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2300_1000.txt out_T5qqqqHg_2300_1000.root Run2 T5qqqqHgsignal loose
+
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2200_127.txt out_T5qqqqHg_2200_127.root	Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2200_150.txt out_T5qqqqHg_2200_150.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2200_200.txt out_T5qqqqHg_2200_200.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2200_400.txt out_T5qqqqHg_2200_400.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2200_600.txt out_T5qqqqHg_2200_600.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2200_1000.txt out_T5qqqqHg_2200_1000.root Run2 T5qqqqHgsignal loose
+
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2400_127.txt out_T5qqqqHg_2400_127.root	Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2400_150.txt out_T5qqqqHg_2400_150.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2400_200.txt out_T5qqqqHg_2400_200.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2400_400.txt out_T5qqqqHg_2400_400.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2400_600.txt out_T5qqqqHg_2400_600.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2400_1000.txt out_T5qqqqHg_2400_1000.root Run2 T5qqqqHgsignal loose
+
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2500_127.txt out_T5qqqqHg_2500_127.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2500_150.txt out_T5qqqqHg_2500_150.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2500_200.txt out_T5qqqqHg_2500_200.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2500_400.txt out_T5qqqqHg_2500_400.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2500_600.txt out_T5qqqqHg_2500_600.root Run2 T5qqqqHgsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T5qqqqHg_2500_1000.txt out_T5qqqqHg_2500_1000.root Run2 T5qqqqHgsignal loose
+
+#T5ttttZg model
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_10.txt out_T5ttttZg_2300_10.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_50.txt out_T5ttttZg_2300_50.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_100.txt out_T5ttttZg_2300_100.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_200.txt out_T5ttttZg_2300_200.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_400.txt out_T5ttttZg_2300_400.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_600.txt out_T5ttttZg_2300_600.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2300_1000.txt out_T5ttttZg_2300_1000.root Run2 T5ttttZgsignal loose
+
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_10.txt out_T5ttttZg_2200_10.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_50.txt out_T5ttttZg_2200_50.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_100.txt out_T5ttttZg_2200_100.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_200.txt out_T5ttttZg_2200_200.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_400.txt out_T5ttttZg_2200_400.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_600.txt out_T5ttttZg_2200_600.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2200_1000.txt out_T5ttttZg_2200_1000.root Run2 T5ttttZgsignal loose
+
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_10.txt out_T5ttttZg_2100_10.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_50.txt out_T5ttttZg_2100_50.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_100.txt out_T5ttttZg_2100_100.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_200.txt out_T5ttttZg_2100_200.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_400.txt out_T5ttttZg_2100_400.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_600.txt out_T5ttttZg_2100_600.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2100_1000.txt out_T5ttttZg_2100_1000.root Run2 T5ttttZgsignal loose
+
+
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_10.txt out_T5ttttZg_2400_10.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_50.txt out_T5ttttZg_2400_50.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_100.txt out_T5ttttZg_2400_100.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_200.txt out_T5ttttZg_2400_200.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_400.txt out_T5ttttZg_2400_400.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_600.txt out_T5ttttZg_2400_600.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2400_1000.txt out_T5ttttZg_2400_1000.root Run2 T5ttttZgsignal loose
+
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_10.txt out_T5ttttZg_2500_10.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_50.txt out_T5ttttZg_2500_50.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_100.txt out_T5ttttZg_2500_100.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_200.txt out_T5ttttZg_2500_200.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_400.txt out_T5ttttZg_2500_400.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_600.txt out_T5ttttZg_2500_600.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2500_1000.txt out_T5ttttZg_2500_1000.root Run2 T5ttttZgsignal loose
+
+
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_10.txt out_T5ttttZg_2600_10.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_50.txt out_T5ttttZg_2600_50.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_100.txt out_T5ttttZg_2600_100.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_200.txt out_T5ttttZg_2600_200.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_400.txt out_T5ttttZg_2600_400.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_600.txt out_T5ttttZg_2600_600.root Run2 T5ttttZgsignal loose
+./analyzeLightBSM  runList_unSkimmed_Summer16v3_T5ttttZg_2600_1000.txt out_T5ttttZg_2600_1000.root Run2 T5ttttZgsignal loose
+
+## T6ttZgmodel
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1300_10.txt out_T6ttZg_1300_10.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1300_50.txt out_T6ttZg_1300_50.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1300_100.txt out_T6ttZg_1300_100.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1300_200.txt out_T6ttZg_1300_200.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1300_400.txt out_T6ttZg_1300_400.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1300_600.txt out_T6ttZg_1300_600.root Run2 T6ttZgsignal  loose
+
+
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1400_10.txt out_T6ttZg_1400_10.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1400_50.txt out_T6ttZg_1400_50.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1400_100.txt out_T6ttZg_1400_100.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1400_200.txt out_T6ttZg_1400_200.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1400_400.txt out_T6ttZg_1400_400.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1400_600.txt out_T6ttZg_1400_600.root Run2 T6ttZgsignal  loose
+
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1600_10.txt out_T6ttZg_1600_10.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1600_50.txt out_T6ttZg_1600_50.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1600_100.txt out_T6ttZg_1600_100.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1600_200.txt out_T6ttZg_1600_200.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1600_400.txt out_T6ttZg_1600_400.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1600_600.txt out_T6ttZg_1600_600.root Run2 T6ttZgsignal  loose
+
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1800_10.txt out_T6ttZg_1800_10.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1800_50.txt out_T6ttZg_1800_50.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1800_100.txt out_T6ttZg_1800_100.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1800_200.txt out_T6ttZg_1800_200.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1800_400.txt out_T6ttZg_1800_400.root Run2 T6ttZgsignal  loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_T6ttZg_1800_600.txt out_T6ttZg_1800_600.root Run2 T6ttZgsignal  loose
+
+
+##  TCHIWG
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_300.txt out_TChiWG_0_300.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_400.txt out_TChiWG_0_400.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_500.txt out_TChiWG_0_500.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_700.txt out_TChiWG_0_700.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_1000.txt out_TChiWG_0_1000.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_450.txt out_TChiWG_0_450.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_550.txt out_TChiWG_0_550.root Run2 TChiWGsignal  loose
+./analyzeLightBSM runList_unSkimmed_TChiWG_0_750.txt out_TChiWG_0_750.root Run2 TChiWGsignal  loose
+
+
+## TchiNG
+./analyzeLightBSM runList_unSkimmed_Summer16v3_TChiNG_0_300.txt out_TChiNG_0_300.root Run2 TChiNGsignal loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_TChiNG_0_400.txt	out_TChiNG_0_400.root Run2 TChiNGsignal	loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_TChiNG_0_500.txt	out_TChiNG_0_500.root Run2 TChiNGsignal	loose
+./analyzeLightBSM runList_unSkimmed_Summer16v3_TChiNG_0_700.txt	out_TChiNG_0_700.root Run2 TChiNGsignal	loose
+
+
+
+
+
+
+
+
+
+

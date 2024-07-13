@@ -1,0 +1,7 @@
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/TChiNG/Summer16v3_TChiNG_0_300_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/TChiNG/Summer16v3_TChiNG_0_400_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/TChiNG/Summer16v3_TChiNG_0_700_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/TChiNG/Summer16v3_TChiNG_0_1000_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/TChiNG/Summer16v3_TChiNG_0_1400_unSkimmed.root
+
+
