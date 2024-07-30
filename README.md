@@ -1,3 +1,8 @@
+To copy samples from fermilab -
+```
+xrdcp -r root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/ .
+```
+
 # Machinery to analyze the input files
 NtupleVariables.h - header file where tree branches are defined
 AnalyzerLightBSM.cc - where event level analysis happens
@@ -11,10 +16,10 @@ Arguments for ./analyzeLightBSM :
 ```
 ./analyzeLightBSM <filelist> <outfile> <year <process>  <photon ID>
 ```
-<filelist>: see under the 'inputFiles' directory
-<outfile>: as you want to name your file
-<year> : which year to process
-<process>: MC smaples for which job is running or data for data files
+filelist: see under the 'inputFiles' directory
+outfile: as you want to name your file
+year : which year to process
+process: MC smaples for which job is running or data for data files
 
 ### Example to run the script
 
