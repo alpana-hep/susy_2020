@@ -1,0 +1,1 @@
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_GJets_QCD_PhoIdloose_phopt40_BL_skimsForBDT.root
