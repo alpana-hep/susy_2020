@@ -90,6 +90,9 @@
    bool applyPUwt=true;
    bool apply_pixelveto=false;
    bool check_flag_wBL =false;
+   bool apply_purity = false;
+   bool apply_SF = true;
+
    if(s_sample.Contains("UL")){
    if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
    if(s_data.Contains("2016postVFP")) { lumiInfb=16.5; deepCSVvalue = 0.5847; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;} //2016
@@ -150,6 +153,12 @@
    float nsurVived=0.0;
    int searchBin=0, Tfbins=0;
    float nCR_elec =0,nCR_mu=0,nCR_Tau=0,nSR_elec =0,nSR_mu=0,nSR_Tau=0, FailIso_Elec=0,FailIso_Mu=0, FailAccept_Elec=0,FailAccept_Mu=0, FailId_Elec=0,FailId_Mu=0, PassIso_Elec=0,PassIso_Mu=0, PassAccept_Elec=0,PassAccept_Mu=0, PassId_Elec=0,PassId_Mu=0, nfakeRatePho=0,wt_LL=0.0;
+   char *year_string = new char[200];
+  if(s_data.Contains("2016preVFP")) {sprintf(year_string,"2016preVFP");}
+  if(s_data.Contains("2016postVFP")) {sprintf(year_string,"2016postVFP");}
+
+  if(s_data.Contains("2017")) {sprintf(year_string,"2017");}
+  if(s_data.Contains("2018")) {sprintf(year_string,"2018");}
 
   //  // counters for events yields after each selection/rejection
    char* hname = new char [200];
@@ -162,6 +171,15 @@
    h_PF = (TH1F*)f_PuriFact->Get(histname);
    for(int i=0; i<h_PF->GetNbinsX();i++)
      {cout<<"Nbitags bins_v0"<<"\t"<<i<<"\t"<<h_PF->GetBinContent(i)<<endl;}
+
+   TFile* f_SF = new TFile("out_SF_CRvsSR_Zinv_DatavsMCDefault.root");
+   TH1F* h_SF;
+   sprintf(histname,"FR_nbtagBins_Elec_CR_%s",year_string);                                                                                               
+   cout<<"Reading MC purity factor:  "<<"\t"<<histname<<endl;
+   h_SF = (TH1F*)f_SF->Get(histname);
+   for(int i=0; i<h_SF->GetNbinsX();i++)
+     {cout<<"Nbitags bins_v0"<<"\t"<<i<<"\t"<<h_SF->GetBinContent(i)<<endl;}
+
    float nEvents_Selec[100]={};
    const char* out_nEventsTags[100] ={};
    int coutt=0;
@@ -1058,7 +1076,7 @@
       else
 	pure_MC = h_PF->GetBinContent(3);
       double wt_pf=0.0;
-      if(s_sample.Contains("data"))
+      if(s_sample.Contains("data") && apply_purity)
 	{
 	  wt  = wt*pure_MC;
 	}
@@ -1217,6 +1235,17 @@
         // if(!(invariantmass>=80 && invariantmass<=100) )continue;
 
 	// h_selectBaselineYields_v1->Fill("Pho SR inv mass cut",wt);
+
+	double SF_data = h_SF->GetBinContent(2);
+	if(BTags==0)
+	  SF_data = h_SF->GetBinContent(2);
+	else
+        SF_data = h_SF->GetBinContent(3);
+
+	if(!s_sample.Contains("data") && apply_SF)
+        {
+          wt  = wt*SF_data;
+        }
 
 	FillHistogram_Kinematics(3,metstar,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,bestPhoton.Eta(),bestPhoton.Phi(),bestPhoton.E(),METPhi,qmulti, leadjet_qmulti, leadjet_Pt,leadbjet_tag,minDR,Jet_matched, hadJets, hadJets[0], NVtx,mindr_Pho_genlep,wt);
 	FillHistogram_Kinematics_varBin(3,metstar.Pt(),nHadJets, BTags, bestPhoton.Pt(),ST,qmulti,wt);
