@@ -569,7 +569,7 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
     f[1] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");
     f[2] = new TFile("Summer20UL18_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
     f[3] = new TFile("Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+    f[4] = new TFile("out_Data_UL2018_Allruns_Lepton_phoID_loose_pt40_MET200_v1.root");
   }
        if(which_year==1)
 	 {
@@ -577,14 +577,14 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
 	   f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");
 	   f[2] = new TFile("Summer20UL17_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
 	   f[3] = new TFile("Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	   f[4] = new TFile("out_Data_UL2017_Allruns_Lepton_phoID_loose_pt40_MET200_v1.root");
 	 }
        if(which_year==3){
 	 f[0] = new TFile("Summer20UL16APV_WGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
 	 f[1] = new TFile("Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root");
 	 f[2] = new TFile("Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
 	 f[3] = new TFile("Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	 f[4] = new TFile("out_Data_UL2016APV_Allruns_Lepton_phoID_loose_pt40_MET200_v1.root");
 
        }
        if(which_year==4)
@@ -593,7 +593,7 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
 	   f[1] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
 	   f[2] = new TFile("Summer20UL16_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
 	   f[3] = new TFile("Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	   f[4] = new TFile("out_Data_UL2016_Allruns_Lepton_phoID_loose_pt40_MET200_v1.root");
 
 	 }
 
@@ -603,7 +603,7 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
 	     f[1] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloose_phopt40_MET200.root");
 	     f[2] = new TFile("Summer20UL_total2016_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
 	     f[3] = new TFile("Summer20UL_total2016_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	     f[4] = new TFile("out_Data_UL20_total2016_Allruns_Lepton_phoID_loose_pt40_MET200_v1.root");
 	 }
        if(which_year==5)
         {
@@ -611,7 +611,7 @@ void CRcompare_DataVsMC(string pathname, int which_Lept, int which_year)
 	  f[1] = new TFile("FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
 	  f[2] = new TFile("FullRun2_DYJets_Mt50_PhoIdloose_phopt40_MET200.root");
 	  f[3] = new TFile("FullRun2_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_MET200.root");
-	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200.root");
+	  f[4] = new TFile("FullRun2_Allruns_Lepton_phoID_loose_pt40_MET200_v1.root");
          }
 
   vector<string>varName;
