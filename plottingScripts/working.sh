@@ -49,9 +49,20 @@ root -b -q 'SRvsCRStacked_LL_varRatio.C("TransferFactors/SRvsCR/TFbins_v1",3,1,1
 ## calculating TF for lost leptons v1 - 8 bins
 
 root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,1,1)'
+root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,2,1)'
+root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,3,1)'
+root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,4,1)'
+root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,5,1)'
+root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,6,1)'
+root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",3,7,1)'
+
+
+
+
 root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",2,1,1)'
 root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/",1,1,1)'
-                                                                                                     
+
+
 # root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/TFBins_v1_phoPt_nJets_Btags",3,2,1)'
 # root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/TFBins_v1_phoPt_nJets_Btags",2,2,1)'
 # root -b -q 'DiffStacked_LL_varRatio.C("TransferFactors/TFBins_v1_phoPt_nJets_Btags",1,2,1)'
@@ -77,7 +88,24 @@ root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",1,1,1)' #e
 root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",2,1,1)' # muon
 root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,1,1)' # all leptons
 
-                                                                                              
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v3",3,3,0,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v2",3,2,0,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,1,0,1)'
+
+
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v3",3,3,2,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v2",3,2,2,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,1,2,1)'
+
+#3 updated new SR bins
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,1,1,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,2,1,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,3,1,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,4,1,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,5,1,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v1",3,6,1,1)'
+root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/V7_HTvsPt",3,4,1,1)'
+
 # root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v2",1,2,1)' #electron for TFBins v2                                                                          
 # root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v2",2,2,1)'
 # root -b -q 'Valid_SRBins_LL_wrRatio.C("Validation_MC/Sbins/TFBIns_v2",3,2,1)'

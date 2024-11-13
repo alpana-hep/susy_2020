@@ -154,10 +154,10 @@ TH1F* setMyRange(TH1F *h1,double xLow,double xHigh){
 }
 
 void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="", float energy=-1, int xrange=-1,int xmin=-1,char const *leg_head="",
-		     bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title="", vector<string> legend_texts={"nil"}, int which_TFbins=-1, int which_Lept=-1){  
+		     bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title="", vector<string> legend_texts={"nil"}, int which_TFbins=-1, int which_Lept=-1, int which_newSbins=-1){  
   
 
-   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,850);//600,600,1200,1200);
+   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,1300,900);//600,600,1200,1200);
    canvas_n1->Range(-60.25,-0.625,562.25,0.625);
    canvas_n1->SetFillColor(0);
    canvas_n1->SetBorderMode(0);
@@ -262,7 +262,8 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     // else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
     //   hist.at(i)->GetXaxis()->SetRangeUser(0,22);
     // else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300
-    hist.at(i)->GetXaxis()->SetRangeUser(0,39);
+    cout<<"xrange "<<"\t"<<xrange<<endl;
+    hist.at(i)->GetXaxis()->SetRangeUser(0,xrange);
     hist.at(i)->SetLineWidth(2);
     
     //hist.at(i)->SetLineStyle(line_style[i]);
@@ -420,6 +421,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
   textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
+  if(which_newSbins>=4){
   TLine *line1V7=new TLine( 8.0,0.001,  8.0,5400);
   TLine *line2V7=new TLine(14.0,0.001, 14.0,5400);
   TLine *line3V7=new TLine(19.0,0.001, 19.0,5400);
@@ -448,6 +450,137 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     Tl.DrawLatex(25.5,9000,"N^{ #geq1}_{ 5-6}");
     Tl.DrawLatex(30.5,9000,"N^{ #geq1}_{ #geq7}");
 
+}
+  cout<<which_newSbins<<"\t"<<"which_newSbins"<<endl;
+ if(which_newSbins == 0){
+     TLine *line1V7=new TLine( 6.0,0.001,  6.0,4000);
+     TLine *line2V7=new TLine(11.0,0.001, 11.0,4000);
+     TLine *line3V7=new TLine(16.0,0.001, 16.0,4000);
+     TLine *line4V7=new TLine(21.0,0.001, 21.0,4000);
+     TLine *line5V7=new TLine(26.0,0.001, 26.0,4000);
+    line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
+    line4V7->Draw();      line5V7->Draw();
+    TLine *line1V8=new TLine(31.0,0.001,  31.0,4000);
+    TLine *line2V8=new TLine(36.0,0.001, 36.0,4000);
+    TLine *line3V8=new TLine(41.0,0.001, 41.0,4000);
+    TLine *line4V8=new TLine(46.0,0.001, 46.0,4000);
+    TLine *line5V8=new TLine(51.0,0.001, 51.0,4000);
+    //    TLine *line6V8=new TLine(59.0,0.1, 59.0,1000);
+
+    line1V8->Draw();      line2V8->Draw();  line3V8->Draw();
+    line4V8->Draw();      line5V8->Draw(); //line6V8->Draw();
+
+    TArrow *arrow1 = new TArrow( 1.0,4000, 6.0,4000,0.01,"<|>");
+    TArrow *arrow2 = new TArrow( 6.0,4000,11.0,4000,0.01,"<|>");
+    TArrow *arrow3 = new TArrow(11.0,4000,16.0,4000,0.01,"<|>");
+    TArrow *arrow4 = new TArrow(16.0,4000, 21.0,4000,0.01,"<|>");
+    TArrow *arrow5 = new TArrow(21.0,4000, 26.0,4000,0.01,"<|>");
+    arrow1->Draw(); arrow2->Draw(); arrow3->Draw();
+    arrow4->Draw(); arrow5->Draw();// arrow6->Draw();
+
+     TArrow *Arrow1 = new TArrow(26.0,4000, 31.0,4000,0.01,"<|>");
+    TArrow *Arrow2 = new TArrow(31.0,4000,36.0,4000,0.01,"<|>");
+    TArrow *Arrow3 = new TArrow(36.0,4000,41.0,4000,0.01,"<|>");
+    TArrow *Arrow4 = new TArrow(41.0,4000,46.0,4000,0.01,"<|>");
+    TArrow *Arrow5 = new TArrow(46.0,4000, 51.0,4000,0.01,"<|>");
+    TArrow *Arrow6 = new TArrow(49.0,4000, 54.0,4000,0.01,"<|>");
+
+    TArrow *Arrow_pt = new TArrow(1.0,20000,26.0,20000,0.015,"</>");
+    TArrow *Arrow_pt1 = new TArrow(26.0,20000,51.0,20000,0.015,"</>");
+    
+    Arrow_pt->Draw(); Arrow_pt1->Draw();
+    Arrow1->Draw(); Arrow2->Draw(); Arrow3->Draw();
+    Arrow4->Draw(); Arrow5->Draw(); //Arrow6->Draw();
+
+    
+    TLatex Tl;
+    Tl.SetTextSize(0.018);
+    Tl.SetTextSize(0.018);
+    Tl.DrawLatex(1.5,10000,"200<p_{T}^{miss}#leq300");
+    Tl.DrawLatex(6.5,10000,"300<p_{T}^{miss}#leq370");
+    Tl.DrawLatex(11.5,10000,"370<p_{T}^{miss}#leq450");
+    Tl.DrawLatex(16.5,10000,"450<p_{T}^{miss}#leq600");
+    Tl.DrawLatex(22.5,10000,"p_{T}^{miss}>600");
+    Tl.DrawLatex(26.5,10000,"200<p_{T}^{miss}#leq300");
+    Tl.DrawLatex(31.5,10000,"300<p_{T}^{miss}#leq370");
+    Tl.DrawLatex(36.5,10000,"370<p_{T}^{miss}#leq450");
+    Tl.DrawLatex(41.5,10000,"450<p_{T}^{miss}#leq600");
+    Tl.DrawLatex(46.5,10000,"p_{T}^{miss}>600");
+    Tl.SetTextSize(0.03);
+    Tl.DrawLatex(13.5,100000,"N_{jets}^{b} = 0");
+    Tl.DrawLatex(39.5,100000,"N_{jets}^{b} #geq1");
+ }
+
+  
+ if(which_newSbins==2){
+        TLine *line1V7=new TLine( 6.0,0.01,  6.0,900);
+       TLine *line2V7=new TLine(11.0,0.01, 11.0,900);
+       TLine *line3V7=new TLine(16.0,0.01, 16.0,900);
+       TLine *line4V7=new TLine(21.0,0.01, 21.0,900);
+       TLine *line5V7=new TLine(26.0,0.1, 26.0,900);
+       line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
+       line4V7->Draw();      line5V7->Draw();
+       TLine *line1V8=new TLine( 26.0,0.01,  26.0,900);
+       TLine *line2V8=new TLine(31.0,0.01, 31.0,900);
+       TLine *line3V8=new TLine(36.0,0.01, 36.0,900);
+       TLine *line4V8=new TLine(41.0,0.01, 41.0,900);
+       TLine *line5V8=new TLine(46.0,0.1, 46.0,900);
+        TLine *line6V8=new TLine(51.0,0.1, 51.0,900);
+        TLine *line7V8=new TLine(56.0,0.1, 56.0,900);
+         TLine *line8V8=new TLine(61.0,0.1, 61.0,900);
+	 TLine *line9V8=new TLine(66.0,0.1, 66.0,900);
+	 TLine *line10V8=new TLine(71.0,0.1, 71.0,900);
+	 TLine *line11V8=new TLine(76.0,0.1, 76.0,900);
+        TLine *line12V8=new TLine(81.0,0.1, 81.0,900);
+        TLine *line13V8=new TLine(86.0,0.1, 86.0,900);
+         TLine *line14V8=new TLine(91.0,0.1, 91.0,900);
+         TLine *line15V8=new TLine(96.0,0.1, 96.0,900);
+         TLine *line16V8=new TLine(101.0,0.1, 101.0,900);
+
+       line1V8->Draw();      line2V8->Draw();  line3V8->Draw();
+       line4V8->Draw();      line5V8->Draw(); line6V8->Draw(); line7V8->Draw(); line8V8->Draw();
+       
+       line9V8->Draw();      line10V8->Draw();  line11V8->Draw();
+       line12V8->Draw();      //line13V8->Draw(); line14V8->Draw(); line15V8->Draw(); line16V8->Draw();
+
+       TLatex Tl;
+       // Tl.SetTextSize(0.01);
+       // Tl.DrawLatex(1.5,1000,"200<p_{T}^{miss}#leq300");
+       // Tl.DrawLatex(6.5,1000,"300<p_{T}^{miss}#leq370");
+       // Tl.DrawLatex(11.5,1000,"370<p_{T}^{miss}#leq450");
+       // Tl.DrawLatex(16.5,1000,"450<p_{T}^{miss}#leq600");
+       // Tl.DrawLatex(22.5,1000,"p_{T}^{miss}>600");
+       // Tl.DrawLatex(26.5,1000,"200<p_{T}^{miss}#leq300");
+       // Tl.DrawLatex(31.5,1000,"300<p_{T}^{miss}#leq370");
+       // Tl.DrawLatex(36.5,1000,"370<p_{T}^{miss}#leq450");
+       // Tl.DrawLatex(41.5,1000,"450<p_{T}^{miss}#leq600");
+       // Tl.DrawLatex(46.5,1000,"p_{T}^{miss}>600");
+
+       TArrow *Arrow_pt = new TArrow(1.0,2000,21.0,2000,0.01,"</>");
+        TArrow *Arrow_pt1 = new TArrow(21.0,2000,41.0,2000,0.01,"</>");
+        Arrow_pt->Draw(); Arrow_pt1->Draw();
+
+	TArrow *Arrow_pt2 = new TArrow(41.0,2000,61.0,2000,0.01,"</>");
+        TArrow *Arrow_pt3 = new TArrow(61.0,2000,81.0,2000,0.01,"</>");
+        Arrow_pt2->Draw(); Arrow_pt3->Draw();
+
+       Tl.SetTextSize(0.03);
+       Tl.DrawLatex(8.5,5000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(24.5,5000,"N_{jets}^{b} #geq1");
+       Tl.SetTextSize(0.03);
+       Tl.DrawLatex(48.5,5000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(64.5,5000,"N_{jets}^{b} #geq1");
+       TArrow *Arrow_pt4 = new TArrow(1.0,15000,41.0,15000,0.01,"</>");
+        TArrow *Arrow_pt5 = new TArrow(41.0,15000,81.0,15000,0.01,"</>");
+        Arrow_pt4->Draw(); Arrow_pt5->Draw();
+
+       Tl.DrawLatex(20.5,25000,"40<p_{T}^{#gamma}#leq100");
+       Tl.DrawLatex(65.5,25000,"p_{T}^{#gamma} > 100");
+       
+
+ }
+
+    
   // TArrow *arrow1 = new TArrow( 1.0,0.10, 2.0,0.1,0.01,"<|>");
   // TArrow *arrow2 = new TArrow( 2.0,0.10,3.0,0.1,0.01,"<|>");
   // TArrow *arrow3 = new TArrow(3.0,0.10,4.0,0.1,0.01,"<|>");
@@ -624,8 +757,9 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     //   hist_ratio->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                 
     // else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
     //   hist_ratio->GetXaxis()->SetRangeUser(0,18);
-    // else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                        
-    hist_ratio->GetXaxis()->SetRangeUser(0,39);
+    // else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300
+    cout<<"hist ratio "<<xrange<<endl;
+    hist_ratio->GetXaxis()->SetRangeUser(0,xrange);
     
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
     hist_ratio->GetYaxis()->SetTitleSize(0.13);
@@ -677,13 +811,18 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
 
    // l2->Draw("sames");
    // }
-         TLine *l =new TLine(0,1.0,39,1.0);
+   TLine *l =new TLine(0,1.0,xrange,1.0);
    hist_ratio->Draw("");
+   l->SetLineWidth(2);
    l->Draw("sames");
-   TLine *l1 =new TLine(0,1.5,39,1.5);
+   TLine *l1 =new TLine(0,1.5,xrange,1.5);
    l1->SetLineStyle(7);
+   l1->SetLineWidth(4);
+
    l1->Draw("sames");
-   TLine *l2 =new TLine(0,0.5,39,0.5);
+   TLine *l2 =new TLine(0,0.5,xrange,0.5);
+   l2->SetLineWidth(4);
+
    l2->SetLineStyle(7);
 
    l2->Draw("sames");
@@ -705,7 +844,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, bool all)
+void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, int which_newBins,bool all)
 {
   char* hname = new char[200];
   char* hname1 = new char[200];
@@ -750,7 +889,14 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
     sprintf(TFbins_str,"TFbins_v2_nJetsBjets_PhoPt");
   else if(which_TFBins==3)
     sprintf(TFbins_str,"TFbins_v3_nJetsBjets_MET");
-  
+
+  if(which_TFBins==4)
+    sprintf(TFbins_str,"TFbins_v4_nJetsBjets_MET_Phopt");
+  else if (which_TFBins==5)
+    sprintf(TFbins_str,"TFbins_v5_nBjets_MET_PhoPt");
+  else if(which_TFBins==6)
+    sprintf(TFbins_str,"TFbins_v6_ST_MET_Phopt");
+
   if(which_Lept==1){
     //    sprintf(string_png,"Electron_LL");
     baseline1={"Elec_SR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
@@ -773,7 +919,8 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
     sprintf(string_png,"Lepton_LL_Sbins_Valid_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
     if(which_TFBins==1)
-      baseline1 = {"Validation_Elec_CR","Validation_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"};
+      baseline1 = {"Validation_Elec_CR","Validation_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"}; 
+      //baseline1 = {"Validation_Elec_CR","Validation_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"};
     else if(which_TFBins==2)
       baseline1 = {"Validation_TFbins_V2_Elec_CR","Validation_TFbins_V2_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"};
     else if(which_TFBins==3)
@@ -782,7 +929,60 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
     legend_texts ={"Exp:(0l,1#gamma)","Pred:TF x (1l,1#gamma)"};
     n_files = 18;;
   }
-  
+  bool newbins=0;
+  if(which_Lept==3 && which_newBins==0){
+    sprintf(string_png,"Lepton_LL_Sbins_v3_Valid_%s",TFbins_str);    
+    sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
+    if(which_TFBins==1)
+      baseline1 = {"newSbins_Validation_v3_Elec_CR","newSbins_Validation_v3_Mu_CR","newSbins_v3_TauHad_SR","newSbins_v3_Mu_SR","newSbins_v3_Elec_SR"};
+    else if(which_TFBins==2)
+      baseline1 = {"v2_newSbins_Validation_v3_Elec_CR","v2_newSbins_Validation_v3_Mu_CR","newSbins_v3_TauHad_SR","newSbins_v3_Mu_SR","newSbins_v3_Elec_SR"};
+    else if(which_TFBins==3)
+      baseline1 = {"v3_newSbins_Validation_v3_Elec_CR","v3_newSbins_Validation_v3_Mu_CR","newSbins_v3_TauHad_SR","newSbins_v3_Mu_SR","newSbins_v3_Elec_SR"};
+    legend_texts = {"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR"};
+    legend_texts ={"Exp:(0l,1#gamma)","Pred:TF x (1l,1#gamma)"};
+    n_files = 18;
+  }
+
+   if(which_Lept==3 && which_newBins==1){
+    sprintf(string_png,"Lepton_LL_Sbins_v7_Valid_%s",TFbins_str);
+
+    sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
+    if(which_TFBins==1)
+      baseline1 = {"newSbins_Validation_v7_Elec_CR","newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    else if(which_TFBins==2)
+      baseline1 = {"v2_newSbins_Validation_v7_Elec_CR","v2_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    else if(which_TFBins==3)
+      baseline1 = {"v3_newSbins_Validation_v7_Elec_CR","v3_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    else if(which_TFBins==4)
+      baseline1 = {"v4_newSbins_Validation_v7_Elec_CR","v4_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+
+    else if(which_TFBins==5)
+      baseline1 = {"v5_newSbins_Validation_v7_Elec_CR","v5_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    else if(which_TFBins==6)
+      baseline1 = {"v6_newSbins_Validation_v7_Elec_CR","v6_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+
+    legend_texts = {"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR"};
+    legend_texts ={"Exp:(0l,1#gamma)","Pred:TF x (1l,1#gamma)"};
+    n_files = 18;
+  }
+
+   if(which_Lept==3 && which_newBins==2){
+    sprintf(string_png,"Lepton_LL_Sbins_v7_merge_Valid_%s",TFbins_str);
+
+    sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
+    if(which_TFBins==1)
+      baseline1 = {"newSbins_Validation_v7_Elec_CR","newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    else if(which_TFBins==2)
+      baseline1 = {"v2_newSbins_Validation_v7_Elec_CR","v2_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    else if(which_TFBins==3)
+      baseline1 = {"v3_newSbins_Validation_v7_Elec_CR","v3_newSbins_Validation_v7_Mu_CR","newSbins_v7_TauHad_SR","newSbins_v7_Mu_SR","newSbins_v7_Elec_SR"};
+    legend_texts = {"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR"};
+    legend_texts ={"Exp:(0l,1#gamma)","Pred:TF x (1l,1#gamma)"};
+    n_files = 18;
+  }
+
+
   cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
   if(which_Lept==1)
     {
@@ -1006,22 +1206,22 @@ vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","R
       int xrange=0.0;
       //      sprintf(hist_name,"h_TFbins_ElecLL_%s",baseline1[4].c_str());
       if(which_Lept==3){
-      TH1F* hNjets_ratio =(TH1F*)hist_list_Bjets.at(2)->Clone(); //first elec SR
-      hNjets_ratio->GetXaxis()->SetTitle("Bin no.");
-      hNjets_ratio->GetYaxis()->SetTitle(" ");
-      hNjets_ratio->SetTitle("");
-      TH1F* hNjets_ratio1 =(TH1F*)hist_list_Bjets.at(0)->Clone(); //histogram with total CR 
-      hNjets_ratio1->GetXaxis()->SetTitle("Bin no.");
-      hNjets_ratio1->GetYaxis()->SetTitle(" ");
-      hNjets_ratio1->SetTitle("");
-      hNjets_ratio1->Add(hist_list_Bjets.at(1)); // now it is representing total CR or prediction
-      // hNjets_ratio1->Add(hist_list_Bjets.at(2));
-      // hNjets_ratio1->Add(hist_list_Bjets.at(3));
-      // hNjets_ratio1->Add(hist_list_Bjets.at(4));
-      
+	TH1F* hNjets_ratio =(TH1F*)hist_list_Bjets.at(2)->Clone(); //first elec SR
+	hNjets_ratio->GetXaxis()->SetTitle("Bin no.");
+	hNjets_ratio->GetYaxis()->SetTitle(" ");
+	hNjets_ratio->SetTitle("");
+	TH1F* hNjets_ratio1 =(TH1F*)hist_list_Bjets.at(0)->Clone(); //histogram with total CR 
+	hNjets_ratio1->GetXaxis()->SetTitle("Bin no.");
+	hNjets_ratio1->GetYaxis()->SetTitle(" ");
+	hNjets_ratio1->SetTitle("");
+	hNjets_ratio1->Add(hist_list_Bjets.at(1)); // now it is representing total CR or prediction
+	// hNjets_ratio1->Add(hist_list_Bjets.at(2));
+	// hNjets_ratio1->Add(hist_list_Bjets.at(3));
+	// hNjets_ratio1->Add(hist_list_Bjets.at(4));
+	
       hNjets_ratio->Add(hist_list_Bjets.at(3));
       hNjets_ratio->Add(hist_list_Bjets.at(4)); // now it is the total SR or expected SR
-
+      
       TH1F* hNjets_ratio2 =(TH1F*)hNjets_ratio->Clone();
       hNjets_ratio2->Divide(hNjets_ratio1);;
       
@@ -1039,9 +1239,11 @@ vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","R
       // //hNjets_ratio2->Divide(hNjets_ratio1);
       hist_list_MET.push_back(hNjets_ratio);
       hist_list_MET.push_back(hNjets_ratio1);
+      cout<<"printing bin content "<<hNjets_ratio->Integral()<<hNjets_ratio1->Integral()<<endl;
+    cout<<" bin no "<<"\t"<<" Exp "<<"\t"<<" Pred "<< "ratio"<<endl;
       for(int ij =0;ij<hNjets_ratio->GetNbinsX();ij++){
-	if(hNjets_ratio1->GetBinContent(ij)>0 && ij==35)
-	  cout<<ij<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<hNjets_ratio1->GetBinContent(ij)<<"\t"<<hNjets_ratio2->GetBinContent(ij)<<"\t"<<f[i_file]->GetName()<<endl;
+	//	if(hNjets_ratio1->GetBinContent(ij)>0 && ij==35)
+	  cout<<ij<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<hNjets_ratio1->GetBinContent(ij)<<"\t"<<hNjets_ratio2->GetBinContent(ij)<<endl;
       }
       //hist_list_MET.push_back(hNjets_ratio2);
 
@@ -1068,8 +1270,16 @@ vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","R
       //   {
       //     file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
       // 	}
-      
-      generate_1Dplot(hist_list_MET,hNjets_ratio2,full_path,energy,40,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
+
+      int xmaxx = 40;
+      if(which_newBins==0)
+	xmaxx=55;
+      if(which_newBins==1)
+	xmaxx=105;
+      cout<<which_newBins<<"\t"<<"check"<<"\t"<<xmaxx<<endl;
+      cout<<"SR exp "<<hist_list_MET.at(0)->Integral()<<endl;
+      cout<<"CR exp "<<hist_list_MET.at(1)->Integral()<<endl;
+      generate_1Dplot(hist_list_MET,hNjets_ratio2,full_path,energy,xmaxx,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept,which_newBins);
       }
       else if(which_Lept==1){
 	TH1F* hNjets_ratio =(TH1F*)hist_list_Njets.at(0)->Clone();
@@ -1126,11 +1336,11 @@ vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","R
 	
 	// hist_list_Njets.at(2)->Divide(hNjets_ratio1);
 	// hist_list_Njets.at(2)->GetXaxis()->SetRangeUser(0,10);
-
-	   for(int ij =0;ij<hist_list_MET.at(1)->GetNbinsX();ij++){
-        if(hist_list_MET.at(1)->GetBinContent(ij)>0 && ij==35)
-          cout<<ij<<"\t"<<hist_list_MET.at(0)->GetBinContent(ij)<<"\t"<<hist_list_MET.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<f[i_file]->GetName()<<"\t"<<i_file<<"\t"<<filetag[i_file].c_str()<<endl;
-      }
+	
+	for(int ij =0;ij<hist_list_MET.at(1)->GetNbinsX();ij++){
+	  cout<<ij<<"\t"<<hist_list_MET.at(0)->GetBinContent(ij)<<"\t"<<hist_list_MET.at(1)->GetBinContent(ij)<<"\t"<<hNjets_ratio->GetBinContent(ij)<<"\t"<<f[i_file]->GetName()<<"\t"<<i_file<<"\t"<<filetag[i_file].c_str()<<endl;
+	}
+	cout<<which_newBins<<"\t"<<"check"<<endl;
 
 	float  xbin_cr=0, xbin_sr=0;
         sprintf(full_path,"%s/%s_%s",pathname.c_str(),string_png,filetag[i_file].c_str());
@@ -1143,13 +1353,20 @@ vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","R
         //   {
         //     file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
         //   }
-        generate_1Dplot(hist_list_MET,hNjets_ratio1,full_path,energy,40,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
+	int xmaxx = 40;
+	if(which_newBins==0)
+	  xmaxx=55;
+	if(which_newBins==2)
+	  xmaxx=85;
+	cout<<which_newBins<<"\t"<<"check"<<endl;
+        generate_1Dplot(hist_list_MET,hNjets_ratio1,full_path,energy,xmaxx,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept,which_newBins);
+	cout<<which_newBins<<"\t"<<"check"<<endl;
 
 
       }
-      }
+    }
   fout->Close();
-
+  
 }
 
 
