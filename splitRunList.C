@@ -11,7 +11,7 @@ void splitRunList(string infile,int nfPerJob, string datasetAna, string process,
   string exeCondor  = "worker2.sh";
   string exeAna     = "analyzeLightBSM";
   //  string datasetAna = "SR";
-  string filesToTransfer = "map_crosssection_SMprocess_v1.txt ,TF_allin1_LLEstimation_binsV0_phoID_mva_wp90_08Aug23.root,TF_allin1_LLEstimation_binsV0_phoID_loose_08Aug23.root";//, TF_allin1_LLEstimation_electron_newTFbins.root, TF_allin1_LLEstimation_muon_newTFbins.root, TMVAClassification_BDT_100trees_2maxdepth.weights.xml";
+  string filesToTransfer = "map_crosssection_SMprocess_v1.txt, Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root,TMVAClassification_BDT_200trees_2maxdepth.weights.xml,BTagCorrector.h,Lepton_LL_TFv4_nbjets_HT_phopt_Oct24.root,Lepton_LL_TFv4_nJetsBjets_MET_phopT_phoID_loose_09Jan24.root,Lepton_LL_TFv5_nBjets_MET_phopT_phoID_loose_09Jan24.root,Lepton_LL_TFv6_ST_MET_phopT_phoID_loose_09Jan24.root" ;//,TF_allin1_LLEstimation_binsV0_phoID_mva_wp90_08Aug23.root,TF_allin1_LLEstimation_binsV0_phoID_loose_08Aug23.root";//, TF_allin1_LLEstimation_electron_newTFbins.root, TF_allin1_LLEstimation_muon_newTFbins.root, TMVAClassification_BDT_100trees_2maxdepth.weights.xml";
   //---------------------------------------------------
   cout<<"executable at worker node : "<<exeCondor<<endl
       <<"Analysis executable : "<<exeAna<<endl
@@ -47,13 +47,13 @@ void splitRunList(string infile,int nfPerJob, string datasetAna, string process,
   for(int i=0;i<jobid;i++){
     sprintf(name,"%s_job%i.jdl",dataset.c_str(),i);
     sprintf(fileListName,"FileList_%s_job%i.txt",dataset.c_str(),i);
-    sprintf(logFile,"phoID_%s_%s_pt40_%s_job%i",phoID.c_str(),dataset.c_str(),LL.c_str(),i);
+    sprintf(logFile,"phoID_%s_%s_pt100_MET200_%s_job%i",phoID.c_str(),dataset.c_str(),LL.c_str(),i);
     outf.open(name);
     outf<<"universe = vanilla"<<endl
 	<<"Executable = "<<exeCondor<<endl
 	<<"request_disk = 1000000"<<endl
 	<<"request_cpus = 1"<<endl
-	<<"request_memory = 0.5GB"<<endl
+	<<"request_memory = 1.0GB"<<endl
 	<<"Should_Transfer_Files = YES"<<endl
 	<<"WhenToTransferOutput = ON_EXIT_OR_EVICT"<<endl
 	<<"Transfer_Input_Files = "<<filesToTransfer<<","<<exeAna<<","<<fileListName<<","<<endl

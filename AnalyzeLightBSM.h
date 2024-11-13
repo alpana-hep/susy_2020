@@ -33,9 +33,17 @@ class AnalyzeLightBSM : public NtupleVariables{
   int getBinNoV6_WithOnlyBLSelec(int,int);
   TLorentzVector getBestPhoton(int);
   vector <TLorentzVector> getLorentzVector(int, Float_t[],Float_t[],Float_t[],Float_t[]);
-  void FillHistogram_Kinematics(int ,int, int, double , double, double, double,double);
+  void FillHistogram_Kinematics(int ,int, int, double , double, double, double,double,double,double);
   void FillHistogram_Kinematics_varBin(int , int , int , double , double, double );
-  void FillTFBins_Valid(int, int ,int, double, double, double,double, double);
+  void FillTFBins_Valid(int, int ,int, double, double, double,double, double,double,double, double);
+  int getBinNoV7_ST_MET_bjets_phopT(double, double, int , double);
+  int getBinNoV3_ST_MET_bjets(double, double,int);
+  int getBin_ST_MET_bjets_phopT_merge(double, double, int , double);
+  int getBinNoV2_ST_MET(double, double);
+  int getBin_3var_withST(double, double, double);
+  int getBin_3var(int, double, double);
+  int getBin_4var(int, int, double, double);
+  int  getBin_2var(int, double , double );
   int Photons_OriginType();
   //  <vector>
   double getGendRLepPho(int);
@@ -83,16 +91,28 @@ class AnalyzeLightBSM : public NtupleVariables{
   /* vector<double> METLowEdge2={100,200,270,350,450,2000}; */
   /* vector<double> METLowEdge_v3={200,300,370,450,600,750,900,2000}; */
   /* vector<double> METLowEdge_v3_1={200,300,370,450,600,900,2000}; */
+  vector<double> ST_bins = {300,1000,1500,2000,2500,10000};
   vector<double> METLowEdge_lowMET={100,370,450,600};
   vector<double> METLowEdge_highMET={300,370,450,600};
 
 
-  vector<double> METLowEdge_v1={100,250,270,350,450,600,750,900,2000};
-  vector<double> METLowEdge_v2={200,250,300,370,450,600,750,900,2000};
-  vector<double> METLowEdge_v2_1={200,250,300,370,450,600,750,2000};
+  vector<double> METLowEdge_v2={100,200,300,370,450,600,750,900};//{100,200,,270,350,450,600,750,900,2000};                                                           
+  vector<double> METLowEdge_v2_1={100,200,300,370,450,600,750};
+  vector<double> METLowEdge_v2_2={100,200,300,370,450,600};
   vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
   vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
+  vector<double> METLowEdge_v3_merge={200,300,370,600,750};
   vector<double> METLowEdge_v3_2={200,300,370,450,600};
+  vector<double> METLowEdge_v1={300,370,450,600,750,900};
+  vector<double> METLowEdge_v1_1={300,370,450,600,750};
+  vector<double> METLowEdge_v1_2={300,370,450,600};
+  vector<double> BDTscore_bins={-1.0,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1.0};
+  vector<double> phoPt_bins = {40,100,150,200,400,10000};
+  vector<double> BestPhotonPtBinLowEdge={40,70,100,120,140,160,200,240,300,450,600,1000};
+  vector<double> QMultLowedge={0,2,4,7,100};
+  vector<double>  nJetsLowedge={2,5,10,20};
+  vector<double>  nbtagsLowedge={0,1,10};
+
   TH1F *h_selectBaselineYields_;
   TH1F *h_selectBaselineYields_v1;
   /* TH1F *h_selectBaselineYields_SR; */
@@ -122,7 +142,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1D *h_Nbjets_validation[100];
   TH1F *h_MET_validation[100];
   TH1F *h_St_validation[100];
-  
+  TH1F *h_qmulti[100];
   TH1F *h_PhotonPt_validation_TFbins_v2[100];
   TH1D *h_Njets_validation_TFbins_v2[100];
   TH1D *h_Nbjets_validation_TFbins_v2[100];
@@ -141,6 +161,11 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_St[60];
   TH1F *h_St_Varbin[10];
   TH1F *h_HT[60];
+  TH2F *h_HTversus_phopT[100];
+  TH2F *h_STversus_phopT[100];
+  TH2F *h_STversus_nJets[100];
+  TH2F *h_STversus_MET[100];
+  
   /* TH1D *h_Njets_CR[60]; */
   /* TH1D *h_Nbjets_CR[60]; */
   /* TH1F *h_MET__CR[60]; */
@@ -189,8 +214,32 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_TFbins_LL_v2[100];
   TH1F *h_TFbins_LL_v3[100];
   TH1F *h_TFbins_LL_v4[100];
+  TH1F *h_TFbins_LL_v5_4var[100];
+  TH1F *h_TFbins_LL_v6_3var[100];
+  TH1F *h_TFbins_LL_v7_3var_ST[100];
+  TH1F *h_TFbins_LL_v8_3var_HT[100];
   TH1F *h_Sbins_LL_Validation[100];
   TH1F *h_Sbins_LL[100];
+  TH1F *h_Sbins_LL_newSbins_v3[100];
+  TH1F *h_Sbins_LL_newSbins_v7[100];
+  TH1F *h_Sbins_LL_newSbins_v7_merge[100];
+
+  TH1F *h_Sbins_LL_newSbins_Validation_v3[100];
+  TH1F *h_Sbins_LL_newSbins_Validation_v7[100];
+  TH1F *h_Sbins_LL_newSbins_Validation_v7_merge[100];
+  TH1F *h_Sbins_LL_v2_newSbins_Validation_v3[100];
+  TH1F *h_Sbins_LL_v2_newSbins_Validation_v7[100];
+  TH1F *h_Sbins_LL_v2_newSbins_Validation_v7_merge[100];
+  TH1F *h_Sbins_LL_v4_newSbins_Validation_v3[100];
+  TH1F *h_Sbins_LL_v4_newSbins_Validation_v7[100];
+  TH1F *h_Sbins_LL_v5_newSbins_Validation_v3[100];
+  TH1F *h_Sbins_LL_v5_newSbins_Validation_v7[100];
+  TH1F *h_Sbins_LL_v6_newSbins_Validation_v3[100];
+  TH1F *h_Sbins_LL_v6_newSbins_Validation_v7[100];
+  TH1F *h_Sbins_LL_v3_newSbins_Validation_v3[100];
+  TH1F *h_Sbins_LL_v3_newSbins_Validation_v7[100];
+  TH1F *h_Sbins_LL_v3_newSbins_Validation_v7_merge[100];
+
   TH1F *h_TFbins_ElecLL_validation[100];
   TH1F *h_TFbins_ElecLL_validation_v1[100];
   TH1F *h_Sbins_LL_Validation_TFbins_V2[100];
@@ -380,7 +429,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250;
   TH1F *h_Sbins_v6_withOnlyBL_Selec_HT2TeV_Met250_Pt100;
   
-  /* TH1F *h_mvaResponse_baseline[60]; */
+  TH1F *h_mvaResponse_baseline[60];
   TH1F *h_mvaResponse;
   
   /* TH1F *h_GenpT[31]; */
@@ -434,7 +483,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   //  const char *baseline[25]={"Nocut","photon_selec","Phot_pT_20","nHadJets_2","MET_100","ST_300","bkg_comp","Met_cleaning","lept_veto","veto_chargedTracks","dPhi_MET","jet_pT_Pho_pT","MET_250","pho_pt_100","Final","Pho_pT_30","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","nocut_sam","basic_sam"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"
   //const char *baseline[48]={"Nocut","SignalRegion","ControlRegion","lostElec_SR","lostMu_SR","lostTau_SR","else_pho_SR","lostElec_CR","lostMu_CR","lostTau_CR","else_pho_CR","else_SR","else_CR","lostElecTau_SR","lostMuTau_SR","Tau_hadronic_SR","lostElec_SR_Accept","lostElec_SR_ident","SignalRegion_BDTcut1","ControlRegion_BDTcut1","lostElec_SR_BDTcut1","lostMu_SR_BDTcut1","lostTau_SR_BDTcut1","else_pho_SR_BDTcut1","else_SR_BDTcut1","lostElecTau_SR_BDTcut1","lostMuTau_SR_BDTcut1","Tau_hadronic_SR_BDTcut1","lostElec_CR_BDTcut1","lostMu_CR_BDTcut1","lostTau_CR_BDTcut1","else_pho_CR_BDTcut1","else_CR_BDTcut1","SignalRegion_BDTcut2","ControlRegion_BDTcut2","lostElec_SR_BDTcut2","lostMu_SR_BDTcut2","lostTau_SR_BDTcut2","else_pho_SR_BDTcut2","else_SR_BDTcut2","lostElecTau_SR_BDTcut2","lostMuTau_SR_BDTcut2","Tau_hadronic_SR_BDTcut2","lostElec_CR_BDTcut2","lostMu_CR_BDTcut2","lostTau_CR_BDTcut2","else_pho_CR_BDTcut2","else_CR_BDTcut2"};
 
-  vector<string> baseline = {"NoSelection","PreSelection","preSelection_promptPho_v1","preSelection_NonpromptPho_v1","preSelection_ElecFake","preSelection_Else","Elec_CR","Mu_CR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_failEtacut_SR","Elec_failpTcut_SR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Mu_failEtacut_SR","Mu_failpTcut_SR","TauHad_SR","Elec_SR_valid","Mu_SR_valid","Elec_CR_promptPho_v1","Elec_CR_NonpromptPho_v1","Elec_CR_ElecFake","Elec_CR_Else","Elec_SR_promptPho_v1","Elec_SR_NonpromptPho_v1","Elec_SR_ElecFake","Elec_SR_Else","Mu_CR_promptPho_v1","Mu_CR_NonpromptPho_v1","Mu_CR_ElecFake","Mu_CR_Else","Mu_SR_promptPho_v1","Mu_SR_NonpromptPho_v1","Mu_SR_ElecFake","Mu_SR_Else","TauHad_SR_promptPho_v1","TauHad_SR_NonpromptPho_v1","TauHad_SR_ElecFake","TauHad_SR_Else"};
+  vector<string> baseline = {"NoSelection","PreSelection","preSelection_promptPho_v1","preSelection_NonpromptPho_v1","preSelection_ElecFake","preSelection_Else","Elec_CR","Mu_CR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_failEtacut_SR","Elec_failpTcut_SR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Mu_failEtacut_SR","Mu_failpTcut_SR","TauHad_SR","Elec_SR_valid","Mu_SR_valid","Elec_CR_promptPho_v1","Elec_CR_NonpromptPho_v1","Elec_CR_ElecFake","Elec_CR_Else","Elec_SR_promptPho_v1","Elec_SR_NonpromptPho_v1","Elec_SR_ElecFake","Elec_SR_Else","Mu_CR_promptPho_v1","Mu_CR_NonpromptPho_v1","Mu_CR_ElecFake","Mu_CR_Else","Mu_SR_promptPho_v1","Mu_SR_NonpromptPho_v1","Mu_SR_ElecFake","Mu_SR_Else","TauHad_SR_promptPho_v1","TauHad_SR_NonpromptPho_v1","TauHad_SR_ElecFake","TauHad_SR_Else","PreSelection_withBDT","Elec_CR_withBDT","Mu_CR_withBDT","Elec_SR_withBDT","Mu_SR_withBDT","TauHad_SR_withBDT"};
   cout<<"size of baseline vector"<<"\t"<<baseline.size()<<endl;
   vector <string> baseline1={"Elect_Inc","Mu_Inc","Tau_Inc","Elect_Inc_v1","Mu_Inc_v1","Tau_Inc_v1","Elect_SR_bin0","Elect_SR_v1_bin1","Elect_SR_bin1","Mu_SR_bin0","Mu_SR_v1_bin0","Mu_SR_bin1","Mu_SR_v1_bin1","Mu_CR","Tau_Inc","Tau_SR","Tau_CR","Tau_ElecSR","Tau_ElecCR","Tau_MuSR","Tau_MuCR","ElecNu_Inc","ElecNu_SR","MuNu_Inc","MuNu_SR","TauNu_Inc","TauNu_SR","ElecNu_CR","MuNu_CR","TauNu_CR",""};
 
@@ -757,14 +806,66 @@ char hist_name1[1000];
       h_TFbins_LL_v3[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_TFbins_ElecLL_v4_%s",baseline[i].c_str());
       h_TFbins_LL_v4[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_v5_%s",baseline[i].c_str());
+      h_TFbins_LL_v5_4var[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_v6_%s",baseline[i].c_str());
+      h_TFbins_LL_v6_3var[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_v7_%s",baseline[i].c_str());
+      h_TFbins_LL_v7_3var_ST[i] = new TH1F(hname_st,hname_st,30,0,30);
+      sprintf(hname_st,"h_TFbins_ElecLL_v8_%s",baseline[i].c_str());
+      h_TFbins_LL_v8_3var_HT[i] = new TH1F(hname_st,hname_st,30,0,30);
 
+	
       sprintf(hname_st,"h_TFbins_ElecLL_validation_v1_%s",baseline[i].c_str());
       h_TFbins_ElecLL_validation[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_TFbins_ElecLL_validation_v2_%s",baseline[i].c_str());
       h_TFbins_ElecLL_validation_v1[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_Sbins_LL_Validation_%s",baseline[i].c_str());
       h_Sbins_LL_Validation[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_v7_merge_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_v7_merge[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
 
+      sprintf(hname_st,"h_Sbins_LL_newSbins_Validation_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_Validation_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_Validation_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_Validation_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_Validation_v7_merge_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_Validation_v7_merge[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+      sprintf(hname_st,"h_Sbins_LL_v2_newSbins_Validation_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_v2_newSbins_Validation_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_v2_newSbins_Validation_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_v2_newSbins_Validation_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+      sprintf(hname_st,"h_Sbins_LL_v2_newSbins_Validation_v7_merge_%s",baseline[i].c_str());
+      h_Sbins_LL_v2_newSbins_Validation_v7_merge[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+      sprintf(hname_st,"h_Sbins_LL_v3_newSbins_Validation_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_v3_newSbins_Validation_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_v3_newSbins_Validation_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_v3_newSbins_Validation_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+      sprintf(hname_st,"h_Sbins_LL_v3_newSbins_Validation_v7_merge_%s",baseline[i].c_str());
+      h_Sbins_LL_v3_newSbins_Validation_v7_merge[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+      sprintf(hname_st,"h_Sbins_LL_v4_newSbins_Validation_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_v4_newSbins_Validation_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_v4_newSbins_Validation_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_v4_newSbins_Validation_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+      sprintf(hname_st,"h_Sbins_LL_v5_newSbins_Validation_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_v5_newSbins_Validation_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_v5_newSbins_Validation_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_v5_newSbins_Validation_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+      sprintf(hname_st,"h_Sbins_LL_v6_newSbins_Validation_v3_%s",baseline[i].c_str());
+      h_Sbins_LL_v6_newSbins_Validation_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
+      sprintf(hname_st,"h_Sbins_LL_v6_newSbins_Validation_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_v6_newSbins_Validation_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+      
       sprintf(hname_st,"h_TFbins_ElecLL_validation_TFbins_v2_v1_%s",baseline[i].c_str());
       h_TFbins_ElecLL_validation_TFbins_v2[i] = new TH1F(hname_st,hname_st,30,0,30);
       sprintf(hname_st,"h_TFbins_ElecLL_validation_TFbins_v2_v2_%s",baseline[i].c_str());
@@ -779,6 +880,14 @@ char hist_name1[1000];
       sprintf(hname_st,"h_Sbins_LL_Validation_TFbins_V3_%s",baseline[i].c_str());
       h_Sbins_LL_Validation_TFbins_V3[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
 
+      sprintf(hname_st,"h_HTversus_phopT_%s",baseline[i].c_str());
+      h_HTversus_phopT[i] = new TH2F(hname_st,"",500,0,3000,500,0,1000);
+      sprintf(hname_st,"h_STversus_phopT_%s",baseline[i].c_str());
+      h_STversus_phopT[i] = new TH2F(hname_st,"",500,0,3000,500,0,1000);
+      sprintf(hname_st,"h_STversus_nJets_%s",baseline[i].c_str());
+      h_STversus_nJets[i] = new TH2F(hname_st,"",500,0,3000,20,0,20);
+       sprintf(hname_st,"h_STversus_MET_%s",baseline[i].c_str());
+      h_STversus_MET[i] = new TH2F(hname_st,"",500,0,3000,400,0,1500);
 
       sprintf(hname_st,"h_Sbins_LL_%s",baseline[i].c_str());
       h_Sbins_LL[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)]",52,0,52);
@@ -793,8 +902,11 @@ char hist_name1[1000];
       /* h_njets_vs_ST[i]= new TH2F(hname_njet_vs_ST,hname_njet_vs_HT,20,0,20,120,0,12000); */
       /* h_njets_vs_HT[i] = new TH2F(hname_njet_vs_HT,hname_njet_vs_HT,20,0,20,120,0,12000); */
       /* h_ST_vs_ptPho[i]= new TH2F(hname_ST_vs_ptPho,hname_ST_vs_ptPho,100,0,2000,120,0,12000); */
-      /* sprintf(hname,"h_BDT_response_%s",baseline[i].c_str()); */
-      /* h_mvaResponse_baseline[i]= new TH1F(hname,hname,500,-2,2); */
+      sprintf(hname,"h_BDT_response_%s",baseline[i].c_str());
+      h_mvaResponse_baseline[i]= new TH1F(hname,hname,500,-2,2);
+      sprintf(hname,"h_qmulti_%s",baseline[i].c_str());
+      h_qmulti[i]= new TH1F(hname,hname,500,0,200);
+
       /* sprintf(hname_st,"mindr_Pho_genlep_%s",baseline[i].c_str()); */
       /* h_mindr_Pho_genlep[i]= new TH1F(hname_st,"mindR(gen-l,#gamma)",1000,0,10); */
       /* sprintf(hname_st,"mindr_Pho_genElec_%s",baseline[i].c_str()); */
@@ -1108,9 +1220,13 @@ char hist_name1[1000];
 
 AnalyzeLightBSM::AnalyzeLightBSM(const TString &inputFileList, const char *outFileName, const char* dataset, const char* N2_mass, const char* LostlepFlag, const char* phoID) {
   string nameData=dataset;//vvv
+  TString nameSample = N2_mass;
   //TDirectory * dir = new TDirectory("TreeMaker2");
-    TChain *tree = new TChain("PreSelection");
-    //  TChain *tree = new TChain("PreSelection");
+  TChain *tree;
+  if(nameSample.Contains("data"))
+    tree = new TChain("TreeMaker2/PreSelection");
+  else
+    tree = new TChain("PreSelection");
   if( ! FillChain(tree, inputFileList) ) {
     std::cerr << "Cannot get the tree " << std::endl;
   } else {

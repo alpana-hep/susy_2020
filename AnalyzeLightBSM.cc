@@ -13,6 +13,7 @@
 #include "TMVA/Tools.h"
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
+#include "BTagCorrector.h"
 #pragma link C++ class std::vector< std::vector >+; 
 #pragma link C++ class std::vector< TLorentzVector >+;
 using namespace TMVA;
@@ -92,6 +93,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   bool applyL1TrigFire_cal=true;
   bool applyL1TrigFire_prob=true;
   bool applyPUwt=true;
+  bool applybTagSFs=false;
   TString puwt="central";
   if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
   if(s_data.Contains("2016postVFP")) { lumiInfb=16.5; deepCSVvalue = 0.5847; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;} //2016
@@ -119,6 +121,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       cout<<"Trigger efficiency flag "<<applyTrgEff<<" p0 "<<p0<<"  p1  "<<p1<<"  p2 "<< p2<<endl;
 
     }
+   // if(applybTagSFs && !s_data.Contains("data")){
+   //   currFile = TFile::Open(sampleName);
+   // 	btagcorr.SetEffs(currFile);
+   //      if(s_data.Contains("v17_2016")) btagcorr.SetCalib("btag/DeepCSV_Moriond17_B_H_mod.csv");
+   //      if(s_data.Contains("v17_2017")) btagcorr.SetCalib("btag/DeepCSV_94XSF_V3_B_F_mod.csv");
+   //      if(s_data.Contains("v17_2018")) btagcorr.SetCalib("btag/DeepCSV_102XSF_V1_mod.csv");
+   //    }
   // if(!s_data.Contains("data"))
   //   {
 
@@ -161,6 +170,27 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
  //  // reader1->AddVariable("dPhi_Met_Jet",&dPhi_MetJet);
  //  // reader1->AddVariable( "ST", &st );
  //  // reader1->BookMVA( "BDT_100trees_2maxdepth method", "TMVAClassification_BDT_100trees_2maxdepth.weights.xml");
+
+  double mva_cut =0.0, mva_cut1 =0.0;
+  float met=0.0,st=0.0, njets=0, btags=0,mTPhoMet=0.0,dPhi_PhoMet=0.0,dPhi_MetJet1=0.0,PhoPt=0.0,dPhi_Pho_Jet2=0.0,dPhi_Pho_Jet1=0.0,LeadJets1Pt=0.0\
+    ,LeadJets2Pt=0.0,dPhi_MetJet2=0.0;
+  TMVA::Reader *reader1 = new TMVA::Reader();
+  reader1->AddVariable( "MET", &met );
+  reader1->AddVariable( "NhadJets", &njets );
+  reader1->AddVariable( "NbJets", &btags );
+  reader1->AddVariable("mTPhoMET_",&mTPhoMet);
+  reader1->AddVariable("dPhi_PhoMET_",&dPhi_PhoMet);
+  reader1->AddVariable("dPhi_Met_Jet1",&dPhi_MetJet1);
+  reader1->AddVariable( "ST", &st );
+  reader1->AddVariable("PhoPt",&PhoPt);
+  reader1->AddVariable("dPhi_Met_Jet2",&dPhi_MetJet2);
+  reader1->AddVariable("dPhi_Pho_Jet2",&dPhi_Pho_Jet2);
+  reader1->AddVariable("dPhi_Pho_Jet1",&dPhi_Pho_Jet1);
+  reader1->AddVariable("LeadJets1Pt",&LeadJets1Pt);
+  reader1->AddVariable("LeadJets2Pt",&LeadJets2Pt);
+  reader1->BookMVA("BDT_200trees_2maxdepth method", "TMVAClassification_BDT_200trees_2maxdepth.weights.xml");
+  mva_cut = -0.4;
+
   float nsurVived=0.0;
   int searchBin=0, Tfbins=0;
   float nCR_elec =0,nCR_mu=0,nCR_Tau=0,nSR_elec =0,nSR_mu=0,nSR_Tau=0, FailIso_Elec=0,FailIso_Mu=0, FailAccept_Elec=0,FailAccept_Mu=0, FailId_Elec=0,FailId_Mu=0, PassIso_Elec=0,PassIso_Mu=0, PassAccept_Elec=0,PassAccept_Mu=0, PassId_Elec=0,PassId_Mu=0, nfakeRatePho=0,wt_LL=0.0;
@@ -172,7 +202,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
   //const char* filetag[8]={"TTGJets_2018","TTGJets_2017","TTGJets_2016","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016","Run2_WGJets"};
   char* hname = new char [200];
-  sprintf(hname, "Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");
+  sprintf(hname, "Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");//Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");
   char* hname1 = new char [200];
   sprintf(hname1, "Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root");//"TF_Electron_LLEstimation_binsV0_phoID_%s_08Aug23.root",phoID);
   char* hname2 = new char [200];
@@ -180,19 +210,34 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   TFile* f_TFbins= new TFile(hname);
   TFile* f_TFbins_v1 =new TFile(hname1);
   TFile* f_TFbins_v2= new TFile(hname2);
+  sprintf(hname2, "Lepton_LL_TFv4_nJetsBjets_MET_phopT_phoID_loose_09Jan24.root");
+  TFile* f_TFbins_v4= new TFile(hname2);
+  sprintf(hname2, "Lepton_LL_TFv5_nBjets_MET_phopT_phoID_loose_09Jan24.root");
+  TFile* f_TFbins_v5= new TFile(hname2);
+  sprintf(hname2, "Lepton_LL_TFv6_ST_MET_phopT_phoID_loose_09Jan24.root");
+  TFile* f_TFbins_v6= new TFile(hname2);
+  
   char* histname = new char[2000];
   TH1F* h_TF;
   TH1F* h_TF1;
   TH1F* h_TF2;
+  TH1F* h_TF4;
+  TH1F* h_TF5;
+  TH1F* h_TF6;
+
  auto sample1="";
  if(s_sample.Contains("Autumn18.WGJets_MonoPhoton_PtG-130")|| s_sample.Contains("Autumn18.WGJets_MonoPhoton_PtG-40to130"))
    sample1 = "WGJets";
  else
    sample1 = sample;
- sprintf(histname,"h_TFbins_LL_W+TTBar_FullRun2");//h_TFbins_LL_W+TTBar_FullRun2");//2018",data);                                                                   
+ sprintf(histname,"h_TFbins_LL_W+TTBar_FullRun2");//W+TTBar_FullRun2");//FullRun2");//h_TFbins_LL_W+TTBar_FullRun2");//2018",data);                                                                   
  h_TF = (TH1F*)f_TFbins->Get(histname);
+ sprintf(histname,"h_TFbins_LL_W+TTBar_FullRun2");//
  h_TF1 = (TH1F*)f_TFbins_v1->Get(histname);
  h_TF2 = (TH1F*)f_TFbins_v2->Get(histname);
+ h_TF4 = (TH1F*)f_TFbins_v4->Get(histname);
+ h_TF5 = (TH1F*)f_TFbins_v5->Get(histname);
+ h_TF6 = (TH1F*)f_TFbins_v6->Get(histname);
  cout<<"Reading TF for lost electron estimation:  "<<"\t"<<histname<<endl;
  for(int i=0; i<h_TF->GetNbinsX();i++)
    {cout<<"TFBIns_v0"<<"\t"<<i<<"\t"<<h_TF->GetBinContent(i)<<endl;}
@@ -201,6 +246,17 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
    {cout<<"TFBIns_v1"<<"\t"<<i<<"\t"<<h_TF1->GetBinContent(i)<<endl;}
  for(int i=0; i<h_TF2->GetNbinsX();i++)
    {cout<<"TFBIns_v2"<<"\t"<<i<<"\t"<<h_TF2->GetBinContent(i)<<endl;}
+ cout<<"V4 bins - TF "<<endl;
+ for(int i=0; i<h_TF4->GetNbinsX();i++)
+   {cout<<i<<"\t"<<h_TF4->GetBinContent(i)<<endl;}
+ cout<<"V5 bins - TF "<<endl;
+ for(int i=0; i<h_TF5->GetNbinsX();i++)
+   {cout<<i<<"\t"<<h_TF5->GetBinContent(i)<<endl;}
+
+ cout<<"V6 bins - TF "<<endl;
+ for(int i=0; i<h_TF6->GetNbinsX();i++)
+   {cout<<i<<"\t"<<h_TF6->GetBinContent(i)<<endl;}
+
 
  // if(lost_elec_flag)
  //   {
@@ -222,6 +278,18 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
  double count_ematchJets=0;
  double   count_ematchJets1=0;
   int coutt=0;
+  BTagCorrector btagcorr;
+  int fListIndxOld=-1;
+  vector<TString> inFileName;
+  TString sampleName;
+  cout<<"inputFileList : "<<inputFileList<<endl; 
+  string str1;
+  ifstream runListFile(inputFileList);
+  TFile *currFile;
+  while (std::getline(runListFile, str1)) {
+    inFileName.push_back(str1);
+  }runListFile.close();
+  cout<<"applying b-tag SFs for MC? "<<applybTagSFs<<endl;
   //nentries=1000;
   for (Long64_t jentry=0; jentry<nentries;jentry++)
      {
@@ -379,9 +447,9 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	}
 
       // applying PU weight
-      if(!s_sample.Contains("data"))
+      if(!s_sample.Contains("data") && !s_sample.Contains("signal") && applyPUwt)
 	wt = wt*puWeight;
-      
+
       if(jentry<100 && (s_data.Contains("2016") ||  s_data.Contains("2017") ))
 	cout<<"after applying L1 trig prefire "<<wt<<"\t"<< NonPrefiringProb<<endl;
       int ele_branch=Electrons_;
@@ -466,7 +534,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       v_genTau1.clear();
       v_genTau2.clear();
 
-           int leadGenPhoIdx=-100, mu_index=-100;
+      int leadGenPhoIdx=-100, mu_index=-100;
       int pass_accep_elec=0,fail_accep_elec=0,fail_isoEle=0,pass_isoElec=0,fail_IdElec=0,pass_IdElec=0;
       int pass_accep_mu=0,fail_accep_mu=0,fail_isoMu=0,pass_isoMu=0,fail_IdMu=0,pass_IdMu=0;
       if(!s_sample.Contains("data")){
@@ -535,7 +603,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       nlep=0; nelec_reco=0;
       sortTLorVec(&Electrons_v1);
       sortTLorVec(&Muons_v1);
-
+      // if(NElectrons>1 && lost_elec_flag) continue;
+      // if(NMuons >1 && !lost_elec_flag) continue;
       for(int i=0;i<Electrons_;i++)
     	{
     	  if(nelec_reco>0) continue;
@@ -580,8 +649,12 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
 	}
       if(Debug && v_recMu.size()==1)      cout<<"entry: "<<"\t"<<jentry<<" "<<nlep<<"\t"<<"reco e size"<<" "<<v_recEle.size()<<" "<<Muons_v1.size()<<"\t"<<NMuons<<endl;
-      if(Electrons_==0 && nelec_reco!=0) //checking if the contribution to SR with no reco e- is coming up or not?                              
-    	cout<<"Entry "<< jentry<<"\t"<<nelec_reco<<endl;
+      //if(nelec_reco!=NElectrons) //checking if the contribution to SR with no reco e- is coming up or not?                              
+      //cout<<"Entry "<< jentry<<"\t"<<nelec_reco<<"\t"<<NElectrons<<endl;
+      
+      if(NElectrons>1 && lost_elec_flag) continue;
+      if(NMuons >1 && !lost_elec_flag) continue;
+
       float ratio =0.0, ratio1=0.0, mindr_genElecPho=-999, mindr_=-9999;
       int count_genEle=0,count_recEle=0;
       vector<TLorentzVector> goodPho_n;
@@ -601,9 +674,16 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       // *******************  Selecting Jet objects ********************************//
        int minDRindx=-100,phoMatchingJetIndx=-100,hadJetID=-999,bJet1Idx=-100,nHadJets=0;
       double minDR=99999,ST=0,Ht=0;
-      vector<TLorentzVector> hadJets,bjets;
+      vector<TLorentzVector> hadJets,bjets,nonbjets;
       hadJets.clear();
+      vector<int> hadJets_hadronFlavor;
+      vector<bool> hadJets_HTMask;
+      vector<double> hadJets_bJetTagDeepCSVBvsAll;
       bjets.clear();
+      nonbjets.clear();
+      hadJets_hadronFlavor.clear();
+      hadJets_HTMask.clear();
+      hadJets_bJetTagDeepCSVBvsAll.clear();
       vector<int> jetMatchindx;
       bool recoJetMatch_recoPho=false, genJetMatch_recoPho=false, flag_jetIDmiss=false;
       if(Debug)
@@ -630,14 +710,15 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     	      //if(true){
 	      if(hadJetID){
 		hadJets.push_back(Jets_v1[i]);
-    		  // hadJets_hadronFlavor.push_back((*Jets_hadronFlavor)[i]);
-    		  // hadJets_HTMask.push_back((*Jets_HTMask)[i]);
-    		  // hadJets_bJetTagDeepCSVBvsAll.push_back((*Jets_bJetTagDeepCSVBvsAll)[i]);
-    		  // if(q==1) leadjet_qmulti=(*Jets_chargedMultiplicity)[q];
+    		  hadJets_hadronFlavor.push_back((*Jets_hadronFlavor)[i]);
+    		  hadJets_HTMask.push_back((*Jets_HTMask)[i]);
+    		  hadJets_bJetTagDeepCSVBvsAll.push_back((*Jets_bJetTagDeepCSVBvsAll)[i]);
+    		  //if(q==1) leadjet_qmulti=(*Jets_chargedMultiplicity)[q];
     		  // if(q==1) leadjet_Pt=(*Jets)[q].Pt();
 	      //cout<<"  (*Jets_bJetTagDeepCSVBvsAll)[i]  "<<(*Jets_bJetTagDeepCSVBvsAll)[i]<<endl;
 		if((*Jets_bJetTagDeepCSVBvsAll)[i] > deepCSVvalue){
 		  bjets.push_back(Jets_v1[i]); bJet1Idx = i;}
+		else nonbjets.push_back(Jets_v1[i]);
 		// hadJets.push_back((*Jets)[i]);
 		jetMatchindx.push_back(i);
 
@@ -661,6 +742,17 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     	    }
     	}
       }
+    double qmulti=0;
+    int photonMatchingJetIndx=-100;
+    int leadbjet_tag=-1;
+    if( minDR<0.3)
+      {
+	photonMatchingJetIndx=minDRindx;
+	qmulti=(*Jets_chargedMultiplicity)[photonMatchingJetIndx];
+	leadbjet_tag=(*Jets_bJetTagDeepCSVBvsAll)[photonMatchingJetIndx];
+      }
+    
+
     if(hadJets.size()==0) continue;
     if(Debug)
       cout<<"===load tree entry ===  "<<"\t"<<jentry<<"\t"<<"No of B-Jets ===  "<<bjets.size()<<endl;
@@ -712,7 +804,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     Double_t deta_jet_pho= 0.0,deta_jet_met=0.0,deta_met_pho=0.0;
     if(Debug)
       cout<<"METPhi "<<METPhi<<endl;
-    if(    goodPho_n.size()==0 || Photons_==0) continue;
+    if(goodPho_n.size()==0 || Photons_==0) continue;
     
     // h_recoPho_pT->Fill(bestPhoton.Pt(),wt); h_recoPho_Eta->Fill(bestPhoton.Eta(),wt);
     // h_recoPho_Phi->Fill(bestPhoton.Phi(),wt);
@@ -861,8 +953,64 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       }
     h_madminPhotonDeltaR_preSelection->Fill(madMinPhotonDeltaR,wt); 
 	 }
-    h_selectBaselineYields_v1->Fill("Pre-Selection",wt);
-    FillHistogram_Kinematics(1,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	 h_selectBaselineYields_v1->Fill("Pre-Selection",wt);
+
+
+	 //BDT stuff
+	 double LeadJets1_Pt=0,LeadJets2_Pt=0;
+	 if(nHadJets>=1){
+	   dPhi_phojet1 = abs(bestPhoton.DeltaPhi(hadJets[0]));
+	   LeadJets1_Pt = hadJets[0].Pt();
+	 }
+	 if(nHadJets>=2){
+	   dPhi_phojet2 = abs(bestPhoton.DeltaPhi(hadJets[1])); 
+	   LeadJets2_Pt = hadJets[1].Pt();
+	 }
+
+    met = MET;
+    njets = nHadJets;
+    btags = BTags;
+    mTPhoMet = mTPhoMET;
+    dPhi_PhoMet = dPhi_PhoMET;
+    dPhi_MetJet1 =dPhi_METjet1;
+    st = ST;
+    PhoPt = bestPhoton.Pt();
+    dPhi_MetJet2 = dPhi_METjet2;
+    dPhi_Pho_Jet2 = dPhi_phojet2;
+    dPhi_Pho_Jet1 = dPhi_phojet1;
+    LeadJets1Pt = LeadJets1_Pt;
+    LeadJets2Pt = LeadJets2_Pt;
+
+    Double_t mvaValue = reader1->EvaluateMVA( "BDT_200trees_2maxdepth method");
+    // btagging SF stuff
+    if(fListIndxOld!=fCurrent){
+      fListIndxOld = fCurrent;
+      sampleName = inFileName[fCurrent];
+      //cout<<" sample name : "<<sampleName<<endl;
+      if(applybTagSFs && !s_sample.Contains("data")){
+	currFile = TFile::Open(sampleName);
+	//cout<<currFile<<endl;
+	btagcorr.SetEffs(currFile);
+	//	cout<<"after setiing the currfile"<<endl;
+	if(s_data.Contains("2016preVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016preVFP_Oct162024.csv");
+	if(s_data.Contains("2016postVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016postVFP_Oct162024.csv");
+	if(s_data.Contains("2017")) btagcorr.SetCalib("./wp_deepCSV_UL2017_Oct162024.csv");
+	if(s_data.Contains("2018")) btagcorr.SetCalib("./wp_deepCSV_UL2018_Oct162024.csv");//./mod_wp_deepCSV_UL2018_Oct162024.csv");//btagging/CSVv2_Moriond17_B_H_mod.csv");//./wp_deepCSV_UL2018_Oct162024.csv");
+      }
+    }
+    double corrbtag = 1.0;
+    if(!s_sample.Contains("data") && applybTagSFs){
+      corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue);
+      if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<endl;
+      // if(corrbtag!=1)
+      // 	cout<<jentry<<"\t"<<corrbtag<<"\t"<<wt<<endl;
+      wt = wt * corrbtag;
+    }
+
+    //    double Ht = ST- bestPhoton.Pt();
+    FillHistogram_Kinematics(1,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+    if(mvaValue>mva_cut)
+      FillHistogram_Kinematics(43,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
      	 //    h_madminPhotonDeltaR_preSelection->Fill(madMinPhotonDeltaR,wt);
     if(Debug)
       cout<<" just before photon identification - prompt/non-prompt ========   ===="<<jentry<<endl;
@@ -877,13 +1025,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	if(NElectrons==0 && NMuons==0)
 	  {
 	    if(flag_phoOrigin==0)
-	      FillHistogram_Kinematics(2,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	      FillHistogram_Kinematics(2,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	    else if(flag_phoOrigin==1)
-	      FillHistogram_Kinematics(3,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	      FillHistogram_Kinematics(3,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	    else if(flag_phoOrigin==2)
-	      FillHistogram_Kinematics(4,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	      FillHistogram_Kinematics(4,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	    else if(flag_phoOrigin==3)
-	      FillHistogram_Kinematics(5,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);	  
+	      FillHistogram_Kinematics(5,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);	  
 	  }
       }
     }
@@ -904,7 +1052,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     double wt_LL = wt*h_TF->GetBinContent(TFbins+1);
     double wt_LL1 = wt*h_TF1->GetBinContent(TFbins1+1);
     double wt_LL2 = wt*h_TF2->GetBinContent(TFbins2+1);
-    
+    int TFbins4 = getBin_2var(BTags,Ht,bestPhoton.Pt());//4var(nHadJets,BTags,MET,bestPhoton.Pt());
+    double wt_LL4 = wt*h_TF4->GetBinContent(TFbins4+1);
+    int TFbins5 = getBin_3var(BTags,MET,bestPhoton.Pt());
+    double wt_LL5 = wt*h_TF5->GetBinContent(TFbins5+1);
+    int TFbins6 = getBin_3var_withST(ST,MET,bestPhoton.Pt()); 
+    double wt_LL6 = wt*h_TF6->GetBinContent(TFbins6+1);
+
     if (lost_elec_flag && nelec_reco == 1 && nmu_reco == 0){
       if(isoMuonTracks !=0 || isoPionTracks!=0) continue; // veto muon/pions from 1 electron CR
       if(Debug)
@@ -923,14 +1077,18 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	//   count_ematchJets1+=wt;
 	// else
 	//   count_ematchJets+=wt;
-      FillHistogram_Kinematics(6, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-      FillHistogram_Kinematics_varBin(2,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
-      //      int TFbins = getBinNoV1_le(nHadJets,BTags);
-      int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags);
-      if(nHadJets>=7)
-	cout<<"Entry: "<<jentry<<"\t"<<searchBin<<"\t"<<nHadJets<<"\t"<<BTags<<"\t"<<MET<<"\t"<<bestPhoton.Pt()<<"\t"<<wt<<endl;
-      //double wt_LL = wt*h_TF->GetBinContent(TFbins+1);
-      FillTFBins_Valid(6, nHadJets, BTags,wt_LL, wt_LL1, wt_LL2, bestPhoton.Pt(),ST);//
+	FillHistogram_Kinematics(6, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	h_qmulti[6]->Fill(qmulti,wt);
+	if(mvaValue>mva_cut)
+	  FillHistogram_Kinematics(44,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	
+	FillHistogram_Kinematics_varBin(2,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
+	//      int TFbins = getBinNoV1_le(nHadJets,BTags);
+	int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags);
+	if(nHadJets>=7)
+	  cout<<"Entry: "<<jentry<<"\t"<<searchBin<<"\t"<<nHadJets<<"\t"<<BTags<<"\t"<<MET<<"\t"<<bestPhoton.Pt()<<"\t"<<wt<<endl;
+	//double wt_LL = wt*h_TF->GetBinContent(TFbins+1);
+	FillTFBins_Valid(6, nHadJets, BTags,wt_LL, wt_LL1, wt_LL2,wt_LL4, wt_LL5, wt_LL6, bestPhoton.Pt(),ST);//
       // h_TFbins_ElecLL_validation[6]->Fill(TFbins+1,wt_LL);
       // h_TFbins_ElecLL_validation_v1[6]->Fill(TFbins+1,wt_LL);
       // h_Sbins_LL_Validation[6]->Fill(searchBin,wt_LL);
@@ -953,9 +1111,12 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
         cout<<"in Muon CR + with 1photon after dR cut ====== "<<jentry<<endl;
 
       mu_CR = true;
-      if(mu_CR){     
+      if(mu_CR){
+	if(mvaValue>mva_cut)
+      FillHistogram_Kinematics(45,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+
       FillHistogram_Kinematics_varBin(4,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
-      FillHistogram_Kinematics(7, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+      FillHistogram_Kinematics(7, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       //int TFbins = getBinNoV1_le(nHadJets,BTags);
       int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags);
       if(searchBin==35 || searchBin==34)
@@ -964,7 +1125,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	cout<<"Entry: "<<jentry<<"\t"<<searchBin<<"\t"<<nHadJets<<"\t"<<BTags<<"\t"<<MET<<"\t"<<bestPhoton.Pt()<<"\t"<<wt<<endl;
    
       //double wt_LL = wt*h_TF->GetBinContent(TFbins+1);
-      FillTFBins_Valid(7, nHadJets, BTags,wt_LL,wt_LL1, wt_LL2, bestPhoton.Pt(),ST);
+      FillTFBins_Valid(7, nHadJets, BTags,wt_LL,wt_LL1, wt_LL2,wt_LL4, wt_LL5, wt_LL6, bestPhoton.Pt(),ST);
       // h_TFbins_ElecLL_validation[7]->Fill(TFbins+1,wt_LL);
       // h_TFbins_ElecLL_validation_v1[7]->Fill(TFbins+1,wt_LL);
       // h_Sbins_LL_Validation[7]->Fill(searchBin,wt_LL);
@@ -986,13 +1147,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	// int searchBin = getBinNoV6_WithOnlyBLSelec(BTags,nHadJets);
       if(!s_sample.Contains("data")){
       if(flag_phoOrigin==0)
-	FillHistogram_Kinematics(23,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	FillHistogram_Kinematics(23,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==1)
-	FillHistogram_Kinematics(24,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	FillHistogram_Kinematics(24,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==2)
-	FillHistogram_Kinematics(25,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	FillHistogram_Kinematics(25,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==3)
-	FillHistogram_Kinematics(26,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	FillHistogram_Kinematics(26,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       }
     }
     
@@ -1005,13 +1166,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_mindR_Vs_pTratio_elec_pho[4]->Fill( bestPhoton.DeltaR(Muons_v1[mu_index]),Muons_v1[mu_index].Pt()/bestPhoton.Pt(),wt);}
       if(!s_sample.Contains("data")){
       if(flag_phoOrigin==0)
-        FillHistogram_Kinematics(32,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(32,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==1)
-        FillHistogram_Kinematics(33,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(33,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==2)
-        FillHistogram_Kinematics(34,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(34,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==3)
-        FillHistogram_Kinematics(35,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(35,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       }
     }
 
@@ -1042,7 +1203,11 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       if(!fakeElectron && MET>100) {h_mindR_elec_pho[3]->Fill(bestPhoton.DeltaR(v_genEle2[0]),wt);
 	h_pTratio_elec_pho[3]->Fill(v_genEle2[0].Pt()/bestPhoton.Pt(),wt);
 	h_mindR_Vs_pTratio_elec_pho[3]->Fill( bestPhoton.DeltaR(v_genEle2[0]),v_genEle2[0].Pt()/bestPhoton.Pt(),wt);}
-      if(elec_SR && MET>100){ FillHistogram_Kinematics(8, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+      if(elec_SR && MET>100){ FillHistogram_Kinematics(8, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	h_qmulti[8]->Fill(qmulti,wt);
+	if(mvaValue>mva_cut)
+	  FillHistogram_Kinematics(46,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	
 	 FillHistogram_Kinematics_varBin(3,nHadJets, BTags, bestPhoton.Pt(),ST,wt);}
       // Events falling into e SR due to failing different acceptance, ID, ISo criteria
       double dR = 9999;
@@ -1086,8 +1251,15 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
       if(((s_sample.Contains("WGJets") || s_sample.Contains("WJets"))&& nGentau_had1>0) ||( (s_sample.Contains("TTGJets") || s_sample.Contains("TTJets")) && (nGentau_had1>1 || (nGentau_had1>0 && nGenMu1==0)))) // nGenTauHad>0 scenario for cases where T-->hadTau and T--> qq
 	tauHad_SR = true;
-      if(mu_SR && !tauHad_SR && MET>100) FillHistogram_Kinematics(14, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-      if(mu_SR && tauHad_SR && MET>100) FillHistogram_Kinematics(20, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+      if(mu_SR && !tauHad_SR && MET>100){ FillHistogram_Kinematics(14, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	if(mvaValue>mva_cut)
+      FillHistogram_Kinematics(47,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+      }
+      if(mu_SR && tauHad_SR && MET>100) {FillHistogram_Kinematics(20, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	if(mvaValue>mva_cut)
+	  FillHistogram_Kinematics(48,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+
+      }
       // Events falling into e SR due to failing different acceptance, ID, ISo criteria                                                          
       double dR = 9999;
       if(mu_SR){
@@ -1106,49 +1278,49 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	 if(!s_sample.Contains("data")){
     if(elec_SR && MET>100){
       if(flag_phoOrigin==0)
-        FillHistogram_Kinematics(27,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(27,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==1)
-        FillHistogram_Kinematics(28,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(28,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==2)
-        FillHistogram_Kinematics(29,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(29,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==3)
-        FillHistogram_Kinematics(30,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(30,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
     }
 
     if(mu_SR && !tauHad_SR && MET>100){
       if(flag_phoOrigin==0)
-        FillHistogram_Kinematics(35,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(35,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==1)
-        FillHistogram_Kinematics(36,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(36,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==2)
-        FillHistogram_Kinematics(37,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(37,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       else if(flag_phoOrigin==3)
-        FillHistogram_Kinematics(38,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+        FillHistogram_Kinematics(38,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
     }
     if(tauHad_SR && mu_SR && MET>100)
       {
 	if(flag_phoOrigin==0)
-	  FillHistogram_Kinematics(39,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	  FillHistogram_Kinematics(39,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	else if(flag_phoOrigin==1)
-	  FillHistogram_Kinematics(40,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	  FillHistogram_Kinematics(40,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	else if(flag_phoOrigin==2)
-	  FillHistogram_Kinematics(41,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	  FillHistogram_Kinematics(41,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	else if(flag_phoOrigin==3)
-	  FillHistogram_Kinematics(42,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+	  FillHistogram_Kinematics(42,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       }
 
     ///   filling histogram for avrious sub-categories of different signal regions
-    if(elec_SR && MET>100) { if(!genElec_passAccep) FillHistogram_Kinematics(9,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	// if(!genElec_passpTcut)  FillHistogram_Kinematics(13,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	// else if(!genElec_passEtacut) FillHistogram_Kinematics(12,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
-	else if(!genElec_passId && genElec_passAccep) FillHistogram_Kinematics(10,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	else if(!genElec_passIso && genElec_passId && genElec_passAccep) FillHistogram_Kinematics(11,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt); }
+    if(elec_SR && MET>100) { if(!genElec_passAccep) FillHistogram_Kinematics(9,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// if(!genElec_passpTcut)  FillHistogram_Kinematics(13,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// else if(!genElec_passEtacut) FillHistogram_Kinematics(12,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);}
+	else if(!genElec_passId && genElec_passAccep) FillHistogram_Kinematics(10,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	else if(!genElec_passIso && genElec_passId && genElec_passAccep) FillHistogram_Kinematics(11,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht); }
                                 
-    if(mu_SR && !tauHad_SR && MET>100) { if(!genMu_passAccep) FillHistogram_Kinematics(15,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	// if(!genMu_passpTcut)  FillHistogram_Kinematics(19,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-	// else if(!genMu_passEtacut) FillHistogram_Kinematics(18,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);}
-      else if(!genMu_passId && genMu_passAccep) FillHistogram_Kinematics(16,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
-      else if(!genMu_passIso && genMu_passId && genMu_passAccep) FillHistogram_Kinematics(17,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt); }
+    if(mu_SR && !tauHad_SR && MET>100) { if(!genMu_passAccep) FillHistogram_Kinematics(15,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// if(!genMu_passpTcut)  FillHistogram_Kinematics(19,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// else if(!genMu_passEtacut) FillHistogram_Kinematics(18,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);}
+      else if(!genMu_passId && genMu_passAccep) FillHistogram_Kinematics(16,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+      else if(!genMu_passIso && genMu_passId && genMu_passAccep) FillHistogram_Kinematics(17,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht); }
 	 }
 
 
@@ -1200,6 +1372,466 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   // outfile->Close();
   // cout<<"outFile: "<<outfileName<<" written!!"<<endl;
 
+}
+int AnalyzeLightBSM::getBinNoV3_ST_MET_bjets(double Met, double ST, int bjets){
+  int sBin=0, m_i=1,sBin1=0,n_i=0;
+  //  Treating MET as ST and ST as MET
+  if(bjets==0){
+   for(int i=0;i<ST_bins.size()-1;i++){
+    if(i!=0)
+      m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+      {
+        sBin = sBin+((m_i-1)*5);
+        break;
+      }
+    else if(Met >= ST_bins[ST_bins.size()-1])
+      {
+       	sBin = 20;
+        break;
+      }
+  }
+   //   cout<<"sBin "<<sBin<<"\t"<<m_i<<"\t"<<Met<<"\t"<<ST<<"\t"<<METLowEdge_v3_1.size()<<"\t"<<METLowEdge_v3_1[METLowEdge_v3_1.size()-1]<<"\t"<< METLowEdge_v3_1[0]<<endl;
+   if(sBin%5==0)
+    {
+      for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+	n_i++;
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+      }
+    }
+  }
+
+  else {
+    m_i=6;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+	m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 45;
+          break;
+        }
+    }
+    //cout<<"sBin "<<sBin<<"\t"<<m_i<<"\t"<<n_i<<"\t"<<Met<<"\t"<<ST<<"\t"<<METLowEdge_v3_1.size()<<"\t"<<METLowEdge_v3_1[METLowEdge_v3_1.size()-1]<<"\t"<< METLowEdge_v3_1[0]<<endl;                                                
+    if(sBin%5==0)
+      {
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+          n_i++;
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+        }
+      }
+
+  }
+  return sBin1;
+}
+
+int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bjets, double pho_pt){
+  int sBin=0, m_i=1,sBin1=0,n_i=0;
+  //treating MET as ST and ST as MET 
+  if(pho_pt<=100){
+  if(bjets==0){
+   for(int i=0;i<ST_bins.size()-1;i++){
+    if(i!=0)
+      m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+      {
+        sBin = sBin+((m_i-1)*5);
+        break;
+      }
+    else if(Met >= ST_bins[ST_bins.size()-1])
+      {
+        sBin = 20;
+        break;
+      }
+  }                                                                                                           
+   if(sBin%5==0)
+     {
+       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+	 n_i++;
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+       }
+    }
+  }
+  
+  else {
+    m_i=6;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 45;
+          break;
+        }
+    }
+    if(sBin%5==0)
+      {
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+          n_i++;
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+       	  else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+  else {
+    m_i=11;
+    if(bjets==0){
+      for(int i=0;i<ST_bins.size()-1;i++){
+	if(i!=0)
+	  m_i++;
+	if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+	  {
+	    sBin = sBin+((m_i-1)*5);
+	    break;
+	  }
+	else if(Met >= ST_bins[ST_bins.size()-1])
+	  {
+	    sBin = 70;
+        break;
+      }
+  }
+   if(sBin%5==0)
+     {
+       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+         n_i++;
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=16;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 95;
+          break;
+        }
+    }
+    if(sBin%5==0)
+      {
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+          n_i++;
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+        }
+      }
+
+  }
+    
+  }
+
+  return sBin1;
+}
+
+// int AnalyzeLightBSM::getBinNoV3_ST_MET_bjets(double Met, double ST, int bjets){
+//   int sBin=0, m_i=1,sBin1=0,n_i=0;
+//   if(bjets==0){
+//    for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+//     if(i!=0)
+//       m_i++;
+//     if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+//       {
+//         sBin = sBin+((m_i-1)*5);
+//         break;
+//       }
+//     else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+//       {
+//         sBin = 20;
+//         break;
+//       }
+//   }
+//    if(sBin%5==0)
+//     {
+//       for(int i=0;i<ST_bins.size()-1;i++){
+//         n_i++;
+//         if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+//         else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+//       }
+//     }
+//   }
+
+//   else {
+//     m_i=6;
+//     for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+//       if(i!=0)
+//         m_i++;
+//       if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+//         {
+//           sBin = sBin+((m_i-1)*5);
+//           break;
+//         }
+//     else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+//         {
+//           sBin = 45;
+//           break;
+//         }
+//     }
+//  if(sBin%5==0)
+//    {
+//         for(int i=0;i<ST_bins.size()-1;i++){
+//           n_i++;
+//           if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+//           else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+//         }
+//       }
+
+//   }
+//   return sBin1;
+// }
+
+
+// int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bjets, double pho_pt){
+//   int sBin=0, m_i=1,sBin1=0,n_i=0;
+//   if(pho_pt<=100){
+//   if(bjets==0){
+//    for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+//     if(i!=0)
+//       m_i++;
+//     if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+//       {
+//         sBin = sBin+((m_i-1)*5);
+//         break;
+//       }
+//     else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+//       {
+//         sBin = 20;
+//         break;
+//       }
+//    }
+//    if(sBin%5==0)
+//      {
+//        for(int i=0;i<ST_bins.size()-1;i++){
+//          n_i++;
+//         if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+//         else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+//        }
+//      }
+//   }
+// else {
+//     m_i=6;
+//     for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+//       if(i!=0)
+//         m_i++;
+//     if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+//         {
+//           sBin = sBin+((m_i-1)*5);
+//           break;
+//         }
+//       else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+//         {
+//           sBin = 45;
+//           break;
+//         }
+//     }
+//     if(sBin%5==0)
+//       {
+//         for(int i=0;i<ST_bins.size()-1;i++){
+//           n_i++;
+//           if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+//           else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+//         }
+//       }
+
+//  }
+
+//   }
+  
+//   else {
+//     m_i=11;
+//     if(bjets==0){
+//       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+//         if(i!=0)
+//           m_i++;
+//         if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+//           {
+//             sBin = sBin+((m_i-1)*5);
+//             break;
+//           }
+//         else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+//           {
+//             sBin = 70;
+// 	    break;
+// 	  }
+//       }
+    
+//       if(sBin%5==0)
+// 	{
+// 	  for(int i=0;i<ST_bins.size()-1;i++){
+// 	    n_i++;
+// 	    if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+// 	    else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+// 	  }
+// 	}
+//     }
+
+//   else {
+//     m_i=16;
+//     for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+//       if(i!=0)
+//         m_i++;
+//       if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+//         {
+//           sBin = sBin+((m_i-1)*5);
+//           break;
+//         }
+//       else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+//         {
+//           sBin = 95;
+//           break;
+//         }
+//     }
+//     if(sBin%5==0)
+//       {
+//         for(int i=0;i<ST_bins.size()-1;i++){
+//           n_i++;
+//           if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+//           else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+//         }
+//       }
+
+//   }
+    
+//   }
+//   return sBin1;
+// }
+int AnalyzeLightBSM::getBin_ST_MET_bjets_phopT_merge(double Met, double ST, int bjets, double pho_pt){
+  int sBin=0, m_i=1,sBin1=0,n_i=0;
+  if(pho_pt<=100){
+  if(bjets==0){
+   for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+    if(i!=0)
+      m_i++;
+    if(Met >= METLowEdge_v3_merge[i] && Met < METLowEdge_v3_merge[i+1])
+      {
+        sBin = sBin+((m_i-1)*5);
+        break;
+      }
+    else if(Met >= METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1])
+      {
+        sBin = 15;
+        break;
+      }
+  }
+   if(sBin%5==0)
+     {
+       for(int i=0;i<ST_bins.size()-1;i++){
+         n_i++;
+        if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=5;
+    for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(Met >= METLowEdge_v3_merge[i] && Met < METLowEdge_v3_merge[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1])
+        {
+          sBin = 35;
+          break;
+        }
+    }
+    if(sBin%5==0)
+      {
+        for(int i=0;i<ST_bins.size()-1;i++){
+          n_i++;
+          if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+else {
+    m_i=9;
+    if(bjets==0){
+      for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+        if(i!=0)
+          m_i++;
+        if(Met >= METLowEdge_v3_merge[i] && Met < METLowEdge_v3_merge[i+1])
+          {
+            sBin = sBin+((m_i-1)*5);
+            break;
+          }
+        else if(Met >= METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1])
+          {
+            sBin = 55;
+        break;
+      }
+  }
+   if(sBin%5==0)
+     {
+       for(int i=0;i<ST_bins.size()-1;i++){
+         n_i++;
+        if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=13;
+    for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(Met >= METLowEdge_v3_merge[i] && Met < METLowEdge_v3_merge[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1])
+        {
+          sBin = 75;
+          break;
+        }
+    }
+    if(sBin%5==0)
+      {
+        for(int i=0;i<ST_bins.size()-1;i++){
+          n_i++;
+          if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+
+  return sBin1;
 }
 
 
@@ -1362,19 +1994,94 @@ int AnalyzeLightBSM::getBinNoV6_WithOnlyBLSelec(int nHadJets,int nbjets)
 
   return sBin;
 }
+int AnalyzeLightBSM::getBin_4var(int nHadJets, int nbjets, double MET, double pho_pt){
+  int sBin=-100,m_i=0;
+  if(pho_pt<=200){
+  if(nbjets==0){
+    if(nHadJets<=4) { if(MET<400)sBin=1; else if (MET>400) sBin=2;}
+    else if(nHadJets>4)     { if(MET<400)sBin=3; else if (MET>400) sBin=4;}
+  }
+  else{
+    if(nHadJets<=4) { if(MET<400)sBin=5; else if (MET>400) sBin=6;}
+    else if(nHadJets>4)     { if(MET<400)sBin=7; else if (MET>400) sBin=8;}
+  }
+
+  }
+  else {
+    
+if(nbjets==0){
+    if(nHadJets<=4) { if(MET<400)sBin=9; else if (MET>400) sBin=10;}
+    else if(nHadJets>4)     { if(MET<400)sBin=11; else if (MET>400) sBin=12;}
+  }
+  else{
+    if(nHadJets<=4) { if(MET<400)sBin=13; else if (MET>400) sBin=14;}
+    else if(nHadJets>4)     { if(MET<400)sBin=15; else if (MET>400) sBin=16;}
+  }
+
+  }
+  return sBin;
+}
+
+int AnalyzeLightBSM::getBin_3var(int nbjets, double MET, double pho_pt){
+  int sBin=-100,m_i=0;
+  if(nbjets==0){
+    if(MET<=400) { if(pho_pt<=100)sBin=1; else if (pho_pt>100 && pho_pt<=250) sBin=2; else if (pho_pt>250) sBin=3; }
+    else if(MET>400)     { if(pho_pt<=100)sBin=4; else if (pho_pt>100 && pho_pt<=250) sBin=5; else if (pho_pt>250) sBin=6;}
+  }
+  else{
+      if(MET<=400) { if(pho_pt<=100)sBin=7; else if (pho_pt>100 && pho_pt<=250) sBin=8; else if (pho_pt>250) sBin=9; }
+    else if(MET>400)     { if(pho_pt<=100)sBin=10; else if (pho_pt>100 && pho_pt<=250) sBin=11; else if (pho_pt>250) sBin=12;}
+
+  }
+
+  return sBin;
+}
+int AnalyzeLightBSM::getBin_3var_withST(double ST, double MET, double pho_pt){
+  int sBin=-100,m_i=0;
+  if(ST<=600){
+    if(MET<=400) { if(pho_pt<=100)sBin=1; else if (pho_pt>100 && pho_pt<=250) sBin=2; else if (pho_pt>250) sBin=3; }
+    else if(MET>400)     { if(pho_pt<=100)sBin=4; else if (pho_pt>100 && pho_pt<=250) sBin=5; else if (pho_pt>250) sBin=6;}
+  }
+  else{
+      if(MET<=400) { if(pho_pt<=100)sBin=7; else if (pho_pt>100 && pho_pt<=250) sBin=8; else if (pho_pt>250) sBin=9; }
+    else if(MET>400)     { if(pho_pt<=100)sBin=10; else if (pho_pt>100 && pho_pt<=250) sBin=11; else if (pho_pt>250) sBin=12;}
+
+  }
+
+  return sBin;
+}
+
+int AnalyzeLightBSM::getBin_2var(int nbjets,double ht, double pho_pt){
+  int sBin=-100,m_i=0;
+  if(nbjets==0){
+    if(ht<=600) { if(pho_pt<=100)sBin=1; else if (pho_pt>100 && pho_pt<=250) sBin=2; else if (pho_pt>250) sBin=3;}    
+    else if(ht>600 && ht <=900) { if(pho_pt<=100)sBin=4; else if (pho_pt>100 && pho_pt<=250) sBin=5; else if (pho_pt>250) sBin=6;}
+    else if(ht>900) { if(pho_pt<=100)sBin=7; else if (pho_pt>100 && pho_pt<=250) sBin=8; else if (pho_pt>250) sBin=9;}
+  }
+  else{
+     if(ht<=600) { if(pho_pt<=100)sBin=10; else if (pho_pt>100 && pho_pt<=250) sBin=11; else if (pho_pt>250) sBin=12;}
+    else if(ht>600 && ht <=900) { if(pho_pt<=100)sBin=13; else if (pho_pt>100 && pho_pt<=250) sBin=14; else if (pho_pt>250) sBin=15;}
+    else if(ht>900) { if(pho_pt<=100)sBin=16; else if (pho_pt>100 && pho_pt<=250) sBin=17; else if (pho_pt>250) sBin=18;}
+
+  }
+
+  return sBin;
+}
+
+
 int AnalyzeLightBSM::getBinNoV7_le(int nHadJets, int nbjets){
   int sBin=-100,m_i=0;
   if(nbjets==0){
-    if(nHadJets==2) { if(MET<300)sBin=1; else if (MET>300) sBin=2;}
-    else if(nHadJets==3)     { if(MET<300)sBin=3; else if (MET>300) sBin=4;}
-    else if(nHadJets==4)     { if(MET<300)sBin=5; else if (MET>300) sBin=6;}
-    else if((nHadJets==5 || nHadJets==6)){ if(MET<300)sBin=7; else if (MET>300) sBin=8;}
-    else if(nHadJets>=7)   { if(MET<300)sBin=9; else if (MET>300) sBin=10;}
+    if(nHadJets==2) { if(MET<400)sBin=1; else if (MET>400) sBin=2;}
+    else if(nHadJets==3)     { if(MET<400)sBin=3; else if (MET>400) sBin=4;}
+    else if(nHadJets==4)     { if(MET<400)sBin=5; else if (MET>400) sBin=6;}
+    else if((nHadJets==5 || nHadJets==6)){ if(MET<400)sBin=7; else if (MET>400) sBin=8;}
+    else if(nHadJets>=7)   { if(MET<400)sBin=9; else if (MET>400) sBin=10;}
   }
   else{
-    if(nHadJets>=2 && nHadJets<=4)      {if(MET<300)sBin=11; else if (MET>300) sBin=12;}
-    else if((nHadJets==5 || nHadJets==6)){ if(MET<300)sBin=13; else if (MET>300) sBin=14;}
-    else if(nHadJets>=7)   { if(MET<300)sBin=15; else if (MET>300) sBin=16;}
+    if(nHadJets>=2 && nHadJets<=4)      {if(MET<400)sBin=11; else if (MET>400) sBin=12;}
+    else if((nHadJets==5 || nHadJets==6)){ if(MET<400)sBin=13; else if (MET>400) sBin=14;}
+    else if(nHadJets>=7)   { if(MET<400)sBin=15; else if (MET>400) sBin=16;}
   }
   return sBin;
 }
@@ -1382,16 +2089,16 @@ int AnalyzeLightBSM::getBinNoV7_le(int nHadJets, int nbjets){
 int AnalyzeLightBSM::getBinNoV16_le(int nHadJets, int nbjets, double photon_pT){
   int sBin=-100,m_i=0;
   if(nbjets==0){
-    if(nHadJets==2) { if(photon_pT<100)sBin=1; else if (photon_pT>100) sBin=2;}
-    else if(nHadJets==3)     { if(photon_pT<100)sBin=3; else if (photon_pT>100) sBin=4;}
-    else if(nHadJets==4)     { if(photon_pT<100)sBin=5; else if (photon_pT>100) sBin=6;}
-    else if((nHadJets==5 || nHadJets==6)){ if(photon_pT<100)sBin=7; else if (photon_pT>100) sBin=8;}
-    else if(nHadJets>=7)   { if(photon_pT<100)sBin=9; else if (photon_pT>100) sBin=10;}
+    if(nHadJets==2) { if(photon_pT<200)sBin=1; else if (photon_pT>200) sBin=2;}
+    else if(nHadJets==3)     { if(photon_pT<200)sBin=3; else if (photon_pT>200) sBin=4;}
+    else if(nHadJets==4)     { if(photon_pT<200)sBin=5; else if (photon_pT>200) sBin=6;}
+    else if((nHadJets==5 || nHadJets==6)){ if(photon_pT<200)sBin=7; else if (photon_pT>200) sBin=8;}
+    else if(nHadJets>=7)   { if(photon_pT<200)sBin=9; else if (photon_pT>200) sBin=10;}
   }
   else{
-    if(nHadJets>=2 && nHadJets<=4)      {if(photon_pT<100)sBin=11; else if (photon_pT>100) sBin=12;}
-    else if((nHadJets==5 || nHadJets==6)){ if(photon_pT<100)sBin=13; else if (photon_pT>100) sBin=14;}
-    else if(nHadJets>=7)   { if(photon_pT<100)sBin=15; else if (photon_pT>100) sBin=16;}
+    if(nHadJets>=2 && nHadJets<=4)      {if(photon_pT<200)sBin=11; else if (photon_pT>200) sBin=12;}
+    else if((nHadJets==5 || nHadJets==6)){ if(photon_pT<200)sBin=13; else if (photon_pT>200) sBin=14;}
+    else if(nHadJets>=7)   { if(photon_pT<200)sBin=15; else if (photon_pT>200) sBin=16;}
   }
   return sBin;
 }
@@ -1716,7 +2423,7 @@ vector <TLorentzVector> AnalyzeLightBSM::getLorentzVector(int size, Float_t Pt_s
   //cout<< "Out lorentz vectors size "<<Temp.size() <<endl;
   return Temp;
 }
-void AnalyzeLightBSM::FillHistogram_Kinematics(int i, int Njets, int btags, double pho_Pt, double mt_phoMET, double dPhi, double ST, double wt){
+void AnalyzeLightBSM::FillHistogram_Kinematics(int i, int Njets, int btags, double pho_Pt, double mt_phoMET, double dPhi, double ST, double wt, double mvaValue,double Ht){
   //cout<<"Alps "<<i<<"\t"<<Njets<<"\t"<<btags<<"\t"<<pho_Pt<<"\t"<<mt_phoMET<<"\t"<<dPhi<<"\t"<<ST<<endl;
   h_Njets[i]->Fill(Njets,wt);
   h_Nbjets[i]->Fill(btags,wt);
@@ -1725,22 +2432,40 @@ void AnalyzeLightBSM::FillHistogram_Kinematics(int i, int Njets, int btags, doub
   h_Mt_PhoMET[i]->Fill(mt_phoMET,wt);
   h_dPhi_PhoMET[i]->Fill(dPhi,wt);
   h_St[i]->Fill(ST,wt);
-  h_HT[i]->Fill(HT,wt);
+  h_HT[i]->Fill(Ht,wt);
+  h_HTversus_phopT[i]->Fill(Ht,pho_Pt,wt);
+  h_STversus_phopT[i]->Fill(ST,pho_Pt,wt);
+  h_STversus_nJets[i]->Fill(ST,Njets,wt);
+  h_STversus_MET[i]->Fill(ST,MET,wt);
   int TFbins_v2 = getBinNoV1_le(Njets,btags);
   int TFbins_v3 = getBinNoV16_le(Njets,btags,pho_Pt);
   int searchBin = getBinNoV6_WithOnlyBLSelec(Njets,btags);
   int TFbins_v4 = getBinNoV7_le(Njets,btags);
   h_TFbins_LL_v4[i]->Fill(TFbins_v4,wt);
   h_TFbins_LL_v2[i]->Fill(TFbins_v2,wt);
+  int bins = getBin_4var(Njets,btags,MET,pho_Pt);
+  h_TFbins_LL_v5_4var[i]->Fill(bins,wt);
+  bins = getBin_3var(btags,MET,pho_Pt);
+  h_TFbins_LL_v6_3var[i]->Fill(bins,wt);
+  bins = getBin_3var_withST(ST,MET,pho_Pt);//->Fill(bins,wt);
+  h_TFbins_LL_v7_3var_ST[i]->Fill(bins,wt);
+  bins = getBin_2var(btags,Ht,pho_Pt);
+  h_TFbins_LL_v8_3var_HT[i]->Fill(bins,wt);
   
   h_Sbins_LL[i]->Fill(searchBin,wt);
   h_TFbins_LL_v3[i]->Fill(TFbins_v3,wt);
+  searchBin = getBinNoV3_ST_MET_bjets (ST,MET,btags);
+  h_Sbins_LL_newSbins_v3[i]->Fill(searchBin,wt);
 
-  //cout<<"Alps "<<i<<"\t"<<"TFbins_v1  "<<TFbins_v1<<" TFbins_v2 "<< TFbins_v2<<"\t MET "<<MET<<"\t NJets  "<<Njets<<"  btags "<<btags<<"\t"<<h_TFbins_LL_v1[i]->GetBinContent(TFbins_v1)<<"\t"<<wt<<"\t"<<searchBin<<endl;
-  //cout<<h_Njets[i]->GetMean()<<endl;
+  searchBin = getBinNoV7_ST_MET_bjets_phopT(ST,MET,btags,pho_Pt);
+  h_Sbins_LL_newSbins_v7[i]->Fill(searchBin,wt);
+  searchBin = getBin_ST_MET_bjets_phopT_merge(MET,ST,btags,pho_Pt);
+  h_Sbins_LL_newSbins_v7_merge[i]->Fill(searchBin,wt);
 
+  h_mvaResponse_baseline[i]->Fill(mvaValue,wt);
+  
 }
-void AnalyzeLightBSM::FillTFBins_Valid(int i, int Njets, int btags, double wt,double wt1, double wt2, double pho_Pt, double ST){
+void AnalyzeLightBSM::FillTFBins_Valid(int i, int Njets, int btags, double wt,double wt1, double wt2,double wt4, double wt5, double wt6, double pho_Pt, double ST){
   int TFbins_v2 = getBinNoV1_le(Njets,btags);
   int TFbins_v3 = getBinNoV16_le(Njets,btags,pho_Pt);
   int TFbins_v4 = getBinNoV7_le(Njets,btags);
@@ -1771,7 +2496,30 @@ void AnalyzeLightBSM::FillTFBins_Valid(int i, int Njets, int btags, double wt,do
   h_MET_validation_TFbins_v3[i]->Fill(MET,wt2);
   h_PhotonPt_validation_TFbins_v3[i]->Fill(pho_Pt,wt2);
   h_St_validation_TFbins_v3[i]->Fill(ST,wt2);
-
+  
+  searchBin = getBinNoV3_ST_MET_bjets (ST,MET,btags);
+  h_Sbins_LL_newSbins_Validation_v3[i]->Fill(searchBin,wt);
+  h_Sbins_LL_v2_newSbins_Validation_v3[i]->Fill(searchBin,wt1);
+  h_Sbins_LL_v3_newSbins_Validation_v3[i]->Fill(searchBin,wt2);
+  h_Sbins_LL_v4_newSbins_Validation_v3[i]->Fill(searchBin,wt4);
+  h_Sbins_LL_v5_newSbins_Validation_v3[i]->Fill(searchBin,wt5);
+  h_Sbins_LL_v6_newSbins_Validation_v3[i]->Fill(searchBin,wt6);
+  
+  searchBin = getBinNoV7_ST_MET_bjets_phopT(ST,MET,btags,pho_Pt);
+  h_Sbins_LL_newSbins_Validation_v7[i]->Fill(searchBin,wt);
+  h_Sbins_LL_v2_newSbins_Validation_v7[i]->Fill(searchBin,wt1);
+  h_Sbins_LL_v3_newSbins_Validation_v7[i]->Fill(searchBin,wt2);
+  h_Sbins_LL_v4_newSbins_Validation_v7[i]->Fill(searchBin,wt4);
+  h_Sbins_LL_v5_newSbins_Validation_v7[i]->Fill(searchBin,wt5);
+  h_Sbins_LL_v6_newSbins_Validation_v7[i]->Fill(searchBin,wt6);
+  
+  
+  searchBin = getBin_ST_MET_bjets_phopT_merge(ST,MET,btags,pho_Pt);
+  h_Sbins_LL_newSbins_Validation_v7_merge[i]->Fill(searchBin,wt);
+  h_Sbins_LL_v2_newSbins_Validation_v7_merge[i]->Fill(searchBin,wt1);
+  h_Sbins_LL_v3_newSbins_Validation_v7_merge[i]->Fill(searchBin,wt2);
+  
+  
   
 }
 void AnalyzeLightBSM::FillHistogram_Kinematics_varBin(int i, int Njets, int btags, double pho_Pt, double ST, double wt){
