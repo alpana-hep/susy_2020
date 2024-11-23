@@ -996,7 +996,10 @@
 	if(highdphi)  process = process &&  ST>300 && metstar.Pt()>200 && nHadJets >=2 && dPhi_METjet1 > 0.3 && dPhi_METjet2 > 0.3 && bestPhoton.Pt() > 40 ;
 	if(!highdphi)  process = process &&  ST>300 && metstar.Pt()>200 && nHadJets >=2 && (!(dPhi_METjet1 > 0.3 && dPhi_METjet2 > 0.3)) && bestPhoton.Pt() > 40 ;
 	// if(!highdphi)  process = process &&  ST>300 && metstar.Pt()>200 && nHadJets >=2 &&  bestPhoton.Pt() > 100 ;
-
+	if(!s_sample.Contains("data") && !s_sample.Contains("signal") && applyTrgEff )                                                                               
+	  {                                                                                                                                                     
+	    wt = wt * (((TMath::Erf((MET - p0)/p1)+1)/2.0)*p2);                                                                                                 
+	  }  
 	sr=true;
       } 
     if(s_sample.Contains("ZLLGJets") || s_sample.Contains("DYJetsToLL") || s_sample.Contains("data")   || s_sample.Contains("WGJets") || s_sample.Contains("TTGJets") || s_sample.Contains("TTJets"))
@@ -1242,10 +1245,10 @@
 	else
         SF_data = h_SF->GetBinContent(3);
 
-	if(!s_sample.Contains("data") && apply_SF)
-        {
-          wt  = wt*SF_data;
-        }
+	// if(!s_sample.Contains("data") && apply_SF)
+        // {
+        //   wt  = wt*SF_data;
+        // }
 
 	FillHistogram_Kinematics(3,metstar,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,bestPhoton.Eta(),bestPhoton.Phi(),bestPhoton.E(),METPhi,qmulti, leadjet_qmulti, leadjet_Pt,leadbjet_tag,minDR,Jet_matched, hadJets, hadJets[0], NVtx,mindr_Pho_genlep,wt);
 	FillHistogram_Kinematics_varBin(3,metstar.Pt(),nHadJets, BTags, bestPhoton.Pt(),ST,qmulti,wt);
@@ -1270,6 +1273,17 @@
           FR_nbtagBins[3]->Fill(2,wt);
         //h_invariantMass[3]->Fill(invariantmass,wt);
 
+	if(!s_sample.Contains("data") && apply_SF)
+	  {
+	    wt  = wt*SF_data;
+	  }
+	FillHistogram_Kinematics(7,metstar,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,bestPhoton.Eta(),bestPhoton.Phi(),bestPhoton.E(),METPhi,qmulti, leadjet_qmulti, leadjet_Pt,leadbjet_tag,minDR,Jet_matched, hadJets, hadJets[0], NVtx,mindr_Pho_genlep,wt);
+        FillHistogram_Kinematics_varBin(3,metstar.Pt(),nHadJets, BTags, bestPhoton.Pt(),ST,qmulti,wt);
+        h_ZpT[7]->Fill(genzvec.Pt(), wt);
+	 if(BTags==0)
+          FR_nbtagBins[7]->Fill(1,wt);
+        else if(BTags>=1)
+          FR_nbtagBins[7]->Fill(2,wt);
 
       }
     }
@@ -1323,6 +1337,122 @@
 
      
 }
+int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bjets, double pho_pt){
+  int sBin=0, m_i=1,sBin1=0,n_i=0;
+  //treating MET as ST and ST as MET 
+  if(pho_pt<=100){
+  if(bjets==0){
+   for(int i=0;i<ST_bins.size()-1;i++){
+    if(i!=0)
+      m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+      {
+        sBin = sBin+((m_i-1)*5);
+        break;
+      }
+    else if(Met >= ST_bins[ST_bins.size()-1])
+      {
+        sBin = 20;
+        break;
+      }
+  }                                                                                                           
+   if(sBin%5==0)
+     {
+       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+	 n_i++;
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+       }
+    }
+  }
+  
+  else {
+    m_i=6;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 45;
+          break;
+        }
+    }
+    if(sBin%5==0)
+      {
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+          n_i++;
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+       	  else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+  else {
+    m_i=11;
+    if(bjets==0){
+      for(int i=0;i<ST_bins.size()-1;i++){
+	if(i!=0)
+	  m_i++;
+	if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+	  {
+	    sBin = sBin+((m_i-1)*5);
+	    break;
+	  }
+	else if(Met >= ST_bins[ST_bins.size()-1])
+	  {
+	    sBin = 70;
+        break;
+      }
+  }
+   if(sBin%5==0)
+     {
+       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+         n_i++;
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=16;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*5);
+          break;
+        }
+      else if(Met >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 95;
+          break;
+        }
+    }
+    if(sBin%5==0)
+      {
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+          n_i++;
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
+        }
+      }
+
+  }
+    
+  }
+
+  return sBin1;
+}
+
 int AnalyzeLightBSM::getBinNo_v0FR(double pho_pt,double qmulti, double minDRindx){
   int sBin=0,m_i=1,sBin1=0,n_i=0; 
   for(int i=0;i<BestPhotonPtBinLowEdge.size()-1;i++){
@@ -1980,7 +2110,9 @@ void AnalyzeLightBSM::FillHistogram_Kinematics(int i, TLorentzVector metstar, in
   h_TFbins_LL_v5[i]->Fill(TFbins_v5,wt);
   h_TFbins_LL_v6[i]->Fill(TFbins_v6,wt);
   h_TFbins_LL_v7[i]->Fill(TFbins_v7,wt);
-  
+  searchBin = getBinNoV7_ST_MET_bjets_phopT(ST,MET,btags,pho_Pt);
+  h_Sbins_LL_newSbins_v7[i]->Fill(searchBin,wt);
+
 
   
   //cout<<"Alps "<<i<<"\t"<<"TFbins_v1  "<<TFbins_v1<<" TFbins_v2 "<< TFbins_v2<<"\t MET "<<MET<<"\t NJets  "<<Njets<<"  btags "<<btags<<"\t"<<h_TFbins_LL_v1[i]->GetBinContent(TFbins_v1)<<"\t"<<wt<<"\t"<<searchBin<<endl;
