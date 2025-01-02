@@ -39,3 +39,36 @@ To run the full chain -
 ```
 ./worker_SP.sh analyzeLightBSM 2200 200 T5bbbbZg Summer16v3   h_Sbins_LL_MET_200
 ```
+To submit for full mass scan
+```
+./calcLimit.sh list_T6ttZg.txt T6ttZg Summer16v3 h_Sbins_LL_v4_MET_200_withMvaCut 1000 BL_BDTwith13variables_T6ttZg TMVAClassification_T6ttZg_Phopt40_MET200_13va\
+riables_200trees_2maxdepth.weights.xml
+```
+In case you have different file names or use files for background with different BDT training
+```
+source temp.sh T5bbbbZg
+```
+
+Once you get the limits calculated, to get the plots, follow these instructions
+```
+cd plotLimits
+```
+First hadd files for all mass points
+```
+hadd -f higgsCombineSummer16v3_TChiWG_h_Sbins_LL_newSbins_v7_MET_200_withMvaCut_v1.root `xrdfsls -u  /store/user/kalpana/Susy_phoMet/limit_rootout/v17_June2024_optimization/TChiWG/ | grep 'h_Sbins_LL_newSbins_v7_MET_200_withMvaCut.AsymptoticLimits.'`
+```
+Then run the analyzer script for strong production
+```
+ls ${Path}/higgsCombineSummer16v3_T5ttttZg_h_Sbins_LL_newSbins_v3_MET_200_v1.root >input_combine_T5ttttZg_h_Sbins_LL_newSbins_v3_MET_200.txt
+./plotlimit input_combine_T5ttttZg_h_Sbins_LL_newSbins_v3_MET_200.txt out_T5ttttZg_combine_h_Sbins_LL_newSbins_v3_MET_200_v1.root T5ttttZg
+root -b -q 'getExclusion.C("out_T5ttttZg_combine_h_Sbins_LL_newSbins_v3_MET_200_v1.root")'
+
+
+```
+For electroweakino samples
+```
+python3 limitplotter_TChiWG_combine.py higgsCombineSummer16v3_TChiWG_h_Sbins_LL_newSbins_v3_MET_200_withMvaCut_v1.root Excl_TChiWG_h_Sbins_LL_newSbins_v3_MET_200_withMvaCut Excl_TChiWG_h_Sbins_LL_newSbins_v3_MET_200_withMvaCut_v1.root
+```
+
+
+
