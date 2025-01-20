@@ -26,7 +26,7 @@ make
 ```
 Create data cards-
 ```
-root -l -q -b 'makeDatacard_SBins.C(2200,200,'${outRootFile}.root','${hist1}','${hist}')'
+root -l -q -b 'PredmakeDatacard_SBins.C(2000,1500,"T5qqqqHg_Summer16v3_2000_1500_v18.root","h_Sbins_LL_newSbins_v7_MET_200","h_Sbins_LL_newSbins_v7_MET_200","T5qqqqHg")'
 ```
 
 Where hist and hist1 are the search bins  histogram to be read
