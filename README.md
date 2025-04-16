@@ -19,6 +19,7 @@ Note - if you are reading nevents & cross section from the 'map_crosssection_SMp
 (Note-  first three are cutbased ID recommended by Egamma group and last two are MVA based IDs)
 
 Also, along with photon ID, this string also indicate which systematic you are studying, and corresponding which TF to use, For example
+
 ```
 loose --> looseJetSys_JECup for JET sys studies - JEC and up
 loose --> looseJetSys_JECdown for	JET sys	studies	- JEC and down
@@ -44,6 +45,7 @@ OR for muon background
 ```
 
 There are some flags in Analyzer code which one needs to be careful as they are switching on and off some of the corrections. Brief description is given below :
+
 ```
 applyTrgEff=true - to apply trigger efficiency
 applyHEMveto=true - to apply HEM veto to 2-18 and 2017
@@ -67,6 +69,7 @@ To submit multiple jobs for a given samples at a time:
 ```
 root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-40to130UL","Electron","loose")'
 ```
+
 OR add this string for all MC data samples in a shell script and submit all at once  -- submitMany1.sh - submit multiple jobs at a time.
 
 ```
