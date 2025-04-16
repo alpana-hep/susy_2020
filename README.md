@@ -21,9 +21,9 @@ loose --> looseJetSys_JECup for JET sys studies - JEC and up
 loose --> looseJetSys_JECdown for	JET sys	studies	- JEC and down
 ```
 
-<filelist>: see under the 'inputFiles' directory
-<outfile>: as you want to name your file
-<process>: MC smaples for which job is running or data for data files - "UL" should always be added in the end of this string
+filelist: see under the 'inputFiles' directory
+outfile: as you want to name your file
+process: MC smaples for which job is running or data for data files - "UL" should always be added in the end of this string
 To run a single job interactively -
 ```
 ./analyzeLightBSM inputfiles/runList_Summer20UL18_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.txtp out_Summer20UL18_TTJets_HT_1200to2500.root 2018  TTJets_HTUL  loose
@@ -50,7 +50,7 @@ out_SF_FR_Data_MC_Default.root
 
 To submit the condor jobs:
 
-<executable> is 'worker2.sh' (change or add destination path in worker2.sh). If no path is added than it will store in the parent directory from where the jobs are submitted. 
+executable is 'worker2.sh' (change or add destination path in worker2.sh). If no path is added than it will store in the parent directory from where the jobs are submitted. 
 spliRunlist.C - create condor files and submit the condor jobs (improtant to add the files which you want to transfer)
 
 ```
@@ -117,11 +117,11 @@ make
 ./analyzeLightBSM <filelist> <outfile> <year <process>  <photon ID>
 ```
 Note - if you are reading nevents & cross section from the 'map_crosssection_SMprocess_v1.txt' file then make sure to keep the <process> name similar to the saved in 'map_crosssection_SMprocess.txt' and should contain UL in it if you are analyzing UL ntuples.
-<photon ID>: 'loose', 'medium', 'tight','mva_wp90','mva_p80'
+photon ID: 'loose', 'medium', 'tight','mva_wp90','mva_p80'
 (Note-  first three are cutbased ID recommended by Egamma group.)
-<filelist>: see under the 'inputFiles' directory
-<outfile>: as you want to name your file
-<process>: MC smaples for which job is running or data for data files
+filelist: see under the 'inputFiles' directory
+outfile: as you want to name your file
+process: MC smaples for which job is running or data for data files
 Example to run the machinery -
 ```
 ./analyzeLightBSM inputfiles/runList_Summer20UL17_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt out_DYJetsToLL_M-50_HT-100to200.root 2017 DYJetsToLL_M-50UL loose
@@ -129,7 +129,7 @@ Example to run the machinery -
 
 To submit the condor jobs:
 
-<executable> is 'worker2.sh' (change or add destination path in worker2.sh). If no path is added than it will store in the parent directory from where the jobs are submitted.
+executable is 'worker2.sh' (change or add destination path in worker2.sh). If no path is added than it will store in the parent directory from where the jobs are submitted.
 spliRunlist.C - create condor files and submit the condor jobs (improtant to add the files which you want to transfer)
 
 ```
@@ -164,8 +164,7 @@ source cleanupBatchfiles.sh
 
 ```
 
-To make the plotsse combine.sh to hadd files and get the overall MC and data contribution, and use  working.sh to get the plots (it also is explaining the role of\
- each script)
+To make the plotsse combine.sh to hadd files and get the overall MC and data contribution, and use  working.sh to get the plots (it also is explaining the role of each script)
 ```
 cd SF_TnP/plottingScripts
 source combine.sh
@@ -223,8 +222,7 @@ source hadd_files1.sh
 ```
 
 
-To make the plotsse combine.sh to hadd files and get the overall MC and data contribution, and use  working.sh to get the plots (it also is explaining the role of\
- each script)
+To make the plotsse combine.sh to hadd files and get the overall MC and data contribution, and use  working.sh to get the plots (it also is explaining the role of each script)
 ```
 cd SF_TnP/withtag1eMET/plottingScripts
 source combine.sh
