@@ -38,7 +38,7 @@ ls
 echo "COPYING OUTPUT"
 
 #xrdcp -f skimmed_ntuple_$datasetName'_'$process'.root' root://cmseos.fnal.gov//store/user/kalpana/Susy_phoMet/SkimmedNtuples/
-xrdcp -f $outputFileTag root://cmseos.fnal.gov//store/user/kalpana/FR_UL_Oct24 
+xrdcp -f $outputFileTag root://cmseos.fnal.gov//store/user/kalpana/FR_UL_Oct24/Skimmed
 
 #xrdcp -f ${datasetName}'_'${outputFileTag} root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV17/background/skims/${outputFileTag}
 rm $outputFileTag

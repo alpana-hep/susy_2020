@@ -1,0 +1,409 @@
+#!/bin/bash                                                                                                                                      
+path=/FR_UL_Oct24/Skimmed//store/user/kalpana/FR_UL_Oct24/Skimmed
+
+
+hadd -f Summer20UL16APV_TTGJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_TTGJets'`
+hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# hadd -f Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# hadd -f Summer20UL16_TTJets_PhoIdloose_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# hadd -f Summer20UL17_TTJets_PhoIdloose_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# hadd -f Summer20UL18_TTJets_PhoIdloose_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+hadd -f Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL17_TTGJets'`
+hadd -f Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16_TTGJets'`
+hadd -f Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL18_TTGJets'`
+hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+hadd -f Summer20UL17_TTJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL17_TTJets'`
+hadd -f Summer20UL16_TTJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16_TTJets'`
+hadd -f Summer20UL18_TTJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL18_TTJets'`
+hadd -f Summer20UL16APV_TTJets_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+hadd -f Summer20UL18_singleTop_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL18_ST'`
+hadd -f Summer20UL17_singleTop_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL17_ST'`
+hadd -f Summer20UL16_singleTop_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16_ST'`
+hadd -f Summer20UL16APV_singleTop_PhoIdloose_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# # # ## sys studies
+# # hadd -f Summer20UL16APV_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# # hadd -f Summer20UL17_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL17_TTGJets'`
+# # hadd -f Summer20UL16_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16_TTGJets'`
+# # hadd -f Summer20UL18_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdlooseCrossSecDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecDown_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# # hadd -f Summer20UL16APV_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# # hadd -f Summer20UL17_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL17_TTGJets'`
+# # hadd -f Summer20UL16_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16_TTGJets'`
+# # hadd -f Summer20UL18_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdlooseCrossSecUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseCrossSecUp_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# # ## JEC
+# hadd -f Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdlooseJetSys_JECup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECup_runList_skimmed_Summer20UL16APV_ST'`
+
+# hadd -f Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdlooseJetSys_JECdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JECdown_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# # ## JER
+# hadd -f Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdlooseJetSys_JERdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERdown_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# hadd -f Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdlooseJetSys_JERup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_looseJetSys_JERup_runList_skimmed_Summer20UL16APV_ST'`
+
+
+
+# # ### btagSF
+# hadd -f Summer20UL16APV_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdloosepuSysDown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysDown_runList_skimmed_Summer20UL16APV_ST'`
+
+
+#  hadd -f Summer20UL16APV_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdloosepuSysUp_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosepuSysUp_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# # ## pu
+# hadd -f Summer20UL16APV_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdloosebtagSFup_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFup_runList_skimmed_Summer20UL16APV_ST'`
+
+
+# hadd -f Summer20UL16APV_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_TTGJets'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # # hadd -f Summer20UL16APV_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016APV*Lept*
+# # # hadd -f Summer20UL16_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2016_*Lept*
+# # # hadd -f Summer20UL17_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2017_*Lept*
+# # # hadd -f Summer20UL18_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root /eos/uscms/store/user/kalpana/FR_UL_Oct24/Skimmed/*Summer2018_*Lept*
+
+# hadd -f Summer20UL17_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL17_TTGJets'`
+# hadd -f Summer20UL16_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16_TTGJets'`
+# hadd -f Summer20UL18_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL18_TTGJets'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130'`
+# # hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130'`
+# # hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130'`
+
+
+# # hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL17_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16_WJetsToLNu_HT'`
+# # hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL18_WJetsToLNu_HT'`
+# # hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT'`
+# # hadd -f Summer20UL17_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL17_TTJets'`
+# # hadd -f Summer20UL16_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16_TTJets'`
+# # hadd -f Summer20UL18_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL18_TTJets'`
+# # hadd -f Summer20UL16APV_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_TTJets'`
+
+
+# # hadd -f Summer20UL18_singleTop_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL18_ST'`
+# # hadd -f Summer20UL17_singleTop_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL17_ST'`
+# # hadd -f Summer20UL16_singleTop_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16_ST'`
+# # hadd -f Summer20UL16APV_singleTop_PhoIdloosebtagSFdown_phopt40_MET200.root `xrdfsls -u /store/user/kalpana/FR_UL_Oct24/Skimmed | grep 'phoID_loosebtagSFdown_runList_skimmed_Summer20UL16APV_ST'`
+
+
+
+
+
+

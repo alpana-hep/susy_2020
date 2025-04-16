@@ -59,6 +59,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   int   getBinNoV7_highMET(int, int);
   int getBinNoV16_le(int, int, double);
   std::vector<int>dR_recoPho_GenParticle(TLorentzVector);
+  void changeJets(int, int, int, bool );
     
   //Long64_t transMass(float , float, float, float);
   void print(Long64_t);
@@ -83,6 +84,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<TLorentzVector> Muons_v1;
   vector<TLorentzVector> Taus_v1;
   vector<TLorentzVector> Jets_v1;
+  vector<TLorentzVector>   JetsAK8_v1;
   
   int BTags;
   bool isSignal=false;
@@ -1159,7 +1161,7 @@ char hist_name1[1000];
       h_Pt_leadJet_validation_TFbins_v2[j][i] = new TH1F(hname_st,hname_st,500,0,1000);
       sprintf(hname_st,"h_dPhi_METJet%i_validation_TFbins_v2_%s",j+1,baseline[i].c_str());
       h_dPhi_METJet_validation_TFbins_v2[j][i] = new TH1F(hname_st,hname_st,500,-5,5);
-
+      }
       sprintf(hname_st,"h_Sbins_LL_newSbins_v3_%s",baseline[i].c_str());
       h_Sbins_LL_newSbins_v3[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)]",60,0,60);
       sprintf(hname_st,"h_Sbins_LL_newSbins_v7_%s",baseline[i].c_str());
@@ -1189,7 +1191,7 @@ char hist_name1[1000];
       h_Sbins_LL_v3_newSbins_Validation_v7_merge[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
 
       
-      }
+      //      }
       //cout<<i<<"\t"<<baseline[i]<<endl;
       sprintf(hname_st,"h_Phi_matchedJet_%s",baseline[i].c_str());
       h_Phi_matchedJet[i] = new TH1F(hname_st,hname_st,500,-5,5);
@@ -1562,8 +1564,14 @@ char hist_name1[1000];
 AnalyzeLightBSM::AnalyzeLightBSM(const TString &inputFileList, const char *outFileName, const char* dataset, const char* N2_mass, const char* phoID) {
   string nameData=dataset;//vvv
   //TDirectory * dir = new TDirectory("TreeMaker2");
-    TChain *tree = new TChain("TreeMaker2/PreSelection");
-    //  TChain *tree = new TChain("PreSelection");
+  //TChain *tree = new TChain("TreeMaker2/PreSelection");
+  TString nameSample = N2_mass;
+  TChain *tree;// = new TChain("PreSelection");
+      if(nameSample.Contains("data"))
+    tree = new TChain("TreeMaker2/PreSelection");
+    else
+    tree = new TChain("PreSelection");
+
   if( ! FillChain(tree, inputFileList) ) {
     std::cerr << "Cannot get the tree " << std::endl;
   } else {

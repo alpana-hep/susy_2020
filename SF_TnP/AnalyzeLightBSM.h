@@ -1510,8 +1510,15 @@ char hist_name1[1000];
 AnalyzeLightBSM::AnalyzeLightBSM(const TString &inputFileList, const char *outFileName, const char* dataset, const char* N2_mass, const char* phoID) {
   string nameData=dataset;//vvv
   //TDirectory * dir = new TDirectory("TreeMaker2");
-    TChain *tree = new TChain("TreeMaker2/PreSelection");
+  //    TChain *tree = new TChain("PreSelection");
     //  TChain *tree = new TChain("PreSelection");
+  TString nameSample = N2_mass;
+  TChain *tree;// = new TChain("PreSelection");                                                                                                                       
+      if(nameSample.Contains("data"))
+    tree = new TChain("TreeMaker2/PreSelection");
+    else
+    tree = new TChain("PreSelection");
+
   if( ! FillChain(tree, inputFileList) ) {
     std::cerr << "Cannot get the tree " << std::endl;
   } else {

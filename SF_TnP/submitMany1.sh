@@ -19,53 +19,53 @@ root -l -q 'splitRunList.C("runList_UL2016_Run2016F_v1_SingleEelctron.txt",20,"2
 root -l -q 'splitRunList.C("runList_UL2016_Run2016G_v1_SingleEelctron.txt",20,"2016postVFPG","dataUL","loose")'
 root -l -q 'splitRunList.C("runList_UL2016_Run2016H_v1_SingleEelctron.txt",20,"2016postVFPH","dataUL","loose")'
 
-## ZLL G samples
-root -l -q 'splitRunList.C("runList_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2018","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2017","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016postVFP","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2018","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2017","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016postVFP","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016preVFP","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016preVFP","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
+# # ## ZLL G samples
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2018","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2017","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016postVFP","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2018","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2017","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016postVFP","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016preVFP","ZLLGJets_MonoPhoton_PtG-130UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt",25,"2016preVFP","ZLLGJets_MonoPhoton_PtG-15to130UL","loose")'
 
 
-# # # #### DY samples
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-100to200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-200to400UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-400to600UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-600to800UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-800to1200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
-
-         
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-100to200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-200to400UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-400to600UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-600to800UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-800to1200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
-
+# # # # #### DY samples
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-100to200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-200to400UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-400to600UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-600to800UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-800to1200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL17_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2017","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
 
          
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-100to200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-200to400UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-400to600UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-600to800UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-800to1200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-100to200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-200to400UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-400to600UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-600to800UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-800to1200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL18_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2018","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
+
 
          
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-100to200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-200to400UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-400to600UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-600to800UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-800to1200UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-100to200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-200to400UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-400to600UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-600to800UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-800to1200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016postVFP","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
+
+         
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-100to200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-200to400UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-400to600UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-600to800UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-800to1200UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-1200to2500UL","loose")'
+# # root -l -q 'splitRunList.C("runList_Summer20UL16APV_DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8.txt",25,"2016preVFP","DYJetsToLL_M-50_HT-2500toInfUL","loose")'
 
 
 

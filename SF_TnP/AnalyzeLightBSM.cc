@@ -13,6 +13,8 @@
  #include "TMVA/Tools.h"
  #include "TMVA/Reader.h"
  #include "TMVA/MethodCuts.h"
+#include "BTagCorrector.h"
+
  #pragma link C++ class std::vector< std::vector >+; 
  #pragma link C++ class std::vector< TLorentzVector >+;
  using namespace TMVA;
@@ -90,8 +92,10 @@
    bool applyPUwt=true;
    bool apply_pixelveto=true;
    bool check_flag_wBL =false;
-   bool apply_purity = false;
-
+   bool apply_purity = true;
+   //   bool applyPUwt=true;
+   bool applybTagSFs=true;
+   bool applysys = true;
    if(s_sample.Contains("UL")){
    if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
    if(s_data.Contains("2016postVFP")) { lumiInfb=16.5; deepCSVvalue = 0.5847; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;} //2016
@@ -178,6 +182,33 @@
    int coutt=0;
    double  count_nelec=0.0;
    //nentries=1000;
+    BTagCorrector btagcorr;
+  int fListIndxOld=-1;
+  vector<TString> inFileName;
+  TString sampleName;
+  cout<<"inputFileList : "<<inputFileList<<endl;
+  string str1;
+  ifstream runListFile(inputFileList);
+  TFile *currFile;
+  while (std::getline(runListFile, str1)) {
+    inFileName.push_back(str1);
+  }runListFile.close();
+  cout<<"applying b-tag SFs for MC? "<<applybTagSFs<<endl;
+
+  char* hname3 = new char[200];
+  sprintf(hname3,"out_SF_FR_Data_MC_Default.root");
+  TFile* f_SF =  new TFile(hname3);
+  //   char* histname = new char[2000];
+  TH1F* h_TF;
+  TH1F* h_TF1;
+
+  TH1F* h_SF_Data;
+ sprintf(histname,"FR_nbtagBins_Elec_CR_%s",year_string);
+ h_SF_Data = (TH1F*)f_SF->Get(histname);
+ cout<<"Reading SF:  "<<"\t"<<histname<<endl;
+ for(int i=0; i<h_SF_Data->GetNbinsX();i++)
+   {cout<<"SF data "<<"\t"<<i<<"\t"<<h_SF_Data->GetBinContent(i)<<endl;}
+
    for (Long64_t jentry=0; jentry<nentries;jentry++)
       {
        double progress = 10.0 * jentry / (1.0 * nentries);
@@ -468,6 +499,27 @@
 	if(tighte_trgpass==false)  continue;
       }
       h_selectBaselineYields_v1->Fill("tight trigger",wt);
+
+    //   // btagging SF stuff ////                                                                                                                                     
+    // if(fListIndxOld!=fCurrent){
+    //   fListIndxOld = fCurrent;
+    //   sampleName = inFileName[fCurrent];
+    //   if(applybTagSFs && !s_sample.Contains("data")){
+    //     currFile = TFile::Open(sampleName);
+    //     btagcorr.SetEffs(currFile);
+    //     if(s_data.Contains("2016preVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016preVFP_Oct162024.csv");
+    //     if(s_data.Contains("2016postVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016postVFP_Oct162024.csv");
+    //     if(s_data.Contains("2017")) btagcorr.SetCalib("./wp_deepCSV_UL2017_Oct162024.csv");
+    //     if(s_data.Contains("2018")) btagcorr.SetCalib("./wp_deepCSV_UL2018_Oct162024.csv"); 
+    //   }
+    // }
+    // double corrbtag = 1.0;
+    // if(!s_sample.Contains("data") && applybTagSFs){
+    //   corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue);
+    //   if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<endl;
+    //   wt = wt * corrbtag;
+    // }
+
 
       //veto muons
       if(NMuons==0) h_selectBaselineYields_v1->Fill("0 #mu",wt);
@@ -887,14 +939,14 @@
 
       h_selectBaselineYields_v1->Fill("after pixel veto for track matched to tag e",wt);
 
-      h_tagpT_vsTrackPT->Fill(TAPElectronTracks_v1[track_idx].Pt(),tagEMObj.Pt(),wt);
+      //h_tagpT_vsTrackPT->Fill(TAPElectronTracks_v1[track_idx].Pt(),tagEMObj.Pt(),wt);
       h_nTracks->Fill(ntracks,wt);
       h_tagEle_pT->Fill(tagEMObj.Pt(),wt);
       h_tagEle_Eta->Fill(tagEMObj.Eta(),wt);
       h_tagEle_Phi->Fill(tagEMObj.Phi(),wt);
-      h_trackEle_pT->Fill(TAPElectronTracks_v1[track_idx].Pt(),wt);
-      h_trackEle_Eta->Fill(TAPElectronTracks_v1[track_idx].Eta(),wt);
-      h_trackEle_Phi->Fill(TAPElectronTracks_v1[track_idx].Phi(),wt);
+      // h_trackEle_pT->Fill(TAPElectronTracks_v1[track_idx].Pt(),wt);
+      // h_trackEle_Eta->Fill(TAPElectronTracks_v1[track_idx].Eta(),wt);
+      // h_trackEle_Phi->Fill(TAPElectronTracks_v1[track_idx].Phi(),wt);
       
       if(!bestEMObjIsEle && bestEMobj)
 	{
@@ -986,7 +1038,7 @@
       if( photonMatchingJetIndx>=0 ){
 	if( (Jets_v1[photonMatchingJetIndx].Pt()) > 1.1*(bestEMObj.Pt()) ){
 	  if( ((Jets_v1[photonMatchingJetIndx] - bestEMObj).Pt())>30){
-	    hadJets.push_back( Jets_v1[photonMatchingJetIndx] - bestEMObj );
+	    //hadJets.push_back( Jets_v1[photonMatchingJetIndx] - bestEMObj );
 	    remJetPt=(Jets_v1[photonMatchingJetIndx] - bestEMObj).Pt();
 	    remJets.push_back( Jets_v1[photonMatchingJetIndx] - bestEMObj );
 	  }
@@ -1014,6 +1066,28 @@
      
       sortTLorVec(&hadJets);
       //      if(minDRindx<0) continue;
+
+      // btagging SF stuff ////                                                                                                                                       
+    if(fListIndxOld!=fCurrent){
+      fListIndxOld = fCurrent;
+      sampleName = inFileName[fCurrent];
+      if(applybTagSFs && !s_sample.Contains("data")){
+        currFile = TFile::Open(sampleName);
+        btagcorr.SetEffs(currFile);
+        if(s_data.Contains("2016preVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016preVFP_Oct162024.csv");
+        if(s_data.Contains("2016postVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016postVFP_Oct162024.csv");
+        if(s_data.Contains("2017")) btagcorr.SetCalib("./wp_deepCSV_UL2017_Oct162024.csv");
+        if(s_data.Contains("2018")) btagcorr.SetCalib("./wp_deepCSV_UL2018_Oct162024.csv");
+      }
+    }
+    double corrbtag = 1.0;
+    if(!s_sample.Contains("data") && applybTagSFs){
+      corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,0);
+      if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<endl;
+      wt = wt * corrbtag;
+    }
+
+
     if(hadJets.size()==0) continue;
     if(Debug)
       cout<<"===load tree entry ===  "<<"\t"<<jentry<<"\t"<<"No of B-Jets ===  "<<bjets.size()<<endl;
@@ -1222,6 +1296,17 @@
       h_selectBaselineYields_v1->Fill("Pho SR nTrack conditions ",wt);
 
       if(pho_SR) {
+	 double SF_data = h_SF_Data->GetBinContent(2);
+	 if(BTags==0)
+	   SF_data = h_SF_Data->GetBinContent(2);
+	 else
+	   SF_data = h_SF_Data->GetBinContent(3);
+        if(!s_sample.Contains("data") && applysys && pho_ID_str.Contains("SF_check"))
+          {
+            wt  = wt*SF_data;
+	    //            wt_LL1  = wt_LL1*SF_data;
+          }
+
 	h_invariantMass_noCut[3]->Fill(invariantmass,wt);
         // if(!(invariantmass>=80 && invariantmass<=100) )continue;
 

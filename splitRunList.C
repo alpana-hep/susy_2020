@@ -10,8 +10,39 @@ void splitRunList(string infile,int nfPerJob, string datasetAna, string process,
   //------------ needed for condor files --------------
   string exeCondor  = "worker2.sh";
   string exeAna     = "analyzeLightBSM";
+      char* LL_files =  new char[100];
+    char *IDstr = new char[100];
+    TString PhoID = phoID;
+    if(PhoID.Contains("JetSys_JECup"))
+     sprintf(IDstr,"_JetSys_JECup");
+   else if (PhoID.Contains("JetSys_JECdown"))
+     sprintf(IDstr,"_JetSys_JECdown");
+   else if (PhoID.Contains("JetSys_JERup"))
+     sprintf(IDstr,"_JetSys_JERup");
+   else if (PhoID.Contains("JetSys_JERdown"))
+     sprintf(IDstr,"_JetSys_JERdown");
+   else if (PhoID.Contains("puSysDown"))
+     sprintf(IDstr,"_pileup_sys_down");
+   else if (PhoID.Contains("puSysUp"))
+     sprintf(IDstr,"_pileup_sys_up");
+    else if (PhoID.Contains("btagSFdown"))
+     sprintf(IDstr,"_btagSFdown");
+    else if (PhoID.Contains("btagSFup"))
+     sprintf(IDstr,"_btagSFup");
+    else if (PhoID.Contains("CrossSecDown"))
+     sprintf(IDstr,"_CrossSecDown");
+    else if (PhoID.Contains("CrossSecUp"))
+     sprintf(IDstr,"_CrossSecUp");
+
+    else
+      sprintf(IDstr,"");
+
+    sprintf(LL_files,"Electron_FR_TFbins_v3_phopt_qmulti%s_phoID_loose_09Jan24.root", IDstr);//out_SF_CRvsSR_Zinv_DatavsMC%sDefault.root",IDstr);
+  std::string s_LL_files = LL_files;
+  TString s_LL_filess = s_LL_files;
+  cout<<LL_files<<endl;
   //  string datasetAna = "SR";
-  string filesToTransfer = "map_crosssection_SMprocess_v1.txt, Electron_FR_TFbins_v3_phopt_qmulti_phoID_loose_09Jan24.root,Electron_FR_TFbins_v2_qmulti_nJetsBjets_phoID_loose_09Jan24.root,out_SF_FR_Data_MC_Default.root,Electron_FR_TFbins_v1_phopT_qmulti_phoID_loose_09Jan24.root";//, Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root" ;//,TF_allin1_LLEstimation_binsV0_phoID_mva_wp90_08Aug23.root,TF_allin1_LLEstimation_binsV0_phoID_loose_08Aug23.root";//, TF_allin1_LLEstimation_electron_newTFbins.root, TF_allin1_LLEstimation_muon_newTFbins.root, TMVAClassification_BDT_100trees_2maxdepth.weights.xml";
+  string filesToTransfer = "map_crosssection_SMprocess_v1.txt, Electron_FR_TFbins_v3_phopt_qmulti_phoID_loose_09Jan24.root,Electron_FR_TFbins_v2_qmulti_nJetsBjets_phoID_loose_09Jan24.root,out_SF_FR_Data_MC_Default.root,Electron_FR_TFbins_v1_phopT_qmulti_phoID_loose_09Jan24.root,wp_deepCSV_UL2018_Oct162024.csv,wp_deepCSV_UL2016preVFP_Oct162024.csv,wp_deepCSV_UL2016postVFP_Oct162024.csv,wp_deepCSV_UL2017_Oct162024.csv,BTagCorrector.h";//, Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root" ;//,TF_allin1_LLEstimation_binsV0_phoID_mva_wp90_08Aug23.root,TF_allin1_LLEstimation_binsV0_phoID_loose_08Aug23.root";//, TF_allin1_LLEstimation_electron_newTFbins.root, TF_allin1_LLEstimation_muon_newTFbins.root, TMVAClassification_BDT_100trees_2maxdepth.weights.xml";
   //---------------------------------------------------
   cout<<"executable at worker node : "<<exeCondor<<endl
       <<"Analysis executable : "<<exeAna<<endl
@@ -53,10 +84,10 @@ void splitRunList(string infile,int nfPerJob, string datasetAna, string process,
 	<<"Executable = "<<exeCondor<<endl
 	<<"request_disk = 1000000"<<endl
 	<<"request_cpus = 1"<<endl
-	<<"request_memory = 1.5GB"<<endl
+	<<"request_memory = 2GB"<<endl
 	<<"Should_Transfer_Files = YES"<<endl
 	<<"WhenToTransferOutput = ON_EXIT_OR_EVICT"<<endl
-	<<"Transfer_Input_Files = "<<filesToTransfer<<","<<exeAna<<","<<fileListName<<","<<endl
+	<<"Transfer_Input_Files = "<<filesToTransfer<<","<<exeAna<<","<<fileListName<<","<<s_LL_files<<","<<endl //","<<endl","<<endl
       //	<<"PeriodicRemove = ( JobStatus == 2 ) && ( ( CurrentTime - EnteredCurrentStatus ) > 600 )"<<endl
 	<<"Output = "<<logFile<<".stdout"<<endl
 	<<"Error = "<<logFile<<".stderr"<<endl
