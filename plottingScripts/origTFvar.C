@@ -9,46 +9,46 @@ int line_width[12] = {2,2,2,2,2,2,2,2,2,2,2,2};
 int line_style[12] = {1,1,1,1,1,1,1,1,1,1,1,1};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};                                                                               
-int line_color[9] = {kGray+1,kViolet,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};//{9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};
-int line_color1[9]= {kGray+1,kBlue,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};
-int line_color2[9] = {kGray+1,kViolet,kBlue,kGreen+2,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2};//,kMagenta};
+int line_color[9] = {kBlue,kRed,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};//{9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};
+int line_color1[9]= {kBlue,kGreen+2,kGray+1,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};
+int line_color2[9] = {kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta};
 //int line_color[9] = {kMagenta+2, kGray+2, kRed, kGreen+2, kMagenta, kRed - 3, kBlue + 2 , kCyan + 1 , kGreen + 3 };
 vector<int> col={kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
 vector<int> Style={3008,1001,3008,1001};
 //int line_color[11] = {kPink+1, kRed, kBlue,kGray+1 , kGreen+2, kMagenta, kYellow + 2 , kCyan+3,  kBlue + 2 ,kRed+2,kGreen + 3 };
-void decorate(TH1F*,int,int );
+void decorate(TH1D*,int,int );
  
-void decorate(TH1F* hist,int i, int j){
+void decorate(TH1D* hist,int i, int j){
   //  hist->SetLineColor(col[i]);
-  //   hist->SetFillColor(col[i]);
-   vector<int> col;
-   vector<int> Style;
-   if(j==1){
-     col={kGray+1,kViolet,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
-     Style= {1001,3008,3019,3244};
+  // hist->SetFillColor(col[i]);
+  // vector<int> col;
+  // vector<int> Style;
+  // if(j==1){
+  //   col={kViolet,kGray+1,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
+  //   Style= {3008,1001,3019,3244};
+    
+  //  }
+  // else if(j==2){
+  //    col={kBlue,kGreen+2,kGray+1,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
+  //    Style={1001,3008,1001,3244};
+  // }
+  // else if(j==3){
+  //   col={kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
+  //   Style={3008,1001,3008,1001};
+  // }
+  //   if(i!=4)
+  //     {
+  //       hist->SetFillColor(col[i]);
 
-   }
-   else if(j==2){
-     col={kGray+1,kBlue,kGreen+2,kBlue,kGreen+2,kGray+1,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
-     Style={1001,1001,3008,1001,3244};
-   }
-   else if(j==3){
-     col={kGray,kViolet,kBlue,kGreen+2,kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2,kMagenta,kCyan};
-     Style={1001,3008,1001,3008,1001};
-   }
-    // if(i!=4)
-    //   {
-   hist->SetFillColor(col[i]);
-   
-   hist->SetFillStyle(Style[i]);
-    //   }
-    // else 
-    //   {
-   // hist->SetFillColor(kGray+1);
-   
-   //hist->SetFillStyle(1001);
-   //     }
-    hist->SetLineWidth(1);
+  //       hist->SetFillStyle(Style[i]);
+  //     }
+  //   else 
+  //     {
+  //       hist->SetFillColor(kGray+1);
+
+  //       hist->SetFillStyle(1001);
+  //       }
+    hist->SetLineWidth(3);
 
   //  if(i<nBG) {                                                                                                                                 
   //hist->SetFillColor(col[i]);
@@ -68,10 +68,36 @@ void decorate(TH1F* hist,int i, int j){
     //}                                                                                                                                           
 }
 
-TH1F* setLastBinAsOverFlow(TH1F*, int);
-TH1F* setMyRange(TH1F*,double,double);
-TH1F* DrawOverflow(TH1F*);
-TH1F* DrawOverflow(TH1F* h,int xmin, int xrange){
+void setLastBinAsOverFlow(TH1D*, int);
+void setLastBinAsOverFlow(TH1D*);
+
+TH1D* setMyRange(TH1D*,double,double);
+TH1D* setMyRange(TH1D *h1,double xLow,double xHigh){
+  //call it after setting last bin as overflow                                                                                                                               
+  double err=0;
+  if(xHigh > 13000) return h1;
+  if(xLow < -13000) return h1;
+
+  // h1->Print("all");                                                                                                                                                       
+  //  h1->GetXaxis()->SetRangeUser(xLow,xHigh);                                                                                                                              
+  int nMax=h1->FindBin(xHigh);
+  h1->SetBinContent(nMax,h1->IntegralAndError(nMax,h1->GetNbinsX(),err));
+  h1->SetBinError(nMax,err);
+
+  //  cout<<nMax<<endl;                                                                                                                                                      
+  //  h1->GetXaxis()->SetRangeUser(xLow,xHigh);                                                                                                                              
+  for(int i=nMax+1;i<=h1->GetNbinsX()+1;i++){
+    h1->SetBinContent(i,0);
+    h1->SetBinError(i,0);
+    //    cout<<":";                                                                                                                                                         
+    //h1->GetXaxis()->SetRangeUser(xLow,xHigh);                                                                                                                              
+  }
+   return h1;
+
+}
+
+TH1D* DrawOverflow(TH1D*);
+TH1D* DrawOverflow(TH1D* h,int xmin, int xrange){
     //function to paint the histogram h with an extra bin for overflows
        // This function paint the histogram h with an extra bin for overflows
    UInt_t nx    = h->GetNbinsX()+1;
@@ -83,7 +109,7 @@ TH1F* DrawOverflow(TH1F* h,int xmin, int xrange){
    sprintf(tempName,"%swtOverFlow",h->GetName());
    h->GetXaxis()->SetLimits(xmin,xrange);
    // Book a temporary histogram having ab extra bin for overflows
-   TH1F *htmp = new TH1F(tempName, h->GetTitle(), nx, xbins);
+   TH1D *htmp = new TH1D(tempName, h->GetTitle(), nx, xbins);
    htmp->GetXaxis()->SetRange(xmin,xrange);
    // Reset the axis labels
    htmp->SetXTitle(h->GetXaxis()->GetTitle());
@@ -100,13 +126,11 @@ TH1F* DrawOverflow(TH1F* h,int xmin, int xrange){
    // htmp->SetFillColor(h->GetFillColor());
    return htmp;
 }
-TH1F* setLastBinAsOverFlow(TH1F* h_hist, int xrange){
-  //     h_hist = setMyRange(h_hist,0,xrange);
-  //  h_hist->GetXaxis()->SetRangeUser(0,xrange);
-  double lastBinCt =h_hist->GetBinContent(h_hist->GetNbinsX()),overflCt =h_hist->GetBinContent(h_hist->GetNbinsX());
-  //  cout<<h_hist->GetNbinsX()<<"\t"<<lastBinCt<<"\t"<<overflCt<<endl;
 
+void setLastBinAsOverFlow(TH1D* h_hist){
+  double lastBinCt =h_hist->GetBinContent(h_hist->GetNbinsX()),overflCt =h_hist->GetBinContent(h_hist->GetNbinsX()+1);
   double lastBinErr=h_hist->GetBinError(h_hist->GetNbinsX()),  overflErr=h_hist->GetBinError(h_hist->GetNbinsX()+1);
+
   if(lastBinCt!=0 && overflCt!=0)
     lastBinErr = (lastBinCt+overflCt)* (sqrt( ((lastBinErr/lastBinCt)*(lastBinErr/lastBinCt)) + ((overflErr/overflCt)*(overflErr/overflCt)) ) );
 
@@ -115,45 +139,67 @@ TH1F* setLastBinAsOverFlow(TH1F* h_hist, int xrange){
   else if(lastBinCt!=0 && overflCt==0)
     lastBinErr = lastBinErr;
   else lastBinErr=0;
-  //h_temp->GetXaxis()->SetRangeUser(0,xrange);
 
   lastBinCt = lastBinCt+overflCt;
-  //  cout<<lastBinCt<<endl;
-  TH1F* h_temp = (TH1F*)h_hist->Clone();
-  h_temp->SetBinContent(h_hist->GetNbinsX(),lastBinCt);
-  h_temp->SetBinError(h_hist->GetNbinsX(),lastBinErr);
-  //  h_temp->GetXaxis()->SetRangeUser(0,xrange);
+  h_hist->SetBinContent(h_hist->GetNbinsX(),lastBinCt);
+  h_hist->SetBinError(h_hist->GetNbinsX(),lastBinErr);
 
-  // h_hist = setMyRange(h_hist,0,xrange);
-  //
-  return h_temp;
 }
 
+// TH1D* setLastBinAsOverFlow(TH1D* h_hist, int xrange){
+//   //     h_hist = setMyRange(h_hist,0,xrange);
+//   //  h_hist->GetXaxis()->SetRangeUser(0,xrange);
+//   double lastBinCt =h_hist->GetBinContent(h_hist->GetNbinsX()),overflCt =h_hist->GetBinContent(h_hist->GetNbinsX());
+//   //  cout<<h_hist->GetNbinsX()<<"\t"<<lastBinCt<<"\t"<<overflCt<<endl;
 
-TH1F* setMyRange(TH1F *h1,double xLow,double xHigh){
-  //call it after setting last bin as overflow                                                                                                    
-  double err=0;
-  if(xHigh > 13000) return h1;
-  if(xLow < -13000) return h1;
+//   double lastBinErr=h_hist->GetBinError(h_hist->GetNbinsX()),  overflErr=h_hist->GetBinError(h_hist->GetNbinsX()+1);
+//   if(lastBinCt!=0 && overflCt!=0)
+//     lastBinErr = (lastBinCt+overflCt)* (sqrt( ((lastBinErr/lastBinCt)*(lastBinErr/lastBinCt)) + ((overflErr/overflCt)*(overflErr/overflCt)) ) );
 
-  // h1->Print("all");
-  //  h1->GetXaxis()->SetRangeUser(xLow,xHigh);  
-  int nMax=h1->FindBin(xHigh);
-  h1->SetBinContent(nMax,h1->IntegralAndError(nMax,h1->GetNbinsX(),err));
-  h1->SetBinError(nMax,err);
+//   else if(lastBinCt==0 && overflCt!=0)
+//     lastBinErr = overflErr;
+//   else if(lastBinCt!=0 && overflCt==0)
+//     lastBinErr = lastBinErr;
+//   else lastBinErr=0;
+//   //h_temp->GetXaxis()->SetRangeUser(0,xrange);
 
-  //  cout<<nMax<<endl;
-  //  h1->GetXaxis()->SetRangeUser(xLow,xHigh);
-  for(int i=nMax+1;i<=h1->GetNbinsX()+1;i++){
-    h1->SetBinContent(i,0);
-    h1->SetBinError(i,0);
-    //    cout<<":";
-    //h1->GetXaxis()->SetRangeUser(xLow,xHigh); 
-  }
-  return h1;
-}
+//   lastBinCt = lastBinCt+overflCt;
+//   //  cout<<lastBinCt<<endl;
+//   TH1D* h_temp = (TH1D*)h_hist->Clone();
+//   h_temp->SetBinContent(h_hist->GetNbinsX(),lastBinCt);
+//   h_temp->SetBinError(h_hist->GetNbinsX(),lastBinErr);
+//   //  h_temp->GetXaxis()->SetRangeUser(0,xrange);
 
-void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="", float energy=-1, int xrange=-1,int xmin=-1,char const *leg_head="",
+//   // h_hist = setMyRange(h_hist,0,xrange);
+//   //
+//   return h_temp;
+// }
+
+
+// TH1D* setMyRange(TH1D *h1,double xLow,double xHigh){
+//   //call it after setting last bin as overflow                                                                                                    
+//   double err=0;
+//   if(xHigh > 13000) return h1;
+//   if(xLow < -13000) return h1;
+
+//   // h1->Print("all");
+//   //  h1->GetXaxis()->SetRangeUser(xLow,xHigh);  
+//   int nMax=h1->FindBin(xHigh);
+//   h1->SetBinContent(nMax,h1->IntegralAndError(nMax,h1->GetNbinsX(),err));
+//   h1->SetBinError(nMax,err);
+
+//   //  cout<<nMax<<endl;
+//   //  h1->GetXaxis()->SetRangeUser(xLow,xHigh);
+//   for(int i=nMax+1;i<=h1->GetNbinsX()+1;i++){
+//     h1->SetBinContent(i,0);
+//     h1->SetBinError(i,0);
+//     //    cout<<":";
+//     //h1->GetXaxis()->SetRangeUser(xLow,xHigh); 
+//   }
+//   return h1;
+// }
+
+void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="",char const *xlabel="",char const *ylabel="", float energy=-1, int rebin=-1,double ymin=0,double ymax=0,int xmin=-1,int xmax=-1,char const *leg_head="",
 		     bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title="", vector<string> legend_texts={"nil"}, int which_TFbins=-1, int which_Lept=-1){  
   
 
@@ -162,19 +208,17 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
    canvas_n1->SetFillColor(0);
    canvas_n1->SetBorderMode(0);
    canvas_n1->SetBorderSize(2);
-   //latest
-   auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
-   pad_1->SetTopMargin(0.04);
-   pad_1->SetBottomMargin(0.33);
-   pad_1->SetRightMargin(0.035);
-   pad_1->SetLeftMargin(0.13);
-   auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
-   p1->SetBottomMargin(0.026);
-   p1->SetRightMargin(0.035);
-   p1->SetLeftMargin(0.13);
-   p1->SetTopMargin(0.1);
+         auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
+       pad_1->SetTopMargin(0.04);
+       pad_1->SetBottomMargin(0.33);
+       pad_1->SetRightMargin(0.035);
+       pad_1->SetLeftMargin(0.13);
+       auto *p1 = new TPad("p1","p1",0.,0.32,1.,1.);  p1->Draw();
+       p1->SetBottomMargin(0.026);
+       p1->SetRightMargin(0.035);
+       p1->SetLeftMargin(0.13);
+       p1->SetTopMargin(0.1);
 
-   
    // auto *pad_1 = new TPad("pad_1","pad_1",0.,0.0,1.,0.32); pad_1->Draw();
    // pad_1->SetTopMargin(0.013);
    // pad_1->SetBottomMargin(0.3);
@@ -187,8 +231,8 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
    // p1->SetLeftMargin(0.14);
    // p1->SetTopMargin(0.05);
    p1->cd();
-   // p1->SetGrid();
-   
+   p1->SetGridx();
+   pad_1->SetGridx();
 //   TCanvas *c = new TCanvas(tag_name, tag_name, 700, 600);
 //   c->SetRightMargin(0.009);
 //   c->SetLeftMargin(0.11);
@@ -230,8 +274,11 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
 
   TLegendEntry* leg_entry[11];
   float x_label_size = 0.045;
-  double ymin = 100000.0;
-  double ymax = 0.0;
+  //  double ymin = 100000.0;
+  //double ymax = 0.0;
+  double xrange = xmax;
+  // float energy = energyy;
+
   cout<<" hist.size() = "<<hist.size()<<endl;
   // if(hist.size()==2)
   //   {  col[1]=col[1]-41;
@@ -242,12 +289,12 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   //     col[1]=45;
   //     legend_text[1] = "Failed acceptance";
   //   }
-  for(int i =0; i<(int)hist.size();i++) {
+  for(int i =0;i<(int)hist.size(); i ++) {
     // if(DoRebin) {
     //  hist.at(i)->Rebin(2);
 
     // }
-    hist.at(i)= setLastBinAsOverFlow(hist.at(i),xrange);
+    //    hist.at(i)= setLastBinAsOverFlow(hist.at(i),xrange);
      
 
     //    normalize = true;
@@ -258,42 +305,49 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     else {
       hist.at(i)->GetYaxis()->SetTitle("Entries");
     }
-    if(which_TFbins==1) //default 8 bins
-      hist.at(i)->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);
-    else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
-      hist.at(i)->GetXaxis()->SetRangeUser(0,22);
-    else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300
-      hist.at(i)->GetXaxis()->SetRangeUser(0,22);
-    else if(which_TFbins==4)
-      hist.at(i)->GetXaxis()->SetRangeUser(0,18);
-    else if(which_TFbins==5)
-      hist.at(i)->GetXaxis()->SetRangeUser(0,15);
-    else if(which_TFbins==6)
-      hist.at(i)->GetXaxis()->SetRangeUser(0,15);
-    else if(which_TFbins==7)
-      hist.at(i)->GetXaxis()->SetRangeUser(0,20);
-
-    hist.at(i)->SetLineWidth(line_width[i]);    
+    hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+4);
+    hist.at(i)->SetLineWidth(line_width[i]);
     hist.at(i)->SetLineStyle(line_style[i]);
-    if(which_Lept==1)
-      hist.at(i)->SetLineColor(line_color[i]);
-    else if(which_Lept==2)
-      hist.at(i)->SetLineColor(line_color1[i]);
-    else  if(which_Lept==3)
-      hist.at(i)->SetLineColor(line_color2[i]);
-
+    hist.at(i)->SetLineColor(line_color[i]);
+    hist.at(i)->SetTitle(" ");
+    hist.at(i)->GetXaxis()->SetTitleSize(0.05);
+    hist.at(i)->GetXaxis()->SetLabelSize(x_label_size);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.0450);
+    hist.at(i)->GetYaxis()->SetTitleSize(0.05);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.05);
+    hist.at(i)->GetYaxis()->SetTitleOffset(1.1);
+    hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
+    //    decorate(hist.at(i),i,whi);
+    // if(i<5){
+    // legName.push_back(hist.at(i)->GetName());
+    hist.at(i)->SetLineColor(line_color[i]);
     hist.at(i)->SetTitle(" ");
     //setLastBinAsOverFlow(hist.at(i),0);
     //
     hist.at(i)->GetXaxis()->SetTitleSize(0.05);
     hist.at(i)->GetXaxis()->SetLabelSize(x_label_size);
     hist.at(i)->GetXaxis()->SetLabelSize(0.0450);
-    //    hist.at(i)->GetXaxis()->SetTitle("#frac{N_{SR/CR}}{N_{SR}+N_{CR}}");
-    hist.at(i)->GetYaxis()->SetTitleSize(0.05);
+    //hist.at(i)->GetXaxis()->SetTitle("Bin No.");
+    hist.at(i)->GetYaxis()->SetTitleSize(0.06);
     hist.at(i)->GetYaxis()->SetLabelSize(0.05);
     hist.at(i)->GetYaxis()->SetTitleOffset(1.2);
+    hist.at(i)->GetXaxis()->SetLabelOffset(1.2);
     hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
     decorate(hist.at(i),i, which_Lept);
+    hist.at(i)->SetMarkerSize(0.8);
+    hist.at(i)->SetMarkerStyle(20);
+    hist.at(i)->SetMarkerColor(line_color[i]);
+    //new ones
+        hist.at(i)->GetXaxis()->SetTitleSize(0.08);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetYaxis()->SetTitleSize(0.06);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+
+    hist.at(i)->GetXaxis()->SetTitleOffset(3);
+    hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
+
+    hist.at(i)->GetYaxis()->SetTitleOffset(1.1);
 
     // if(DoRebin) {
     //  hist.at(i)->Rebin(2);
@@ -318,12 +372,13 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     /* hist.at(i)->GetXaxis()->SetRangeUser(x_min[energy],x_max[energy]); */
     //    hist.at(i)= DrawOverflow(hist.at(i));
     legName.push_back(hist.at(i)->GetName());
-    leg_entry[i] = legend->AddEntry(hist.at(i),legend_texts[i].c_str(),"f");
-    leg_entry[i]->SetTextColor(hist.at(i)->GetLineColor()+2);
+    leg_entry[i] = legend->AddEntry(hist.at(i),legend_texts[i].c_str(),"e2p");
+    leg_entry[i]->SetTextColor(hist.at(i)->GetLineColor());
     
     if(hist.at(i)->GetMaximum() > ymax) ymax = hist.at(i)->GetMaximum();
     if(hist.at(i)->GetMinimum() < ymin) ymin = hist.at(i)->GetMinimum();
-    //setLastBinAsOverFlow(hist.at(i),0);
+    hist.at(i)= setMyRange(hist.at(i),xmin,xmax);
+    setLastBinAsOverFlow(hist.at(i));
     
     
 
@@ -331,20 +386,20 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   if(ymin == 0.0) ymin = 1e-3;
   if(ymin<0.0) ymin = 1e-4;
   //  if(ymax<=10) ymax=10;
-  for(int i =0;i< (int)hist.size(); i++) {
-    if(!normalize) hist.at(i)->GetYaxis()->SetRangeUser(0.0001,100.0*ymax);
+  for(int i = 0;i<(int)hist.size(); i++) {
+    if(!normalize) hist.at(i)->GetYaxis()->SetRangeUser(0.001,10000.0*ymax);
     else
-      {  hist.at(i)->GetYaxis()->SetRangeUser(0.000001,ymax*60.0);
+      {  hist.at(i)->GetYaxis()->SetRangeUser(0.001,ymax*10000.0);
 	//	hist.at(i)->GetXaxis()->SetRangeUser(0,xmax_[i]);
-	
       }
-    p1->SetGrid();
-        hs_var->Add(hist.at(i));
+    //    p1->SetGrid();
+    //hs_var->Add(hist.at(i));
     // hs_var->SetMinimum(0.00001);
     // hs_var->SetMaximum(ymax*60);
-
-    // 	if(!i) hist.at(i)->Draw("");
-    // else   hist.at(i)->Draw(" sames");
+    //gPad->SetLogu
+    cout<<"i Alps "<<i<<endl;
+    if(i==0) hist.at(i)->Draw("HIST");
+    else hist.at(i)->Draw("HISTsames");
 	
   }
 //  hs_var->SetMinimum(0.0);
@@ -368,56 +423,37 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
 //     hs_var->GetYaxis()->SetTitleSize(00.055);
 //     hs_var->GetYaxis()->SetTitleOffset(1.0);
 
-  hs_var->SetMinimum(0.0);
-  hs_var->SetMaximum(1.5);
+  // hs_var->SetMinimum(0.0);
+  // hs_var->SetMaximum(1.5);
   
   
-  hs_var->Draw("BAR HIST");
-  hs_var->Draw("HIST");
-  if(which_TFbins==1) //default 8 bins                                                                                                                                     
-    hs_var->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                    
-  else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100                                                                                                
-    hs_var->GetXaxis()->SetRangeUser(0,18);
-  else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                                     
-    hs_var->GetXaxis()->SetRangeUser(0,18);
-  else if(which_TFbins==4)
-    hs_var->GetXaxis()->SetRangeUser(0,18);
-  else if(which_TFbins==5)
-    hs_var->GetXaxis()->SetRangeUser(0,15);
-  else if(which_TFbins==6)
-    hs_var->GetXaxis()->SetRangeUser(0,15);
+  // hs_var->Draw("BAR HIST");
+  // hs_var->Draw("HIST");
+  // if(which_TFbins==1) //default 8 bins                                                                                                                                     
+  //   hs_var->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                    
+  // else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100                                                                                                
+  //   hs_var->GetXaxis()->SetRangeUser(0,18);
+  // else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                                     
+  //   hs_var->GetXaxis()->SetRangeUser(0,18);
+  // hs_var->GetXaxis()->SetTitle(title);
+  // hs_var->GetXaxis()->SetTitleOffset(1.0);
+  // gPad->Modified(); gPad->Update();
+  // hs_var->GetXaxis()->SetTitle(title);
+  // //  hs_var->GetYaxis()->SetTitleSize(
+  // hs_var->GetYaxis()->SetTitle("#frac{N_{SR/CR}}{N_{SR}+N_{CR}}");//hs_var->GetYaxis()->SetTitle("Events");
+  // hs_var->SetTitle(0);
+  // hs_var->GetYaxis()->SetTitleOffset(1.2);
+  // hs_var->GetXaxis()->SetTitleSize(00.05);
+  // hs_var->GetXaxis()->SetLabelSize(0.04);
+  // hs_var->GetYaxis()->SetLabelSize(0.04);
+  // hs_var->GetYaxis()->SetTitleSize(00.055);
+  // hs_var->GetYaxis()->SetTitleOffset(1.0);
 
-   else if(which_TFbins==7)
-    hs_var->GetXaxis()->SetRangeUser(0,20);
-
-  hs_var->GetXaxis()->SetTitle(title);
-  hs_var->GetXaxis()->SetTitleOffset(1.2);
-  gPad->Modified(); gPad->Update();
-  hs_var->GetXaxis()->SetTitle(title);
-  //  hs_var->GetYaxis()->SetTitleSize(
-  hs_var->GetYaxis()->SetTitle("#frac{N_{SR/CR}}{N_{SR}+N_{CR}}");//hs_var->GetYaxis()->SetTitle("Events");
-  hs_var->SetTitle(0);
-  hs_var->GetYaxis()->SetTitleOffset(1.2);
-  hs_var->GetXaxis()->SetTitleSize(00.05);
-  hs_var->GetXaxis()->SetLabelSize(0.04);
-  hs_var->GetYaxis()->SetLabelSize(0.04);
-  hs_var->GetYaxis()->SetTitleSize(00.055);
-  hs_var->GetYaxis()->SetTitleOffset(1.0);
-
-  //
-  hs_var->GetXaxis()->SetTitleSize(0.08);
-  hs_var->GetXaxis()->SetLabelSize(0.06);
-  
-  hs_var->GetYaxis()->SetTitleSize(0.05);
-  hs_var->GetYaxis()->SetLabelSize(0.06);
-  
-  hs_var->GetXaxis()->SetTitleOffset(3);
-  hs_var->GetXaxis()->SetLabelOffset(1.6);
-  
-  hs_var->GetYaxis()->SetTitleOffset(1.1);
 
   legend->Draw();
-
+   TLine *l2 =new TLine(xmin,1.0,xrange+4,1.0);
+   l2->Draw("sames");
+   l2->SetLineWidth(2);
     //    legend->Draw();
 
 
@@ -426,174 +462,165 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     }
   // if(logx)
   //   gPad->SetLogx();
-
-  
-  gPad->Update();
-
- 
+  gPad->Update(); 
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  //  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
+  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
   
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
   textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
+  // TLine *line1V7=new TLine( 8.0,0.001,  8.0,5400);
+  //   TLine *line2V7=new TLine(14.0,0.001, 14.0,5400);
+  //   TLine *line3V7=new TLine(20.0,0.001, 20.0,5400);
+  //   TLine *line4V7=new TLine(26.0,0.001, 26.0,5400);
+  //   TLine *line5V7=new TLine(32.0,0.001, 32.0,5400);
+
+
+  //   line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
+  //   line4V7->Draw();      line5V7->Draw(); //line6V7->Draw();          
+  // TArrow *arrow1 = new TArrow( 1.0,5400, 8.0,5400,0.01,"<|>");
+  //   TArrow *arrow2 = new TArrow( 8.0,5400,14.0,5400,0.01,"<|>");
+  //   TArrow *arrow3 = new TArrow(14.0,5400,20.0,5400,0.01,"<|>");
+  //   TArrow *arrow4 = new TArrow(20.0,5400, 26.0,5400,0.01,"<|>");
+  //   TArrow *arrow5 = new TArrow(26.0,5400, 32.0,5400,0.01,"<|>");
+  //   TArrow *arrow6 = new TArrow(32.0,5400, 38.0,5400,0.01,"<|>");
+
+  //   arrow1->Draw(); arrow2->Draw(); arrow3->Draw();
+  //   arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
+
+  //   TLatex Tl;
+  //   Tl.SetTextSize(0.055);
+  //   Tl.DrawLatex(3.5,8000,"N^{ 0}_{ 2-4}");
+  //   Tl.DrawLatex(10.5,8000,"N^{ 0}_{ 5-6}");
+  //   Tl.DrawLatex(15.5,8000,"N^{ 0}_{ #geq7}");
+  //   Tl.DrawLatex(21.5,8000,"N^{ #geq1}_{ 2-4}");
+  //   Tl.DrawLatex(26.5,8000,"N^{ #geq1}_{ 5-6}");
+  //   Tl.DrawLatex(33.5,8000,"N^{ #geq1}_{ #geq7}");
+
+  // TArrow *arrow1 = new TArrow( 1.0,0.10, 2.0,0.1,0.01,"<|>");
+  // TArrow *arrow2 = new TArrow( 2.0,0.10,3.0,0.1,0.01,"<|>");
+  // TArrow *arrow3 = new TArrow(3.0,0.10,4.0,0.1,0.01,"<|>");
+  // TArrow *arrow4 = new TArrow(4.0,0.10, 5.0,0.1,0.01,"<|>");
+  // TArrow *arrow5 = new TArrow(5.0,0.10, 6.0,0.1,0.01,"<|>");
+  // TArrow *arrow6 = new TArrow(6.0,0.10, 7.0,0.1,0.01,"<|>");
+  // TArrow *arrow7 = new TArrow(7.0,0.1, 8.0,0.1,0.01,"<|>");
+  // TArrow *arrow8 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
+  // TArrow *arrow9 = new TArrow( 9.0,0.10, 10.0,0.1,0.01,"<|>");
+  // TArrow *arrow10 = new TArrow( 10.0,0.10,11.0,0.1,0.01,"<|>");
+  // TArrow *arrow11 = new TArrow(11.0,0.10,12.0,0.1,0.01,"<|>");
+  // TArrow *arrow12 = new TArrow(12.0,0.10, 13.0,0.1,0.01,"<|>");
+  // TArrow *arrow13 = new TArrow(13.0,0.10, 14.0,0.1,0.01,"<|>");
+  // TArrow *arrow14 = new TArrow(14.0,0.10, 15.0,0.1,0.01,"<|>");
+  // TArrow *arrow15 = new TArrow(15.0,0.1, 16.0,0.1,0.01,"<|>");
+  // TArrow *arrow16 = new TArrow(16.0,0.1, 17.0,0.1,0.01,"<|>");
+  // TArrow *arrow17 = new TArrow(17.0,0.1, 18.0,0.1,0.01,"<|>");
+
+  // if(which_TFbins==1){
+  // arrow1->Draw(); arrow2->Draw(); arrow3->Draw();
+  // arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
+  // arrow7->Draw(); //arrow8->Draw();}
+  // }
+  // else if (which_TFbins==2 || which_TFbins==3){
+  //   arrow1->Draw();arrow2->Draw(); arrow3->Draw();
+  //   arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
+  //   arrow7->Draw(); arrow8->Draw(); arrow9->Draw();arrow10->Draw(); arrow11->Draw(); arrow12->Draw();arrow13->Draw(); arrow14->Draw(); arrow15->Draw(); arrow16->Draw(); 
+  // }
+  // TLatex Tl;
+  // Tl.SetTextSize(0.055);
+  // Tl.SetTextColor(kBlack);
+  // TLatex Tl1;
+  //  Tl1.SetTextSize(0.03);
+  //   Tl1.SetTextColor(kBlack);
+  // if(which_TFbins==1){
+  // Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
   
-  TArrow *arrow1 = new TArrow( 1.0,0.10, 2.0,0.1,0.01,"<|>");
-  TArrow *arrow2 = new TArrow( 2.0,0.10,3.0,0.1,0.01,"<|>");
-  TArrow *arrow3 = new TArrow(3.0,0.10,4.0,0.1,0.01,"<|>");
-  TArrow *arrow4 = new TArrow(4.0,0.10, 5.0,0.1,0.01,"<|>");
-  TArrow *arrow5 = new TArrow(5.0,0.10, 6.0,0.1,0.01,"<|>");
-  TArrow *arrow6 = new TArrow(6.0,0.10, 7.0,0.1,0.01,"<|>");
-  TArrow *arrow7 = new TArrow(7.0,0.1, 8.0,0.1,0.01,"<|>");
-  TArrow *arrow8 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
-  TArrow *arrow9 = new TArrow( 9.0,0.10, 10.0,0.1,0.01,"<|>");
-  TArrow *arrow10 = new TArrow( 10.0,0.10,11.0,0.1,0.01,"<|>");
-  TArrow *arrow11 = new TArrow(11.0,0.10,12.0,0.1,0.01,"<|>");
-  TArrow *arrow12 = new TArrow(12.0,0.10, 13.0,0.1,0.01,"<|>");
-  TArrow *arrow13 = new TArrow(13.0,0.10, 14.0,0.1,0.01,"<|>");
-  TArrow *arrow14 = new TArrow(14.0,0.10, 15.0,0.1,0.01,"<|>");
-  TArrow *arrow15 = new TArrow(15.0,0.1, 16.0,0.1,0.01,"<|>");
-  TArrow *arrow16 = new TArrow(16.0,0.1, 17.0,0.1,0.01,"<|>");
-  TArrow *arrow17 = new TArrow(17.0,0.1, 18.0,0.1,0.01,"<|>");
+  // Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 3}");
+  // Tl.DrawLatex(3.0,0.2,"N^{ 0}_{ 4}");
+  // Tl.DrawLatex(4.0,0.2,"N^{ 0}_{ 5,6}");
+  // Tl.DrawLatex(5.0,0.2,"N^{ 0}_{#geq7}");
+  // Tl.DrawLatex(6.0,0.2,"N^{ #geq1}_{ #geq2}");
+  // Tl.DrawLatex(7.0,0.2,"N^{ #geq1}_{ 5,6}");
+  // Tl.DrawLatex(8.0,0.2,"N^{ #geq1}_{ #geq7}");
+  // }
+  // else if (which_TFbins==2){
+  //   Tl.SetTextSize(0.035);
+  //   Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
+  //   Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 2}");
+  //   Tl.DrawLatex(3.0,0.2,"N^{ 0}_{ 3}");
+  //   Tl.DrawLatex(4.0,0.2,"N^{ 0}_{ 3}");
+  //   Tl.DrawLatex(5.0,0.2,"N^{ 0}_{ 4}");
+  //   Tl.DrawLatex(6.0,0.2,"N^{ 0}_{ 4}");
+  //   Tl.DrawLatex(7.0,0.2,"N^{ 0}_{ 5,6}");
+  //   Tl.DrawLatex(8.0,0.2,"N^{ 0}_{ 5,6}");
+  //   Tl.DrawLatex(9.0,0.2,"N^{ 0}_{>=7}");
+  //   Tl.DrawLatex(10.0,0.2,"N^{ 0}_{>=7}");
+  //   Tl.DrawLatex(11.0,0.2,"N^{ #geq1}_{ #geq2}");
+  //   Tl.DrawLatex(12.0,0.2,"N^{ #geq1}_{ #geq2}");
+  //   Tl.DrawLatex(13.0,0.2,"N^{ #geq1}_{ 5,6}");
+  //   Tl.DrawLatex(14.0,0.2,"N^{ #geq1}_{ 5,6}");
+  //   Tl.DrawLatex(15.0,0.2,"N^{ #geq1}_{ #geq7}");
+  //   Tl.DrawLatex(16.0,0.2,"N^{ #geq1}_{ #geq7}");
 
-  if(which_TFbins==1){
-  arrow1->Draw(); arrow2->Draw(); arrow3->Draw();
-  arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
-  arrow7->Draw(); arrow8->Draw();}
-  
-  else if (which_TFbins==2 || which_TFbins==3){
-    arrow2->Draw(); arrow3->Draw();
-    arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
-    arrow7->Draw(); arrow8->Draw(); arrow9->Draw();arrow10->Draw(); arrow11->Draw(); arrow12->Draw();arrow13->Draw(); arrow14->Draw(); arrow15->Draw(); arrow16->Draw(); 
-  }
-  TLatex Tl;
-  Tl.SetTextSize(0.055);
-  Tl.SetTextColor(kBlack);
-  TLatex Tl1;
-   Tl1.SetTextSize(0.03);
-    Tl1.SetTextColor(kBlack);
-  if(which_TFbins==1){
-  Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
-  
-  Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 3}");
-  Tl.DrawLatex(3.0,0.2,"N^{ 0}_{ 4}");
-  Tl.DrawLatex(4.0,0.2,"N^{ 0}_{ 5,6}");
-  Tl.DrawLatex(5.0,0.2,"N^{ 0}_{#geq7}");
-  Tl.DrawLatex(6.0,0.2,"N^{ #geq1}_{ #geq2}");
-  Tl.DrawLatex(7.0,0.2,"N^{ #geq1}_{ 5,6}");
-  Tl.DrawLatex(8.0,0.2,"N^{ #geq1}_{ #geq7}");
-  }
-  else if (which_TFbins==2){
-    Tl.SetTextSize(0.035);
-    Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
-    Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 2}");
-    Tl.DrawLatex(3.0,0.2,"N^{ 0}_{ 3}");
-    Tl.DrawLatex(4.0,0.2,"N^{ 0}_{ 3}");
-    Tl.DrawLatex(5.0,0.2,"N^{ 0}_{ 4}");
-    Tl.DrawLatex(6.0,0.2,"N^{ 0}_{ 4}");
-    Tl.DrawLatex(7.0,0.2,"N^{ 0}_{ 5,6}");
-    Tl.DrawLatex(8.0,0.2,"N^{ 0}_{ 5,6}");
-    Tl.DrawLatex(9.0,0.2,"N^{ 0}_{>=7}");
-    Tl.DrawLatex(10.0,0.2,"N^{ 0}_{>=7}");
-    Tl.DrawLatex(11.0,0.2,"N^{ #geq1}_{ #geq2}");
-    Tl.DrawLatex(12.0,0.2,"N^{ #geq1}_{ #geq2}");
-    Tl.DrawLatex(13.0,0.2,"N^{ #geq1}_{ 5,6}");
-    Tl.DrawLatex(14.0,0.2,"N^{ #geq1}_{ 5,6}");
-    Tl.DrawLatex(15.0,0.2,"N^{ #geq1}_{ #geq7}");
-    Tl.DrawLatex(16.0,0.2,"N^{ #geq1}_{ #geq7}");
+  //   Tl1.DrawLatex(1.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 2}");
+  //   Tl1.DrawLatex(2.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 2}");
+  //   Tl1.DrawLatex(3.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 3}");
+  //   Tl1.DrawLatex(4.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 3}");
+  //   Tl1.DrawLatex(5.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 4}");
+  //   Tl1.DrawLatex(6.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 4}");
+  //   Tl1.DrawLatex(7.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 5,6}");
+  //   Tl1.DrawLatex(8.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 5,6}");
+  //   Tl1.DrawLatex(9.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{>=7}");
+  //   Tl1.DrawLatex(10.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{>=7}");
+  //   Tl1.DrawLatex(11.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ #geq1}_{ #geq2}");
+  //   Tl1.DrawLatex(12.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ #geq1}_{ #geq2}");
+  //   Tl1.DrawLatex(13.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ #geq1}_{ 5,6}");
+  //   Tl1.DrawLatex(14.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ #geq1}_{ 5,6}");
+  //   Tl1.DrawLatex(15.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ #geq1}_{ #geq7}");
+  //   Tl1.DrawLatex(16.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ #geq1}_{ #geq7}");
 
-    Tl1.DrawLatex(1.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 2}");
-    Tl1.DrawLatex(2.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 2}");
-    Tl1.DrawLatex(3.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 3}");
-    Tl1.DrawLatex(4.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 3}");
-    Tl1.DrawLatex(5.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 4}");
-    Tl1.DrawLatex(6.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 4}");
-    Tl1.DrawLatex(7.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{ 5,6}");
-    Tl1.DrawLatex(8.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{ 5,6}");
-    Tl1.DrawLatex(9.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ 0}_{>=7}");
-    Tl1.DrawLatex(10.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ 0}_{>=7}");
-    Tl1.DrawLatex(11.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ #geq1}_{ #geq2}");
-    Tl1.DrawLatex(12.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ #geq1}_{ #geq2}");
-    Tl1.DrawLatex(13.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ #geq1}_{ 5,6}");
-    Tl1.DrawLatex(14.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ #geq1}_{ 5,6}");
-    Tl1.DrawLatex(15.0,0.35,"P_{T}^{#gamma}<0.1");//N^{ #geq1}_{ #geq7}");
-    Tl1.DrawLatex(16.0,0.35,"P_{T}^{#gamma}>0.1");//N^{ #geq1}_{ #geq7}");
+  // }
 
-  }
-
-  else if (which_TFbins==3){
+  // else if (which_TFbins==3){
     
-    Tl.SetTextSize(0.035);
-    Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
-    Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 2}");
-    Tl.DrawLatex(3.0,0.2,"N^{ 0}_{ 3}");
-    Tl.DrawLatex(4.0,0.2,"N^{ 0}_{ 3}");
-    Tl.DrawLatex(5.0,0.2,"N^{ 0}_{ 4}");
-    Tl.DrawLatex(6.0,0.2,"N^{ 0}_{ 4}");
-    Tl.DrawLatex(7.0,0.2,"N^{ 0}_{ 5,6}");
-    Tl.DrawLatex(8.0,0.2,"N^{ 0}_{ 5,6}");
-    Tl.DrawLatex(9.0,0.2,"N^{ 0}_{>=7}");
-    Tl.DrawLatex(10.0,0.2,"N^{ 0}_{>=7}");
-    Tl.DrawLatex(11.0,0.2,"N^{ #geq1}_{ #geq2}");
-    Tl.DrawLatex(12.0,0.2,"N^{ #geq1}_{ #geq2}");
-    Tl.DrawLatex(13.0,0.2,"N^{ #geq1}_{ 5,6}");
-    Tl.DrawLatex(14.0,0.2,"N^{ #geq1}_{ 5,6}");
-    Tl.DrawLatex(15.0,0.2,"N^{ #geq1}_{ #geq7}");
-    Tl.DrawLatex(16.0,0.2,"N^{ #geq1}_{ #geq7}");
-    Tl1.DrawLatex(1.0,0.35,"MET<0.3");//N^{ 0}_{ 2}");                                                                                                                                                  
-    Tl1.DrawLatex(2.0,0.35,"MET>0.3");//N^{ 0}_{ 2}");                                                                                                                                                  
-    Tl1.DrawLatex(3.0,0.35,"MET<0.3");//N^{ 0}_{ 3}");                                                                                                                                                  
-    Tl1.DrawLatex(4.0,0.35,"MET>0.3");//N^{ 0}_{ 3}");                                                                                                                                                  
-    Tl1.DrawLatex(5.0,0.35,"MET<0.3");//N^{ 0}_{ 4}");                                                                                                                                                  
-    Tl1.DrawLatex(6.0,0.35,"MET>0.3");//N^{ 0}_{ 4}");                                                                                                                                                  
-    Tl1.DrawLatex(7.0,0.35,"MET<0.3");//N^{ 0}_{ 5,6}");                                                                                                                                                
-    Tl1.DrawLatex(8.0,0.35,"MET>0.3");//N^{ 0}_{ 5,6}");                                                                                                                                                
-    Tl1.DrawLatex(9.0,0.35,"MET<0.3");//N^{ 0}_{>=7}");                                                                                                                                                 
-    Tl1.DrawLatex(10.0,0.35,"MET>0.3");//N^{ 0}_{>=7}");                                                                                                                                                
-    Tl1.DrawLatex(11.0,0.35,"MET<0.3");//N^{ #geq1}_{ #geq2}");                                                                                                                                         
-    Tl1.DrawLatex(12.0,0.35,"MET>0.3");//N^{ #geq1}_{ #geq2}");                                                                                                                                         
-    Tl1.DrawLatex(13.0,0.35,"MET<0.3");//N^{ #geq1}_{ 5,6}");                                                                                                                                           
-    Tl1.DrawLatex(14.0,0.35,"MET>0.3");//N^{ #geq1}_{ 5,6}");                                                                                                                                           
-    Tl1.DrawLatex(15.0,0.35,"MET<0.3");//N^{ #geq1}_{ #geq7}");                                                                                                                                         
-    Tl1.DrawLatex(16.0,0.35,"MET>0.3");//N^{ #geq1}_{ #geq7}");           
+  //   Tl.SetTextSize(0.035);
+  //   Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
+  //   Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 2}");
+  //   Tl.DrawLatex(3.0,0.2,"N^{ 0}_{ 3}");
+  //   Tl.DrawLatex(4.0,0.2,"N^{ 0}_{ 3}");
+  //   Tl.DrawLatex(5.0,0.2,"N^{ 0}_{ 4}");
+  //   Tl.DrawLatex(6.0,0.2,"N^{ 0}_{ 4}");
+  //   Tl.DrawLatex(7.0,0.2,"N^{ 0}_{ 5,6}");
+  //   Tl.DrawLatex(8.0,0.2,"N^{ 0}_{ 5,6}");
+  //   Tl.DrawLatex(9.0,0.2,"N^{ 0}_{>=7}");
+  //   Tl.DrawLatex(10.0,0.2,"N^{ 0}_{>=7}");
+  //   Tl.DrawLatex(11.0,0.2,"N^{ #geq1}_{ #geq2}");
+  //   Tl.DrawLatex(12.0,0.2,"N^{ #geq1}_{ #geq2}");
+  //   Tl.DrawLatex(13.0,0.2,"N^{ #geq1}_{ 5,6}");
+  //   Tl.DrawLatex(14.0,0.2,"N^{ #geq1}_{ 5,6}");
+  //   Tl.DrawLatex(15.0,0.2,"N^{ #geq1}_{ #geq7}");
+  //   Tl.DrawLatex(16.0,0.2,"N^{ #geq1}_{ #geq7}");
+  // Tl1.DrawLatex(1.0,0.35,"MET<0.3");//N^{ 0}_{ 2}");                                                                                                                                                  
+  //   Tl1.DrawLatex(2.0,0.35,"MET>0.3");//N^{ 0}_{ 2}");                                                                                                                                                  
+  //   Tl1.DrawLatex(3.0,0.35,"MET<0.3");//N^{ 0}_{ 3}");                                                                                                                                                  
+  //   Tl1.DrawLatex(4.0,0.35,"MET>0.3");//N^{ 0}_{ 3}");                                                                                                                                                  
+  //   Tl1.DrawLatex(5.0,0.35,"MET<0.3");//N^{ 0}_{ 4}");                                                                                                                                                  
+  //   Tl1.DrawLatex(6.0,0.35,"MET>0.3");//N^{ 0}_{ 4}");                                                                                                                                                  
+  //   Tl1.DrawLatex(7.0,0.35,"MET<0.3");//N^{ 0}_{ 5,6}");                                                                                                                                                
+  //   Tl1.DrawLatex(8.0,0.35,"MET>0.3");//N^{ 0}_{ 5,6}");                                                                                                                                                
+  //   Tl1.DrawLatex(9.0,0.35,"MET<0.3");//N^{ 0}_{>=7}");                                                                                                                                                 
+  //   Tl1.DrawLatex(10.0,0.35,"MET>0.3");//N^{ 0}_{>=7}");                                                                                                                                                
+  //   Tl1.DrawLatex(11.0,0.35,"MET<0.3");//N^{ #geq1}_{ #geq2}");                                                                                                                                         
+  //   Tl1.DrawLatex(12.0,0.35,"MET>0.3");//N^{ #geq1}_{ #geq2}");                                                                                                                                         
+  //   Tl1.DrawLatex(13.0,0.35,"MET<0.3");//N^{ #geq1}_{ 5,6}");                                                                                                                                           
+  //   Tl1.DrawLatex(14.0,0.35,"MET>0.3");//N^{ #geq1}_{ 5,6}");                                                                                                                                           
+  //   Tl1.DrawLatex(15.0,0.35,"MET<0.3");//N^{ #geq1}_{ #geq7}");                                                                                                                                         
+  //   Tl1.DrawLatex(16.0,0.35,"MET>0.3");//N^{ #geq1}_{ #geq7}");           
   
 
-  }
-  if(which_TFbins==7){
-    TArrow *arrow1 = new TArrow( 1.0,1.03, 10.0,1.03,0.01,"<|>");
-  TArrow *arrow2 = new TArrow( 10.0,1.03,19.0,1.03,0.01,"<|>");
-  arrow1->Draw(); arrow2->Draw();
-  Tl.SetTextSize(0.05);
-  Tl.DrawLatex(5.,1.1,"N^{b}_{jets} = 0");
-  Tl.DrawLatex(14.0,1.1,"N^{b}_{jets} >=1");
-  TArrow *arrow3 = new TArrow(1.0,0.50,4.0,0.5,0.01,"<|>");
-  TArrow *arrow4 = new TArrow(4.0,0.50, 7.0,0.5,0.01,"<|>");
-  TArrow *arrow5 = new TArrow(7.0,0.50, 10.0,0.5,0.01,"<|>");
-  TArrow *arrow6 = new TArrow(10.0,0.50, 13.0,0.5,0.01,"<|>");
-  TArrow *arrow7 = new TArrow(13.0,0.5, 16.0,0.5,0.01,"<|>");
-  TArrow *arrow8 = new TArrow(16.0,0.5, 19.0,0.5,0.01,"<|>");
-
-  arrow3->Draw(); arrow4->Draw();   arrow5->Draw(); arrow6->Draw();   arrow7->Draw(); arrow8->Draw();
-  Tl.SetTextSize(0.035);
-  Tl.DrawLatex(1.,0.4,"HT<=600");
-  Tl.DrawLatex(4.0,0.4,"HT=[600 900]");
-  Tl.DrawLatex(7.5,0.4,"HT>=900");
-  Tl.DrawLatex(10.,0.4,"HT<=600");
-  Tl.DrawLatex(13.0,0.4,"HT=[600 900]");
-  Tl.DrawLatex(16.5,0.4,"HT>=900");
-  TLine *line1V7=new TLine(4.0,0.001,  4.0,1.);
-  TLine *line2V7=new TLine(7.0,0.001, 7.0,1.);
-  TLine *line3V7=new TLine(10.0,0.001, 10.0,1.);
-  TLine *line4V7=new TLine(13.0,0.001, 13.0,1.);
-  TLine *line5V7=new TLine(16.0,0.001, 16.0,1.);
-    TLine *line6V7=new TLine(19.0,0.001, 19.0,1.);
-    line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
-    line4V7->Draw();      line5V7->Draw(); line6V7->Draw();
-
-}
+  // }
 //     TArrow *arrow1 = new TArrow( 0.0,300, 7.0,300,0.01,"<|>");
 //     TArrow *arrow2 = new TArrow( 7.0,300,13.0,300,0.01,"<|>");
 //     TArrow *arrow3 = new TArrow(13.0,300,19.0,300,0.01,"<|>");
@@ -634,80 +661,86 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
 
   gPad->Modified();
                                                                                        
-    hist_ratio->SetLineWidth(line_width[0]+1);
+    hist_ratio->SetLineWidth(2);
     hist_ratio->SetLineStyle(1);
-    hist_ratio->SetLineColor(kBlue);
+    hist_ratio->SetMarkerSize(0.2);
+    hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetTitle("TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    hist_ratio->GetYaxis()->SetTitle("SR/CR");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    if(which_Lept==2)
-      hist_ratio->GetYaxis()->SetRangeUser(0.0,3.5);
-    else
-      hist_ratio->GetYaxis()->SetRangeUser(0.0,2.0);
-    if(which_TFbins==1) //default 8 bins                                                                                                    
-      hist_ratio->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                 
-    else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
-      hist_ratio->GetXaxis()->SetRangeUser(0,18);
-    else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                        
-      hist_ratio->GetXaxis()->SetRangeUser(0,18);
-    else if(which_TFbins==4)
-      hist_ratio->GetXaxis()->SetRangeUser(0,18);
-    else if(which_TFbins==5)
-      hist_ratio->GetXaxis()->SetRangeUser(0,15);
-    else if(which_TFbins==6)
-      hist_ratio->GetXaxis()->SetRangeUser(0,15);
-     else if(which_TFbins==7)
-      hist_ratio->GetXaxis()->SetRangeUser(0,20);
-
-
+    hist_ratio->GetYaxis()->SetRangeUser(-0.5,3.0);
+    hist_ratio->GetXaxis()->SetRangeUser(xmin,xrange+4);
+    // if(which_TFbins==1) //default 8 bins                                                                                                    
+    //   hist_ratio->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                 
+    // else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
+    //   hist_ratio->GetXaxis()->SetRangeUser(0,18);
+    // else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                        
+    //    hist_ratio->GetXaxis()->SetRangeUser(0,39);
     
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
     hist_ratio->GetYaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetLabelSize(0.08);
     hist_ratio->GetYaxis()->SetTitleOffset(.4);
+    hist_ratio->SetMarkerSize(1.0);
+    hist_ratio->SetMarkerStyle(20);
+    hist_ratio->SetMarkerColor(kBlue);
+    hist_ratio->GetXaxis()->SetTitle(xlabel);
     hist_ratio->GetYaxis()->SetNdivisions(505);
-    //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
-     hist_ratio->GetYaxis()->CenterTitle(true);
+
+    //new
+        hist_ratio->GetYaxis()->CenterTitle(true);
      hist_ratio->GetXaxis()->SetTitleSize(0.05);
     hist_ratio->GetXaxis()->SetLabelSize(0.12);
-    hist_ratio->GetYaxis()->SetTitleSize(0.1);
+    hist_ratio->GetYaxis()->SetTitleSize(0.125);
     hist_ratio->GetYaxis()->SetNdivisions(505);
 
     hist_ratio->GetXaxis()->SetTitleOffset(1);
-    hist_ratio->GetYaxis()->SetTitleOffset(0.51);
+    hist_ratio->GetYaxis()->SetTitleOffset(0.41);
     hist_ratio->GetXaxis()->SetTitleSize(0.14);
 
     hist_ratio->GetYaxis()->SetLabelSize(0.12);
 
+    //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
    pad_1->cd();
    //   pad_1->SetGrid();
-   if(which_TFbins==1){
-   TLine *l =new TLine(0,1.0,10,1.0);   
-   hist_ratio->Draw("");
-   l->Draw("sames");
-   TLine *l1 =new TLine(0,1.5,10,1.5);
-   l1->SetLineStyle(7);
-   l1->Draw("sames");
-   TLine *l2 =new TLine(0,0.5,10,0.5);
-   l2->SetLineStyle(7);
+   // if(which_TFbins==1){
+   // TLine *l =new TLine(0,1.0,10,1.0);   
+   // hist_ratio->Draw("");
+   // l->Draw("sames");
+   // TLine *l1 =new TLine(0,1.5,10,1.5);
+   // l1->SetLineStyle(7);
+   // l1->Draw("sames");
+   // TLine *l2 =new TLine(0,0.5,10,0.5);
+   // l2->SetLineStyle(7);
 
-   l2->Draw("sames");
-   }
+   // l2->Draw("sames");
+   // }
 
-   else{
+   // else{
+     
+   //    TLine *l =new TLine(0,1.0,18,1.0);
+   // hist_ratio->Draw("");
+   // l->Draw("sames");
+   // TLine *l1 =new TLine(0,1.5,18,1.5);
+   // l1->SetLineStyle(7);
+   // l1->Draw("sames");
+   // TLine *l2 =new TLine(0,0.5,18,0.5);
+   // l2->SetLineStyle(7);
 
-      TLine *l =new TLine(0,1.0,18,1.0);
-   hist_ratio->Draw("");
-   l->Draw("sames");
-   TLine *l1 =new TLine(0,1.5,18,1.5);
-   l1->SetLineStyle(7);
-   l1->Draw("sames");
-   TLine *l2 =new TLine(0,0.5,18,0.5);
-   l2->SetLineStyle(7);
+   // l2->Draw("sames");
+   // }
+   // TLine *l =new TLine(xmin,1.0,xrange+4,1.0);
+   // hist_ratio->Draw("");
+   // l->Draw("sames");
+   // TLine *l1 =new TLine(xmin,1.5,xrange+4,1.5);
+   // l1->SetLineStyle(7);
+   // l1->Draw("sames");
+   // TLine *l2 =new TLine(xmin,0.5,xrange+4,0.5);
+   // l2->SetLineStyle(7);
 
-   l2->Draw("sames");
-   }
+   // l2->Draw("sames");
+
   char* canvas_name = new char[1000];
   //c->Print(canvas_name);
   
@@ -725,11 +758,11 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void DiffStacked_LL_varRatio(string pathname, int which_Lept, int which_TFBins, bool all)
+void TF_varKinem_ratio(string pathname, int which_Lept, int which_TFBins, bool all)
 {
   char* hname = new char[200];
-    char* hname1 = new char[200];
-char* hname2 = new char[200];
+  char* hname1 = new char[200];
+  char* hname2 = new char[200];
   char* hist_name  = new char[200];
   char* hist_name1 = new char[200];
   char* hist_name2 = new char[200];
@@ -770,40 +803,39 @@ char* hname2 = new char[200];
     sprintf(TFbins_str,"TFbins_v2_nJetsBjets_PhoPt");
   else if(which_TFBins==3)
     sprintf(TFbins_str,"TFbins_v3_nJetsBjets_MET");
-
-  else if(which_TFBins==4)
-    sprintf(TFbins_str,"TFv4_nJetsBjets_MET_phopT");
-  else if(which_TFBins==5)
-    sprintf(TFbins_str,"TFv5_nBjets_MET_phopT");
-  else if(which_TFBins==6)
-    sprintf(TFbins_str,"TFv6_ST_MET_phopT");
-  else if(which_TFBins==7)
-    sprintf(TFbins_str,"TFv7_HT_bjets_phopT");
-
-
+  
   if(which_Lept==1){
     //    sprintf(string_png,"Electron_LL");
-    baseline1={"Elec_CR","Elec_SR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
-    legend_texts ={"(1e,1#gamma) CR","(0e,1#gamma) SR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
+    baseline1={"Elec_SR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
+    
+    legend_texts ={"(1e,1#gamma) CR","(1e,1#gamma) CR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
-    sprintf(string_png,"Electron_LL_%s",TFbins_str);
+    sprintf(string_png,"Electron_LL_Sbins_Valid_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
 
   }
   if(which_Lept==2){
-    sprintf(string_png,"Muon_LL_%s",TFbins_str);
+    sprintf(string_png,"Muon_LL_Sbins_Valid_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
-    baseline1 = {"Mu_CR","Mu_SR","TauHad_SR"};
-    legend_texts ={"(1#mu,1#gamma) CR","(0#mu,1#gamma) SR","(#tau-had, 1#gamma) SR"};//,"(1#mu,1#gamma) CR"};//,"(#tau-had, 1#gamma) SR"};
+    baseline1 = {"Mu_SR","TauHad_SR","Mu_CR"};
+    //  legend_texts ={"(0#mu,1#gamma) SR","(#tau-had, 1#gamma) SR","(1#mu,1#gamma) CR"};//,"(#tau-had, 1#gamma) SR"};
+     legend_texts ={"(0#mu,1#gamma) SR","(1#mu,1#gamma) CR"};
   }
   if(which_Lept==3){
-    sprintf(string_png,"Lepton_LL_%s",TFbins_str);
+    sprintf(string_png,"Lepton_LL_Sbins_Valid_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
-    baseline1 = {"Elec_CR","Mu_CR","Elec_SR","Mu_SR","TauHad_SR"};//,"Mu_SR","Elec_SR"};
-    legend_texts = {"(1l,1#gamma) CR","lost e SR","lost #mu SR","#tau-had SR"};//,"lost #mu SR","lost e SR","(1l,1#gamma) CR"};
+    if(which_TFBins==1)
+      baseline1 = {"Validation_Elec_CR","Validation_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"};
+    else if(which_TFBins==2)
+      baseline1 = {"Validation_TFbins_V2_Elec_CR","Validation_TFbins_V2_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"};
+    else if(which_TFBins==3)
+      baseline1 = {"Validation_TFbins_V3_Elec_CR","Validation_TFbins_V3_Mu_CR","TauHad_SR","Mu_SR","Elec_SR"};
+    legend_texts = {"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR"};
+    legend_texts ={"(1l,1#gamma) CR","(1l,1#gamma) CR"};
     n_files = 18;
   }
+  
   cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
   if(which_Lept==1)
     {
@@ -920,12 +952,57 @@ char* hname2 = new char[200];
       f[12] = new TFile("./Summer20UL17_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
       f[13] = new TFile("./Summer20UL18_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
       f[14] = new TFile("./FullRun2_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
+
       f[15] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
       f[16] = new TFile("Summer20UL_total2016_combined_TTGJets_inc_TTJets_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
       f[17]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200_LostLepton_HEMveto_PU_L1prefire.root");
-      
+
+
     }
-  
+
+  vector<string>varName;
+  vector<string>varName1;
+  vector<string>varName2;
+  vector<string>varName3;
+  vector<string>varName4;
+  vector<string>varName5;
+
+  //  if(which_TFBins==1){
+  varName ={"h_St_Elec_CR","h_HT_Elec_CR","h_NhadJets_Elec_CR","h_NBJets_Elec_CR","h_MET_Elec_CR","h_PhoPt_Elec_CR","h_Sbins_LL_newSbins_v7_Elec_CR"};                        
+  varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR","h_Sbins_LL_newSbins_v7_Mu_CR"};
+  varName2={"h_St_Elec_SR","h_HT_Elec_SR","h_NhadJets_Elec_SR","h_NBJets_Elec_SR","h_MET_Elec_SR","h_PhoPt_Elec_SR","h_Sbins_LL_newSbins_v7_Elec_SR"};
+  varName3={"h_St_Mu_SR","h_HT_Mu_SR","h_NhadJets_Mu_SR","h_NBJets_Mu_SR","h_MET_Mu_SR","h_PhoPt_Mu_SR","h_Sbins_LL_newSbins_v7_Mu_SR"};
+  varName4={"h_St_TauHad_SR","h_HT_TauHad_SR","h_NhadJets_TauHad_SR","h_NBJets_TauHad_SR","h_MET_TauHad_SR","h_PhoPt_TauHad_SR","h_Sbins_LL_newSbins_v7_TauHad_SR"};
+  //}
+  // else if(which_TFBins==2)
+  //   {
+
+  //     varName ={"h_St_Elec_CR","h_HT_Elec_CR","h_NhadJets_Elec_CR","h_NBJets_Elec_CR","h_MET_Elec_CR","h_PhoPt_Elec_CR"};
+  //     varName1 ={"h_St_Mu_CR","h_HT_Mu_CR","h_NhadJets_Mu_CR","h_NBJets_Mu_CR","h_MET_Mu_CR","h_PhoPt_Mu_CR"};
+  //     varName2={"h_St_Elec_SR","h_HT_Elec_SR","h_NhadJets_Elec_SR","h_NBJets_Elec_SR","h_MET_Elec_SR","h_PhoPt_Elec_SR"};
+  //     varName3={"h_St_Mu_SR","h_HT_Mu_SR","h_NhadJets_Mu_SR","h_NBJets_Mu_SR","h_MET_Mu_SR","h_PhoPt_Mu_SR"};
+  //     varName4={"h_St_TauHad_SR","h_HT_TauHad_SR","h_NhadJets_TauHad_SR","h_NBJets_TauHad_SR","h_MET_TauHad_SR","h_PhoPt_TauHad_SR"};
+
+  //   }
+  // else if(which_TFBins==3){
+  //   varName ={"h_St_TFbins_v3_Elec_CR","h_HT_TFbins_v3_Elec_CR","h_NhadJets_TFbins_v3_Elec_CR","h_NBJets_TFbins_v3_Elec_CR","h_MET_TFbins_v3_Elec_CR","h_PhoPt_TFbins_v3_Elec_CR"};
+  //   varName1 ={"h_St_TFbins_v3_Mu_CR","h_HT_TFbins_v3_Mu_CR","h_NhadJets_TFbins_v3_Mu_CR","h_NBJets_TFbins_v3_Mu_CR","h_MET_TFbins_v3_Mu_CR","h_PhoPt_TFbins_v3_Mu_CR"};
+  //   varName2={"h_St_Elec_SR","h_HT_Elec_SR","h_NhadJets_Elec_SR","h_NBJets_Elec_SR","h_MET_Elec_SR","h_PhoPt_Elec_SR"};
+  //   varName3={"h_St_Mu_SR","h_HT_Mu_SR","h_NhadJets_Mu_SR","h_NBJets_Mu_SR","h_MET_Mu_SR","h_PhoPt_Mu_SR"};
+  //   varName4={"h_St_TauHad_SR","h_HT_TauHad_SR","h_NhadJets_TauHad_SR","h_NBJets_TauHad_SR","h_MET_TauHad_SR","h_PhoPt_TauHad_SR"};
+
+  // }
+ vector <string>  xLabel;
+
+ xLabel={"Sum of P_{T}^{Jets} & P_{T}^{#gamma} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{#gamma} [GeV]","Bin No."};//,"BDT response","M_{T}^{miss & #gam \
+ma} [GeV]","dPhi(#gamma,MET)"};                                                                                                                                              
+  vector <int> rebin;
+  rebin={4,4,1,1,4,4,1};
+  vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+  vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
+  vector<double> xmin ={300,300,2,0,100,20,0};
+  vector<double> xmax={1500,1500,11,8,1000,800,100};
+
   //  vector<string>baseline1;
   // vector<string> baseline = {"Nocut", "PreSmuontion","Electron_CR","Electron_SR","FailAcep_ElectronSR","FailId_ElectronSR","FailIso_ElectronSR","Mu_CR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Electron_CR_BDTcut1","Electron_SR_BDTcut1","FailAcep_ElectronSR_BDTcut1","FailId_ElectronSR_BDTcut1","FailIso_ElectronSR_BDTcut1","Mu_CR_BDTcut1","Mu_SR_BDTcut1","FailAcep_MuSR_BDTcut1","FailId_MuSR_BDTcut1","FailIso_MuSR_BDTcut1","Electron_CR_BDTcut2","Electron_SR_BDTcut2","FailAcep_ElectronSR_BDTcut2","FailId_ElectronSR_BDTcut2","FailIso_ElectronSR_BDTcut2","Mu_CR_BDTcut2","Mu_SR_BDTcut2","FailAcep_MuSR_BDTcut2","FailId_MuSR_BDTcut2","FailIso_MuSR_BDTcut2"};
 
@@ -939,26 +1016,28 @@ char* hname2 = new char[200];
   //  const char* filetag[8]={"TTGJets_2018","TTGJets_2017","TTGJets_2016","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016","Run2_WGJets"};
   // vector<string> filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
   // vector<float> energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
+
     vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
  vector<float> energyy={59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
 
 
-  if(which_Lept==3){
+ if(which_Lept==3){
     energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,36.0,36.0,36.0};
     filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
   }
+  
   bool flag=false;
   //  const char* filetag[10]={"TTGJets","pMSSM_MCMC_70_90438","pMSSM_MCMC_106_19786","pMSSM_MCMC_473_54451","WJets","GJets","T5bbbbZG_10","T5bbbbZG_50","T5bbbbZG_200","T5bbbbZG_1500"};
-   /* vector<TH1F*> hist_list_Njets; */
-   /*    vector<TH1F*> hist_list_Bjets; */
-   /*    vector<TH1F*> hist_list_MET; */
-   /*    vector<TH1F*> hist_list_PhoPt; */
-   /*    //vector<TH1F*> hist_list_Mt;                                                                                                                                    */
-   /*    vector<TH1F*> hist_list_ST; */
-   /*    vector<TH1F*> hist_list_HT; */
+   /* vector<TH1D*> hist_list_Njets; */
+   /*    vector<TH1D*> hist_list_Bjets; */
+   /*    vector<TH1D*> hist_list_MET; */
+   /*    vector<TH1D*> hist_list_PhoPt; */
+   /*    //vector<TH1D*> hist_list_Mt;                                                                                                                                    */
+   /*    vector<TH1D*> hist_list_ST; */
+   /*    vector<TH1D*> hist_list_HT; */
 
-  //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron.root","RECREATE");
-  sprintf(hname1,"%s.root",hname); 
+  //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron_HEMveto_PU_L1prefire.root","RECREATE");
+  sprintf(hname1,"temp_HEMveto_PU_L1prefire.root");//,hname); 
   TFile* fout = new TFile(hname1,"RECREATE");
   // sprintf(hname,"EventYields_TF_LL_muon_allProcess_binsV3_phoID_loose_09Jan24.txt");
   // std::ofstream file_;
@@ -966,210 +1045,89 @@ char* hname2 = new char[200];
   
   for(int i_file=0; i_file<n_files;i_file++)
     {      
-      vector<TH1F*> hist_list_Njets;
-      vector<TH1F*> hist_list_Bjets;
-      vector<TH1F*> hist_list_MET;
-      vector<TH1F*> hist_list_PhoPt;
-      //vector<TH1F*> hist_list_Mt;
-      vector<TH1F*> hist_list_ST;
-      vector<TH1F*> hist_list_HT;
-      vector<TH1F*> hist_BDTresp;
-      // sprintf(hist_name,"h_TFbins_ElecLL_%s_%s",baseline1[4].c_str(),filetag[i_file]);
-      // TH1F* hNjets_SR = new TH1F(hist_name,hist_name,30,0,30);
-      // sprintf(hist_name,"h_TFbins_ElecCR_%s_%s",baseline1[5].c_str(),filetag[i_file]);
-      // TH1F* hNjets_CR = new TH1F(hist_name,hist_name,30,0,30);
+      //      vector<TH1D*> hist_list_Njets;
+      vector<TH1D*> hist_list_Bjets;
+      vector<TH1D*> hist_list_MET;
+      vector<TH1D*> hist_list_PhoPt;
+      vector<TH1D*> hist_list_ST;
+      // vector<TH1D*> hist_list_Njets1;
+      // vector<TH1D*> hist_list_Bjets1;
+      // vector<TH1D*> hist_list_MET1;
+      // vector<TH1D*> hist_list_PhoPt1;
+      // vector<TH1D*> hist_list_ST1;
+      // vector<TH1D*> hist_list_Njets2;
+      // vector<TH1D*> hist_list_Bjets2;
+      // vector<TH1D*> hist_list_MET2;
+      // vector<TH1D*> hist_list_PhoPt2;
+      // vector<TH1D*> hist_list_ST2;
 
-      // sprintf(hist_name,"h_TFbins_LL_%s_%s",baseline1[5].c_str(),filetag[i_file]);
-      // TH1F* h_TFBins = new TH1F(hist_name,hist_name,30,0,30);
-      // cout<<hist_name<<endl;
-      // cout<<f[i_file]->GetName()<<endl;
-      float scale_fac = 0.0;//hNjets_temp->Integral();
-      //cout<<scale_fac<<"\t"<<"E_SR"<<endl;
-      sprintf(hist_name,"h_TFbins_ElecLL_%s",filetag[i_file].c_str());
-      TH1F* hNjets_SR = new TH1F(hist_name,hist_name,30,0,30);
-      sprintf(hist_name,"h_TFbins_ElecCR_%s",filetag[i_file].c_str());
-      TH1F* hNjets_CR = new TH1F(hist_name,hist_name,30,0,30);
-
-      sprintf(hist_name,"h_TFbins_LL_%s",filetag[i_file].c_str());
-      TH1F* h_TFBins = new TH1F(hist_name,hist_name,30,0,30);
-      sprintf(hname1,"%s_%s.txt",hname,filetag[i_file].c_str());
-      std::ofstream file_i;
-      file_i.open(hname1,ios::out);
-
-      for(int i_cut=0; i_cut<baseline1.size();i_cut++)
+      for(int i_cut=0; i_cut<varName.size();i_cut++)
 	{
-	  if(which_TFBins==1)
-	    sprintf(hist_name,"h_TFbins_ElecLL_v2_%s",baseline1[i_cut].c_str());
-	  else if (which_TFBins==2)
-	    sprintf(hist_name,"h_TFbins_ElecLL_v3_%s",baseline1[i_cut].c_str());
-	  else if(which_TFBins==3)
-	    sprintf(hist_name,"h_TFbins_ElecLL_v4_%s",baseline1[i_cut].c_str());
-	  else if(which_TFBins==4)
-            sprintf(hist_name,"h_TFbins_ElecLL_v5_%s",baseline1[i_cut].c_str());
-	  else if(which_TFBins==5)
-            sprintf(hist_name,"h_TFbins_ElecLL_v6_%s",baseline1[i_cut].c_str());
-	  else if(which_TFBins==6)
-            sprintf(hist_name,"h_TFbins_ElecLL_v7_%s",baseline1[i_cut].c_str());
-	  else if(which_TFBins==7)
-            sprintf(hist_name,"h_TFbins_ElecLL_v8_%s",baseline1[i_cut].c_str());
-
-	  
- 	  cout<<hist_name<<"\t"<<i_cut<<endl;
-	  TH1F* h_TFbins = (TH1F*)f[i_file]->Get(hist_name);
-	  //cout<<h_TFbins->Integral()<<"\t"<<"Elec"<<"\t"<<h_TFbins->GetNbinsX()<<endl;
-	  TH1F* h_TFallin1 = (TH1F*)h_TFbins->Clone();
-	  cout<<h_TFbins->Integral()<<"\t"<<" h_TFbins->Integral() "<<"\t"<<string_png<<endl;//<<
-	  // if (which_Lept==3){
-	  //   if(i_cut>=2)
-	  //     hist_list_Njets.push_back(h_TFbins);
-	  // }
-	  // else
-	  
-	  hist_list_Njets.push_back(h_TFbins);
-	  //if(i_cut>=3)
-	  hist_list_Bjets.push_back(h_TFbins);
-	}
-      // }
-      cout<<" hist_list_Njets.size() "<<hist_list_Njets.size()<<"\t hist_list_Bjets.size() "<<hist_list_Bjets.size()<<endl;
-      //path to save the png file
-      float energy=energyy[i_file];
-      int xrange=0.0;
-      //      sprintf(hist_name,"h_TFbins_ElecLL_%s",baseline1[4].c_str());
-      if(which_Lept==3){
-      TH1F* hNjets_ratio =(TH1F*)hist_list_Bjets.at(2)->Clone(); //first elec SR
-      //new TH1F("ratio","",20,0,20);//(TH1F*)f[i_file]->Get(hist_name);//(TH1D*)hist_list_Njets.at(0)->Clone();
-      //      TH1F* hNjets_ratio1 =(TH1F*)hist_list_Njets.at(0)->Clone();
-      hNjets_ratio->GetXaxis()->SetTitle("Bin no.");
-      hNjets_ratio->GetYaxis()->SetTitle(" ");
-      hNjets_ratio->SetTitle("");
-      TH1F* hNjets_ratio1 =(TH1F*)hist_list_Bjets.at(0)->Clone(); //first elec CR total 
-      hNjets_ratio1->GetXaxis()->SetTitle("Bin no.");
-      hNjets_ratio1->GetYaxis()->SetTitle(" ");
-      hNjets_ratio1->SetTitle("");
-      hNjets_ratio1->Add(hist_list_Bjets.at(1));
-      //      if(which_Lept)
-	  hNjets_ratio1->Add(hist_list_Bjets.at(2));
-	  hNjets_ratio->Add(hist_list_Bjets.at(3));
-	  hNjets_ratio->Add(hist_list_Bjets.at(4));
-
-	  hNjets_ratio1->Add(hist_list_Bjets.at(3));
-	  hNjets_ratio1->Add(hist_list_Bjets.at(4));
-
-	  TH1F* hNjets_ratio2 =(TH1F*)hist_list_Bjets.at(0)->Clone();
-	  hNjets_ratio2->Add(hist_list_Bjets.at(1));
-
-	   cout<<hNjets_ratio2->Integral()<< " total CR "<<endl;
-      cout<<hNjets_ratio1->Integral()<<" total "<<endl;
-      cout<<hNjets_ratio->Integral()<<" SR  "<<endl;
-
-	  hNjets_ratio->Divide(hNjets_ratio2);
-
-	  hist_list_MET.push_back(hNjets_ratio2);
-	  hist_list_MET.push_back(hist_list_Njets.at(2));
-	  hist_list_MET.push_back(hist_list_Njets.at(3));
-	  hist_list_MET.push_back(hist_list_Njets.at(4));
-	    
-      hist_list_MET.at(0)->Divide(hNjets_ratio1);
-      hist_list_MET.at(1)->Divide(hNjets_ratio1);
-      hist_list_MET.at(2)->Divide(hNjets_ratio1);
-      
-      //      hist_list_Njets.at(3)->Divide(hNjets_ratio1);
-      // hist_list_Njets.at(4)->Divide(hNjets_ratio1);
-      //hNjets_ratio2->Divide(hNjets_ratio1);
-      hist_list_Njets.push_back(hNjets_ratio2);
-      hist_list_MET.at(3)->Divide(hNjets_ratio1);
-
-      // if(!which_Lept)
-      // 	{	hist_list_Njets.at(2)->Divide(hNjets_ratio1);
-      // 	  hist_list_Njets.at(2)->GetXaxis()->SetRangeUser(0,10);
-      // 	}
-      
-      // hist_list_Njets.at(0)->GetXaxis()->SetRangeUser(0,10);
-      // hist_list_Njets.at(1)->GetXaxis()->SetRangeUser(0,10);
-      // hist_list_Njets.at(2)->GetXaxis()->SetRangeUser(0,10);
-      // hist_list_Njets.at(3)->GetXaxis()->SetRangeUser(0,10);
-      
-      float  xbin_cr=0, xbin_sr=0;
-      sprintf(full_path,"%s/%s_%s",pathname.c_str(),string_png,filetag[i_file].c_str());
-      fout->cd();
-      h_TFBins = (TH1F*)hNjets_ratio->Clone();
-      sprintf(hist_name,"h_TFbins_LL_%s",filetag[i_file].c_str());
-      h_TFBins->SetName(hist_name);
-      h_TFBins->Write();
-      for (int j =2; j<20;j++)
-        {
-          file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
-	}
-      
-      generate_1Dplot(hist_list_MET,hNjets_ratio,full_path,energy,40,0,leg_head,false,false,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
-      }
-      else if(which_Lept==1){
-	TH1F* hNjets_ratio =(TH1F*)hist_list_Njets.at(1)->Clone();
-	hNjets_ratio->GetXaxis()->SetTitle("Bin no.");
-	hNjets_ratio->GetYaxis()->SetTitle(" ");
-	hNjets_ratio->SetTitle("");
-	TH1F* hNjets_ratio1 =(TH1F*)hist_list_Njets.at(0)->Clone();
-	hNjets_ratio1->GetXaxis()->SetTitle("Bin no.");
-	hNjets_ratio1->GetYaxis()->SetTitle(" ");
-	hNjets_ratio1->SetTitle("");
-	hNjets_ratio1->Add(hist_list_Njets.at(1));
-	hNjets_ratio->Divide(hist_list_Njets.at(0));
-	hist_list_Njets.at(0)->Divide(hNjets_ratio1);
-	hist_list_Njets.at(1)->Divide(hNjets_ratio1);
-	// hist_list_Njets.at(0)->GetXaxis()->SetRangeUser(0,10);
-	// hist_list_Njets.at(1)->GetXaxis()->SetRangeUser(0,10);
-	float  xbin_cr=0, xbin_sr=0;
-	sprintf(full_path,"%s/%s_%s",pathname.c_str(),string_png,filetag[i_file].c_str());
-	fout->cd();
-	h_TFBins = (TH1F*)hNjets_ratio->Clone();
-	sprintf(hist_name,"h_TFbins_LL_%s",filetag[i_file].c_str());
-	h_TFBins->SetName(hist_name);
-	h_TFBins->Write();
-	for (int j =2; j<10;j++)
-	  {
-	    file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
-	  }
-	generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,energy,40,0,leg_head,false,false,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
-      }
-      else if(which_Lept==2){
-	TH1F* hNjets_ratio =(TH1F*)hist_list_Njets.at(1)->Clone();
-	hNjets_ratio->GetXaxis()->SetTitle("Bin no.");
-	hNjets_ratio->GetYaxis()->SetTitle(" ");
-	hNjets_ratio->SetTitle("");
-	TH1F* hNjets_ratio1 =(TH1F*)hist_list_Njets.at(0)->Clone();
-	hNjets_ratio1->GetXaxis()->SetTitle("Bin no.");
-	hNjets_ratio1->GetYaxis()->SetTitle(" ");
-	hNjets_ratio1->SetTitle("");
-	hNjets_ratio1->Add(hist_list_Njets.at(1));
-	hNjets_ratio1->Add(hist_list_Njets.at(2));//Total
-	hNjets_ratio->Add(hist_list_Njets.at(2));//SR
+	  if(i_cut==1) continue;
+	  vector<TH1D*> hist_list_Njets;
+	  sprintf(hist_name,"%s",varName[i_cut].c_str());
+	  sprintf(hist_name1,"%s",varName1[i_cut].c_str());
+	  sprintf(hist_name2,"%s",varName2[i_cut].c_str());
+	  sprintf(hist_name3,"%s",varName3[i_cut].c_str());
+	  sprintf(hist_name4,"%s",varName4[i_cut].c_str());
+	  cout<<hist_name<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[i_file]->GetName()<<endl;
+          TH1D* h_resp = (TH1D*)f[i_file]->Get(hist_name);
+          //sprintf(hist_name,"%s",varName1[ivar].c_str());
+          TH1D* h_resp1 = (TH1D*)f[i_file]->Get(hist_name1);
+	  TH1D* h_resp2 = (TH1D*)f[i_file]->Get(hist_name2);
+	  TH1D* h_resp3 = (TH1D*)f[i_file]->Get(hist_name3);
+	  TH1D* h_resp4 = (TH1D*)f[i_file]->Get(hist_name4);
+	  cout<<"resp "<<h_resp->Integral()<<"\t"<<"resp1 "<<h_resp1->Integral()<<"\t"<<"resp2 "<<h_resp2->Integral()<<"\t"<<"resp3 "<<h_resp3->Integral()<<"\t"<<"resp4 "<<h_resp4->Integral()<<"\t"<<endl;
+	  cout<<hist_name<<"\t"<<rebin[i_cut]<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
+	 if(which_Lept==1)            {
+              h_resp->Rebin(rebin[i_cut]);
+              h_resp2->Rebin(rebin[i_cut]);
+	      hist_list_Njets.push_back(h_resp2);
+              hist_list_Njets.push_back(h_resp);
+	 }
+	 else if(which_Lept==3){
+	   h_resp->Add(h_resp1);
+	   h_resp2->Add(h_resp3);
+	   h_resp2->Add(h_resp4);
+	   h_resp->Rebin(rebin[i_cut]);
+	   h_resp2->Rebin(rebin[i_cut]);
+	   //	   hist_list_Njets.push_back(h_resp2);
+	   hist_list_Njets.push_back(h_resp2);
+	 }
+	 else if(which_Lept==2) {//adding elec CR and mu CR                                                                                                                                                           
+	   h_resp4->Add(h_resp3);
+	   h_resp1->Rebin(rebin[i_cut]);
+	   h_resp4->Rebin(rebin[i_cut]);
+	   hist_list_Njets.push_back(h_resp4);
+	   hist_list_Njets.push_back(h_resp1);
+	 }
 	
-	hNjets_ratio->Divide(hist_list_Njets.at(0));
+	 cout<<h_resp->Integral()<<"\t"<<f[i_file]->GetName()<<endl;	 
+	 cout<<" hist_list_Njets.size() "<<hist_list_Njets.size()<<"\t "<<endl;//hist_list_Bjets.size() "<<hist_list_Bjets.size()<<endl;
+	 //path to save the png file
+	 float energy=energyy[i_file];
+	 int xrange=0.0;
+	 //	 TH1D* hNjets_total =(TH1D*)hist_list_Njets.at(1)->Clone();
+	 // hNjets_total->Add(hist_list_Njets.at(1));
+      // hNjets_total->Add(hist_list_Njets.at(2));
+      // hNjets_total->Add(hist_list_Njets.at(3));
+	 TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(0)->Clone();
+	 //hNjets_ratio->Divide(hNjets_total);
 
-	hist_list_Njets.at(0)->Divide(hNjets_ratio1);
-	hist_list_Njets.at(1)->Divide(hNjets_ratio1);
-	
-	hist_list_Njets.at(2)->Divide(hNjets_ratio1);
-	//	hist_list_Njets.at(2)->GetXaxis()->SetRangeUser(0,10);
+      //  sprintf(full_path,"%s/%s_%s_%s_DataMC_CR_compare",pathname.c_str(),string_png,year,varName[ivar].c_str());
+      sprintf(full_path,"%s/%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag[i_file].c_str());
+      if(i_cut==2 || i_cut==3)
+	generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Entries",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
+      else
+	generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Entries",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
 
-	float  xbin_cr=0, xbin_sr=0;
-        sprintf(full_path,"%s/%s_%s",pathname.c_str(),string_png,filetag[i_file].c_str());
-        fout->cd();
-        h_TFBins = (TH1F*)hNjets_ratio->Clone();
-        sprintf(hist_name,"h_TFbins_LL_%s",filetag[i_file].c_str());
-        h_TFBins->SetName(hist_name);
-        h_TFBins->Write();
-        for (int j =2; j<20;j++)
-          {
-            file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
-          }
-        generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,energy,40,0,leg_head,false,false,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
+      //sprintf(full_path,"%s/%s_%s_%s",pathname.c_str(),string_png,varName[ivar].c_str(),filetag[i_file].c_str());      
+      //generate_1Dplot(hist_list_MET,hNjets_ratio2,full_path,energy,40,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
 
+	}
+      //fout->Close();
 
-      }
-      }
-  fout->Close();
-
+    }
 }
 
 

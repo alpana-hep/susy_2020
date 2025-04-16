@@ -414,14 +414,14 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   gPad->Update(); 
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
+  //  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
   
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
   textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
-  if(which_newSbins>=4){
+  if(which_newSbins>=4 ){
   TLine *line1V7=new TLine( 8.0,0.001,  8.0,5400);
   TLine *line2V7=new TLine(14.0,0.001, 14.0,5400);
   TLine *line3V7=new TLine(19.0,0.001, 19.0,5400);
@@ -512,71 +512,60 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
  }
 
   
- if(which_newSbins==2){
-        TLine *line1V7=new TLine( 6.0,0.01,  6.0,900);
+ if(which_newSbins==2 || which_newSbins==1){
+     TLine *line1V7=new TLine( 6.0,0.01,  6.0,900);
        TLine *line2V7=new TLine(11.0,0.01, 11.0,900);
        TLine *line3V7=new TLine(16.0,0.01, 16.0,900);
        TLine *line4V7=new TLine(21.0,0.01, 21.0,900);
        TLine *line5V7=new TLine(26.0,0.1, 26.0,900);
        line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
        line4V7->Draw();      line5V7->Draw();
-       TLine *line1V8=new TLine( 26.0,0.01,  26.0,900);
+
+    TLine *line1V8=new TLine( 26.0,0.01,  26.0,900);
        TLine *line2V8=new TLine(31.0,0.01, 31.0,900);
        TLine *line3V8=new TLine(36.0,0.01, 36.0,900);
        TLine *line4V8=new TLine(41.0,0.01, 41.0,900);
-       TLine *line5V8=new TLine(46.0,0.1, 46.0,900);
-        TLine *line6V8=new TLine(51.0,0.1, 51.0,900);
-        TLine *line7V8=new TLine(56.0,0.1, 56.0,900);
-         TLine *line8V8=new TLine(61.0,0.1, 61.0,900);
-	 TLine *line9V8=new TLine(66.0,0.1, 66.0,900);
-	 TLine *line10V8=new TLine(71.0,0.1, 71.0,900);
-	 TLine *line11V8=new TLine(76.0,0.1, 76.0,900);
-        TLine *line12V8=new TLine(81.0,0.1, 81.0,900);
-        TLine *line13V8=new TLine(86.0,0.1, 86.0,900);
-         TLine *line14V8=new TLine(91.0,0.1, 91.0,900);
-         TLine *line15V8=new TLine(96.0,0.1, 96.0,900);
-         TLine *line16V8=new TLine(101.0,0.1, 101.0,900);
+       TLine *line5V8=new TLine(46.0,0.01, 46.0,900);
+	TLine *line6V8=new TLine(51.0,0.01, 51.0,900);
+        TLine *line7V8=new TLine(56.0,0.01, 56.0,900);
+         TLine *line8V8=new TLine(61.0,0.01, 61.0,900);
+         TLine *line9V8=new TLine(66.0,0.01, 66.0,900);
+         TLine *line10V8=new TLine(71.0,0.01, 71.0,900);
+         TLine *line11V8=new TLine(76.0,0.01, 76.0,900);
+        TLine *line12V8=new TLine(81.0,0.01, 81.0,900);
+        TLine *line13V8=new TLine(86.0,0.01, 86.0,900);
+         TLine *line14V8=new TLine(91.0,0.01, 91.0,900);
+         TLine *line15V8=new TLine(96.0,0.01, 96.0,900);
+         TLine *line16V8=new TLine(101.0,0.01, 101.0,900);
 
        line1V8->Draw();      line2V8->Draw();  line3V8->Draw();
        line4V8->Draw();      line5V8->Draw(); line6V8->Draw(); line7V8->Draw(); line8V8->Draw();
-       
+
        line9V8->Draw();      line10V8->Draw();  line11V8->Draw();
-       line12V8->Draw();      //line13V8->Draw(); line14V8->Draw(); line15V8->Draw(); line16V8->Draw();
+       line12V8->Draw();     line13V8->Draw(); line14V8->Draw(); line15V8->Draw(); line16V8->Draw();
 
-       TLatex Tl;
-       // Tl.SetTextSize(0.01);
-       // Tl.DrawLatex(1.5,1000,"200<p_{T}^{miss}#leq300");
-       // Tl.DrawLatex(6.5,1000,"300<p_{T}^{miss}#leq370");
-       // Tl.DrawLatex(11.5,1000,"370<p_{T}^{miss}#leq450");
-       // Tl.DrawLatex(16.5,1000,"450<p_{T}^{miss}#leq600");
-       // Tl.DrawLatex(22.5,1000,"p_{T}^{miss}>600");
-       // Tl.DrawLatex(26.5,1000,"200<p_{T}^{miss}#leq300");
-       // Tl.DrawLatex(31.5,1000,"300<p_{T}^{miss}#leq370");
-       // Tl.DrawLatex(36.5,1000,"370<p_{T}^{miss}#leq450");
-       // Tl.DrawLatex(41.5,1000,"450<p_{T}^{miss}#leq600");
-       // Tl.DrawLatex(46.5,1000,"p_{T}^{miss}>600");
-
-       TArrow *Arrow_pt = new TArrow(1.0,2000,21.0,2000,0.01,"</>");
-        TArrow *Arrow_pt1 = new TArrow(21.0,2000,41.0,2000,0.01,"</>");
+  TLatex Tl;
+TArrow *Arrow_pt = new TArrow(1.0,2000,26.0,2000,0.01,"</>");
+        TArrow *Arrow_pt1 = new TArrow(26.0,2000,51.0,2000,0.01,"</>");
         Arrow_pt->Draw(); Arrow_pt1->Draw();
 
-	TArrow *Arrow_pt2 = new TArrow(41.0,2000,61.0,2000,0.01,"</>");
-        TArrow *Arrow_pt3 = new TArrow(61.0,2000,81.0,2000,0.01,"</>");
+        TArrow *Arrow_pt2 = new TArrow(51.0,2000,76.0,2000,0.01,"</>");
+        TArrow *Arrow_pt3 = new TArrow(76.0,2000,101.0,2000,0.01,"</>");
         Arrow_pt2->Draw(); Arrow_pt3->Draw();
 
        Tl.SetTextSize(0.03);
-       Tl.DrawLatex(8.5,5000,"N_{jets}^{b} = 0");
-       Tl.DrawLatex(24.5,5000,"N_{jets}^{b} #geq1");
+       Tl.DrawLatex(13.5,5000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(39.5,5000,"N_{jets}^{b} #geq1");
        Tl.SetTextSize(0.03);
-       Tl.DrawLatex(48.5,5000,"N_{jets}^{b} = 0");
-       Tl.DrawLatex(64.5,5000,"N_{jets}^{b} #geq1");
-       TArrow *Arrow_pt4 = new TArrow(1.0,15000,41.0,15000,0.01,"</>");
-        TArrow *Arrow_pt5 = new TArrow(41.0,15000,81.0,15000,0.01,"</>");
+       Tl.DrawLatex(58.5,5000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(90.5,5000,"N_{jets}^{b} #geq1");
+       TArrow *Arrow_pt4 = new TArrow(1.0,15000,51.0,15000,0.01,"</>");
+        TArrow *Arrow_pt5 = new TArrow(51.0,15000,101.0,15000,0.01,"</>");
         Arrow_pt4->Draw(); Arrow_pt5->Draw();
 
-       Tl.DrawLatex(20.5,25000,"40<p_{T}^{#gamma}#leq100");
-       Tl.DrawLatex(65.5,25000,"p_{T}^{#gamma} > 100");
-       
+       Tl.DrawLatex(25.5,25000,"40<p_{T}^{#gamma}#leq100");
+       Tl.DrawLatex(75.5,25000,"p_{T}^{#gamma} > 100");
+
 
  }
 
@@ -891,7 +880,7 @@ void Valid_SRBins_LL_wrRatio(string pathname, int which_Lept, int which_TFBins, 
     sprintf(TFbins_str,"TFbins_v3_nJetsBjets_MET");
 
   if(which_TFBins==4)
-    sprintf(TFbins_str,"TFbins_v4_nJetsBjets_MET_Phopt");
+    sprintf(TFbins_str,"TFbins_v4_nBjets_HT_Phopt");
   else if (which_TFBins==5)
     sprintf(TFbins_str,"TFbins_v5_nBjets_MET_PhoPt");
   else if(which_TFBins==6)

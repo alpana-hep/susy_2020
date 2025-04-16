@@ -260,7 +260,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     if(which_TFbins==1) //default 8 bins
       hist.at(i)->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);
     else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
-      hist.at(i)->GetXaxis()->SetRangeUser(0,22);
+      hist.at(i)->GetXaxis()->SetRangeUser(0,20);
     else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300
       hist.at(i)->GetXaxis()->SetRangeUser(0,22);
     hist.at(i)->SetLineWidth(line_width[i]);    
@@ -382,7 +382,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   if(which_TFbins==1) //default 8 bins                                                                                                                                     
     hs_var->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                    
   else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100                                                                                                
-    hs_var->GetXaxis()->SetRangeUser(0,18);
+    hs_var->GetXaxis()->SetRangeUser(0,20);
   else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                                     
     hs_var->GetXaxis()->SetRangeUser(0,18);
   hs_var->GetXaxis()->SetTitle(title);
@@ -429,7 +429,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
  
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
+  //  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
   
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
@@ -460,7 +460,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
   arrow7->Draw(); arrow8->Draw();
   }
-  else if (which_TFbins==2 || which_TFbins==3){
+  else if (which_TFbins==3){
     arrow2->Draw(); arrow3->Draw();
     arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
     arrow7->Draw(); arrow8->Draw(); arrow9->Draw();arrow10->Draw(); arrow11->Draw(); arrow12->Draw();arrow13->Draw(); arrow14->Draw(); arrow15->Draw(); arrow16->Draw(); 
@@ -482,7 +482,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   Tl.DrawLatex(7.0,0.2,"N^{ #geq1}_{ 5,6}");
   Tl.DrawLatex(8.0,0.2,"N^{ #geq1}_{ #geq7}");
   }
-  else if (which_TFbins==2){
+  else if (which_TFbins==5){
     Tl.SetTextSize(0.035);
     Tl.DrawLatex(1.0,0.2,"N^{ 0}_{ 2}");
     Tl.DrawLatex(2.0,0.2,"N^{ 0}_{ 2}");
@@ -558,6 +558,39 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
   
 
   }
+  if(which_TFbins==2){
+    TArrow *arrow1 = new TArrow( 1.0,1.03, 10.0,1.03,0.01,"<|>");
+  TArrow *arrow2 = new TArrow( 10.0,1.03,19.0,1.03,0.01,"<|>");
+  arrow1->Draw(); arrow2->Draw();
+  Tl.SetTextSize(0.05);
+  Tl.DrawLatex(5.,1.1,"N^{b}_{jets} = 0");
+  Tl.DrawLatex(14.0,1.1,"N^{b}_{jets} >=1");
+  TArrow *arrow3 = new TArrow(1.0,0.50,4.0,0.5,0.01,"<|>");
+  TArrow *arrow4 = new TArrow(4.0,0.50, 7.0,0.5,0.01,"<|>");
+  TArrow *arrow5 = new TArrow(7.0,0.50, 10.0,0.5,0.01,"<|>");
+  TArrow *arrow6 = new TArrow(10.0,0.50, 13.0,0.5,0.01,"<|>");
+  TArrow *arrow7 = new TArrow(13.0,0.5, 16.0,0.5,0.01,"<|>");
+  TArrow *arrow8 = new TArrow(16.0,0.5, 19.0,0.5,0.01,"<|>");
+
+  arrow3->Draw(); arrow4->Draw();   arrow5->Draw(); arrow6->Draw();   arrow7->Draw(); arrow8->Draw();
+  Tl.SetTextSize(0.035);
+  Tl.DrawLatex(1.,0.6,"HT<=600");
+  Tl.DrawLatex(4.0,0.6,"HT=[600 900]");
+  Tl.DrawLatex(7.5,0.6,"HT>=900");
+  Tl.DrawLatex(10.,0.6,"HT<=600");
+  Tl.DrawLatex(13.0,0.6,"HT=[600 900]");
+  Tl.DrawLatex(16.5,0.6,"HT>=900");
+  TLine *line1V7=new TLine(4.0,0.001,  4.0,1.1);
+  TLine *line2V7=new TLine(7.0,0.001, 7.0,1.1);
+  TLine *line3V7=new TLine(10.0,0.001, 10.0,1.1);
+  TLine *line4V7=new TLine(13.0,0.001, 13.0,1.1);
+  TLine *line5V7=new TLine(16.0,0.001, 16.0,1.1);
+    TLine *line6V7=new TLine(19.0,0.001, 19.0,1.1);
+    line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
+    line4V7->Draw();      line5V7->Draw(); line6V7->Draw();                   
+
+
+  }
 //     TArrow *arrow1 = new TArrow( 0.0,300, 7.0,300,0.01,"<|>");
 //     TArrow *arrow2 = new TArrow( 7.0,300,13.0,300,0.01,"<|>");
 //     TArrow *arrow3 = new TArrow(13.0,300,19.0,300,0.01,"<|>");
@@ -612,7 +645,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
     if(which_TFbins==1) //default 8 bins                                                                                                    
       hist_ratio->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                 
     else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
-      hist_ratio->GetXaxis()->SetRangeUser(0,18);
+      hist_ratio->GetXaxis()->SetRangeUser(0,20);
     else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                        
       hist_ratio->GetXaxis()->SetRangeUser(0,18);
 
@@ -654,13 +687,13 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
 
    else{
 
-      TLine *l =new TLine(0,1.0,18,1.0);
+      TLine *l =new TLine(0,1.0,20,1.0);
    hist_ratio->Draw("");
    l->Draw("sames");
-   TLine *l1 =new TLine(0,1.5,18,1.5);
+   TLine *l1 =new TLine(0,1.5,20,1.5);
    l1->SetLineStyle(7);
    l1->Draw("sames");
-   TLine *l2 =new TLine(0,0.5,18,0.5);
+   TLine *l2 =new TLine(0,0.5,20,0.5);
    l2->SetLineStyle(7);
 
    l2->Draw("sames");
@@ -724,7 +757,7 @@ char* hname2 = new char[200];
   if(which_TFBins==1)
     sprintf(TFbins_str,"TFbins_v1_nJetsBjets");
   else if (which_TFBins==2)
-    sprintf(TFbins_str,"TFbins_v2_nJetsBjets_PhoPt");
+    sprintf(TFbins_str,"TFbins_v8_Bjets_HT_PhoPt");
   else if(which_TFBins==3)
     sprintf(TFbins_str,"TFbins_v3_nJetsBjets_MET");
   
@@ -951,7 +984,7 @@ P","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets
 	  if(which_TFBins==1)
 	    sprintf(hist_name,"h_TFbins_ElecLL_v2_%s",baseline1[i_cut].c_str());
 	  else if (which_TFBins==2)
-	    sprintf(hist_name,"h_TFbins_ElecLL_v3_%s",baseline1[i_cut].c_str());
+	    sprintf(hist_name,"h_TFbins_ElecLL_v8_%s",baseline1[i_cut].c_str());
 	  else if(which_TFBins==3)
 	    sprintf(hist_name,"h_TFbins_ElecLL_v4_%s",baseline1[i_cut].c_str());  
  	  cout<<hist_name<<"\t"<<i_cut<<endl;
@@ -980,11 +1013,11 @@ P","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets
       int xrange=0.0;
       //      sprintf(hist_name,"h_TFbins_ElecLL_%s",baseline1[4].c_str());
       TH1F* hNjets_ratio =(TH1F*)hist_list_Bjets.at(1)->Clone(); //first elec SR
-      hNjets_ratio->GetXaxis()->SetTitle("Bin no.");
+      hNjets_ratio->GetXaxis()->SetTitle("Bin Index");
       hNjets_ratio->GetYaxis()->SetTitle(" ");
       hNjets_ratio->SetTitle("");
       TH1F* hNjets_ratio1 =(TH1F*)hist_list_Bjets.at(0)->Clone(); //first elec CR total 
-      hNjets_ratio1->GetXaxis()->SetTitle("Bin no.");
+      hNjets_ratio1->GetXaxis()->SetTitle("Bin Index");
       hNjets_ratio1->GetYaxis()->SetTitle(" ");
       hNjets_ratio1->SetTitle("");
       hNjets_ratio1->Add(hist_list_Bjets.at(1));

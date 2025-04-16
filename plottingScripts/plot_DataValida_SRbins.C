@@ -8,7 +8,7 @@ int line_width[12] = {2,2,2,2,2,2,2,2,2,2,2,2};
 int line_style[12] = {1,1,1,1,1,1,1,1,1,1,1,1};
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};                                                                                                                                                                                                                                                          
 // /int line_color[n_pl+1] = {kBlack, kRed, kGreen+2, kBlue, kRed};                                                                                                                                                                                                                                                          
-int line_color[9] = {kBlue,kRed,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};//{9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};                                                                                                                                                               
+int line_color[9] = {kBlue,kBlack,kGreen+2,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};//{9,kCyan+2,45,kMagenta,kGray+1,kRed,kBlue+2,kMagenta,kCyan};                                                                                                                                                               
 int line_color1[9]= {kBlue,kGreen+2,kGray+1,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta,kBlue+2};
 int line_color2[9] = {kGreen+2,kBlue,kViolet,kGray,kViolet+2,kGreen-2,kYellow+1,kGray+2,kMagenta};
 //int line_color[9] = {kMagenta+2, kGray+2, kRed, kGreen+2, kMagenta, kRed - 3, kBlue + 2 , kCyan + 1 , kGreen + 3 };                                                                                                                                                                                                        
@@ -147,7 +147,7 @@ TH1D* setMyRange(TH1D *h1,double xLow,double xHigh){
   return h1;
 }
 void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="", char const *xlabel="",char const *ylabel="",float energyy=0.1,int rebin=-1,double ymin=0,double ymax=0, double xmin=0,double xmax=0,char const *leg_head="",bool normalize=false, bool log_flag=true, bool DoRebin=false, bool save_canvas=true, char const *title="", int which_lept=-1){    
-   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,900,850);//600,600,1200,1200);
+   TCanvas *canvas_n1 = new TCanvas(tag_name, tag_name,1300,900);//600,600,1200,1200);
    canvas_n1->Range(-60.25,-0.625,562.25,0.625);
    canvas_n1->SetFillColor(0);
    canvas_n1->SetBorderMode(0);
@@ -267,6 +267,8 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     // hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
     // decorate(hist.at(i),i);
     hist.at(i)->GetXaxis()->SetRangeUser(0,39);
+    hist.at(i)->GetXaxis()->SetRangeUser(0,104);
+
     hist.at(i)->SetLineWidth(2);
 
     //hist.at(i)->SetLineStyle(line_style[i]);                                                                                                                                                                                                                                                                               
@@ -406,45 +408,100 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
  
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Preliminary}}");
+  //  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Preliminary}}");
   
     char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
   textOnTop->DrawLatexNDC(0.7,0.925,en_lat);
-  // char* en_lat = new char[500];
-  // textOnTop->SetTextSize(0.04);
-  // float inlumi=energy;
-  // sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
-  // textOnTop->DrawLatexNDC(0.7,0.96,en_lat);
-  TLine *line1V7=new TLine( 8.0,0.001,  8.0,5400);
-  TLine *line2V7=new TLine(14.0,0.001, 14.0,5400);
-  TLine *line3V7=new TLine(19.0,0.001, 19.0,5400);
-  TLine *line4V7=new TLine(24.0,0.001, 24.0,5400);
-  TLine *line5V7=new TLine(29.0,0.001, 29.0,5400);
+          TLine *line1V7=new TLine( 6.0,0.01,  6.0,900);
+       TLine *line2V7=new TLine(11.0,0.01, 11.0,900);
+       TLine *line3V7=new TLine(16.0,0.01, 16.0,900);
+       TLine *line4V7=new TLine(21.0,0.01, 21.0,900);
+       TLine *line5V7=new TLine(26.0,0.1, 26.0,900);
+       line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
+       line4V7->Draw();      line5V7->Draw();
+
+    TLine *line1V8=new TLine( 26.0,0.01,  26.0,900);
+       TLine *line2V8=new TLine(31.0,0.01, 31.0,900);
+       TLine *line3V8=new TLine(36.0,0.01, 36.0,900);
+       TLine *line4V8=new TLine(41.0,0.01, 41.0,900);
+       TLine *line5V8=new TLine(46.0,0.01, 46.0,900);
+        TLine *line6V8=new TLine(51.0,0.01, 51.0,900);
+        TLine *line7V8=new TLine(56.0,0.01, 56.0,900);
+         TLine *line8V8=new TLine(61.0,0.01, 61.0,900);
+         TLine *line9V8=new TLine(66.0,0.01, 66.0,900);
+         TLine *line10V8=new TLine(71.0,0.01, 71.0,900);
+         TLine *line11V8=new TLine(76.0,0.01, 76.0,900);
+        TLine *line12V8=new TLine(81.0,0.01, 81.0,900);
+        TLine *line13V8=new TLine(86.0,0.01, 86.0,900);
+         TLine *line14V8=new TLine(91.0,0.01, 91.0,900);
+         TLine *line15V8=new TLine(96.0,0.01, 96.0,900);
+         TLine *line16V8=new TLine(101.0,0.01, 101.0,900);
+
+       line1V8->Draw();      line2V8->Draw();  line3V8->Draw();
+       line4V8->Draw();      line5V8->Draw(); line6V8->Draw(); line7V8->Draw(); line8V8->Draw();
+
+       line9V8->Draw();      line10V8->Draw();  line11V8->Draw();
+       line12V8->Draw();     line13V8->Draw(); line14V8->Draw(); line15V8->Draw(); line16V8->Draw();
+
+  TLatex Tl;
+TArrow *Arrow_pt = new TArrow(1.0,2000,26.0,2000,0.01,"</>");
+        TArrow *Arrow_pt1 = new TArrow(26.0,2000,51.0,2000,0.01,"</>");
+        Arrow_pt->Draw(); Arrow_pt1->Draw();
+
+        TArrow *Arrow_pt2 = new TArrow(51.0,2000,76.0,2000,0.01,"</>");
+        TArrow *Arrow_pt3 = new TArrow(76.0,2000,101.0,2000,0.01,"</>");
+        Arrow_pt2->Draw(); Arrow_pt3->Draw();
+
+       Tl.SetTextSize(0.03);
+       Tl.DrawLatex(13.5,5000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(39.5,5000,"N_{jets}^{b} #geq1");
+       Tl.SetTextSize(0.03);
+       Tl.DrawLatex(58.5,5000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(90.5,5000,"N_{jets}^{b} #geq1");
+       TArrow *Arrow_pt4 = new TArrow(1.0,15000,51.0,15000,0.01,"</>");
+        TArrow *Arrow_pt5 = new TArrow(51.0,15000,101.0,15000,0.01,"</>");
+        Arrow_pt4->Draw(); Arrow_pt5->Draw();
+
+       Tl.DrawLatex(25.5,25000,"40<p_{T}^{#gamma}#leq100");
+       Tl.DrawLatex(75.5,25000,"p_{T}^{#gamma} > 100");
 
 
-    line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
-    line4V7->Draw();      line5V7->Draw(); //line6V7->Draw();                                                                                                                                                                                                                                                                
-  TArrow *arrow1 = new TArrow( 1.0,5400, 8.0,5400,0.01,"<|>");
-    TArrow *arrow2 = new TArrow( 8.0,5400,14.0,5400,0.01,"<|>");
-    TArrow *arrow3 = new TArrow(14.0,5400,19.0,5400,0.01,"<|>");
-    TArrow *arrow4 = new TArrow(19.0,5400, 24.0,5400,0.01,"<|>");
-    TArrow *arrow5 = new TArrow(24.0,5400, 29.0,5400,0.01,"<|>");
-    TArrow *arrow6 = new TArrow(29.0,5400, 35.0,5400,0.01,"<|>");
 
-    arrow1->Draw(); arrow2->Draw(); arrow3->Draw();
-    arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
+  // // char* en_lat = new char[500];
+  // // textOnTop->SetTextSize(0.04);
+  // // float inlumi=energy;
+  // // sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
+  // // textOnTop->DrawLatexNDC(0.7,0.96,en_lat);
+  // TLine *line1V7=new TLine( 8.0,0.001,  8.0,5400);
+  // TLine *line2V7=new TLine(14.0,0.001, 14.0,5400);
+  // TLine *line3V7=new TLine(19.0,0.001, 19.0,5400);
+  // TLine *line4V7=new TLine(24.0,0.001, 24.0,5400);
+  // TLine *line5V7=new TLine(29.0,0.001, 29.0,5400);
 
-    TLatex Tl;
-    Tl.SetTextSize(0.055);
-    Tl.DrawLatex(3.5,9000,"N^{ 0}_{ 2-4}");
-    Tl.DrawLatex(9.5,9000,"N^{ 0}_{ 5-6}");
-    Tl.DrawLatex(15.5,9000,"N^{ 0}_{ #geq7}");
-    Tl.DrawLatex(19.5,9000,"N^{ #geq1}_{ 2-4}");
-    Tl.DrawLatex(25.5,9000,"N^{ #geq1}_{ 5-6}");
-    Tl.DrawLatex(30.5,9000,"N^{ #geq1}_{ #geq7}");
+
+  //   line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
+  //   line4V7->Draw();      line5V7->Draw(); //line6V7->Draw();                                                                                                                                                                                                                                                                
+  // TArrow *arrow1 = new TArrow( 1.0,5400, 8.0,5400,0.01,"<|>");
+  //   TArrow *arrow2 = new TArrow( 8.0,5400,14.0,5400,0.01,"<|>");
+  //   TArrow *arrow3 = new TArrow(14.0,5400,19.0,5400,0.01,"<|>");
+  //   TArrow *arrow4 = new TArrow(19.0,5400, 24.0,5400,0.01,"<|>");
+  //   TArrow *arrow5 = new TArrow(24.0,5400, 29.0,5400,0.01,"<|>");
+  //   TArrow *arrow6 = new TArrow(29.0,5400, 35.0,5400,0.01,"<|>");
+
+  //   arrow1->Draw(); arrow2->Draw(); arrow3->Draw();
+  //   arrow4->Draw(); arrow5->Draw(); arrow6->Draw();
+
+  //   TLatex Tl;
+  //   Tl.SetTextSize(0.055);
+  //   Tl.DrawLatex(3.5,9000,"N^{ 0}_{ 2-4}");
+  //   Tl.DrawLatex(9.5,9000,"N^{ 0}_{ 5-6}");
+  //   Tl.DrawLatex(15.5,9000,"N^{ 0}_{ #geq7}");
+  //   Tl.DrawLatex(19.5,9000,"N^{ #geq1}_{ 2-4}");
+  //   Tl.DrawLatex(25.5,9000,"N^{ #geq1}_{ 5-6}");
+  //   Tl.DrawLatex(30.5,9000,"N^{ #geq1}_{ #geq7}");
 
     
   gPad->Modified();
@@ -456,13 +513,13 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
     hist_ratio->SetTitle(" ");
     hist_ratio->GetXaxis()->SetTitleSize(0.13);
 
-    hist_ratio->GetYaxis()->SetTitle("Exp/Pred");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    hist_ratio->GetYaxis()->SetTitle("Data/MC");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
     hist_ratio->GetXaxis()->SetTitle("Bin No.");                              
     hist_ratio->GetXaxis()->SetLabelSize(0.1);
     hist_ratio->GetYaxis()->SetRangeUser(-0.5,3.0);
 
     hist_ratio->GetYaxis()->SetNdivisions(505);
-    hist_ratio->GetXaxis()->SetRangeUser(0,39);
+    hist_ratio->GetXaxis()->SetRangeUser(0,104);
     hist_ratio->GetYaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetLabelSize(0.08);
     hist_ratio->GetYaxis()->SetTitleOffset(.4);
@@ -485,14 +542,19 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
 
    pad_1->cd();
    pad_1->SetGrid();
-   TLine *l =new TLine(0,1.0,39,1.0);
+   TLine *l =new TLine(0,1.0,104,1.0);
    hist_ratio->SetMarkerStyle(20);
    hist_ratio->Draw("E1");
+   l->SetLineWidth(3);
    l->Draw("sames");
-   TLine *l1 =new TLine(0,1.5,39,1.5);
+   TLine *l1 =new TLine(0,1.5,104,1.5);
    l1->SetLineStyle(7);
+   l1->SetLineWidth(3);
+
    l1->Draw("sames");
-   TLine *l2 =new TLine(0,0.5,39,0.5);
+   TLine *l2 =new TLine(0,0.5,104,0.5);
+   l2->SetLineWidth(3);
+
    l2->SetLineStyle(7);
 
    l2->Draw("sames");
@@ -696,11 +758,11 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
   vector<string>varName5;
 
   if(which_TFBins==1){
-    varName ={"h_Sbins_LL_Validation_Elec_CR","h_St_validation_Elec_CR","h_HT_validation_Elec_CR","h_NhadJets_validation_Elec_CR","h_NBJets_validation_Elec_CR","h_MET_validation_Elec_CR","h_PhoPt_validation_Elec_CR"};
-    varName1 ={"h_Sbins_LL_Validation_Mu_CR","h_St_validation_Mu_CR","h_HT_validation_Mu_CR","h_NhadJets_validation_Mu_CR","h_NBJets_validation_Mu_CR","h_MET_validation_Mu_CR","h_PhoPt_validation_Mu_CR"};
-    varName2={"h_Sbins_LL_Elec_SR","h_St_Elec_SR","h_HT_Elec_SR","h_NhadJets_Elec_SR","h_NBJets_Elec_SR","h_MET_Elec_SR","h_PhoPt_Elec_SR"};
-    varName3={"h_Sbins_LL_Mu_SR","h_St_Mu_SR","h_HT_Mu_SR","h_NhadJets_Mu_SR","h_NBJets_Mu_SR","h_MET_Mu_SR","h_PhoPt_Mu_SR"};
-    varName4={"h_Sbins_LL_TauHad_SR","h_St_TauHad_SR","h_HT_TauHad_SR","h_NhadJets_TauHad_SR","h_NBJets_TauHad_SR","h_MET_TauHad_SR","h_PhoPt_TauHad_SR"};
+    varName ={"h_Sbins_LL_v4_newSbins_Validation_v7_Elec_CR","h_St_validation_Elec_CR","h_HT_validation_Elec_CR","h_NhadJets_validation_Elec_CR","h_NBJets_validation_Elec_CR","h_MET_validation_Elec_CR","h_PhoPt_validation_Elec_CR"};
+    varName1 ={"h_Sbins_LL_v4_newSbins_Validation_v7_Mu_CR","h_St_validation_Mu_CR","h_HT_validation_Mu_CR","h_NhadJets_validation_Mu_CR","h_NBJets_validation_Mu_CR","h_MET_validation_Mu_CR","h_PhoPt_validation_Mu_CR"};
+    varName2={"h_Sbins_LL_newSbins_v7_Elec_SR","h_St_Elec_SR","h_HT_Elec_SR","h_NhadJets_Elec_SR","h_NBJets_Elec_SR","h_MET_Elec_SR","h_PhoPt_Elec_SR"};
+    varName3={"h_Sbins_LL_newSbins_v7_Mu_SR","h_St_Mu_SR","h_HT_Mu_SR","h_NhadJets_Mu_SR","h_NBJets_Mu_SR","h_MET_Mu_SR","h_PhoPt_Mu_SR"};
+    varName4={"h_Sbins_LL_newSbins_v7_TauHad_SR","h_St_TauHad_SR","h_HT_TauHad_SR","h_NhadJets_TauHad_SR","h_NBJets_TauHad_SR","h_MET_TauHad_SR","h_PhoPt_TauHad_SR"};
   }
 
   else if(which_TFBins==2)
@@ -825,11 +887,11 @@ void plot_DataValida_SRbins(string pathname, int which_Lept, int which_year, int
       cout<<hist_list_Njets.size()<<"  hist_list_Njets"<<"\t"<<hist_list_Njets.at(0)->Integral()<<"\t"<<hist_list_Njets.at(1)->Integral()<<endl;
       float energy=energyy[0];
       int xrange=0.0;
-      TH1D* hNjets_total =(TH1D*)hist_list_Njets.at(1)->Clone();
+      TH1D* hNjets_total =(TH1D*)hist_list_Njets.at(0)->Clone();
       //      hNjets_total->Add(hist_list_Njets.at(1));
       // hNjets_total->Add(hist_list_Njets.at(2));
       // hNjets_total->Add(hist_list_Njets.at(3));
-      TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(0)->Clone();
+      TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(1)->Clone();
       hNjets_ratio->Divide(hNjets_total);
       for(int ij =0;ij<hist_list_Njets.at(1)->GetNbinsX();ij++){
         //if(hist_list_Njets.at(1)->GetBinContent(ij)>0 && ij==35)

@@ -59,7 +59,7 @@ spliRunlist.C - create condor files and submit the condor jobs (improtant to add
 To submit multiple jobs for a given samples at a time:
 ```
 root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-40to130UL","Electron","loose")'
-
+```
 OR add this string for all MC data samples in a shell script and submit all at once  -- submitMany1.sh - submit multiple jobs at a time.
 
 ```
