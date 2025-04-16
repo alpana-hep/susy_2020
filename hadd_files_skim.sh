@@ -1,6 +1,70 @@
-#!/bin/bash
+#!/bin/bash                                                                                                                                      
+path=/store/user/kalpana/ul_rootop_Analys_May2/Zinvisible
 
 
-hadd -f skimmed_Autumn18_WGJets_MonoPhoton_LL_estimation_wPho_pT_g40_MET100_phoID_loose_Electron.root `xrdfsls -u /store/user/kalpana/updatedbkg_LL2022/skims_output/  | grep 'runList_skimmed_Autumn18_lowPhopT_WGJetsPtG-*_v18_phoID_loose_pt40_Electron'`
+hadd -f Summer20UL18_ZNuNuGJets_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_ZNuNuGJets_v1_pt100_MET200'`
+hadd -f Summer20UL17_ZNuNuGJets_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_ZNuNuGJets_v1_pt100_MET200'`
+hadd -f Summer20UL16_ZNuNuGJets_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_ZNuNuGJets_v1_pt100_MET200'`
+hadd -f Summer20UL16APV_ZNuNuGJets_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_ZNuNuGJets_v1_pt100_MET200'`
 
-hadd -f skimmed_Autumn18_WJets_LL_estimation_wPho_pT_g40_MET100_phoID_tight_Electron.root `xrdfsls -u /store/user/kalpana/updatedbkg_LL2022/skims_output/  | grep 'runList_skimmed_Autumn18_lowPhopT_WJetsToLNu_HT_v18_phoID_tight_pt40_Electron'`
+hadd -f Summer20UL18_ZJetsToNuNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_ZJetsToNuNu_HT_v1_pt100_MET200'`
+hadd -f Summer20UL17_ZJetsToNuNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_ZJetsToNuNu_HT_v1_pt100_MET200'`
+hadd -f Summer20UL16_ZJetsToNuNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_ZJetsToNuNu_HT_v1_pt100_MET200'`
+hadd -f Summer20UL16APV_ZJetsToNuNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_ZJetsToNuNu_HT_v1_pt100_MET200'`
+
+
+hadd -f Summer20UL18_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL18_ZLLGJets_MonoPhoton'`
+hadd -f Summer20UL17_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL17_ZLLGJets_MonoPhoton'`
+hadd -f Summer20UL16APV_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL16APV_ZLLGJets_MonoPhoton'`
+hadd -f Summer20UL16_ZLLGJets_MonoPhoton_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL16_ZLLGJets_MonoPhoton'`
+
+
+hadd -f Summer20UL18_DYJets_Mt50_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL18_DYJets_Mt50'`
+hadd -f Summer20UL17_DYJets_Mt50_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL17_DYJets_Mt50'`
+hadd -f Summer20UL16_DYJets_Mt50_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL16_DYJets_Mt50'`
+hadd -f Summer20UL16APV_DYJets_Mt50_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_skimmed_runList_Summer20UL16APV_DYJets_Mt50'`
+
+
+# hadd -f Summer20UL18_QCD_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_QCD_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL17_QCD_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_QCD_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL16_QCD_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_QCD_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_QCD_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_QCD_HT_v1_pt100_MET200'`
+
+# hadd -f Summer20UL18_GJets_DR-0p4_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_GJets_DR-0p4_v1_pt100_MET200'`
+# hadd -f Summer20UL17_GJets_DR-0p4_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_GJets_DR-0p4_v1_pt100_MET200'`
+# hadd -f Summer20UL16_GJets_DR-0p4_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_GJets_DR-0p4_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_GJets_DR-0p4_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_GJets_DR-0p4_v1_pt100_MET200'`
+
+# hadd -f Summer20UL17_TTJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_TTJets_inc_v1_pt100_MET200'`
+# hadd -f Summer20UL16_TTJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_TTJets_inc_v1_pt100_MET200'`
+# hadd -f Summer20UL18_TTJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_TTJets_inc_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_TTJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_TTJets_inc_v1_pt100_MET200'`
+
+
+# hadd -f Summer20UL17_WJetsToLNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_WJetsToLNu_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL16_WJetsToLNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_WJetsToLNu_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL18_WJetsToLNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_WJetsToLNu_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_WJetsToLNu_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WJetsToLNu_HT_v1_pt100_MET200'`
+
+
+# hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130_v1_pt100_MET200'`
+# hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130_v1_pt100_MET200'`
+# hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130_v1_pt100_MET200'`
+
+# hadd -f Summer20UL17_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200'`
+# hadd -f Summer20UL16_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200'`
+# hadd -f Summer20UL18_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_v1_pt100_MET200'`
+
+
+
+# hadd -f Summer20UL17_TTJets_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_TTJets_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL16_TTJets_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_TTJets_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL18_TTJets_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_TTJets_HT_v1_pt100_MET200'`
+# hadd -f Summer20UL16APV_TTJets_HT_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_TTJets_HT_v1_pt100_MET200'`
+
+# hadd -f Summer20UL16APV_TTGJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16APV_TTGJets_inc_v1_pt100_MET200'`
+# hadd -f Summer20UL16_TTGJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL16_TTGJets_inc_v1_pt100_MET200'`
+# hadd -f Summer20UL17_TTGJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL17_TTGJets_inc_v1_pt100_MET200'`
+# hadd -f Summer20UL18_TTGJets_inc_PhoIdloose_phopt40_BL.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_skimmed_Summer20UL18_TTGJets_inc_v1_pt100_MET200'`

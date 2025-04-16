@@ -1,0 +1,7 @@
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_batch0.root
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_batch1.root
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_batch2.root
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_batch3.root
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_batch4.root
+root://cmseos.fnal.gov//store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_batch5.root

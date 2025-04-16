@@ -31,6 +31,8 @@ class AnalyzeLightBSM : public NtupleVariables{
   int getBinNoV7(int,int);
   int getBinNoV6(int);
   int getBinNoV6_WithOnlyBLSelec(int,int,double);
+    int getBinNoV7_ST_MET_bjets_phopT(double, double, int , double);
+
   int getBinNo_v1FR(double , int );
   int getBinNo_v0FR(double , double, double );
   int getBinNo_v2FR(double, int,int);
@@ -56,6 +58,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   int   getBinNoV7_highMET(int, int);
   int getBinNoV16_le(int, int, double);
   std::vector<int>dR_recoPho_GenParticle(TLorentzVector);
+  void changeJets(int, int, int, bool );
     
   //Long64_t transMass(float , float, float, float);
   void print(Long64_t);
@@ -80,6 +83,8 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<TLorentzVector> Muons_v1;
   vector<TLorentzVector> Taus_v1;
   vector<TLorentzVector> Jets_v1;
+  vector<TLorentzVector>   JetsAK8_v1;
+
   vector<TLorentzVector>HLTElectronObjects_v1;
   vector<TLorentzVector> TAPElectronTracks_v1;
   int BTags;
@@ -89,17 +94,41 @@ class AnalyzeLightBSM : public NtupleVariables{
   /* vector<double> METLowEdge2={100,200,270,350,450,2000}; */
   /* vector<double> METLowEdge_v3={200,300,370,450,600,750,900,2000}; */
   /* vector<double> METLowEdge_v3_1={200,300,370,450,600,900,2000}; */
-  vector<double> METLowEdge_lowMET={100,370,450,600};
+   vector<double> METLowEdge_lowMET={100,370,450,600};
   vector<double> METLowEdge_highMET={300,370,450,600};
+  vector<double> ST_bins = {300,1000,1500,2000,2500,10000};
+  //  vector<double> METLowEdge_lowMET={100,370,450,600};                                                                                                             
+  // vector<double> METLowEdge_highMET={300,370,450,600};                                                                                                             
 
 
-  vector<double> METLowEdge_v1={100,250,270,350,450,600,750,900,2000};
-  vector<double> METLowEdge_v2={200,250,300,370,450,600,750,900,2000};
-  vector<double> METLowEdge_v2_1={200,250,300,370,450,600,750,2000};
+  vector<double> METLowEdge_v2={100,200,300,370,450,600,750,900};//{100,200,,270,350,450,600,750,900,2000};                                                          \
+                                                                                                                                                                      
+  vector<double> METLowEdge_v2_1={100,200,300,370,450,600,750};
+  vector<double> METLowEdge_v2_2={100,200,300,370,450,600};
   vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
   vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
+  vector<double> METLowEdge_v3_merge={200,300,370,600,750};
   vector<double> METLowEdge_v3_2={200,300,370,450,600};
+  vector<double> METLowEdge_v1={300,370,450,600,750,900};
+  vector<double> METLowEdge_v1_1={300,370,450,600,750};
+  vector<double> METLowEdge_v1_2={300,370,450,600};
+  vector<double> BDTscore_bins={-1.0,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1.0};
+  vector<double> phoPt_bins = {40,100,150,200,400,10000};
   vector<double> BestPhotonPtBinLowEdge={40,70,100,120,140,160,200,240,300,450,600,1000};
+  // vector<double> QMultLowedge={0,2,4,7,100};
+  // vector<double>  nJetsLowedge={2,5,10,20};
+
+  // vector<double> METLowEdge_lowMET={100,370,450,600};
+  // vector<double> METLowEdge_highMET={300,370,450,600};
+
+
+  // vector<double> METLowEdge_v1={100,250,270,350,450,600,750,900,2000};
+  // vector<double> METLowEdge_v2={200,250,300,370,450,600,750,900,2000};
+  // vector<double> METLowEdge_v2_1={200,250,300,370,450,600,750,2000};
+  // vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
+  // vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
+  // vector<double> METLowEdge_v3_2={200,300,370,450,600};
+  // vector<double> BestPhotonPtBinLowEdge={40,70,100,120,140,160,200,240,300,450,600,1000};
   vector<double> QMultLowedge={0,2,4,7,100};
   vector<double>  nJetsLowedge={2,5,10,20};
   vector<double>  nbtagsLowedge={0,1,10};
@@ -356,6 +385,8 @@ class AnalyzeLightBSM : public NtupleVariables{
 
   TH1F *h_Sbins_LL_Validation[100];
   TH1F *h_Sbins_LL[100];
+  TH1F *h_Sbins_LL_newSbins_v7[100];
+
   TH1F *h_TFbins_ElecLL_validation[100];
   TH1F *h_TFbins_ElecLL_validation_v1[100];
   TH1F *h_Sbins_LL_Validation_TFbins_V2[100];
@@ -599,7 +630,7 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   //  const char *baseline[25]={"Nocut","photon_selec","Phot_pT_20","nHadJets_2","MET_100","ST_300","bkg_comp","Met_cleaning","lept_veto","veto_chargedTracks","dPhi_MET","jet_pT_Pho_pT","MET_250","pho_pt_100","Final","Pho_pT_30","HT_1TeV_Met250","HT_1TeV_Met250_pt_100","HT_15TeV_Met100","HT_15TeV_Met250","HT_15TeV_Met250_pt_100","HT_175TeV_Met100","nocut_sam","basic_sam"};//"st_300_Met100","pt_st_Met_250","st_300_Met250","nocut"
   //const char *baseline[48]={"Nocut","SignalRegion","ControlRegion","lostElec_SR","lostMu_SR","lostTau_SR","else_pho_SR","lostElec_CR","lostMu_CR","lostTau_CR","else_pho_CR","else_SR","else_CR","lostElecTau_SR","lostMuTau_SR","Tau_hadronic_SR","lostElec_SR_Accept","lostElec_SR_ident","SignalRegion_BDTcut1","ControlRegion_BDTcut1","lostElec_SR_BDTcut1","lostMu_SR_BDTcut1","lostTau_SR_BDTcut1","else_pho_SR_BDTcut1","else_SR_BDTcut1","lostElecTau_SR_BDTcut1","lostMuTau_SR_BDTcut1","Tau_hadronic_SR_BDTcut1","lostElec_CR_BDTcut1","lostMu_CR_BDTcut1","lostTau_CR_BDTcut1","else_pho_CR_BDTcut1","else_CR_BDTcut1","SignalRegion_BDTcut2","ControlRegion_BDTcut2","lostElec_SR_BDTcut2","lostMu_SR_BDTcut2","lostTau_SR_BDTcut2","else_pho_SR_BDTcut2","else_SR_BDTcut2","lostElecTau_SR_BDTcut2","lostMuTau_SR_BDTcut2","Tau_hadronic_SR_BDTcut2","lostElec_CR_BDTcut2","lostMu_CR_BDTcut2","lostTau_CR_BDTcut2","else_pho_CR_BDTcut2","else_CR_BDTcut2"};
 
-  vector<string> baseline = {"NoSelection","PreSelection","Elec_CR","Pho_SR","Mu1_CR","Elec1_CR","EleMu_CR"};//,"HEM_veto_Elec_CR","HEM_veto_Pho_SR","L1Trig_Elec_CR","L1Trig_Pho_SR","ProbL1Trig_Elec_CR","ProbL1Trig_Pho_SR"};//"preSelection_promptPho_v1","preSelection_NonpromptPho_v1","preSelection_ElecFake","preSelection_Else","Elec_CR","Mu_CR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_failEtacut_SR","Elec_failpTcut_SR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Mu_failEtacut_SR","Mu_failpTcut_SR","TauHad_SR","Elec_SR_valid","Mu_SR_valid","Elec_CR_promptPho_v1","Elec_CR_NonpromptPho_v1","Elec_CR_ElecFake","Elec_CR_Else","Elec_SR_promptPho_v1","Elec_SR_NonpromptPho_v1","Elec_SR_ElecFake","Elec_SR_Else","Mu_CR_promptPho_v1","Mu_CR_NonpromptPho_v1","Mu_CR_ElecFake","Mu_CR_Else","Mu_SR_promptPho_v1","Mu_SR_NonpromptPho_v1","Mu_SR_ElecFake","Mu_SR_Else","TauHad_SR_promptPho_v1","TauHad_SR_NonpromptPho_v1","TauHad_SR_ElecFake","TauHad_SR_Else"};
+  vector<string> baseline = {"NoSelection","PreSelection","Elec_CR","Pho_SR","Mu1_CR","Elec1_CR","EleMu_CR","Pred_SR"};//,"HEM_veto_Elec_CR","HEM_veto_Pho_SR","L1Trig_Elec_CR","L1Trig_Pho_SR","ProbL1Trig_Elec_CR","ProbL1Trig_Pho_SR"};//"preSelection_promptPho_v1","preSelection_NonpromptPho_v1","preSelection_ElecFake","preSelection_Else","Elec_CR","Mu_CR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_failEtacut_SR","Elec_failpTcut_SR","Mu_SR","FailAcep_MuSR","FailId_MuSR","FailIso_MuSR","Mu_failEtacut_SR","Mu_failpTcut_SR","TauHad_SR","Elec_SR_valid","Mu_SR_valid","Elec_CR_promptPho_v1","Elec_CR_NonpromptPho_v1","Elec_CR_ElecFake","Elec_CR_Else","Elec_SR_promptPho_v1","Elec_SR_NonpromptPho_v1","Elec_SR_ElecFake","Elec_SR_Else","Mu_CR_promptPho_v1","Mu_CR_NonpromptPho_v1","Mu_CR_ElecFake","Mu_CR_Else","Mu_SR_promptPho_v1","Mu_SR_NonpromptPho_v1","Mu_SR_ElecFake","Mu_SR_Else","TauHad_SR_promptPho_v1","TauHad_SR_NonpromptPho_v1","TauHad_SR_ElecFake","TauHad_SR_Else"};
   cout<<"size of baseline vector"<<"\t"<<baseline.size()<<endl;
   vector <string> baseline1={"Elect_Inc","Mu_Inc","Tau_Inc","Elect_Inc_v1","Mu_Inc_v1","Tau_Inc_v1","Elect_SR_bin0","Elect_SR_v1_bin1","Elect_SR_bin1","Mu_SR_bin0","Mu_SR_v1_bin0","Mu_SR_bin1","Mu_SR_v1_bin1","Mu_CR","Tau_Inc","Tau_SR","Tau_CR","Tau_ElecSR","Tau_ElecCR","Tau_MuSR","Tau_MuCR","ElecNu_Inc","ElecNu_SR","MuNu_Inc","MuNu_SR","TauNu_Inc","TauNu_SR","ElecNu_CR","MuNu_CR","TauNu_CR",""};
 
@@ -1053,6 +1084,8 @@ char hist_name1[1000];
       
       sprintf(hname_st,"h_TFbins_ElecLL_v7_%s",baseline[i].c_str());
       h_TFbins_LL_v7[i] = new TH1F(hname_st,hname_st,70,0,70);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_v7_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
 
 
       sprintf(hname_st,"h_TFbins_ElecLL_validation_v1_%s",baseline[i].c_str());
@@ -1570,10 +1603,17 @@ char hist_name1[1000];
 
 AnalyzeLightBSM::AnalyzeLightBSM(const TString &inputFileList, const char *outFileName, const char* dataset, const char* N2_mass, const char* phoID) {
   string nameData=dataset;//vvv
+    TString nameSample = N2_mass;
+
   //TDirectory * dir = new TDirectory("TreeMaker2");
-    TChain *tree = new TChain("TreeMaker2/PreSelection");
+  TChain *tree ;//= new TChain("PreSelection");
     //  TChain *tree = new TChain("PreSelection");
-  if( ! FillChain(tree, inputFileList) ) {
+
+    if(nameSample.Contains("data"))
+    tree = new TChain("TreeMaker2/PreSelection");
+    else
+    tree = new TChain("PreSelection");
+    if( ! FillChain(tree, inputFileList) ) {
     std::cerr << "Cannot get the tree " << std::endl;
   } else {
     std::cout << "Initiating analysis of dataset " << dataset << std::endl;

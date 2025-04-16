@@ -1,6 +1,7 @@
 #!/bin/bash                                                                                                                                    
 
-path=/store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV20
+path=/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/
+#/store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV20
 #/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023
 #/store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV20/Summer20UL17APV
 #/store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV18/
@@ -12,27 +13,38 @@ path=/store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV20
 #phoID_loose_runList_Summer20UL17_TTJets_SingleLeptFromTba
 for year in  Fall17
 do
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018D-UL2018-v3/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018D_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018C-UL2018-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018C_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018B-UL2018-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018B_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018A-UL2018-v3/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018A_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018D-UL2018-v3/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018D_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018C-UL2018-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018C_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018B-UL2018-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018B_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2018A-UL2018-v3/SingleMuon | grep RA2AnalysisTree.root > runList_UL2018_Run2018A_SingleMuon.txt
     
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017F-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017F_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017E-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017E_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017D-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017D_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017C-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017C_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017B-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017B_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016B-UL2016_HIPM-ver2-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016B_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016C-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016C_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016D-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016D_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016E-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016E_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016F-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016F_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017F-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017F_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017E-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017E_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017D-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017D_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017C-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017C_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2017B-UL2017-v1/SingleMuon | grep RA2AnalysisTree.root > runList_UL2017_Run2017B_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016B-UL2016_HIPM-ver2-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016B_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016C-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016C_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016D-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016D_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016E-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016E_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016F-UL2016_HIPM-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016APV_Run2016F_SingleMuon.txt
     
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016F-UL2016-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016_Run2016F_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016G-UL2016-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016_Run2016G_SingleMuon.txt
-    xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016H-UL2016-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016_Run2016H_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016F-UL2016-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016_Run2016F_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016G-UL2016-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016_Run2016G_SingleMuon.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path}/Run2016H-UL2016-v2/SingleMuon | grep RA2AnalysisTree.root > runList_UL2016_Run2016H_SingleMuon.txt
 
+    ###### SKimmedSamples
+    xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL18_ZLLGJets >skimmed_runList_Summer20UL18_ZLLGJets_MonoPhoton_TuneCP5_13TeV-madgraphMLM.txt
+    xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL17_ZLLGJets >skimmed_runList_Summer20UL17_ZLLGJets_MonoPhoton_TuneCP5_13TeV-madgraphMLM.txt
+    xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL16_ZLLGJets >skimmed_runList_Summer20UL16_ZLLGJets_MonoPhoton_TuneCP5_13TeV-madgraphMLM.txt
+    xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL16APV_ZLLGJets > skimmed_runList_Summer20UL16APV_ZLLGJets_MonoPhoton_TuneCP5_13TeV-madgraphMLM.txt
 
+    # xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL18_DYJets >skimmed_runList_Summer20UL18_DYJets_Mt50_TuneCP5_13TeV-madgraphMLM.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL17_DYJets >skimmed_runList_Summer20UL17_DYJets_Mt50_TuneCP5_13TeV-madgraphMLM.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL16_DYJets >skimmed_runList_Summer20UL16_DYJets_Mt50_TuneCP5_13TeV-madgraphMLM.txt
+    # xrdfs root://cmseos.fnal.gov/ ls ${path} | grep skimmed_Summer20UL16APV_DYJets >skimmed_runList_Summer20UL16APV_DYJets_Mt50_TuneCP5_13TeV-madgraphMLM.txt
+
+    ######## Unskimmed samples 
 
     # xrdfs root://cmseos.fnal.gov/ ls ${path}/Summer20UL18/ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8 | grep RA2AnalysisTree.root >runList_Summer20UL18_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt
     # xrdfs root://cmseos.fnal.gov/ ls ${path}/Summer20UL17/ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8 | grep RA2AnalysisTree.root >runList_Summer20UL17_ZLLGJets_MonoPhoton_PtG-15to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.txt

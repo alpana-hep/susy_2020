@@ -13,6 +13,8 @@
  #include "TMVA/Tools.h"
  #include "TMVA/Reader.h"
  #include "TMVA/MethodCuts.h"
+#include "BTagCorrector.h"
+
  #pragma link C++ class std::vector< std::vector >+; 
  #pragma link C++ class std::vector< TLorentzVector >+;
  using namespace TMVA;
@@ -30,13 +32,9 @@
    const char *phoID = argv[5];
    //TString pho_ID = phoID;
 
-
-
-
-
    AnalyzeLightBSM ana(inputFileList, outFileName, data,sample, phoID);
    cout << "dataset " << data << " " << endl;
-   cout<<"Which pho_ID: "<<"\t"<<phoID<<endl;
+      cout<<"Which pho_ID: "<<"\t"<<phoID<<endl;
    ana.EventLoop(data,inputFileList,sample,outFileName,phoID);
    Tools::Instance();
    return 0;
@@ -92,6 +90,26 @@
    bool check_flag_wBL =false;
    bool apply_purity = false;
    bool apply_SF = true;
+   bool applybTagSFs=true;
+   int jec2Use = 0;//-1 for JEC down, 0 for CV, 1 for JEC up
+   int jer2Use = 0;//-1 for JER down, 0 for CV, 1 for JER up                                                                                                         
+   int jet2Vary = 4;//4: only AK4 jets, 8: only AK8 jets, 48 or 84: both AK4 and AK8.                                                                              
+   bool varyMasswithJEC = 1;//scale the SD mass according to JEC/JER Pt factor?                                                                                     
+   bool applysys=false;//true;
+   bool savePDFscaleUnc=true;
+   if(pho_ID_str.Contains("JetSys_JECup") && applysys)
+     jec2Use =1;
+   else if (pho_ID_str.Contains("JetSys_JECdown") && applysys)
+     jec2Use =-1;
+   else
+     jec2Use = 0;
+   
+   if(pho_ID_str.Contains("JetSys_JERup") && applysys)
+     jer2Use =1;
+   else if (pho_ID_str.Contains("JetSys_JERdown") && applysys)
+     jer2Use =-1;
+   else
+     jer2Use = 0;
 
    if(s_sample.Contains("UL")){
    if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
@@ -162,6 +180,7 @@
 
   //  // counters for events yields after each selection/rejection
    char* hname = new char [200];
+   
    sprintf(hname, "out_purityFactor_Calc_MC_Default.root");
    TFile* f_PuriFact= new TFile(hname);
    char* histname = new char[2000];
@@ -172,7 +191,31 @@
    for(int i=0; i<h_PF->GetNbinsX();i++)
      {cout<<"Nbitags bins_v0"<<"\t"<<i<<"\t"<<h_PF->GetBinContent(i)<<endl;}
 
-   TFile* f_SF = new TFile("out_SF_CRvsSR_Zinv_DatavsMCDefault.root");
+   char *IDstr = new char[100];
+   
+   if(pho_ID_str.Contains("JetSys_JECup"))
+     sprintf(IDstr,"_JetSys_JECup");
+   else if (pho_ID_str.Contains("JetSys_JECdown"))
+     sprintf(IDstr,"_JetSys_JECdown");
+   else if (pho_ID_str.Contains("JetSys_JERup"))
+     sprintf(IDstr,"_JetSys_JERup");
+   else if (pho_ID_str.Contains("JetSys_JERdown"))
+     sprintf(IDstr,"_JetSys_JERdown");
+   else if (pho_ID_str.Contains("puSysDown"))
+     sprintf(IDstr,"_puSysDown");
+   else if (pho_ID_str.Contains("puSysUp"))
+     sprintf(IDstr,"_puSysUp");
+    else if (pho_ID_str.Contains("btagSFdown"))
+     sprintf(IDstr,"_btagSFdown");
+    else if (pho_ID_str.Contains("btagSFup"))
+     sprintf(IDstr,"_btagSFup");
+    else
+      sprintf(IDstr,"");
+
+   char * filenamee = new char [1000];
+   sprintf(filenamee, "out_SF_CRvsSR_Zinv_DatavsMC%sDefault.root", IDstr);
+   TFile* f_SF = new TFile(filenamee);//"out_SF_CRvsSR_Zinv_DatavsMC%sDefault.root", IDstr);
+   cout<<f_SF->GetName()<<endl;
    TH1F* h_SF;
    sprintf(histname,"FR_nbtagBins_Elec_CR_%s",year_string);                                                                                               
    cout<<"Reading MC purity factor:  "<<"\t"<<histname<<endl;
@@ -185,6 +228,19 @@
    int coutt=0;
    double  count_nelec=0.0;
    //nentries=1000;
+     cout<<"applying b-tag SFs for MC? "<<applybTagSFs<<endl;
+       TString sampleName;
+         BTagCorrector btagcorr;
+  int fListIndxOld=-1;
+  vector<TString> inFileName;
+ cout<<"inputFileList : "<<inputFileList<<endl;
+  string str1;
+  ifstream runListFile(inputFileList);
+  TFile *currFile;
+  while (std::getline(runListFile, str1)) {
+    inFileName.push_back(str1);
+  }runListFile.close();
+
    for (Long64_t jentry=0; jentry<nentries;jentry++)
       {
        double progress = 10.0 * jentry / (1.0 * nentries);
@@ -267,8 +323,21 @@
 	wt= wt*NonPrefiringProb;
       }
      
-      if(!s_sample.Contains("data") && applyPUwt)
-	wt = wt*puWeight;
+      // if(!s_sample.Contains("data") && applyPUwt)
+      // 	wt = wt*puWeight;
+
+       if(!s_sample.Contains("data") && !s_sample.Contains("signal") && applyPUwt) {
+        if(!applysys)
+	  wt = wt*puWeight;
+        else
+          {
+            if(pho_ID_str.Contains("puSysUp"))
+              wt = wt*puSysUp;
+            else if (pho_ID_str.Contains("puSysDown"))
+              wt = wt*puSysDown;
+	    
+          }
+       }
 
       
       // if(!s_sample.Contains("data") && !s_sample.Contains("signal") && applyTrgEff )
@@ -301,6 +370,7 @@
       	Muons_v1.clear();
       	Taus_v1.clear();
       	Jets_v1.clear();
+	JetsAK8_v1.clear();
       	HLTElectronObjects_v1.clear();
       	TAPElectronTracks_v1.clear();
       	if(Debug)
@@ -309,6 +379,8 @@
       	Muons_v1 = getLorentzVector(Muons_,Muons_fCoordinates_fPt,Muons_fCoordinates_fEta,Muons_fCoordinates_fPhi,Muons_fCoordinates_fE);
       	Photons_v1 = getLorentzVector(Photons_,Photons_fCoordinates_fPt,Photons_fCoordinates_fEta,Photons_fCoordinates_fPhi,Photons_fCoordinates_fE);
       	Jets_v1 = getLorentzVector(Jets_,Jets_fCoordinates_fPt,Jets_fCoordinates_fEta,Jets_fCoordinates_fPhi,Jets_fCoordinates_fE);
+	JetsAK8_v1 = getLorentzVector(JetsAK8_,JetsAK8_fCoordinates_fPt,JetsAK8_fCoordinates_fEta,JetsAK8_fCoordinates_fPhi,JetsAK8_fCoordinates_fE);
+
       	// if(s_sample.Contains("data"))
       	//    HLTElectronObjects_v1 = getLorentzVector(HLTElectronObjects_,HLTElectronObjects_fCoordinates_fPt,HLTElectronObjects_fCoordinates_fEta,HLTElectronObjects_fCoordinates_fPhi,HLTElectronObjects_fCoordinates_fE);
       	TAPElectronTracks_v1 = getLorentzVector(TAPElectronTracks_,TAPElectronTracks_fCoordinates_fPt,TAPElectronTracks_fCoordinates_fEta,TAPElectronTracks_fCoordinates_fPhi,TAPElectronTracks_fCoordinates_fE);
@@ -379,6 +451,17 @@
 	  }
         if(HEMaffected == true) continue;
       }
+
+          /// --- Varying cross section ----///                                                                                                                    
+      if(!s_data.Contains("data") && applysys && pho_ID_str.Contains("CrossSecUp"))
+        wt = wt*1.2;
+      else if(!s_data.Contains("data") && applysys && pho_ID_str.Contains("CrossSecDown"))
+        wt = wt*0.8;
+
+      if(s_data.Contains("data")) { jec2Use=0; jer2Use=0;}
+      //^^^^^^^^^^^^ Original/Nominal JEC/JER jets                                                                                            
+      if(applysys && pho_ID_str.Contains("JetSys"))
+	if(jec2Use!=0 || jer2Use!=0) changeJets(jec2Use, jer2Use, jet2Vary, varyMasswithJEC);
 
       // if(s_data.Contains("2018") && applyHEMveto){
       // 	for(int i=0; i<Electrons->size();i++)
@@ -587,7 +670,7 @@
       
 	if(jentry<3) cout<<"Processing as Z(G)->LL(G) Decay"<<endl;
 	if(Debug)
-	  cout<<"Entrye: "<<jentry<<" inside CR loop "<<NElectrons<<"\t"<<NMuons<<"\t"<<(*Muons_passIso)[0]<<"\t"<<nlep<<"\t"<<mu_index<<endl;
+	  cout<<"Entrye: "<<jentry<<" inside CR loop "<<NElectrons<<"\t"<<NMuons<<"\t"<<"\t"<<nlep<<"\t"<<mu_index<<endl;
 
 	if(NElectrons==2 || (NElectrons==2 && (s_sample.Contains("data") && (s_sample.Contains("Electron") || s_sample.Contains("EGamma"))))){
 	  //  if(!(elec && !muon) )continue;
@@ -990,6 +1073,33 @@
       }
     else continue;
     }
+
+     if(fListIndxOld!=fCurrent){
+      fListIndxOld = fCurrent;
+      sampleName = inFileName[fCurrent];
+      //cout<<" sample name : "<<sampleName<<endl;                                                                                                                    
+      if(applybTagSFs && !s_sample.Contains("data")){
+        currFile = TFile::Open(sampleName);
+        cout<<currFile<<endl;                                                                                                                                       
+        btagcorr.SetEffs(currFile);
+              cout<<"after setiing the currfile"<<endl;                                                                                                             
+        if(s_data.Contains("2016preVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016preVFP_Oct162024.csv");
+        if(s_data.Contains("2016postVFP")) btagcorr.SetCalib("./wp_deepCSV_UL2016postVFP_Oct162024.csv");
+        if(s_data.Contains("2017")) btagcorr.SetCalib("./wp_deepCSV_UL2017_Oct162024.csv");
+        if(s_data.Contains("2018")) btagcorr.SetCalib("./wp_deepCSV_UL2018_Oct162024.csv");
+      }
+    }
+     double corrbtag = 1.0;
+    if(!s_sample.Contains("data") && applybTagSFs){
+      corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,0);
+       if(applysys && pho_ID_str.Contains("btagSFup"))
+        corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,1);
+      if(applysys && pho_ID_str.Contains("btagSFdown"))
+        corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,2);
+      if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<endl; 
+      wt = wt * corrbtag;
+    }
+
     bool process=true, cr=false, sr=false; 
     if(s_sample.Contains("ZNuNuGJets") || s_sample.Contains("ZJetsToNuNu") || s_sample.Contains("ZGTo2NuG")) 
       {    
@@ -1240,11 +1350,22 @@
 	// h_selectBaselineYields_v1->Fill("Pho SR inv mass cut",wt);
 
 	double SF_data = h_SF->GetBinContent(2);
-	if(BTags==0)
+	if(BTags==0){
 	  SF_data = h_SF->GetBinContent(2);
+	  if(pho_ID_str.Contains("SF_uncert_up"))
+	    SF_data = h_SF->GetBinContent(2)+ h_SF->GetBinError(2);
+	  if(pho_ID_str.Contains("SF_uncert_down"))
+            SF_data = h_SF->GetBinContent(2) - h_SF->GetBinError(2);
+	}
 	else
-        SF_data = h_SF->GetBinContent(3);
+	  {
+	  SF_data = h_SF->GetBinContent(3);
+	  if(pho_ID_str.Contains("SF_uncert_up"))
+            SF_data = h_SF->GetBinContent(3)+ h_SF->GetBinError(3);
+          if(pho_ID_str.Contains("SF_uncert_down"))
+            SF_data = h_SF->GetBinContent(3) - h_SF->GetBinError(3);
 
+	  }
 	// if(!s_sample.Contains("data") && apply_SF)
         // {
         //   wt  = wt*SF_data;
@@ -2249,4 +2370,114 @@ TLorentzVector AnalyzeLightBSM::getPhoton_withoutfullID(){
   if(highPtIndx==-100){TLorentzVector v0;return v0;}
   else return nogoodPho[highPtIndx];
 }
+
+void AnalyzeLightBSM::changeJets(int jec2Use, int jer2Use, int jet2Vary, bool varyMasswithJEC){
+  if((jec2Use*jer2Use)!=0) return;
+  if(jet2Vary!=4 && jet2Vary!=8 && jet2Vary!=48 && jet2Vary!=84) return;
+
+  if(jet2Vary==4 || jet2Vary==48 || jet2Vary==84){
+    TLorentzVector iJet;
+    vector<TLorentzVector> jets;
+    if(jec2Use==-1){ BTagsDeepCSV = BTagsDeepCSVJECdown; MET = (*METDown)[1]; METPhi = (*METPhiDown)[1]; JetID = JetIDJECdown; NJets = NJetsJECdown; HT = HTJECdown;}
+    else if(jec2Use== 1){ BTagsDeepCSV = BTagsDeepCSVJECup; MET = (*METUp)[1]; METPhi = (*METPhiUp)[1]; JetID = JetIDJECup; NJets = NJetsJECup; HT = HTJECup;}
+    else if(jer2Use==-1){ BTagsDeepCSV = BTagsDeepCSVJERdown; MET = (*METDown)[0]; METPhi = (*METPhiDown)[0]; JetID = JetIDJERdown; NJets = NJetsJERdown; HT = HTJERdown;}
+    else if(jer2Use== 1){ BTagsDeepCSV = BTagsDeepCSVJERup; MET = (*METUp)[0]; METPhi = (*METPhiUp)[0]; JetID = JetIDJERup; NJets = NJetsJERup; HT = HTJERup;}
+
+    //---- looking at https://github.com/kpedro88/Analysis/blob/da0bb3e24e04768d3c205b45cbd74b18e638133c/KCode/KSkimmerVariators.h#L409-L436                                                                                                                                                                     
+    const auto& JetsUnc_origIndex = (jec2Use== 1)?*JetsJECup_origIndex:(jec2Use==-1)?*JetsJECdown_origIndex:(jer2Use==1)?*JetsJERup_origIndex:(jer2Use==-1)?*JetsJERdown_origIndex:*Jets_origIndex; //last one is a dummy value                                                                                  
+    const auto& JetsUnc_jerFactor = (jec2Use== 1)?*JetsJECup_jerFactor:(jec2Use==-1)?*JetsJECdown_jerFactor:*Jets_jerFactor; //last one is a dummy value                                                                                                                                                         
+    const auto& Jets_unc = (jec2Use== 1)?*Jets_jecUnc:(jec2Use==-1)?*Jets_jecUnc:(jer2Use==1)?*Jets_jerFactorUp:(jer2Use==-1)?*Jets_jerFactorDown:*Jets_jecFactor; //last one is a dummy value                                                                                                                   
+
+    vector<int> newIndex(Jets_origIndex->size(),-1);
+    for(unsigned k = 0; k < Jets_origIndex->size(); ++k){
+      //reverse the index vector                                                                                                                                                                                                                                                                                 
+      newIndex[(*Jets_origIndex)[k]] = k;
+    }
+    for(unsigned j = 0; j < JetsUnc_origIndex.size(); ++j){
+      //Jets[Unc]_origIndex is sorted in the final order after uncertainty variation is applied                                                                                                                                                                                                                  
+      //go up to common ancestor, then down to central smeared collection                                                                                                                                                                                                                                        
+      int i = newIndex[JetsUnc_origIndex[j]];
+      //undo central smearing, apply JEC unc, redo smearing w/ new smearing factor                                                                                                                                                                                                                               
+      if(jec2Use== 1)       jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+      else if(jec2Use== -1) jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*(1-Jets_unc[i])*JetsUnc_jerFactor[j]);
+      else if(jer2Use==  1) jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*Jets_unc[i]);
+      else if(jer2Use== -1) jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*Jets_unc[i]);
+      // p_PtJECJERFac->Fill(Jets_v1[i].Pt(),(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+      // p_EtaJECJERFac->Fill(Jets_v1[i].Eta(),(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+      // p2_EtaPtJECJERFac->Fill(Jets_v1[i].Eta(),Jets_v1[i].Pt(),(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+    }
+    sortTLorVec(&jets);
+    if(Jets_v1.size()!=jets.size()){
+      cout<<"oooooo.... Jets size:"<<Jets_v1.size()<<" jets size:"<<jets.size()<<endl;
+      return;
+    }
+    for(int i=0;i<jets.size();i++){
+      //      if(EvtNum==207632 || EvtNum == 2055901){                                                                                                                                                                                                                                                           
+      Jets_v1[i] = jets[i];
+    }
+  }//AK4 jets                                                                                                                                                                                                                                                                                                    
+  //---------------For AK8 jets                                                                                                                                                                                                                                                                                  
+  if(jet2Vary==8 || jet2Vary==48 || jet2Vary==84){
+ TLorentzVector iJet;
+    vector<TLorentzVector> jets;
+    const auto& JetsAK8Unc_origIndex = (jec2Use== 1)?*JetsAK8JECup_origIndex:(jec2Use==-1)?*JetsAK8JECdown_origIndex:(jer2Use==1)?*JetsAK8JERup_origIndex:(jer2Use==-1)?*JetsAK8JERdown_origIndex:*JetsAK8_origIndex; //last one is a dummy value                                                                
+    const auto& JetsAK8Unc_jerFactor = (jec2Use== 1)?*JetsAK8JECup_jerFactor:(jec2Use==-1)?*JetsAK8JECdown_jerFactor:*JetsAK8_jerFactor; //last one is a dummy value                                                                                                                                             
+    const auto& JetsAK8_unc = (jec2Use== 1)?*JetsAK8_jecUnc:(jec2Use==-1)?*JetsAK8_jecUnc:(jer2Use==1)?*JetsAK8_jerFactorUp:(jer2Use==-1)?*JetsAK8_jerFactorDown:*JetsAK8_jecFactor; //last one is a dummy value                                                                                                 
+
+    // if(EvtNum==207632 || EvtNum == 2055901){                                                                                                                                                                                                                                                                  
+    vector<int> newIndexAK8(JetsAK8_origIndex->size(),-1);
+    for(unsigned k = 0; k < JetsAK8_origIndex->size(); ++k){
+      //reverse the index vector                                                                                                                                                                                                                                                                                 
+      newIndexAK8[(*JetsAK8_origIndex)[k]] = k;
+    }
+    for(unsigned j = 0; j < JetsAK8Unc_origIndex.size(); ++j){
+      //JetsAK8[Unc]_origIndex is sorted in the final order after uncertainty variation is applied                                                                                                                                                                                                               
+      //go up to common ancestor, then down to central smeared collection                                                                                                                                                                                                                                        
+      int i = newIndexAK8[JetsAK8Unc_origIndex[j]];
+      //undo central smearing, apply JEC unc, redo smearing w/ new smearing factor                                                                                                                                                                                                                               
+      if(jec2Use== 1)       jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*(1+JetsAK8_unc[i])*JetsAK8Unc_jerFactor[j]);
+      else if(jec2Use== -1) jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*(1-JetsAK8_unc[i])*JetsAK8Unc_jerFactor[j]);
+      else if(jer2Use==  1) jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*JetsAK8_unc[i]);
+      else if(jer2Use== -1) jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*JetsAK8_unc[i]);
+    }
+    sortTLorVec(&jets);
+    if(JetsAK8_v1.size()!=jets.size()){
+      cout<<"oooooo.... JetsAK8 size:"<<JetsAK8_v1.size()<<" jets AK8 size:"<<jets.size()<<endl;
+      return;
+    }
+    //get corrections for AK8 mass using Pt corrections applied.                                                                                                                                                                                                                                                 
+    vector<double> ak8SDmass;
+    for(int j=0;j<jets.size();j++){
+      double mindr = 1000.;
+      int mindrIdx = -1;
+      for(int J=0;J<JetsAK8_v1.size();J++){
+        if(jets[j].DeltaR(JetsAK8_v1[J]) < mindr){
+          mindr = jets[j].DeltaR(JetsAK8_v1[J]);
+          mindrIdx = J;
+        }
+      }
+      ak8SDmass.push_back(((*JetsAK8_softDropMass)[mindrIdx]) * (jets[j].Pt() / JetsAK8_v1[mindrIdx].Pt()));
+    }
+    for(int i=0;i<jets.size();i++){
+JetsAK8_v1[i] = jets[i];
+      float minDR_boson = 9999.;
+      int pdgBoson = 0, bosonIdx = -1;
+      for(int j=0;j<GenParticles_v1.size();j++){
+        if((abs((*GenParticles_PdgId)[j]) < 6) && (*GenParticles_ParentIdx)[j] >= 0 &&
+           (minDR_boson > JetsAK8_v1[i].DeltaR(GenParticles_v1[(*GenParticles_ParentIdx)[j]])) ){
+          minDR_boson = JetsAK8_v1[i].DeltaR(GenParticles_v1[(*GenParticles_ParentIdx)[j]]);
+          pdgBoson = abs((*GenParticles_PdgId)[(*GenParticles_ParentIdx)[j]]);
+          bosonIdx = (*GenParticles_ParentIdx)[j];
+        }
+      }
+      if(minDR_boson < 0.8 && (pdgBoson==23 || pdgBoson==24 || pdgBoson==25)){
+        //apply JMS & JMR                                                                                                                                                                                                                                                                                        
+      }
+      else if(varyMasswithJEC) (*JetsAK8_softDropMass)[i] = ak8SDmass[i];
+    }
+  }
+}
+
+
+
 

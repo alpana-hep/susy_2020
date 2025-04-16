@@ -85,29 +85,29 @@ path=/store/user/kalpana/ul_rootop_Analys_May2/Zinvisible
 
 
 
-hadd -f out_Data_UL2018_Run2018A_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018A_v1_EGamma'`
+hadd -f out_Data_UL2018_Run2018A_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018A_v1_EGamma'`
 
-hadd -f out_Data_UL2018_Run2018B_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018B_v1_EGamma'`
+hadd -f out_Data_UL2018_Run2018B_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018B_v1_EGamma'`
 
-hadd -f out_Data_UL2018_Run2018C_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018C_v1_EGamma'`
+hadd -f out_Data_UL2018_Run2018C_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018C_v1_EGamma'`
 
-hadd -f out_Data_UL2018_Run2018D_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018D_v2_EGamma'`
+hadd -f out_Data_UL2018_Run2018D_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2018_Run2018D_v2_EGamma'`
 
-hadd -f out_Data_UL2017_Run2017B_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017B_UL2017_v1_SingleElectron'`
-hadd -f out_Data_UL2017_Run2017C_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017C_UL2017_v1_SingleElectron'`
-hadd -f out_Data_UL2017_Run2017D_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017D_UL2017_v1_SingleElectron'`
-hadd -f out_Data_UL2017_Run2017E_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017E_UL2017_v1_SingleElectron'`
-hadd -f out_Data_UL2017_Run2017F_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017F_UL2017_v1_SingleElectron'`
+hadd -f out_Data_UL2017_Run2017B_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017B_UL2017_v1_SingleElectron'`
+hadd -f out_Data_UL2017_Run2017C_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017C_UL2017_v1_SingleElectron'`
+hadd -f out_Data_UL2017_Run2017D_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017D_UL2017_v1_SingleElectron'`
+hadd -f out_Data_UL2017_Run2017E_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017E_UL2017_v1_SingleElectron'`
+hadd -f out_Data_UL2017_Run2017F_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2017_Run2017F_UL2017_v1_SingleElectron'`
 
-hadd -f out_Data_UL2016APV_Run2016B_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016B_v1_SingleElectron'`
-hadd -f out_Data_UL2016APV_Run2016C_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016C_v1_SingleElectron'`
-hadd -f out_Data_UL2016APV_Run2016D_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016D_v1_SingleElectron'`
-hadd -f out_Data_UL2016APV_Run2016E_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016E_v1_SingleElectron'`
-hadd -f out_Data_UL2016APV_Run2016F_SingleElectron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016F_v1_SingleElectron'`
+hadd -f out_Data_UL2016APV_Run2016B_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016B_v1_SingleElectron'`
+hadd -f out_Data_UL2016APV_Run2016C_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016C_v1_SingleElectron'`
+hadd -f out_Data_UL2016APV_Run2016D_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016D_v1_SingleElectron'`
+hadd -f out_Data_UL2016APV_Run2016E_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016E_v1_SingleElectron'`
+hadd -f out_Data_UL2016APV_Run2016F_SingleElectron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016APV_Run2016F_v1_SingleElectron'`
 
-hadd -f out_Data_UL2016_Run2016F_SingleEelctron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016_Run2016F_v1_SingleEelctron'`
-hadd -f out_Data_UL2016_Run2016G_SingleEelctron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016_Run2016G_v1_SingleEelctron'`
-hadd -f out_Data_UL2016_Run2016H_SingleEelctron_phoID_loose_pt40_MET200.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016_Run2016H_v1_SingleEelctron'`
+hadd -f out_Data_UL2016_Run2016F_SingleEelctron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016_Run2016F_v1_SingleEelctron'`
+hadd -f out_Data_UL2016_Run2016G_SingleEelctron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016_Run2016G_v1_SingleEelctron'`
+hadd -f out_Data_UL2016_Run2016H_SingleEelctron_phoID_loose_pt40_MET200_v1.root `xrdfsls -u /store/user/kalpana/ul_rootop_Analys_May2/Zinvisible | grep 'phoID_loose_runList_UL2016_Run2016H_v1_SingleEelctron'`
 
 
 
