@@ -16,6 +16,12 @@ Note - if you are reading nevents & cross section from the 'map_crosssection_SMp
 
 <photon ID>: 'loose', 'medium', 'tight','mva_wp90','mva_p80'
 (Note-  first three are cutbased ID recommended by Egamma group and last two are MVA based IDs)
+Also, along with photon ID, this string also indicate which systematic you are studying, and corresponding which TF to use, For example
+```
+loose --> looseJetSys_JECup for JET sys studies - JEC and up
+loose --> looseJetSys_JECdown for	JET sys	studies	- JEC and down
+```
+See full list of examples in submitMany1.sh
 
 <file_list>: containing the path for the samples to run over - see under inputFiles directory
 <year>: which year dataset you are running on : "2016postVFP", "2016preVFP", "2017","2018"
@@ -30,6 +36,20 @@ OR for muon background
 ```
 ./analyzeLightBSM inputFiles/runList_skimmed_Summer20UL16_TTGJets_inc.txt out_Summer20UL16_TTGJets_inc_v20_lostMuon.root 2016postVFP TTGJetsUL Muon loose
 
+```
+
+There are some flags in Analyzer code which one needs to be careful as they are switching on and off some of the corrections. Brief description is given below :
+```
+applyTrgEff=true - to apply trigger efficiency
+applyHEMveto=true - to apply HEM veto to 2-18 and 2017
+applyL1TrigFire_prob=true - to apply L1 trigger prefire correction to 2016 and 2017
+applyPUwt = true - apply pileup weights
+applybTagSFs=true - apply btag SF
+applysys=false - apply or not do systematic studies - should be false in default case - true when you are calculating TF for that systematic
+```
+Default TF file to be read from -
+```
+Lepton_LL_TFv7_HT_bjets_phopT_PhoIdloose_phoID_loose_09Jan24.root
 ```
 
 To submit the condor jobs:
@@ -75,3 +95,18 @@ source wroking.sh
 
 ```
 Please make sure the directory path exists in your area.
+
+The input skims files for MC -
+```
+/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/
+```
+Unskimmed data and MC files
+```
+/store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV20/
+```
+
+The output files for this studies are on lxplus
+```
+/eos/user/k/kalpana/Susy_outputFiles/LL_bkg
+```
+
