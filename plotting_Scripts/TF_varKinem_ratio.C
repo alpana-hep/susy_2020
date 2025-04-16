@@ -237,7 +237,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   TLegend *legend;
   //legend = new TLegend(0.60,0.88,0.98,0.72);  
   legend = new TLegend(0.2,0.75,0.65,0.88);  
-  legend->SetTextSize(0.055);
+  legend->SetTextSize(0.065);
   legend->SetLineColor(kWhite);
   legend->SetNColumns(4);
   char* lhead = new char[100];
@@ -285,7 +285,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist.at(i)->SetLineColor(line_color[i]);
     hist.at(i)->SetTitle(" ");
     hist.at(i)->GetXaxis()->SetTitleSize(0.05);
-    hist.at(i)->GetXaxis()->SetLabelSize(0.05);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.065);
     //    hist.at(i)->GetXaxis()->SetLabelSize(0.0450);
     hist.at(i)->GetYaxis()->SetTitleSize(0.05);
     hist.at(i)->GetYaxis()->SetLabelSize(0.05);
@@ -296,7 +296,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //
     hist.at(i)->GetXaxis()->SetTitleSize(0.05);
     hist.at(i)->GetYaxis()->SetTitleSize(0.06);
-    hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.065);
     hist.at(i)->GetYaxis()->SetTitleOffset(1.);
      decorate(hist.at(i),i, which_Lept);
     hist.at(i)->SetMarkerSize(0.8);
@@ -359,7 +359,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   for(int i = 0;i<(int)hist.size(); i++) {
     if(!normalize) hist.at(i)->GetYaxis()->SetRangeUser(0.0001,10.0*ymax);
     else
-      {  hist.at(i)->GetYaxis()->SetRangeUser(0.00001,5.0);
+      {  hist.at(i)->GetYaxis()->SetRangeUser(0.00001,10.0);
 	//	hist.at(i)->GetXaxis()->SetRangeUser(0,xmax_[i]);
       }
     //    p1->SetGrid();
@@ -434,7 +434,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   TLatex* textOnTop = new TLatex();
   //new
     textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.146,0.925,"CMS #it{#bf{Simulation Preliminary}}");
+    //  textOnTop->DrawLatexNDC(0.146,0.925,"CMS #it{#bf{Simulation Preliminary}}");
 
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);

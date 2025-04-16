@@ -225,7 +225,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   TLegend *legend;
   //legend = new TLegend(0.60,0.88,0.98,0.72);  
   legend = new TLegend(0.6,0.6,0.96,0.91);  
-  legend->SetTextSize(0.05);
+  legend->SetTextSize(0.055);
   //  legend->SetLineColor(kWhite);
   legend->SetNColumns(2);
   char* lhead = new char[100];
@@ -276,12 +276,12 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //
     hist.at(i)->GetXaxis()->SetTitleSize(0.05);
     hist.at(i)->GetXaxis()->SetLabelSize(x_label_size);
-    hist.at(i)->GetXaxis()->SetLabelSize(0.0450);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.050);
     //    hist.at(i)->GetXaxis()->SetTitle("#frac{N_{SR/CR}}{N_{SR}+N_{CR}}");
     hist.at(i)->GetYaxis()->SetTitleSize(0.05);
     hist.at(i)->GetYaxis()->SetLabelSize(0.05);
     hist.at(i)->GetYaxis()->SetTitleOffset(1.1);
-    hist.at(i)->GetYaxis()->SetLabelSize(x_label_size);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.05);
     decorate(hist.at(i),i);
     if(i<5){
       legName.push_back(hist.at(i)->GetName());
@@ -314,7 +314,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     if(i<3)
       hs_var->Add(hist.at(i));
     hs_var->SetMinimum(ymin);
-    hs_var->SetMaximum(ymax*0.01);
+    hs_var->SetMaximum(ymax*0.1);
   }
     // 	if(!i) hist.at(i)->Draw("");
     // else   hist.at(i)->Draw(" sames");
@@ -344,13 +344,13 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   //hs_var->GetYaxis()->SetTitle("#frac{N_{SR/CR}}{N_{SR}+N_{CR}}");//hs_var->GetYaxis()->SetTitle("Events");
   hs_var->SetTitle(0);
   hs_var->GetYaxis()->SetTitleOffset(1.2);
-  hs_var->GetXaxis()->SetTitleSize(00.05);
-  hs_var->GetXaxis()->SetLabelSize(0.04);
-  hs_var->GetYaxis()->SetLabelSize(0.04);
-  hs_var->GetYaxis()->SetTitleSize(00.065);
+  hs_var->GetXaxis()->SetTitleSize(00.06);
+  hs_var->GetXaxis()->SetLabelSize(0.055);
+  hs_var->GetYaxis()->SetLabelSize(0.055);
+  hs_var->GetYaxis()->SetTitleSize(00.07);
   hs_var->GetYaxis()->SetTitleOffset(0.8);
   
-  legend->SetTextSize(0.04);
+  legend->SetTextSize(0.045);
   legend->Draw();
   hist.at(3)->SetLineWidth(1);
   hist.at(3)->SetMarkerStyle(20);
@@ -369,14 +369,14 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
 
  
   TLatex* textOnTop = new TLatex();
-  textOnTop->SetTextSize(0.045);
-  textOnTop->DrawLatexNDC(0.12,0.94,"CMS #it{#bf{Preliminary}}");
+  textOnTop->SetTextSize(0.05);
+  //  textOnTop->DrawLatexNDC(0.12,0.94,"CMS #it{#bf{Preliminary}}");
   
   char* en_lat = new char[500];
-  textOnTop->SetTextSize(0.045);
+  textOnTop->SetTextSize(0.05);
   float inlumi=energy;
   sprintf(en_lat,"#bf{%0.2f fb^{-1} (13 TeV)}",inlumi);
-  textOnTop->DrawLatexNDC(0.78,0.94,en_lat);
+  textOnTop->DrawLatexNDC(0.75,0.94,en_lat);
    TArrow *arrow1 = new TArrow( 1.0,0.10, 2.0,0.1,0.01,"<|>");
     TArrow *arrow2 = new TArrow( 2.0,0.10,3.0,0.1,0.01,"<|>");
     TArrow *arrow3 = new TArrow(3.0,0.10,4.0,0.1,0.01,"<|>");
@@ -445,9 +445,9 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     hist_ratio->SetLineStyle(1);
     hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
-    hist_ratio->GetXaxis()->SetTitleSize(0.13);
+    hist_ratio->GetXaxis()->SetTitleSize(0.15);
     hist_ratio->GetYaxis()->SetTitle("Data/MC");//TF = #frac{(0#mu,1#gamma)}{(1#mu,1#gamma)}");
-    hist_ratio->GetXaxis()->SetLabelSize(0.1);
+    hist_ratio->GetXaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetRangeUser(0.,3.5);
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     // if(DoRebin)
@@ -458,8 +458,8 @@ TArrow *arrow7 = new TArrow(8.0,0.1, 9.0,0.1,0.01,"<|>");
     hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+0.01*xmax);
     setLastBinAsOverFlow(hist_ratio);
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
-    hist_ratio->GetYaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetLabelSize(0.08);
+    hist_ratio->GetYaxis()->SetTitleSize(0.15);
+    hist_ratio->GetYaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetTitleOffset(.3);
     hist_ratio->GetYaxis()->SetNdivisions(505);
     //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
