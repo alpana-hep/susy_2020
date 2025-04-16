@@ -15,7 +15,9 @@ make (run make everytime you change anything in any of the source/header file)
 Note - if you are reading nevents & cross section from the 'map_crosssection_SMprocess_v1.txt' file then make sure to keep the <process> name similar to the saved in 'map_crosssection_SMprocess.txt' and should contain UL in it if you are analyzing UL ntuples. - not needed anymore.
 
 <photon ID>: 'loose', 'medium', 'tight','mva_wp90','mva_p80'
+
 (Note-  first three are cutbased ID recommended by Egamma group and last two are MVA based IDs)
+
 Also, along with photon ID, this string also indicate which systematic you are studying, and corresponding which TF to use, For example
 ```
 loose --> looseJetSys_JECup for JET sys studies - JEC and up
@@ -24,8 +26,11 @@ loose --> looseJetSys_JECdown for	JET sys	studies	- JEC and down
 See full list of examples in submitMany1.sh
 
 <file_list>: containing the path for the samples to run over - see under inputFiles directory
+
 <year>: which year dataset you are running on : "2016postVFP", "2016preVFP", "2017","2018"
+
 <process>: MC sample name string or data for all year data files - should always contain a string "UL"
+
 <which_lepton>: "Electron" or "Muon" 
 
 Example to run the job interactively for a case
@@ -53,9 +58,11 @@ Lepton_LL_TFv7_HT_bjets_phopT_PhoIdloose_phoID_loose_09Jan24.root
 ```
 
 To submit the condor jobs:
+
 <executable> is 'worker2.sh' (change or add destination path for output files in worker2.sh). If no path is added than it will store in the parent directory from where the jobs are submitted. 
 
 spliRunlist.C - create condor files and submit the condor jobs (improtant to add the input files which you want to transfer which your code will be using interactively)
+
 To submit multiple jobs for a given samples at a time:
 ```
 root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-40to130UL","Electron","loose")'
@@ -66,6 +73,7 @@ OR add this string for all MC data samples in a shell script and submit all at o
 source submitMany1.sh
 ```
 the above files also has jobs for systematic studies (which are commented out)
+
 To hadd the output
 ```
 source hadd_files_final.sh
