@@ -459,7 +459,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   gPad->Update(); 
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
+  //  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
   
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
@@ -792,7 +792,7 @@ void Valid_diffKinematics_wrRatio(string pathname, int which_Lept, int which_TFB
   vector<string> legend_texts;
   char *TFbins_str= new char[2000];
   if(which_TFBins==1)
-    sprintf(TFbins_str,"TFbins_v1_nJetsBjets");
+    sprintf(TFbins_str,"TFbins_v7_HT_Bjets");
   else if (which_TFBins==2)
     sprintf(TFbins_str,"TFbins_v2_nJetsBjets_PhoPt");
   else if(which_TFBins==3)

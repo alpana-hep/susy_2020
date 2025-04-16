@@ -463,7 +463,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   gPad->Update(); 
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
+  //  textOnTop->DrawLatexNDC(0.135,0.925,"CMS #it{#bf{Simulation Preliminary}}");
   
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
@@ -998,7 +998,7 @@ ma} [GeV]","dPhi(#gamma,MET)"};
   rebin={4,4,1,1,4,4,4,4,4};
   vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
   vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000};
-  vector<double> xmin ={300,300,2,0,100,20,0,0,0};
+  vector<double> xmin ={300,0,2,0,100,20,0,0,0};
   vector<double> xmax={1500,1500,11,8,1000,800,1,700,4};
 
   //  vector<string>baseline1;
@@ -1061,7 +1061,7 @@ ma} [GeV]","dPhi(#gamma,MET)"};
 
       for(int i_cut=0; i_cut<varName.size();i_cut++)
 	{
-	  if(i_cut==1) continue;
+	  //	  if(i_cut==1) continue;
 	  vector<TH1D*> hist_list_Njets;
 	  sprintf(hist_name,"%s",varName[i_cut].c_str());
 	  sprintf(hist_name1,"%s",varName1[i_cut].c_str());
