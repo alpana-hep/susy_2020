@@ -63,7 +63,7 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
 
   TString s_sample= sample;
   TString s_data=data;
-  fChain->SetBranchStatus("*DeltaPhi*",0);
+  //  fChain->SetBranchStatus("*DeltaPhi*",0);
   Long64_t nbytes = 0, nb = 0;
   int decade = 0;
   TTree* outtree = fChain->CloneTree(0);
@@ -164,7 +164,7 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
     myLV recElec;
 // sortTLorVec(&Electrons);
    // sortTLorVec(&Muons);
-   if(NElectrons>1) continue;
+    if(NElectrons>1) continue;
    h_selectBaselineYields_->Fill("veto Nelectrons>1",wt);
    for(int i=0;i<Electrons->size();i++)
      {
@@ -210,13 +210,13 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
 
    bool bestEMObjIsEle=false, bestEMObjIsEle_px=false,bestEMobj=false;
    myLV bestEMObj;
-   if (hasEle==1 && hasPho==0) {bestEMObjIsEle=true; bestEMObjIsEle_px=false;bestEMObj = Electrons[e_index]; bestEMobj=true; }
-   else if(hasEle==0 &&  hasPho==1) {bestEMObjIsEle=false;  bestEMObjIsEle_px=false;bestEMObj = goodPho; bestEMobj=true;}
-   else continue;
-   if(bestEMobj==false) { continue;}
-   h_selectBaselineYields_->Fill("no reco #gamma or e",wt);
-   if(bestEMObj.Pt()>40)  h_selectBaselineYields_->Fill("em obj pT>20",wt);
-   else continue;
+   // if (hasEle==1 && hasPho==0) {bestEMObjIsEle=true; bestEMObjIsEle_px=false;bestEMObj = Electrons[e_index]; bestEMobj=true; }
+   // else if(hasEle==0 &&  hasPho==1) {bestEMObjIsEle=false;  bestEMObjIsEle_px=false;bestEMObj = goodPho; bestEMobj=true;}
+   // else continue;
+   // if(bestEMobj==false) { continue;}
+   // h_selectBaselineYields_->Fill("no reco #gamma or e",wt);
+   // if(bestEMObj.Pt()>40)  h_selectBaselineYields_->Fill("em obj pT>20",wt);
+   // else continue;
    TLorentzVector bestEMobj_lv;
    for(int i=0;i<Jets->size();i++)
      {
@@ -236,11 +236,11 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
        if( (Jets[i].Pt() > 30.0) && (abs(Jets[i].Eta()) <= 2.4) ){
          if(Debug)
            cout<< "==== loadjets ==="<<"\t"<<i<<"\t"<<minDR<<endl;
-         if( !(minDR < 0.3 && i==minDRindx) )
-           {
+         // if( !(minDR < 0.3 && i==minDRindx) )
+         //   {
              hadJetID= (*Jets_ID)[i];      
              hadJets.push_back(Jets[i]);
-           }
+	     //}
        }
      }
   
@@ -254,9 +254,9 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
 
 
    //check these before submitting the jobs
-   if(bestEMObj.Pt()>40) h_selectBaselineYields_->Fill("Good #gamma with Pt > 20",wt);
-   else continue;
-   if(MET>100) h_selectBaselineYields_->Fill("MET > 100",wt);
+   // if(bestEMObj.Pt()>40) h_selectBaselineYields_->Fill("Good #gamma with Pt > 20",wt);
+   // else continue;
+   if(MET>200) h_selectBaselineYields_->Fill("MET > 100",wt);
    else continue;
    if(hadJets.size()>=2)
      h_selectBaselineYields_->Fill("Good nHadJets >= 2",wt);

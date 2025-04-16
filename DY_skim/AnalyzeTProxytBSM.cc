@@ -63,7 +63,7 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
 
   TString s_sample= sample;
   TString s_data=data;
-  //  fChain->SetBranchStatus("*DeltaPhi*",0);
+    fChain->SetBranchStatus("*DeltaPhi*",0);
   Long64_t nbytes = 0, nb = 0;
   int decade = 0;
   TTree* outtree = fChain->CloneTree(0);
@@ -179,15 +179,32 @@ void AnalyzeTProxytBSM::EventLoop(const char *data, const char *sample) {
    //     else tighte_trgpass=false;
    //     if(tighte_trgpass==false)  continue;
    //   }
-   if(goodPho.Pt()>20) h_selectBaselineYields_->Fill("Good #gamma with Pt > 20",wt);
+   // if(goodPho.Pt()>20) h_selectBaselineYields_->Fill("Good #gamma with Pt > 20",wt);
+   // else continue;
+   // if (bestPhotonIndxAmongPhotons!=-100)
+   //   {
+   //     if(goodPho.Pt()<=40) continue;
+   //   }
+   // else h_selectBaselineYields_->Fill("best photn election",wt);
+   if(MET<=200) h_selectBaselineYields_->Fill("MET > 100",wt);
    else continue;
-   if(MET>100) h_selectBaselineYields_->Fill("MET > 100",wt);
-   else continue;
-   if(hadJets.size()>=2)
+   if(isoPionTracks!=0) continue;
+   if(Jets->size()>=2)
      h_selectBaselineYields_->Fill("Good nHadJets >= 2",wt);
    else continue;
-   
-   if(MET>100 && goodPho.Pt()>20 && hadJets.size()>=2){
+   //   if(NElectrons==0 && NMuons==0) continue;
+//    if(PFCaloMETRatio >=  5) continue;
+//       if (s_data.Contains("2017") || s_data.Contains("2018"))
+//         if(!(PrimaryVertexFilter==1 && globalSuperTightHalo2016Filter==1 && HBHENoiseFilter==1 &&HBHEIsoNoiseFilter==1 && EcalDeadCellTriggerPrimitiveFilter == 1 && 
+// BadPFMuonFilter==1 && BadPFMuonDzFilter==1 && eeBadScFilter==1 && ecalBadCalibFilter==1 && NVtx>0)) continue;
+//       if (s_data.Contains("2016")){
+//         if(!(PrimaryVertexFilter==1 && globalSuperTightHalo2016Filter==1 && HBHENoiseFilter==1 &&HBHEIsoNoiseFilter==1 &&EcalDeadCellTriggerPrimitiveFilter == 1 && BadPFMuonFilter==1 && BadPFMuonDzFilter==1 && eeBadScFilter==1 )) continue;
+//       }
+
+//       if(MET/CaloMET > 2.0) continue;
+
+      
+   if(MET<=200 && Jets->size()>=2 ){// goodPho.Pt()>20 && hadJets.size()>=2){
      if(jentry < 30)
        std::cout << "Good photon " << goodPho.Pt() << " " << goodPho.Eta()  << " " << goodPho.Phi() << std::endl;
      outtree->Fill();
@@ -213,7 +230,7 @@ myLV AnalyzeTProxytBSM::getBestPhoton(int pho_ID){
   vector<int> goodPhoIndx;
   for(int iPho=0;iPho<Photons->size();iPho++){
     //if(((*Photons_hasPixelSeed)[iPho]<0.001) && ( (*Photons_fullID)[iPho]))
-    if(((*Photons_hasPixelSeed)[iPho]<0.001) )//&& ( (*Photons_fullID)[iPho] && ((*Photons_hasPixelSeed)[iPho]<0.001) &&( pho_ID==0 || (pho_ID==1 &&(((*Photons_cutBasedID)[iPho]==1 || (*Photons_cutBasedID)[iPho]==2))) || (pho_ID==2 && (*Photons_cutBasedID)[iPho]==2) || (pho_ID==3 && (*Photons_mvaValuesID)[iPho]>-0.02) || (pho_ID==4 && (*Photons_mvaValuesID)[iPho]>0.42))) ) 
+    if(((*Photons_hasPixelSeed)[iPho]<0.001) &&(*Photons_fullID)[iPho] )//&& ( (*Photons_fullID)[iPho] && ((*Photons_hasPixelSeed)[iPho]<0.001) &&( pho_ID==0 || (pho_ID==1 &&(((*Photons_cutBasedID)[iPho]==1 || (*Photons_cutBasedID)[iPho]==2))) || (pho_ID==2 && (*Photons_cutBasedID)[iPho]==2) || (pho_ID==3 && (*Photons_mvaValuesID)[iPho]>-0.02) || (pho_ID==4 && (*Photons_mvaValuesID)[iPho]>0.42))) ) 
       {
 	goodPho.push_back(Photons[iPho] );
 	goodPhoIndx.push_back(iPho);

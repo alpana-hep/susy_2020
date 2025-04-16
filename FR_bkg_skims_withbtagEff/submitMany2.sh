@@ -1,4 +1,9 @@
-        
+
+
+
+
+
+
 # root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-130UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-130UL","Muon","loose")'
 # root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-40to130UL","Electron","loose")'
@@ -194,7 +199,7 @@
 # root -l -q 'splitRunList.C("runList_Summer20UL18_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2018","WJetsToLNu_HT-1200To2500UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL18_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2018","WJetsToLNu_HT-2500ToInfUL","Electron","loose")'
 
-# root -l -q 'splitRunList.C("runList_Summer20UL16APV_TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8.txt",1,"2016preVFP","TTGJetsUL","Electron","loose")'
+root -l -q 'splitRunList.C("runList_Summer20UL16APV_TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8.txt",1,"2016preVFP","TTGJetsUL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16APV_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016preVFP","TTJets_HT_600To800UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16APV_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016preVFP","TTJets_HT_800To1200UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16APV_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016preVFP","TTJets_HT_1200To2500UL","Electron","loose")'
@@ -240,7 +245,7 @@
 # root -l -q 'splitRunList.C("runList_Summer20UL16_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","WJetsToLNu_HT-800To1200UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","WJetsToLNu_HT-1200To2500UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","WJetsToLNu_HT-2500ToInfUL","Electron","loose")'
-# root -l -q 'splitRunList.C("runList_Summer20UL16_TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8.txt",1,"2016postVFP","TTGJetsUL","Electron","loose")'
+root -l -q 'splitRunList.C("runList_Summer20UL16_TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8.txt",1,"2016postVFP","TTGJetsUL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","TTJets_HT_600To800UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","TTJets_HT_800To1200UL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","TTJets_HT_1200To2500UL","Electron","loose")'
@@ -250,31 +255,31 @@
 # root -l -q 'splitRunList.C("runList_Summer20UL16_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","TTJets_SingleLeptFromTUL","Electron","loose")'
 # root -l -q 'splitRunList.C("runList_Summer20UL16_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8.txt",1,"2016postVFP","TTJets_SingleLeptFromTbarUL","Electron","loose")'
 
-root -l -q 'splitRunList.C("runList_Summer20UL16_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2016postVFP","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2016preVFP","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2017","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2018","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
-#after this
-root -l -q 'splitRunList.C("runList_Summer20UL16_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2016postVFP","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2016preVFP","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL17_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2017","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL18_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8.txt",1,"2018","ST_s-channel_4f_leptonDecaysUL","Electron","loose")'
+# #after this
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL17_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL18_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_t-channel_antitop_5f_InclusiveDecaysUL","Electron","loose")'
 
 
-root -l -q 'splitRunList.C("runList_Summer20UL16_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL17_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL18_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_t-channel_top_5f_InclusiveDecaysUL","Electron","loose")'
 
-root -l -q 'splitRunList.C("runList_Summer20UL16_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL17_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL18_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_tW_antitop_5f_inclusiveDecaysUL","Electron","loose")'
 
-root -l -q 'splitRunList.C("runList_Summer20UL16_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL17_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
-root -l -q 'splitRunList.C("runList_Summer20UL18_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016postVFP","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL16APV_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2016preVFP","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL17_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2017","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
+# root -l -q 'splitRunList.C("runList_Summer20UL18_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8.txt",1,"2018","ST_tW_top_5f_inclusiveDecaysUL","Electron","loose")'
 
 
 

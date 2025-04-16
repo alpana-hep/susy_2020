@@ -1,5 +1,174 @@
 #!/bin/bash                                                                                                                                      
-path=/store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass
+path=/store/user/lpcsusyphotons/kalpana/ULSkims_June23/FR/
+
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8'`
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8'`
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8'`
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTGJets_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTGJets'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTGJets_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTGJets'`
+
+hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTGJets_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTGJets'`
+hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTGJets_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTGJets'`
+
+#hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_HT-800to1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_TTJets_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# ### WJEts
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WGJets_MonoPhoton_PtG-40to130_'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WGJets_MonoPhoton_PtG-40to130_'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WGJets_MonoPhoton_PtG-40to130_'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WGJets_MonoPhoton_PtG-130_'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WGJets_MonoPhoton_PtG-130_'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WGJets_MonoPhoton_PtG-130_'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WGJets_MonoPhoton_PtG-130_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WGJets_MonoPhoton_PtG-130_'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+# # #### Single top samples
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_ST_s-channel_4f_leptonDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_ST_s-channel_4f_leptonDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_ST_s-channel_4f_leptonDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_ST_s-channel_4f_leptonDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_ST_t-channel_antitop_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_ST_t-channel_antitop_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_ST_t-channel_antitop_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_ST_t-channel_antitop_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_ST_t-channel_antitop_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_ST_t-channel_top_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_ST_t-channel_top_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_ST_t-channel_top_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_ST_t-channel_top_5f_InclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_ST_t-channel_top_5f_InclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_ST_tW_antitop_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_ST_tW_antitop_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_ST_tW_antitop_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_ST_tW_antitop_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+
+
+
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL18_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL18_ST_tW_top_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL17_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL17_ST_tW_top_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16_ST_tW_top_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/SoftPhoton/kalpana/SkimsUL_June2023/FR/skimmed_Summer20UL16APV_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/SoftPhoton/kalpana/ULSkims_June23/FR | grep 'phoID_loose_runList_Summer20UL16APV_ST_tW_top_5f_inclusiveDecays'`#_TuneCP5_13TeV-madgraphMLM-pythia8'`
 
 # hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL18_ZJetsToNuNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass | grep 'phoID_loose_runList_Summer20UL18_ZJetsToNuNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8'`
 
@@ -82,16 +251,16 @@ path=/store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass
 
 
 
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-200to300_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT200to300_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-300to500_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT300to500_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-200to300_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT200to300_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-300to500_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT300to500_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
 
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-500to700_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT500to700_TuneCP5_PSWeights_13TeV-madgraphMLM-pythia8_pt40_Electron'`
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-700to1000_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT700to1000_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-500to700_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT500to700_TuneCP5_PSWeights_13TeV-madgraphMLM-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-700to1000_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT700to1000_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
 
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
 
-hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
+# hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL16APV_QCD_HT-2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8.root `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass/Data | grep 'phoID_loose_runList_Summer20UL16APV_QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8_pt40_Electron'`
 
 
 # hadd -fk /eos/uscms/store/user/lpcsusyphotons/kalpana/SkimsUL_June2023/skimmed_Summer20UL18_ZNuNuGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-amcatnloFXFX-pythia8.root  `xrdfsls -u /store/user/lpcsusyphotons/kalpana/ULSkims_June23/v1_WithMakeClass | grep 'phoID_loose_runList_Summer20UL18_ZNuNuGJets_MonoPhoton_PtG-40to130_TuneCP5_13TeV-amcatnloFXFX-pythia8_pt40_Electron'`
