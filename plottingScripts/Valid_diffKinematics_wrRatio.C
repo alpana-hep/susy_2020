@@ -260,7 +260,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
   TLegend *legend;
   //legend = new TLegend(0.60,0.88,0.98,0.72);  
   legend = new TLegend(0.2,0.75,0.95,0.88);  
-  legend->SetTextSize(0.045);
+  legend->SetTextSize(0.055);
   legend->SetLineColor(kWhite);
   legend->SetNColumns(4);
   char* lhead = new char[100];
@@ -724,16 +724,18 @@ void generate_1Dplot(vector<TH1D*> hist, TH1* hist_ratio, char const *tag_name="
 
    // l2->Draw("sames");
    // }
+
+   pad_1->SetGrid();
    TLine *l =new TLine(xmin,1.0,xrange+4,1.0);
    hist_ratio->Draw("");
-   l->Draw("sames");
+   //   l->Draw("sames");
    TLine *l1 =new TLine(xmin,1.5,xrange+4,1.5);
    l1->SetLineStyle(7);
-   l1->Draw("sames");
+   //   l1->Draw("sames");
    TLine *l2 =new TLine(xmin,0.5,xrange+4,0.5);
    l2->SetLineStyle(7);
 
-   l2->Draw("sames");
+   //l2->Draw("sames");
 
   char* canvas_name = new char[1000];
   //c->Print(canvas_name);

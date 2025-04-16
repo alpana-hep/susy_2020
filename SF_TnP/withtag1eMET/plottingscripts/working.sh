@@ -30,3 +30,7 @@ root -b -q 'CorrSF_calc.C("Results/SF_plots",0,0)'
 ## systematic checks
 root -b -q 'v1_CorrSF_calc.C("Results/SF_plots/Checks",0,1)'
 
+root -b -q 'CorrSF_calc.C("Results/SF_plots/Compare_FR",0,2)' ###compare FR
+root -b -q 'CorrSF_calc.C("Results/SF_plots/Compare_SF",0,3)' ## compare SF btw Zee with W like selections and Tnp method
+root -b -q 'CorrSF_calc.C("Results/SF_plots/withTTJets",0,4)'
+root -b -q 'CorrSF_calc.C("Results/SF_plots/withWJets",0,5)'

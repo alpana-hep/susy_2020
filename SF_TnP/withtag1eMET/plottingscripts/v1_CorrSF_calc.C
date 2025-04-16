@@ -347,10 +347,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    hist.at(i)->SetMarkerColor(line_color[i]);
     //new ones
     hist.at(i)->GetXaxis()->SetTitleSize(0.08);
-    hist.at(i)->GetXaxis()->SetLabelSize(0.065);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.07);
 
     hist.at(i)->GetYaxis()->SetTitleSize(0.08);
-    hist.at(i)->GetYaxis()->SetLabelSize(0.065);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.07);
 
     hist.at(i)->GetXaxis()->SetTitleOffset(3);
     hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
@@ -469,7 +469,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   // hs_var->GetYaxis()->SetTitleSize(00.055);
   // hs_var->GetYaxis()->SetTitleOffset(1.0);
 
-  legend->SetTextSize(0.055);
+
   legend->Draw();
 
     //    legend->Draw();
@@ -693,10 +693,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->SetMarkerSize(0.2);
     hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
-    hist_ratio->GetXaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetTitle("#beta = #frac{f(DY)}{f(DY+ttbar)}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
-    hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.8,1.2);
+    hist_ratio->GetXaxis()->SetTitleSize(0.14);
+    hist_ratio->GetYaxis()->SetTitle("#alpha = #frac{#beta.f(Data)}{#alpha.f(MC)}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    hist_ratio->GetXaxis()->SetLabelSize(0.14);
+    hist_ratio->GetYaxis()->SetRangeUser(0.5,1.3);
     //hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+4);
     // hist_ratio= setMyRange(hist_ratio,xmin,xmax+6);
     // setLastBinAsOverFlow(hist_ratio);
@@ -709,8 +709,8 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    hist_ratio->GetXaxis()->SetRangeUser(0,39);
     
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
-    hist_ratio->GetYaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetLabelSize(0.08);
+    hist_ratio->GetYaxis()->SetTitleSize(0.14);
+    hist_ratio->GetYaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetTitleOffset(.4);
     hist_ratio->SetMarkerSize(1.0);
     hist_ratio->SetMarkerStyle(20);
@@ -718,7 +718,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     hist_ratio->GetYaxis()->SetNdivisions(505);
     //new
-     hist_ratio->GetXaxis()->SetTitleSize(0.1);
+     hist_ratio->GetXaxis()->SetTitleSize(0.05);
     hist_ratio->GetXaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetNdivisions(505);
@@ -758,16 +758,16 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
 
    // l2->Draw("sames");
    // }
-   TLine *l =new TLine(xmin,1.,xrange,1.);
+   TLine *l =new TLine(xmin,1.5,xrange,1.5);
    hist_ratio->Draw("");
-   l->Draw("sames");
-   TLine *l1 =new TLine(xmin,1.1,xrange,1.1);
+   //   l->Draw("sames");
+   TLine *l1 =new TLine(xmin,1,xrange,1);
    l1->SetLineStyle(7);
    l1->Draw("sames");
-   TLine *l2 =new TLine(xmin,0.9,xrange,0.9);
+   TLine *l2 =new TLine(xmin,0.5,xrange,0.5);
    l2->SetLineStyle(7);
 
-   l2->Draw("sames");
+   //l2->Draw("sames");
 
   char* canvas_name = new char[1000];
   //c->Print(canvas_name);
@@ -786,7 +786,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void v1_purityCalc(string pathname, int which_Lept)
+void v1_CorrSF_calc(string pathname, int which_Lept, int applysys)
 {
   char* hname = new char[200];
   char* hname1 = new char[200];
@@ -838,15 +838,15 @@ void v1_purityCalc(string pathname, int which_Lept)
     //    sprintf(string_png,"Electron_LL");
     baseline1={"Pho_SR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
     
-    legend_texts ={"f(DY)","f(DY+ttbar)"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
+    legend_texts ={"#beta.f(Data:single e)","#alpha.f(MC: Z(ee))"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
     if(which_Lept==0){
-    sprintf(string_png,"purity_MC_%s",TFbins_str);
+    sprintf(string_png,"FR_Data_MC_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_29Jan24",string_png);
     }
     else if (which_Lept==1){
-      sprintf(string_png,"purity_CRvsSR_%s",TFbins_str);
+      sprintf(string_png,"FR_Data_CRvsSR_%s",TFbins_str);
       sprintf(hname,"%s_phoID_loose_29Jan24",string_png);
     }
     
@@ -935,7 +935,12 @@ void v1_purityCalc(string pathname, int which_Lept)
     //   }
     f[0]= new TFile("./out_FR_MC_CRvsSR_Default.root");
     f[1]= new TFile("./out_FR_Data_CRvsSR_Default.root");
+    if(applysys==1)
+      {	                                                                                                           
+    f[0]= new TFile("./out_FR_MC_CRvsSR_SF_checks_Default.root");
+    f[1]= new TFile("./out_FR_Data_CRvsSR_Default.root");
 
+      }
 
   vector<string>varName;
   vector<string>varName1;
@@ -953,7 +958,7 @@ void v1_purityCalc(string pathname, int which_Lept)
 
    xLabel={"Sum of P_{T}^{Jets} & P_{T}^{EM-obj} [GeV]","HT[GeV]","N_{jets}","N_{ b-jets}","p_{T}^{miss} [GeV]","p_{T}^{EM-obj} [GeV]","q-multi","Eta coordinate of EM-obj","Phi coordinate of EM-obj","MET phi","q multi of leading jets","pT of leading jets","b-tagger deep csv value","number of vertices","mindR(matched Jet, EM obj)","Phi coordinate of leading Jet1","Eta coordinate of leading Jet1","P_{T} of leading Jet1","d#phi(P_{T}^{miss},lead Jet1)","Phi coordinate of leading Jet2","Eta coordinate of leading Jet2","P_{T} of leading Jet2","d#phi(P_{T}^{miss},lead Jet2)","Phi coordinate of leading Jet3","Eta coordinate of leading Jet3","P_{T} of leading Jet3","d#phi(P_{T}^{miss},lead Jet3)","Phi coordinate of leading Jet4","Eta coordinate of leading Jet4","P_{T} of leading Jet4","d#phi(P_{T}^{miss},lead Jet4)","Phi coordinate of matched Jet","Eta coordinate of matched Jet","P_{T} of matched Jet","HT5/HT","M^{inv}_{tag & probe}","M^{inv}_{tag & probe}","Bin No.","P_{T}^{tag-e}","#eta^{tag-e}","#phi^{tag-e}","P_{T}^{Z}"};                                                                                             
   vector <int> rebin;
-  rebin={5,5,1,1,4,4,1,4,4,4,1,4,4,1,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,2,1,4,4,4,5};
+  rebin={5,5,1,1,4,4,2,4,4,4,1,4,4,1,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,2,1,4,4,4,5};
   vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0,0};
   vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
   vector<double> xmin ={300,300,2,0,0,20,0,-10,-10,-10,0,0,0,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0.9,70,0,0,0,-5,-5,0};
@@ -976,7 +981,7 @@ void v1_purityCalc(string pathname, int which_Lept)
   // vector<float> energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
  
   vector<string> filetag=  {"MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","MC_2016preVFP","MC_2016"};
-  vector<string> filetag1= {"DY_2018","DY_2017","DY_2016postVFP","DY_FullRun2","DY_2016preVFP","DY_2016"};//  {"MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","MC_2016preVFP","MC_2016"};
+  vector<string> filetag1= {"Data_2018","Data_2017","Data_2016postVFP","Data_FullRun2","Data_2016preVFP","Data_2016"};//  {"MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","MC_2016preVFP","MC_2016"};
 
     vector<string> filetag2=  {"2018","2017","2016postVFP","FullRun2","2016preVFP","2016"};
 
@@ -1007,13 +1012,13 @@ void v1_purityCalc(string pathname, int which_Lept)
    /*    vector<TH1D*> hist_list_HT; */
 
   //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron.root","RECREATE");
-  sprintf(hname1,"out_%s.root",string_png);//,hname); 
+  sprintf(hname1,"out_SF_%s.root",string_png);//,hname); 
   TFile* fout = new TFile(hname1,"RECREATE");
   // sprintf(hname,"EventYields_TF_LL_muon_allProcess_binsV3_phoID_loose_09Jan24.txt");
   // std::ofstream file_;
   // file_.open(hname,ios::out);
   //  n_files=1;  
-  for(int i_file=0; i_file<6;i_file++)
+  for(int i_file=3; i_file<4;i_file++)
     {
       //      if(i_file==3) continue;
       //      vector<TH1D*> hist_list_Njets;
@@ -1029,7 +1034,7 @@ void v1_purityCalc(string pathname, int which_Lept)
 	  sprintf(hist_name2,"%s_%s",varName[i_cut].c_str(),filetag1[i_file].c_str());
 	  cout<<hist_name<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[0]->GetName()<<"\t"<<varName[i_cut].c_str()<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
           TH1D* h_resp = (TH1D*)f[0]->Get(hist_name);
-	  TH1D* h_resp2 = (TH1D*)f[0]->Get(hist_name2);
+	  TH1D* h_resp2 = (TH1D*)f[1]->Get(hist_name2);
 	  cout<<"resp "<<h_resp->Integral()<<"\t"<<"resp2 "<<h_resp2->Integral()<<"\t"<<endl;
 	  if(rebin[i_cut]!=1){
 	    h_resp->Rebin(2);//rebin[i_cut]);
@@ -1050,7 +1055,7 @@ void v1_purityCalc(string pathname, int which_Lept)
 	  TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(0)->Clone();
 	  hNjets_ratio->Divide(hNjets_total);
 	  //setLastBinAsOverFlow(hNjets_ratio);
-	  sprintf(full_path,"%s/purityFact_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+	  sprintf(full_path,"%s/SF_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
 	  sprintf(full_path1,"%s_%s",varName[i_cut].c_str(),filetag2[i_file].c_str());
 	  hNjets_ratio->SetName(full_path1);
 	  fout->cd();

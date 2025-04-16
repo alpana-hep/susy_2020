@@ -347,10 +347,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    hist.at(i)->SetMarkerColor(line_color[i]);
     //new ones
     hist.at(i)->GetXaxis()->SetTitleSize(0.08);
-    hist.at(i)->GetXaxis()->SetLabelSize(0.06);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.07);
 
-    hist.at(i)->GetYaxis()->SetTitleSize(0.07);
-    hist.at(i)->GetYaxis()->SetLabelSize(0.06);
+    hist.at(i)->GetYaxis()->SetTitleSize(0.08);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.07);
 
     hist.at(i)->GetXaxis()->SetTitleOffset(3);
     hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
@@ -693,9 +693,9 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->SetMarkerSize(0.2);
     hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
-    hist_ratio->GetXaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetTitle("#alpha = #frac{f(Data)}{f(MC)}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
-    hist_ratio->GetXaxis()->SetLabelSize(0.1);
+    hist_ratio->GetXaxis()->SetTitleSize(0.14);
+    hist_ratio->GetYaxis()->SetTitle("#alpha = #frac{#beta.f(Data)}{f(MC)}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    hist_ratio->GetXaxis()->SetLabelSize(0.14);
     hist_ratio->GetYaxis()->SetRangeUser(0,5);
     //hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+4);
     // hist_ratio= setMyRange(hist_ratio,xmin,xmax+6);
@@ -709,8 +709,8 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    hist_ratio->GetXaxis()->SetRangeUser(0,39);
     
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
-    hist_ratio->GetYaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetLabelSize(0.08);
+    hist_ratio->GetYaxis()->SetTitleSize(0.14);
+    hist_ratio->GetYaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetTitleOffset(.4);
     hist_ratio->SetMarkerSize(1.0);
     hist_ratio->SetMarkerStyle(20);
@@ -719,15 +719,15 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->GetYaxis()->SetNdivisions(505);
     //new
      hist_ratio->GetXaxis()->SetTitleSize(0.05);
-    hist_ratio->GetXaxis()->SetLabelSize(0.12);
-    hist_ratio->GetYaxis()->SetTitleSize(0.125);
+    hist_ratio->GetXaxis()->SetLabelSize(0.13);
+    hist_ratio->GetYaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetNdivisions(505);
 
     hist_ratio->GetXaxis()->SetTitleOffset(1);
     hist_ratio->GetYaxis()->SetTitleOffset(0.41);
     hist_ratio->GetXaxis()->SetTitleSize(0.14);
 
-    hist_ratio->GetYaxis()->SetLabelSize(0.12);
+    hist_ratio->GetYaxis()->SetLabelSize(0.13);
 
     //    hist_ratio->GetYaxis()->SetLabelSize(x_label_size);
    pad_1->cd();
@@ -786,7 +786,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void CorrSF_calc(string pathname, int which_Lept)
+void CorrSF_calc(string pathname, int which_Lept, int applysys)
 {
   char* hname = new char[200];
   char* hname1 = new char[200];
@@ -838,7 +838,7 @@ void CorrSF_calc(string pathname, int which_Lept)
     //    sprintf(string_png,"Electron_LL");
     baseline1={"Pho_SR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
     
-    legend_texts ={"f(Data:single e)","f(MC: Z(ee))"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
+    legend_texts ={"#beta.f(Data:single e)","f(MC: Z(ee))"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
     if(which_Lept==0){
@@ -935,7 +935,12 @@ void CorrSF_calc(string pathname, int which_Lept)
     //   }
     f[0]= new TFile("./out_FR_MC_CRvsSR_Default.root");
     f[1]= new TFile("./out_FR_Data_CRvsSR_Default.root");
+    if(applysys==1)
+      {	                                                                                                           
+    f[0]= new TFile("./out_FR_MC_CRvsSR_SF_checks_Default.root");
+    f[1]= new TFile("./out_FR_Data_CRvsSR_Default.root");
 
+      }
 
   vector<string>varName;
   vector<string>varName1;

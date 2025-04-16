@@ -422,7 +422,7 @@ void generate_1Dplot(vector<TH1F*> hist, TH1* hist_ratio, char const *tag_name="
  
   TLatex* textOnTop = new TLatex();
   textOnTop->SetTextSize(0.054);
-  //  textOnTop->DrawLatexNDC(0.146,0.925,"CMS #it{#bf{Preliminary}}");
+  textOnTop->DrawLatexNDC(0.146,0.925,"CMS #it{#bf{Preliminary}}");
   
   char* en_lat = new char[500];
   textOnTop->SetTextSize(0.054);
@@ -683,7 +683,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void SRvsCRStacked_LL_varRatio(string pathname, int which_TFBins)
+void SRvsCRStacked_LL_varRatio(string pathname, int which_TFBins, int apply_sys, string sys_string)
 {
   char* hname = new char[200];
     char* hname1 = new char[200];
@@ -741,14 +741,13 @@ char* hname2 = new char[200];
     legend_texts ={"(1e,0#gamma) CR","(0e,1#gamma) SR"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
-    sprintf(string_png,"Electron_FR_%s",TFbins_str);
+    sprintf(string_png,"Electron_FR_%s_%s",TFbins_str, sys_string.c_str());
     sprintf(hname,"%s_phoID_loose_09Jan24",string_png);
     cout<<string_png<<"\t"<<TFbins_str<<"\t"<<which_TFBins<<endl;
       f[0] = new TFile("Summer20UL18_TTGJets_PhoIdloose_phopt40_MET200.root");
       f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloose_phopt40_MET200.root");
       f[2] = new TFile("Summer20UL16_TTGJets_PhoIdloose_phopt40_MET200.root");
       f[3]= new TFile("FullRun2_TTGJets_PhoIdloose_phopt40_MET200.root");
-
       f[4] = new TFile("Summer20UL18_WGJets_PhoIdloose_phopt40_MET200.root");
       f[5] = new TFile("Summer20UL17_WGJets_PhoIdloose_phopt40_MET200.root");
       f[6] = new TFile("Summer20UL16_WGJets_PhoIdloose_phopt40_MET200.root");
@@ -787,7 +786,456 @@ char* hname2 = new char[200];
       f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloose_phopt40_MET200.root");
       f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloose_phopt40_MET200.root");
       f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloose_phopt40_MET200.root");
+
+      if (apply_sys==1){
+f[0] = new TFile("Summer20UL18_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloosepuSysUp_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloosepuSysUp_phopt40_MET200.root");
+
+      }
+      else if (apply_sys==2){
+
+	f[0] = new TFile("Summer20UL18_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloosepuSysDown_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloosepuSysDown_phopt40_MET200.root");
+      }
+
+      else if (apply_sys==3){
+	f[0] = new TFile("Summer20UL18_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFdown_phopt40_MET200.root");
+      }
+      else if (apply_sys==4) {
+	f[0] = new TFile("Summer20UL18_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdloosebtagSFup_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdloosebtagSFup_phopt40_MET200.root");
+      }
+
+      else if (apply_sys==5){
+   f[0] = new TFile("Summer20UL18_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERup_phopt40_MET200.root");
+      }
       
+      else if (apply_sys==6){
+	   f[0] = new TFile("Summer20UL18_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JERdown_phopt40_MET200.root");
+      }
+      else if (apply_sys==7){
+	      f[0] = new TFile("Summer20UL18_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECdown_phopt40_MET200.root");
+
+      }
+      else if (apply_sys==8){
+
+	      f[0] = new TFile("Summer20UL18_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdlooseJetSys_JECup_phopt40_MET200.root");
+      }
+
+      else if (apply_sys==9){
+	      f[0] = new TFile("Summer20UL18_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecUp_phopt40_MET200.root");
+
+      }
+      else if (apply_sys==10){
+	      f[0] = new TFile("Summer20UL18_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[1] = new TFile("Summer20UL17_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[2] = new TFile("Summer20UL16_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[3]= new TFile("FullRun2_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[4] = new TFile("Summer20UL18_WGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[5] = new TFile("Summer20UL17_WGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[6] = new TFile("Summer20UL16_WGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[7]= new TFile("FullRun2_WGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[8] = new TFile("Summer20UL18_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[9] = new TFile("Summer20UL17_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[10] = new TFile("Summer20UL16_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[11]= new TFile("FullRun2_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[12] = new TFile("Summer20UL18_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[13] = new TFile("Summer20UL17_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[14] = new TFile("Summer20UL16_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[15]= new TFile("FullRun2_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[16] = new TFile("Summer20UL18_combined_WGJets_WJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[17] = new TFile("Summer20UL17_combined_WGJets_WJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[18] = new TFile("Summer20UL16_combined_WGJets_WJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[19] = new TFile("FullRun2_combined_WGJets_WJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[20] = new TFile("Summer20UL18_combined_TTGJets_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[21] = new TFile("Summer20UL17_combined_TTGJets_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[22] = new TFile("Summer20UL16_combined_TTGJets_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[23] = new TFile("FullRun2_combined_TTGJets_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[24]= new TFile("Summer20UL18_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[25]= new TFile("Summer20UL17_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[26]= new TFile("Summer20UL16_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[27]= new TFile("FullRun2_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[28] = new TFile("Summer20UL16APV_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[29] = new TFile("Summer20UL16APV_WGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[30] = new TFile("Summer20UL16APV_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[31] = new TFile("Summer20UL16APV_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[32] = new TFile("Summer20UL16APV_combined_WGJets_WJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[33] = new TFile("Summer20UL16APV_combined_TTGJets_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[34]= new TFile("Summer20UL16APV_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[35] = new TFile("Summer20UL_total2016_TTGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[36] = new TFile("Summer20UL_total2016_WGJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[37] = new TFile("Summer20UL_total2016_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[38] = new TFile("Summer20UL_total2016_WJetsToLNu_HT_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[39] = new TFile("Summer20UL_total2016_combined_WGJets_WJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[40] = new TFile("Summer20UL_total2016_combined_TTGJets_TTJets_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      f[41]= new TFile("Summer20UL_total2016_WGJets_TTGJets_Allcombined_PhoIdlooseCrossSecDown_phopt40_MET200.root");
+      }
   vector<string> filetag=  {"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
  vector<float> energyy={59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
 
@@ -859,7 +1307,7 @@ char* hname2 = new char[200];
 	  else if(which_TFBins==4)
 	    sprintf(hist_name,"h_TFbins_ElecLL_v6_%s",baseline1[i_cut].c_str());
 	  else if(which_TFBins==5)
-            sprintf(hist_name,"h_TFbins_ElecLL_v3_%s",baseline1[i_cut].c_str());
+            sprintf(hist_name,"h_NhadJets_%s",baseline1[i_cut].c_str());
 	  else if(which_TFBins==6)
             sprintf(hist_name,"h_TFbins_ElecLL_v4_%s",baseline1[i_cut].c_str());
 
@@ -868,7 +1316,7 @@ char* hname2 = new char[200];
 	  TH1F* h_TFbins = (TH1F*)f[i_file]->Get(hist_name);
 	  //cout<<h_TFbins->Integral()<<"\t"<<"Elec"<<"\t"<<h_TFbins->GetNbinsX()<<endl;
 	  TH1F* h_TFallin1 = (TH1F*)h_TFbins->Clone();
-	  cout<<h_TFbins->Integral()<<"\t"<<" h_TFbins->Integral() "<<"\t"<<string_png<<endl;//<<
+	  cout<<h_TFbins->Integral()<<"\t"<<" h_TFbins->Integral() "<<"\t"<<string_png<<"\t"<<f[i_file]->GetName()<<endl;//<<
 	  // if (which_Lept==3){
 	  //   if(i_cut>=2)
 	  //     hist_list_Njets.push_back(h_TFbins);
@@ -908,8 +1356,8 @@ char* hname2 = new char[200];
 	h_TFBins->Write();
 	for (int j =2; j<50;j++)
 	  {
-	    file_i<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
-	    cout<<j<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<endl;
+	    file_i<<j<<"\t"<<hist_list_Njets.at(0)->GetBinContent(j)<<"\t"<<hist_list_Njets.at(1)<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<"\n";
+	    cout<<j<<"\t"<<hist_list_Njets.at(0)->GetBinContent(j)<<"\t"<<hist_list_Njets.at(1)->GetBinContent(j)<<"\t"<<h_TFBins->GetBinContent(j)<<"\t"<<h_TFBins->GetBinError(j)<<endl;
 	  }
 	generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,energy,40,0,leg_head,false,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, 3);//which_Lept);
     }

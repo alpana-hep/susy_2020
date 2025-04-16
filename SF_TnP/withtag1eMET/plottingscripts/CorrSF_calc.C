@@ -266,10 +266,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   double y = 0.90;
   TLegend *legend;
   //legend = new TLegend(0.60,0.88,0.98,0.72);  
-  legend = new TLegend(0.2,0.75,0.8,0.88);  
+  legend = new TLegend(0.2,0.7,0.8,0.88);  
   legend->SetTextSize(0.055);
   legend->SetLineColor(kWhite);
-  legend->SetNColumns(4);
+  //  legend->SetNColumns(4);
   char* lhead = new char[100];
 
   sprintf(lhead,"#bf{%s} ",title);
@@ -309,6 +309,8 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     else {
       hist.at(i)->GetYaxis()->SetTitle("Misid. rate (f)");
     }
+    if(which_TFbins==3)
+      hist.at(i)->GetYaxis()->SetTitle("Correction factor (#alpha)");
     //   hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+4);
     hist.at(i)->SetLineWidth(line_width[i]);
     hist.at(i)->SetLineStyle(line_style[i]);
@@ -347,10 +349,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     //    hist.at(i)->SetMarkerColor(line_color[i]);
     //new ones
     hist.at(i)->GetXaxis()->SetTitleSize(0.08);
-    hist.at(i)->GetXaxis()->SetLabelSize(0.065);
+    hist.at(i)->GetXaxis()->SetLabelSize(0.07);
 
-    hist.at(i)->GetYaxis()->SetTitleSize(0.08);
-    hist.at(i)->GetYaxis()->SetLabelSize(0.065);
+    hist.at(i)->GetYaxis()->SetTitleSize(0.07);
+    hist.at(i)->GetYaxis()->SetLabelSize(0.07);
 
     hist.at(i)->GetXaxis()->SetTitleOffset(3);
     hist.at(i)->GetXaxis()->SetLabelOffset(1.6);
@@ -417,6 +419,10 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     // hs_var->SetMinimum(0.00001);
     // hs_var->SetMaximum(ymax*60);
     //gPad->SetLogu
+    if(which_TFbins==2 || which_TFbins==4 || which_TFbins==5)
+      hist.at(i)->GetYaxis()->SetRangeUser(0,0.05);
+    if(which_TFbins==3)
+      hist.at(i)->GetYaxis()->SetRangeUser(0,5);
     cout<<"i Alps "<<i<<endl;
     if(i==0) hist.at(i)->Draw("P");
     else hist.at(i)->Draw("Psames");
@@ -469,7 +475,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
   // hs_var->GetYaxis()->SetTitleSize(00.055);
   // hs_var->GetYaxis()->SetTitleOffset(1.0);
 
-  legend->SetTextSize(0.055);
+
   legend->Draw();
 
     //    legend->Draw();
@@ -693,24 +699,30 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->SetMarkerSize(0.2);
     hist_ratio->SetLineColor(kBlack);
     hist_ratio->SetTitle(" ");
-    hist_ratio->GetXaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetTitle("#beta = #frac{f(DY)}{f(DY+ttbar)}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
-    hist_ratio->GetXaxis()->SetLabelSize(0.1);
-    hist_ratio->GetYaxis()->SetRangeUser(0.8,1.2);
+    hist_ratio->GetXaxis()->SetTitleSize(0.14);
+    hist_ratio->GetYaxis()->SetTitle("#alpha = #frac{#beta.f(Data)}{f(MC)}");//TF = #frac{N_{SR}}{N_{CR}}");//(0#mu,1#gamma)}{(1#mu,1#gamma)}");
+    if(which_TFbins == 2 || which_TFbins == 3 || which_TFbins == 4 || which_TFbins == 5)
+      hist_ratio->GetYaxis()->SetTitle("Ratio");
+    hist_ratio->GetXaxis()->SetLabelSize(0.14);
+    hist_ratio->GetYaxis()->SetRangeUser(0,5);
     //hist_ratio->GetXaxis()->SetRangeUser(xmin,xmax+4);
     // hist_ratio= setMyRange(hist_ratio,xmin,xmax+6);
     // setLastBinAsOverFlow(hist_ratio);
 
-    // if(which_TFbins==1) //default 8 bins                                                                                                    
-    //   hist_ratio->GetXaxis()->SetRangeUser(0,10);//xmin,xrange);                                                                                                 
+    // if(which_TFbins==1) //default 8 bins
+    if(which_TFbins==2)
+      hist_ratio->GetYaxis()->SetRangeUser(0.5,1.5);//xmin,xrange);
+     if(which_TFbins==3 || which_TFbins==4 || which_TFbins==5)
+      hist_ratio->GetYaxis()->SetRangeUser(0.5,1.5);
+     
     // else if(which_TFbins==2) // v2 TF bins including photon pT>100 and pT<100
     //   hist_ratio->GetXaxis()->SetRangeUser(0,18);
     // else if(which_TFbins==3) // v3 TF bins including MET<300 and MET>300                                                                                        
     //    hist_ratio->GetXaxis()->SetRangeUser(0,39);
     
     //    hist_ratio->GetXaxis()->SetLabelSize(0.0450);
-    hist_ratio->GetYaxis()->SetTitleSize(0.13);
-    hist_ratio->GetYaxis()->SetLabelSize(0.08);
+    hist_ratio->GetYaxis()->SetTitleSize(0.14);
+    hist_ratio->GetYaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetTitleOffset(.4);
     hist_ratio->SetMarkerSize(1.0);
     hist_ratio->SetMarkerStyle(20);
@@ -718,7 +730,7 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
     hist_ratio->GetXaxis()->SetTitle(xlabel);
     hist_ratio->GetYaxis()->SetNdivisions(505);
     //new
-     hist_ratio->GetXaxis()->SetTitleSize(0.1);
+     hist_ratio->GetXaxis()->SetTitleSize(0.05);
     hist_ratio->GetXaxis()->SetLabelSize(0.13);
     hist_ratio->GetYaxis()->SetTitleSize(0.13);
     hist_ratio->GetYaxis()->SetNdivisions(505);
@@ -758,13 +770,13 @@ void generate_1Dplot(vector<TH1D*> hist, TH1D* hist_ratio, char const *tag_name=
 
    // l2->Draw("sames");
    // }
-   TLine *l =new TLine(xmin,1.,xrange,1.);
+   TLine *l =new TLine(xmin,3,xrange,3);
    hist_ratio->Draw("");
    l->Draw("sames");
-   TLine *l1 =new TLine(xmin,1.1,xrange,1.1);
+   TLine *l1 =new TLine(xmin,2,xrange,2);
    l1->SetLineStyle(7);
    l1->Draw("sames");
-   TLine *l2 =new TLine(xmin,0.9,xrange,0.9);
+   TLine *l2 =new TLine(xmin,1,xrange,1);
    l2->SetLineStyle(7);
 
    l2->Draw("sames");
@@ -786,7 +798,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void v1_purityCalc(string pathname, int which_Lept)
+void CorrSF_calc(string pathname, int which_Lept, int applysys)
 {
   char* hname = new char[200];
   char* hname1 = new char[200];
@@ -838,15 +850,15 @@ void v1_purityCalc(string pathname, int which_Lept)
     //    sprintf(string_png,"Electron_LL");
     baseline1={"Pho_SR","Elec_CR"};//,"TauHad_SR","Mu_SR","Elec_SR","FailAcep_ElecSR","FailId_ElecSR","FailIso_ElecSR","Elec_SR","Elec_"};//
     
-    legend_texts ={"f(DY)","f(DY+ttbar)"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
+    legend_texts ={"#beta.f(Data:single e)","f(MC: Z(ee))"};//,"#tau-had SR","lost #mu SR","lost e SR","(1l,1#gamma) CR","Failed Iso"};
     
     //sprintf(hname,"");
     if(which_Lept==0){
-    sprintf(string_png,"purity_MC_%s",TFbins_str);
+    sprintf(string_png,"FR_Data_MC_%s",TFbins_str);
     sprintf(hname,"%s_phoID_loose_29Jan24",string_png);
     }
     else if (which_Lept==1){
-      sprintf(string_png,"purity_CRvsSR_%s",TFbins_str);
+      sprintf(string_png,"FR_Data_CRvsSR_%s",TFbins_str);
       sprintf(hname,"%s_phoID_loose_29Jan24",string_png);
     }
     
@@ -933,9 +945,41 @@ void v1_purityCalc(string pathname, int which_Lept)
     // 	f[3] = new TFile("./out_Data_UL2016APV_Allruns_MET_phoID_loose_pt40_MET200.root");
     // 	f[4] = new TFile("./out_Data_UL20_total2016_Allruns_MET_phoID_loose_pt40_MET200.root");	
     //   }
-    f[0]= new TFile("./out_FR_MC_CRvsSR_Default.root");
+    f[0]= new TFile("./out_With1easMET_FR_MC_CRvsSR_Default.root");
+    f[1]= new TFile("./out_With1easMET_FR_Data_CRvsSR_Default.root");
+    if(applysys==1)
+      {	                                                                                                           
+    f[0]= new TFile("./out_FR_MC_CRvsSR_SF_checks_Default.root");
     f[1]= new TFile("./out_FR_Data_CRvsSR_Default.root");
 
+      }
+
+    if (applysys==2){
+          f[0]= new TFile("./out_With1easMET_FR_MC_CRvsSR_Default.root");
+	  f[1]= new TFile("./out_FR_MC_CRvsSR_Default.root");
+	  legend_texts ={"Z#rightarrow ee (tag & probe selections)","Z#rightarrow ee (t#bar{t}/W like selections) "};
+    }
+    if (applysys==3){
+          f[0]= new TFile("./out_SF_with1eAsMET_FR_Data_MC_Default.root");
+          f[1]= new TFile("./out_SF_FR_Data_MC_Default.root");
+	  legend_texts ={"Z#rightarrow ee (tag & probe selections)","Z#rightarrow ee (t#bar{t}/W like selections) "};
+
+    }
+
+    if(applysys==4)
+      {
+	 f[0]= new TFile("./out_FR_MC_CRvsSR_Default.root");
+	 f[1]= new TFile("./FR_inKinemVariable.root");
+	 legend_texts ={"t#bar{t}+jets","Z#rightarrow ee","t#bar{t}+jets"};
+
+      }
+    if(applysys==5)
+      {
+	f[0]= new TFile("./out_FR_MC_CRvsSR_Default.root");
+	f[1]= new TFile("./FR_inKinemVariable.root");
+	legend_texts ={"W(l#nu)+jets","Z#rightarrow ee","W(l#nu)+jets"};
+
+      }
 
   vector<string>varName;
   vector<string>varName1;
@@ -975,9 +1019,14 @@ void v1_purityCalc(string pathname, int which_Lept)
   // vector<string> filetag={"W+TTBar_2016preVFP","W+TTBar_2016postVFP","W+TTBar_2017","W+TTBar_2018","W+TTBar_FullRun2","TTGJets+TTJets_2016preVFP","TTGJets+TTJets_2016postVFP","TTGJets+TTJets_2017","TTGJets+TTJets_2018","TTGJets+TTJets_FullRun2","WGJets+WJets_2016preVFP","WGJets+WJets_2016postVFP","WGJets+WJets_2017","WGJets+WJets_2018","WGJets+WJets_FullRun2","TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
   // vector<float> energyy = {19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,19.5,16.5,41.529,59.74,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,59.74,41.529,16.5,137.19,19.5,19.5,19.5,19.5,19.5,19.5,19.5,36.0,36.0,36.0,36.0,36.0,36.0,36.0};
  
-  vector<string> filetag=  {"MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","MC_2016preVFP","MC_2016"};
-  vector<string> filetag1= {"DY_2018","DY_2017","DY_2016postVFP","DY_FullRun2","DY_2016preVFP","DY_2016"};//  {"MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","MC_2016preVFP","MC_2016"};
-
+  vector<string> filetag=  {"DY_2018","DY_2017","DY_2016postVFP","DY_FullRun2","DY_2016preVFP","DY_2016"};
+  if(applysys==3)
+    filetag=  {"2018","2017","2016postVFP","FullRun2","2016preVFP","2016"};
+  vector<string> filetag1= {"Data_2018","Data_2017","Data_2016postVFP","Data_FullRun2","Data_2016preVFP","Data_2016"};//  {"MC_2018","MC_2017","MC_2016postVFP","MC_FullRun2","MC_2016preVFP","MC_2016"};
+  if(applysys==4)
+    filetag1= {"TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","TTJets_2016preVFP","TTJets_2016"};
+  if(applysys==5)
+    filetag1= {"WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WJets_2016preVFP","WJets_2016"};
     vector<string> filetag2=  {"2018","2017","2016postVFP","FullRun2","2016preVFP","2016"};
 
   cout<<filetag.size()<<endl;
@@ -1007,7 +1056,16 @@ void v1_purityCalc(string pathname, int which_Lept)
    /*    vector<TH1D*> hist_list_HT; */
 
   //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron.root","RECREATE");
-  sprintf(hname1,"out_%s.root",string_png);//,hname); 
+  sprintf(hname1,"out_SF_with1eAsMET_%s.root",string_png);//,hname);
+  if(applysys==2 || applysys==3)
+    sprintf(hname1,"out_compare_SF_with1eAsMET_%s.root",string_png);
+  if(applysys==4)
+     sprintf(hname1,"out_compare_FR_TTJets_with1eAsMET_%s.root",string_png);
+  if(applysys==5)
+     sprintf(hname1,"out_compare_FR_WJets_with1eAsMET_%s.root",string_png);
+  int nCuts =varName.size();
+  if(applysys==4 || applysys==5)
+    nCuts=7;
   TFile* fout = new TFile(hname1,"RECREATE");
   // sprintf(hname,"EventYields_TF_LL_muon_allProcess_binsV3_phoID_loose_09Jan24.txt");
   // std::ofstream file_;
@@ -1021,15 +1079,19 @@ void v1_purityCalc(string pathname, int which_Lept)
       vector<TH1D*> hist_list_MET;
       vector<TH1D*> hist_list_PhoPt;
       vector<TH1D*> hist_list_ST;
-      for(int i_cut=0; i_cut<varName.size();i_cut++)
+      for(int i_cut=0; i_cut<nCuts;i_cut++)
 	{
 	  //if(i_cut==1) continue;
 	  vector<TH1D*> hist_list_Njets;
 	  sprintf(hist_name,"%s_%s",varName[i_cut].c_str(),filetag[i_file].c_str());
 	  sprintf(hist_name2,"%s_%s",varName[i_cut].c_str(),filetag1[i_file].c_str());
-	  cout<<hist_name<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[0]->GetName()<<"\t"<<varName[i_cut].c_str()<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
+	  if(applysys==2 || applysys==3)
+	    sprintf(hist_name2,"%s_%s",varName[i_cut].c_str(),filetag[i_file].c_str());
+	  // if(applysys==4 || applysys==5)
+	  //   sprintf(hist_name2,"%s_%s",varName[i_cut].c_str(),filetag1[i_file].c_str());
+	  cout<<hist_name<<"\t"<<hist_name2<<"\t"<<i_cut<<"\t"<<i_file<<"\t"<<f[0]->GetName()<<"\t"<<varName[i_cut].c_str()<<"\t"<<xmin[i_cut]<<"\t"<<xmax[i_cut]<<endl;
           TH1D* h_resp = (TH1D*)f[0]->Get(hist_name);
-	  TH1D* h_resp2 = (TH1D*)f[0]->Get(hist_name2);
+	  TH1D* h_resp2 = (TH1D*)f[1]->Get(hist_name2);
 	  cout<<"resp "<<h_resp->Integral()<<"\t"<<"resp2 "<<h_resp2->Integral()<<"\t"<<endl;
 	  if(rebin[i_cut]!=1){
 	    h_resp->Rebin(2);//rebin[i_cut]);
@@ -1050,11 +1112,22 @@ void v1_purityCalc(string pathname, int which_Lept)
 	  TH1D* hNjets_ratio = (TH1D*)hist_list_Njets.at(0)->Clone();
 	  hNjets_ratio->Divide(hNjets_total);
 	  //setLastBinAsOverFlow(hNjets_ratio);
-	  sprintf(full_path,"%s/purityFact_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+	  sprintf(full_path,"%s/SF_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+	  if(applysys==2)
+	    sprintf(full_path,"%s/Compare_FR_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+	  if(applysys==3)
+            sprintf(full_path,"%s/Compare_SF_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+	  if(applysys==4)
+            sprintf(full_path,"%s/Compare_FR_TTJets_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+	  if(applysys==5)
+            sprintf(full_path,"%s/Compare_FR_WJets_%s_%s_%s",pathname.c_str(),string_png,varName[i_cut].c_str(),filetag2[i_file].c_str());
+
 	  sprintf(full_path1,"%s_%s",varName[i_cut].c_str(),filetag2[i_file].c_str());
 	  hNjets_ratio->SetName(full_path1);
 	  fout->cd();
 	  hNjets_ratio->Write();
+	  //	  which_Lept = applysys;
+	  which_TFBins =applysys;
 	  if(i_cut==2 || i_cut==3)
 	    generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Entries",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,false,true,false,true,filetag2[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
 	  else if (i_cut==6)

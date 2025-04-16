@@ -1002,7 +1002,7 @@ void TF_varKinem_ratio(string pathname, int which_plots)
    /*    vector<TH1D*> hist_list_HT; */
 
   //  TFile* fout = new TFile("TF_allin1_LLEstimation_electron.root","RECREATE");
-  sprintf(hname1,"temp.root");//,hname); 
+  sprintf(hname1,"FR_inKinemVariable.root");//,hname); 
   TFile* fout = new TFile(hname1,"RECREATE");
   // sprintf(hname,"EventYields_TF_LL_muon_allProcess_binsV3_phoID_loose_09Jan24.txt");
   // std::ofstream file_;
@@ -1015,7 +1015,7 @@ void TF_varKinem_ratio(string pathname, int which_plots)
       vector<TH1D*> hist_list_MET;
       vector<TH1D*> hist_list_PhoPt;
       vector<TH1D*> hist_list_ST;
-      for(int i_cut=6; i_cut<7;i_cut++)
+      for(int i_cut=0; i_cut<7;i_cut++)
 	{
 	  //if(i_cut==1) continue;
 	  vector<TH1D*> hist_list_Njets;
@@ -1055,11 +1055,14 @@ void TF_varKinem_ratio(string pathname, int which_plots)
             generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Normalized",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,true,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
 	  else
             generate_1Dplot(hist_list_Njets,hNjets_ratio,full_path,xLabel[i_cut].c_str(),"Normalized",energy,rebin[i_cut],ymin[i_cut],ymax[i_cut],xmin[i_cut],xmax[i_cut],leg_head,true,true,false,true,filetag[i_file].c_str(),legend_texts,which_TFBins, which_Lept);
-
+	  fout->cd();
+	  sprintf(hist_name,"%s_%s",varName[i_cut].c_str(),filetag[i_file].c_str());
+	  hNjets_ratio->SetName(hist_name);
+	  hNjets_ratio->Write();
 	}
-      //fout->Close();
       
     }
+  fout->Close();
 }
 
 
