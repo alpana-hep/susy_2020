@@ -71,7 +71,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   
   float counter=0.0;
   TString s_data=data;
- char* s_cross = new char[100];
+  char* s_cross = new char[100];
   sprintf(s_cross,"%s.%s",data,sample);
   TString s_sample= sample;
   
@@ -93,8 +93,31 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   bool applyL1TrigFire_cal=true;
   bool applyL1TrigFire_prob=true;
   bool applyPUwt=true;
-  bool applybTagSFs=false;
+  bool applybTagSFs=true;
   TString puwt="central";
+  int jec2Use = 0;//-1 for JEC down, 0 for CV, 1 for JEC up                                                                                                                 
+int jer2Use = 0;//-1 for JER down, 0 for CV, 1 for JER up                                                                                                                 
+int jet2Vary = 4;//4: only AK4 jets, 8: only AK8 jets, 48 or 84: both AK4 and AK8.                                                                                       
+bool varyMasswithJEC = 1;//scale the SD mass according to JEC/JER Pt factor?                                     
+
+
+bool applysys=false;    
+bool savePDFscaleUnc=true;
+ if(pho_ID_str.Contains("JetSys_JECup") && applysys)
+   jec2Use =1;
+ else if (pho_ID_str.Contains("JetSys_JECdown") && applysys)
+   jec2Use =-1;
+ else
+   jec2Use = 0;
+
+  if(pho_ID_str.Contains("JetSys_JERup") && applysys)
+   jer2Use =1;
+ else if (pho_ID_str.Contains("JetSys_JERdown") && applysys)
+   jer2Use =-1;
+ else
+   jer2Use = 0;
+
+ 
   if(s_data.Contains("2016preVFP")){ lumiInfb=19.5;deepCSVvalue = 0.6001; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;}// APV
   if(s_data.Contains("2016postVFP")) { lumiInfb=16.5; deepCSVvalue = 0.5847; p0=1.586e+02; p1=6.83e+01; p2=9.28e-01;} //2016
 
@@ -201,21 +224,23 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   const char* filetag[42]={"TTGJets_2018","TTGJets_2017","TTGJets_2016postVFP","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016postVFP","Run2_WGJets","TTJets_2018","TTJets_2017","TTJets_2016postVFP","Run2_TTJets","WJets_2018","WJets_2017","WJets_2016postVFP","Run2_WJets","WGJets+WJets_2018","WGJets+WJets_2017","WGJets+WJets_2016postVFP","Run2_WGJets+WJets","TTGJets+TTJets_2018","TTGJets+TTJets_2017","TTGJets+TTJets_2016postVFP","Run2_TTGJets+TTJets","W+TTBar_2018","W+TTBar_2017","W+TTBar_2016postVFP","W+TTBar_FullRun2","TTGJets_2016preVFP","WGJets_2016preVFP","TTJets_2016preVFP","WJets_2016preVFP","WGJets+WJets_2016preVFP","TTGJets+TTJets_2016preVFP","W+TTBar_2016preVFP","TTGJets_2016","WGJets_2016","TTJets_2016","WJets_2016","WGJets+WJets_2016","TTGJets+TTJets_2016","W+TTBar_2016"};
 
   //const char* filetag[8]={"TTGJets_2018","TTGJets_2017","TTGJets_2016","Run2_TTGJets","WGJets_2018","WGJets_2017","WGJets_2016","Run2_WGJets"};
-  char* hname = new char [200];
-  sprintf(hname, "Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");//Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");
-  char* hname1 = new char [200];
-  sprintf(hname1, "Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root");//"TF_Electron_LLEstimation_binsV0_phoID_%s_08Aug23.root",phoID);
-  char* hname2 = new char [200];
-  sprintf(hname2, "Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root");// "TF_allin1_LLEstimation_binsV0_phoID_%s_08Aug23.root",phoID);
-  TFile* f_TFbins= new TFile(hname);
-  TFile* f_TFbins_v1 =new TFile(hname1);
-  TFile* f_TFbins_v2= new TFile(hname2);
-  sprintf(hname2, "Lepton_LL_TFv4_nJetsBjets_MET_phopT_phoID_loose_09Jan24.root");
+  // char* hname = new char [200];
+  // sprintf(hname, "Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");//Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root");
+  // char* hname1 = new char [200];
+  // sprintf(hname1, "Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root");//"TF_Electron_LLEstimation_binsV0_phoID_%s_08Aug23.root",phoID);
+ char* hname2 = new char [200];
+  // sprintf(hname2, "Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root");// "TF_allin1_LLEstimation_binsV0_phoID_%s_08Aug23.root",phoID);
+  // TFile* f_TFbins= new TFile(hname);
+  // TFile* f_TFbins_v1 =new TFile(hname1);
+  // TFile* f_TFbins_v2= new TFile(hname2);
+ sprintf(hname2, "Lepton_LL_TFv7_HT_bjets_phopT_PhoId%s_phoID_loose_09Jan24.root",phoID);//Lepton_LL_TFv4_nJetsBjets_MET_phopT_phoID_loose_09Jan24.root");
+ if(pho_ID_str.Contains("savePDFscaleUnc"))
+   sprintf(hname2, "Lepton_LL_TFv7_HT_bjets_MET_phopT_phoID_loose_09Jan24.root"); 
   TFile* f_TFbins_v4= new TFile(hname2);
-  sprintf(hname2, "Lepton_LL_TFv5_nBjets_MET_phopT_phoID_loose_09Jan24.root");
-  TFile* f_TFbins_v5= new TFile(hname2);
-  sprintf(hname2, "Lepton_LL_TFv6_ST_MET_phopT_phoID_loose_09Jan24.root");
-  TFile* f_TFbins_v6= new TFile(hname2);
+  // sprintf(hname2, "Lepton_LL_TFv5_nBjets_MET_phopT_phoID_loose_09Jan24.root");
+  // TFile* f_TFbins_v5= new TFile(hname2);
+  // sprintf(hname2, "Lepton_LL_TFv6_ST_MET_phopT_phoID_loose_09Jan24.root");
+  // TFile* f_TFbins_v6= new TFile(hname2);
   
   char* histname = new char[2000];
   TH1F* h_TF;
@@ -231,13 +256,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
  else
    sample1 = sample;
  sprintf(histname,"h_TFbins_LL_W+TTBar_FullRun2");//W+TTBar_FullRun2");//FullRun2");//h_TFbins_LL_W+TTBar_FullRun2");//2018",data);                                                                   
- h_TF = (TH1F*)f_TFbins->Get(histname);
+ h_TF = (TH1F*)f_TFbins_v4->Get(histname);
  sprintf(histname,"h_TFbins_LL_W+TTBar_FullRun2");//
- h_TF1 = (TH1F*)f_TFbins_v1->Get(histname);
- h_TF2 = (TH1F*)f_TFbins_v2->Get(histname);
+ h_TF1 = (TH1F*)f_TFbins_v4->Get(histname);
+ h_TF2 = (TH1F*)f_TFbins_v4->Get(histname);
  h_TF4 = (TH1F*)f_TFbins_v4->Get(histname);
- h_TF5 = (TH1F*)f_TFbins_v5->Get(histname);
- h_TF6 = (TH1F*)f_TFbins_v6->Get(histname);
+ h_TF5 = (TH1F*)f_TFbins_v4->Get(histname);
+ h_TF6 = (TH1F*)f_TFbins_v4->Get(histname);
  cout<<"Reading TF for lost electron estimation:  "<<"\t"<<histname<<endl;
  for(int i=0; i<h_TF->GetNbinsX();i++)
    {cout<<"TFBIns_v0"<<"\t"<<i<<"\t"<<h_TF->GetBinContent(i)<<endl;}
@@ -395,7 +420,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	Muons_v1 = getLorentzVector(Muons_,Muons_fCoordinates_fPt,Muons_fCoordinates_fEta,Muons_fCoordinates_fPhi,Muons_fCoordinates_fE);
 	Photons_v1 = getLorentzVector(Photons_,Photons_fCoordinates_fPt,Photons_fCoordinates_fEta,Photons_fCoordinates_fPhi,Photons_fCoordinates_fE);
 	Jets_v1 = getLorentzVector(Jets_,Jets_fCoordinates_fPt,Jets_fCoordinates_fEta,Jets_fCoordinates_fPhi,Jets_fCoordinates_fE);
-	
+	        JetsAK8_v1 = getLorentzVector(JetsAK8_,JetsAK8_fCoordinates_fPt,JetsAK8_fCoordinates_fEta,JetsAK8_fCoordinates_fPhi,JetsAK8_fCoordinates_fE);
+
 	if(!s_sample.Contains("data")) {
 	  GenElectrons_v1 = getLorentzVector(GenElectrons_,GenElectrons_fCoordinates_fPt,GenElectrons_fCoordinates_fEta,GenElectrons_fCoordinates_fPhi,GenElectrons_fCoordinates_fE);
 	  GenMuons_v1 = getLorentzVector(GenMuons_,GenMuons_fCoordinates_fPt,GenMuons_fCoordinates_fEta,GenMuons_fCoordinates_fPhi,GenMuons_fCoordinates_fE);
@@ -426,6 +452,17 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       // }
 
 
+      /// --- Varying cross section ----///
+
+      if(!s_data.Contains("data") && applysys && pho_ID_str.Contains("CrossSecUp"))
+	wt = wt*1.2;
+      else if(!s_data.Contains("data") && applysys && pho_ID_str.Contains("CrossSecDown"))
+        wt = wt*0.8;
+
+  if(s_data.Contains("data")) { jec2Use=0; jer2Use=0;}
+    //^^^^^^^^^^^^ Original/Nominal JEC/JER jets
+  if(applysys && pho_ID_str.Contains("JetSys"))
+    if(jec2Use!=0 || jer2Use!=0) changeJets(jec2Use, jer2Use, jet2Vary, varyMasswithJEC);
       //applying hemveto                                                                                                                                              
       bool HEMaffected=false;
       if(s_data.Contains("2018") && applyHEMveto){
@@ -447,9 +484,18 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	}
 
       // applying PU weight
-      if(!s_sample.Contains("data") && !s_sample.Contains("signal") && applyPUwt)
+      if(!s_sample.Contains("data") && !s_sample.Contains("signal") && applyPUwt) {
+	if(!applysys)
 	wt = wt*puWeight;
+	else
+	  {
+	    if(pho_ID_str.Contains("puSysUp"))
+	      wt = wt*puSysUp;
+	    else if (pho_ID_str.Contains("puSysDown"))
+	      wt = wt*puSysDown;
 
+	  }
+      }
       if(jentry<100 && (s_data.Contains("2016") ||  s_data.Contains("2017") ))
 	cout<<"after applying L1 trig prefire "<<wt<<"\t"<< NonPrefiringProb<<endl;
       int ele_branch=Electrons_;
@@ -1000,17 +1046,22 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     }
     double corrbtag = 1.0;
     if(!s_sample.Contains("data") && applybTagSFs){
-      corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue);
-      if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<endl;
+      corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,0);
+      //if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<endl;
       // if(corrbtag!=1)
       // 	cout<<jentry<<"\t"<<corrbtag<<"\t"<<wt<<endl;
+      if(applysys && pho_ID_str.Contains("btagSFup"))
+	corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,1);
+      if(applysys && pho_ID_str.Contains("btagSFdown"))
+        corrbtag = btagcorr.GetSimpleCorrection(hadJets,hadJets_hadronFlavor,hadJets_HTMask,hadJets_bJetTagDeepCSVBvsAll,deepCSVvalue,2);
+      if(jentry<10000) cout<<corrbtag<<"\t"<<wt<<"\t"<<applysys<<"\t"<<pho_ID_str<<endl;
       wt = wt * corrbtag;
     }
 
     //    double Ht = ST- bestPhoton.Pt();
     FillHistogram_Kinematics(1,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
-    if(mvaValue>mva_cut)
-      FillHistogram_Kinematics(43,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+    // if(mvaValue>mva_cut)
+    //   FillHistogram_Kinematics(43,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
      	 //    h_madminPhotonDeltaR_preSelection->Fill(madMinPhotonDeltaR,wt);
     if(Debug)
       cout<<" just before photon identification - prompt/non-prompt ========   ===="<<jentry<<endl;
@@ -1058,7 +1109,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     double wt_LL5 = wt*h_TF5->GetBinContent(TFbins5+1);
     int TFbins6 = getBin_3var_withST(ST,MET,bestPhoton.Pt()); 
     double wt_LL6 = wt*h_TF6->GetBinContent(TFbins6+1);
-
+    wt_LL = wt_LL4; // making it default TF bins 
     if (lost_elec_flag && nelec_reco == 1 && nmu_reco == 0){
       if(isoMuonTracks !=0 || isoPionTracks!=0) continue; // veto muon/pions from 1 electron CR
       if(Debug)
@@ -1078,9 +1129,19 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	// else
 	//   count_ematchJets+=wt;
 	FillHistogram_Kinematics(6, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	 if(savePDFscaleUnc && pho_ID_str.Contains("savePDFscaleUnc")){
+	   for(int si=0;si<ScaleWeights->size();si++){
+	     h_SBins_v7_CD_SP_scale_elec0[6]->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+	      h_SBins_v1_CD_SP_scale_elec0[6]->Fill(TFbins,si,wt*(*ScaleWeights)[si]);
+	   }
+	   for(int si=0;si<PDFweights->size();si++){
+            h_SBins_v7_CD_SP_pdf_elec0[6]->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+	    h_SBins_v1_CD_SP_pdf_elec0[6]->Fill(TFbins,si,wt*(*PDFweights)[si]);}
+        }
+
 	h_qmulti[6]->Fill(qmulti,wt);
-	if(mvaValue>mva_cut)
-	  FillHistogram_Kinematics(44,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// if(mvaValue>mva_cut)
+	//   FillHistogram_Kinematics(44,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	
 	FillHistogram_Kinematics_varBin(2,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
 	//      int TFbins = getBinNoV1_le(nHadJets,BTags);
@@ -1112,11 +1173,21 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
       mu_CR = true;
       if(mu_CR){
-	if(mvaValue>mva_cut)
-      FillHistogram_Kinematics(45,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+      // 	if(mvaValue>mva_cut)
+      // FillHistogram_Kinematics(45,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 
       FillHistogram_Kinematics_varBin(4,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
       FillHistogram_Kinematics(7, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+      if(savePDFscaleUnc && pho_ID_str.Contains("savePDFscaleUnc")){
+	for(int si=0;si<ScaleWeights->size();si++){
+	  h_SBins_v7_CD_SP_scale_elec0[7]->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+	  h_SBins_v1_CD_SP_scale_elec0[7]->Fill(TFbins,si,wt*(*ScaleWeights)[si]);
+	}
+	for(int si=0;si<PDFweights->size();si++){
+	  h_SBins_v7_CD_SP_pdf_elec0[7]->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+	  h_SBins_v1_CD_SP_pdf_elec0[7]->Fill(TFbins,si,wt*(*PDFweights)[si]);}
+      }
+      
       //int TFbins = getBinNoV1_le(nHadJets,BTags);
       int searchBin = getBinNoV6_WithOnlyBLSelec(nHadJets,BTags);
       if(searchBin==35 || searchBin==34)
@@ -1177,7 +1248,16 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     }
 
     if(Debug) cout<<"=== Just before 0 lepton SR === "<<jentry<<endl;
-    
+
+    /// Studying the impact of pdf and scale weights ///
+    // if(savePDFscaleUnc && pho_ID_str.Contains("savePDFscaleUnc")){
+    //   if(elec_CR || mu_CR){
+    //   for(int si=0;si<ScaleWeights->size();si++)
+    // 	h_SBins_v7_CD_SP_scale_elec1->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+    //   for(int si=0;si<PDFweights->size();si++)
+    // 	h_SBins_v7_CD_SP_pdf_elec1->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+    //   }
+    // }
     ////////////////////////////////////////////////////////////////////////////////////                                                        
     //  ====  ========== ======== 0 lepton + 1photon SR for LL  =====================  ///                                                       
     ///////////////////////////////////////////////////////////////////////////////////     
@@ -1205,13 +1285,23 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_mindR_Vs_pTratio_elec_pho[3]->Fill( bestPhoton.DeltaR(v_genEle2[0]),v_genEle2[0].Pt()/bestPhoton.Pt(),wt);}
       if(elec_SR && MET>100){ FillHistogram_Kinematics(8, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	h_qmulti[8]->Fill(qmulti,wt);
-	if(mvaValue>mva_cut)
-	  FillHistogram_Kinematics(46,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// if(mvaValue>mva_cut)
+	//   FillHistogram_Kinematics(46,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 	
 	 FillHistogram_Kinematics_varBin(3,nHadJets, BTags, bestPhoton.Pt(),ST,wt);}
       // Events falling into e SR due to failing different acceptance, ID, ISo criteria
       double dR = 9999;
       if(elec_SR){
+	if(savePDFscaleUnc && pho_ID_str.Contains("savePDFscaleUnc")){
+           for(int si=0;si<ScaleWeights->size();si++){
+             h_SBins_v7_CD_SP_scale_elec0[8]->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+              h_SBins_v1_CD_SP_scale_elec0[8]->Fill(TFbins,si,wt*(*ScaleWeights)[si]);
+           }
+           for(int si=0;si<PDFweights->size();si++){
+            h_SBins_v7_CD_SP_pdf_elec0[8]->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+            h_SBins_v1_CD_SP_pdf_elec0[8]->Fill(TFbins,si,wt*(*PDFweights)[si]);}
+        }
+	
 	for(int i=0;i<v_genEle2.size();i++){
 	  if(v_genEle2[i].Pt()>10 && abs(v_genEle2[i].Eta())<2.5){ genElec_passAccep=true; genElec_passEtacut=true; genElec_passpTcut=true;}
 	  else {genElec_passAccep = false; if(v_genEle2[i].Pt()<10) genElec_passpTcut = false; if(abs(v_genEle2[i].Eta())>2.5) genElec_passEtacut=false;}		  
@@ -1248,18 +1338,40 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       //if(fakeElectron) continue;
       if(!fakeElectron) mu_SR = true;
       if(mu_SR && MET>100) FillHistogram_Kinematics_varBin(5,nHadJets, BTags, bestPhoton.Pt(),ST,wt);
-
+      
       if(((s_sample.Contains("WGJets") || s_sample.Contains("WJets"))&& nGentau_had1>0) ||( (s_sample.Contains("TTGJets") || s_sample.Contains("TTJets")) && (nGentau_had1>1 || (nGentau_had1>0 && nGenMu1==0)))) // nGenTauHad>0 scenario for cases where T-->hadTau and T--> qq
 	tauHad_SR = true;
       if(mu_SR && !tauHad_SR && MET>100){ FillHistogram_Kinematics(14, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
-	if(mvaValue>mva_cut)
-      FillHistogram_Kinematics(47,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+      // 	if(mvaValue>mva_cut)
+      // FillHistogram_Kinematics(47,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
       }
       if(mu_SR && tauHad_SR && MET>100) {FillHistogram_Kinematics(20, nHadJets, BTags, bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
-	if(mvaValue>mva_cut)
-	  FillHistogram_Kinematics(48,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
+	// if(mvaValue>mva_cut)
+	//   FillHistogram_Kinematics(48,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht);
 
       }
+      if(savePDFscaleUnc && pho_ID_str.Contains("savePDFscaleUnc")){
+	if(mu_SR && !tauHad_SR){
+           for(int si=0;si<ScaleWeights->size();si++){
+             h_SBins_v7_CD_SP_scale_elec0[14]->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+              h_SBins_v1_CD_SP_scale_elec0[14]->Fill(TFbins,si,wt*(*ScaleWeights)[si]);
+           }
+           for(int si=0;si<PDFweights->size();si++){
+            h_SBins_v7_CD_SP_pdf_elec0[14]->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+            h_SBins_v1_CD_SP_pdf_elec0[14]->Fill(TFbins,si,wt*(*PDFweights)[si]);}
+	}
+	if(mu_SR && tauHad_SR){
+	   for(int si=0;si<ScaleWeights->size();si++){
+             h_SBins_v7_CD_SP_scale_elec0[20]->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+	     h_SBins_v1_CD_SP_scale_elec0[20]->Fill(TFbins,si,wt*(*ScaleWeights)[si]);
+           }
+           for(int si=0;si<PDFweights->size();si++){
+            h_SBins_v7_CD_SP_pdf_elec0[20]->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+            h_SBins_v1_CD_SP_pdf_elec0[20]->Fill(TFbins,si,wt*(*PDFweights)[si]);}
+        }
+
+      }
+
       // Events falling into e SR due to failing different acceptance, ID, ISo criteria                                                          
       double dR = 9999;
       if(mu_SR){
@@ -1323,8 +1435,15 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       else if(!genMu_passIso && genMu_passId && genMu_passAccep) FillHistogram_Kinematics(17,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt,mvaValue,Ht); }
 	 }
 
-
-      
+     
+	 // if(savePDFscaleUnc && pho_ID_str.Contains("savePDFscaleUnc")){
+	 //   if(elec_SR || mu_SR || tauHad_SR ){
+	 //     for(int si=0;si<ScaleWeights->size();si++)
+	 //       h_SBins_v7_CD_SP_scale_elec0->Fill(TFbins4,si,wt*(*ScaleWeights)[si]);
+	 //     for(int si=0;si<PDFweights->size();si++)
+	 //       h_SBins_v7_CD_SP_pdf_elec0->Fill(TFbins4,si,wt*(*PDFweights)[si]);
+	 //   }
+	 // }
     nsurVived+=wt;
     } //loop over entries
 
@@ -2463,6 +2582,7 @@ void AnalyzeLightBSM::FillHistogram_Kinematics(int i, int Njets, int btags, doub
   h_Sbins_LL_newSbins_v7_merge[i]->Fill(searchBin,wt);
 
   h_mvaResponse_baseline[i]->Fill(mvaValue,wt);
+
   
 }
 void AnalyzeLightBSM::FillTFBins_Valid(int i, int Njets, int btags, double wt,double wt1, double wt2,double wt4, double wt5, double wt6, double pho_Pt, double ST){
@@ -2564,3 +2684,111 @@ int AnalyzeLightBSM::Photons_OriginType(){
 //   return mvaValue;
 //   delete reader1;
 // }
+
+
+void AnalyzeLightBSM::changeJets(int jec2Use, int jer2Use, int jet2Vary, bool varyMasswithJEC){
+  if((jec2Use*jer2Use)!=0) return;
+  if(jet2Vary!=4 && jet2Vary!=8 && jet2Vary!=48 && jet2Vary!=84) return;
+  
+  if(jet2Vary==4 || jet2Vary==48 || jet2Vary==84){
+    TLorentzVector iJet;
+    vector<TLorentzVector> jets;
+    if(jec2Use==-1){ BTagsDeepCSV = BTagsDeepCSVJECdown; MET = (*METDown)[1]; METPhi = (*METPhiDown)[1]; JetID = JetIDJECdown; NJets = NJetsJECdown; HT = HTJECdown;}
+    else if(jec2Use== 1){ BTagsDeepCSV = BTagsDeepCSVJECup; MET = (*METUp)[1]; METPhi = (*METPhiUp)[1]; JetID = JetIDJECup; NJets = NJetsJECup; HT = HTJECup;}
+    else if(jer2Use==-1){ BTagsDeepCSV = BTagsDeepCSVJERdown; MET = (*METDown)[0]; METPhi = (*METPhiDown)[0]; JetID = JetIDJERdown; NJets = NJetsJERdown; HT = HTJERdown;}
+    else if(jer2Use== 1){ BTagsDeepCSV = BTagsDeepCSVJERup; MET = (*METUp)[0]; METPhi = (*METPhiUp)[0]; JetID = JetIDJERup; NJets = NJetsJERup; HT = HTJERup;}
+  
+    //---- looking at https://github.com/kpedro88/Analysis/blob/da0bb3e24e04768d3c205b45cbd74b18e638133c/KCode/KSkimmerVariators.h#L409-L436
+    const auto& JetsUnc_origIndex = (jec2Use== 1)?*JetsJECup_origIndex:(jec2Use==-1)?*JetsJECdown_origIndex:(jer2Use==1)?*JetsJERup_origIndex:(jer2Use==-1)?*JetsJERdown_origIndex:*Jets_origIndex; //last one is a dummy value
+    const auto& JetsUnc_jerFactor = (jec2Use== 1)?*JetsJECup_jerFactor:(jec2Use==-1)?*JetsJECdown_jerFactor:*Jets_jerFactor; //last one is a dummy value
+    const auto& Jets_unc = (jec2Use== 1)?*Jets_jecUnc:(jec2Use==-1)?*Jets_jecUnc:(jer2Use==1)?*Jets_jerFactorUp:(jer2Use==-1)?*Jets_jerFactorDown:*Jets_jecFactor; //last one is a dummy value
+    
+    vector<int> newIndex(Jets_origIndex->size(),-1);
+    for(unsigned k = 0; k < Jets_origIndex->size(); ++k){
+      //reverse the index vector
+      newIndex[(*Jets_origIndex)[k]] = k;
+    }
+    for(unsigned j = 0; j < JetsUnc_origIndex.size(); ++j){
+      //Jets[Unc]_origIndex is sorted in the final order after uncertainty variation is applied
+      //go up to common ancestor, then down to central smeared collection
+      int i = newIndex[JetsUnc_origIndex[j]];
+      //undo central smearing, apply JEC unc, redo smearing w/ new smearing factor
+      if(jec2Use== 1)       jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+      else if(jec2Use== -1) jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*(1-Jets_unc[i])*JetsUnc_jerFactor[j]);
+      else if(jer2Use==  1) jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*Jets_unc[i]);
+      else if(jer2Use== -1) jets.push_back(Jets_v1[i]*(1./(*Jets_jerFactor)[i])*Jets_unc[i]);
+      p_PtJECJERFac->Fill(Jets_v1[i].Pt(),(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+      p_EtaJECJERFac->Fill(Jets_v1[i].Eta(),(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+      p2_EtaPtJECJERFac->Fill(Jets_v1[i].Eta(),Jets_v1[i].Pt(),(1./(*Jets_jerFactor)[i])*(1+Jets_unc[i])*JetsUnc_jerFactor[j]);
+    }
+    sortTLorVec(&jets);
+    if(Jets_v1.size()!=jets.size()){
+      cout<<"oooooo.... Jets size:"<<Jets_v1.size()<<" jets size:"<<jets.size()<<endl;
+      return;
+    }
+    for(int i=0;i<jets.size();i++){
+      //      if(EvtNum==207632 || EvtNum == 2055901){
+      Jets_v1[i] = jets[i];
+    }
+  }//AK4 jets
+  //---------------For AK8 jets
+  if(jet2Vary==8 || jet2Vary==48 || jet2Vary==84){
+    TLorentzVector iJet;
+    vector<TLorentzVector> jets;
+    const auto& JetsAK8Unc_origIndex = (jec2Use== 1)?*JetsAK8JECup_origIndex:(jec2Use==-1)?*JetsAK8JECdown_origIndex:(jer2Use==1)?*JetsAK8JERup_origIndex:(jer2Use==-1)?*JetsAK8JERdown_origIndex:*JetsAK8_origIndex; //last one is a dummy value
+    const auto& JetsAK8Unc_jerFactor = (jec2Use== 1)?*JetsAK8JECup_jerFactor:(jec2Use==-1)?*JetsAK8JECdown_jerFactor:*JetsAK8_jerFactor; //last one is a dummy value
+    const auto& JetsAK8_unc = (jec2Use== 1)?*JetsAK8_jecUnc:(jec2Use==-1)?*JetsAK8_jecUnc:(jer2Use==1)?*JetsAK8_jerFactorUp:(jer2Use==-1)?*JetsAK8_jerFactorDown:*JetsAK8_jecFactor; //last one is a dummy value
+    
+    // if(EvtNum==207632 || EvtNum == 2055901){
+    vector<int> newIndexAK8(JetsAK8_origIndex->size(),-1);
+    for(unsigned k = 0; k < JetsAK8_origIndex->size(); ++k){
+      //reverse the index vector
+      newIndexAK8[(*JetsAK8_origIndex)[k]] = k;
+    }
+    for(unsigned j = 0; j < JetsAK8Unc_origIndex.size(); ++j){
+      //JetsAK8[Unc]_origIndex is sorted in the final order after uncertainty variation is applied
+      //go up to common ancestor, then down to central smeared collection
+      int i = newIndexAK8[JetsAK8Unc_origIndex[j]];
+      //undo central smearing, apply JEC unc, redo smearing w/ new smearing factor
+      if(jec2Use== 1)       jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*(1+JetsAK8_unc[i])*JetsAK8Unc_jerFactor[j]);
+      else if(jec2Use== -1) jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*(1-JetsAK8_unc[i])*JetsAK8Unc_jerFactor[j]);
+      else if(jer2Use==  1) jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*JetsAK8_unc[i]);
+      else if(jer2Use== -1) jets.push_back(JetsAK8_v1[i]*(1./(*JetsAK8_jerFactor)[i])*JetsAK8_unc[i]);
+    }
+    sortTLorVec(&jets);
+    if(JetsAK8_v1.size()!=jets.size()){
+      cout<<"oooooo.... JetsAK8 size:"<<JetsAK8_v1.size()<<" jets AK8 size:"<<jets.size()<<endl;
+      return;
+    }
+    //get corrections for AK8 mass using Pt corrections applied.
+    vector<double> ak8SDmass;
+    for(int j=0;j<jets.size();j++){
+      double mindr = 1000.;
+      int mindrIdx = -1;
+      for(int J=0;J<JetsAK8_v1.size();J++){
+	if(jets[j].DeltaR(JetsAK8_v1[J]) < mindr){
+	  mindr = jets[j].DeltaR(JetsAK8_v1[J]);
+	  mindrIdx = J;
+	}
+      }
+      ak8SDmass.push_back(((*JetsAK8_softDropMass)[mindrIdx]) * (jets[j].Pt() / JetsAK8_v1[mindrIdx].Pt()));
+    }
+    for(int i=0;i<jets.size();i++){
+      JetsAK8_v1[i] = jets[i];
+      float minDR_boson = 9999.;
+      int pdgBoson = 0, bosonIdx = -1;
+      for(int j=0;j<GenParticles_v1.size();j++){
+	if((abs((*GenParticles_PdgId)[j]) < 6) && (*GenParticles_ParentIdx)[j] >= 0 &&
+	   (minDR_boson > JetsAK8_v1[i].DeltaR(GenParticles_v1[(*GenParticles_ParentIdx)[j]])) ){
+	  minDR_boson = JetsAK8_v1[i].DeltaR(GenParticles_v1[(*GenParticles_ParentIdx)[j]]);
+	  pdgBoson = abs((*GenParticles_PdgId)[(*GenParticles_ParentIdx)[j]]);
+	  bosonIdx = (*GenParticles_ParentIdx)[j];
+	}
+      }
+      if(minDR_boson < 0.8 && (pdgBoson==23 || pdgBoson==24 || pdgBoson==25)){
+	//apply JMS & JMR
+      }
+      else if(varyMasswithJEC) (*JetsAK8_softDropMass)[i] = ak8SDmass[i];
+    }
+  }
+}

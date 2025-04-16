@@ -10,8 +10,17 @@ void splitRunList(string infile,int nfPerJob, string datasetAna, string process,
   //------------ needed for condor files --------------
   string exeCondor  = "worker2.sh";
   string exeAna     = "analyzeLightBSM";
-  //  string datasetAna = "SR";
-  string filesToTransfer = "map_crosssection_SMprocess_v1.txt, Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root,TMVAClassification_BDT_200trees_2maxdepth.weights.xml,BTagCorrector.h,Lepton_LL_TFv4_nbjets_HT_phopt_Oct24.root,Lepton_LL_TFv4_nJetsBjets_MET_phopT_phoID_loose_09Jan24.root,Lepton_LL_TFv5_nBjets_MET_phopT_phoID_loose_09Jan24.root,Lepton_LL_TFv6_ST_MET_phopT_phoID_loose_09Jan24.root" ;//,TF_allin1_LLEstimation_binsV0_phoID_mva_wp90_08Aug23.root,TF_allin1_LLEstimation_binsV0_phoID_loose_08Aug23.root";//, TF_allin1_LLEstimation_electron_newTFbins.root, TF_allin1_LLEstimation_muon_newTFbins.root, TMVAClassification_BDT_100trees_2maxdepth.weights.xml";
+  char* LL_files =  new char[100];
+  sprintf(LL_files,"Lepton_LL_TFv7_HT_bjets_phopT_PhoId%s_phoID_loose_09Jan24.root",phoID.c_str());
+  std::string s_LL_files = LL_files;
+  TString s_LL_filess = s_LL_files;
+  if(s_LL_filess.Contains("savePDFscaleUnc"))
+    {
+      sprintf(LL_files,"Lepton_LL_TFv7_HT_bjets_phopT_phoID_loose_09Jan24.root");
+      s_LL_files = LL_files;
+      s_LL_filess = s_LL_files;
+    }
+  string filesToTransfer = "map_crosssection_SMprocess_v1.txt,Lepton_LL_TFv7_HT_bjets_phopT_phoID_loose_09Jan24.root,TMVAClassification_BDT_200trees_2maxdepth.weights.xml,BTagCorrector.h,wp_deepCSV_UL2016preVFP_Oct162024.csv,wp_deepCSV_UL2016postVFP_Oct162024.csv,wp_deepCSV_UL2017_Oct162024.csv,wp_deepCSV_UL2018_Oct162024.csv";// Lepton_LL_TFbins_v1_nJetsBjets_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v2_nJetsBjets_PhoPt_phoID_loose_09Jan24.root,Lepton_LL_TFbins_v3_nJetsBjets_MET_phoID_loose_09Jan24.root,TMVAClassification_BDT_200trees_2maxdepth.weights.xml,BTagCorrector.h,Lepton_LL_TFv4_nJetsBjets_MET_phopT_phoID_loose_09Jan24.root,Lepton_LL_TFv5_nBjets_MET_phopT_phoID_loose_09Jan24.root,Lepton_LL_TFv6_ST_MET_phopT_phoID_loose_09Jan24.root,wp_deepCSV_UL2016preVFP_Oct162024.csv,wp_deepCSV_UL2016postVFP_Oct162024.csv,wp_deepCSV_UL2017_Oct162024.csv,wp_deepCSV_UL2018_Oct162024.csv,Lepton_LL_TFv7_HT_bjets_phopT_phoID_loose_09Jan24.root" ;//,TF_allin1_LLEstimation_binsV0_phoID_mva_wp90_08Aug23.root,TF_allin1_LLEstimation_binsV0_phoID_loose_08Aug23.root";//, TF_allin1_LLEstimation_electron_newTFbins.root, TF_allin1_LLEstimation_muon_newTFbins.root, TMVAClassification_BDT_100trees_2maxdepth.weights.xml";
   //---------------------------------------------------
   cout<<"executable at worker node : "<<exeCondor<<endl
       <<"Analysis executable : "<<exeAna<<endl
@@ -53,10 +62,10 @@ void splitRunList(string infile,int nfPerJob, string datasetAna, string process,
 	<<"Executable = "<<exeCondor<<endl
 	<<"request_disk = 1000000"<<endl
 	<<"request_cpus = 1"<<endl
-	<<"request_memory = 1.0GB"<<endl
+	<<"request_memory = 1.5GB"<<endl
 	<<"Should_Transfer_Files = YES"<<endl
 	<<"WhenToTransferOutput = ON_EXIT_OR_EVICT"<<endl
-	<<"Transfer_Input_Files = "<<filesToTransfer<<","<<exeAna<<","<<fileListName<<","<<endl
+	<<"Transfer_Input_Files = "<<filesToTransfer<<","<<exeAna<<","<<fileListName<<","<<s_LL_files<<","<<endl
       //	<<"PeriodicRemove = ( JobStatus == 2 ) && ( ( CurrentTime - EnteredCurrentStatus ) > 600 )"<<endl
 	<<"Output = "<<logFile<<".stdout"<<endl
 	<<"Error = "<<logFile<<".stderr"<<endl

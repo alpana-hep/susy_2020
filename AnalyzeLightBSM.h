@@ -13,7 +13,7 @@
 #include "TDirectory.h"
 #include"TGraphErrors.h"
 #include"TGraphAsymmErrors.h"
-
+#include <TProfile2D.h>
 #pragma link C++ class std::vector< std::vector >+; 
 #pragma link C++ class std::vector< TLorentzVector >+;
 
@@ -58,6 +58,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   int getBinNoV2_st(int,int, int, int);
   int   getBinNoV7_highMET(int, int);
   int getBinNoV16_le(int, int, double);
+    void changeJets(int, int, int, bool );
   std::vector<int>dR_recoPho_GenParticle(TLorentzVector);
   
   //Long64_t transMass(float , float, float, float);
@@ -83,7 +84,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<TLorentzVector> Muons_v1;
   vector<TLorentzVector> Taus_v1;
   vector<TLorentzVector> Jets_v1;
-  
+vector<TLorentzVector>   JetsAK8_v1;  
   int BTags;
   bool isSignal=false;
   /* vector<double> METLowEdge={200,270,350,450,750,2000}; */
@@ -155,7 +156,9 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_MET_validation_TFbins_v3[100];
   TH1F *h_St_validation_TFbins_v3[100];
   
-
+ TProfile *p_PtJECJERFac;
+  TProfile *p_EtaJECJERFac;
+  TProfile2D *p2_EtaPtJECJERFac;
   TH1F *h_Mt_PhoMET[60];
   TH1F *h_dPhi_PhoMET[60];
   TH1F *h_St[60];
@@ -431,7 +434,17 @@ class AnalyzeLightBSM : public NtupleVariables{
   
   TH1F *h_mvaResponse_baseline[60];
   TH1F *h_mvaResponse;
+
   
+  TH2D *h_SBins_v7_CD_SP_scale_elec0[100];
+  TH2D *h_SBins_v7_CD_SP_pdf_elec0[100];
+  TH2D *h_SBins_v7_CD_SP_scale_elec1[100];
+  TH2D *h_SBins_v7_CD_SP_pdf_elec1[100];
+  TH2D *h_SBins_v1_CD_SP_scale_elec0[100];
+  TH2D *h_SBins_v1_CD_SP_pdf_elec0[100];
+  TH2D *h_SBins_v1_CD_SP_scale_elec1[100];
+  TH2D *h_SBins_v1_CD_SP_pdf_elec1[100];
+
   /* TH1F *h_GenpT[31]; */
   /* TH1F *h_GenEta[31]; */
   /* TH1F *h_GenPhi[31]; */
@@ -571,7 +584,15 @@ void AnalyzeLightBSM::BookHistogram(const char *outFileName, const char *N2_mass
   /* h_pT_recovsGen = new TH2F(hname,"p_{T}: Gen electron vs reco electron",1000,0,2000, 1000,0,2000); */
   /* sprintf(hname,"h_eta_recoVsGen"); */
   /* h_eta_recoVsGen = new TH2F(hname,"Eta: Gen electron vs reco electron",500,-4,4,500,-4,4); */
-  
+ p_PtJECJERFac = new TProfile("PtJECJERFac","x:AK4 Jet Pt, y:JEC/JER factor",80,0,2000,0,3);
+  p_EtaJECJERFac = new TProfile("EtaJECJERFac","x:AK4 Jet Eta, y:JEC/JER factor",60,-6,6,0,3);
+  p2_EtaPtJECJERFac = new TProfile2D("EtaPtJECJERFac","x:AK4 Jet Eta, y:AK4 Jet Pt, z:JEC/JER factor",60,-6,6,80,0,2000,0,3);
+
+  //   h_SBins_v7_CD_SP_scale_elec1 = new TH2D("AllSBins_v7_CD_SP_scale_elec1","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,10,0,10);
+  // h_SBins_v7_CD_SP_scale_elec0 = new TH2D("AllSBins_v7_CD_SP_scale_elec0","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,10,0,10);
+  // h_SBins_v7_CD_SP_pdf_elec1 = new TH2D("AllSBins_v7_CD_SP_pdf_elec1","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,110,0,110);
+  // h_SBins_v7_CD_SP_pdf_elec0 = new TH2D("AllSBins_v7_CD_SP_pdf_elec0","search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,110,0,110);
+
       
   char check1[1000];
   for(int c =2; c<6;c++)//checks.size();c++)
@@ -757,7 +778,30 @@ char hist_name1[1000];
       h_dPhi_PhoMET[i]= new TH1F(hname_dPhi,hname_dPhi,200,0,5);
       h_St[i]=new TH1F(hname_st,hname_st,250,0,2500);
       h_HT[i]= new TH1F(hname_ht,hname_ht,250,0,2500);
-      
+       sprintf(hname_ht,"AllSBins_v7_CD_SP_scale_elec1_%s",baseline[i].c_str());
+
+      h_SBins_v7_CD_SP_scale_elec1[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,10,0,10);
+      sprintf(hname_ht,"AllSBins_v7_CD_SP_scale_elec0_%s",baseline[i].c_str());
+
+      h_SBins_v7_CD_SP_scale_elec0[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,10,0,10);
+      sprintf(hname_ht,"AllSBins_v7_CD_SP_pdf_elec1_%s",baseline[i].c_str());
+      h_SBins_v7_CD_SP_pdf_elec1[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,110,0,110);
+      sprintf(hname_ht,"AllSBins_v7_CD_SP_pdf_elec0_%s",baseline[i].c_str());
+      h_SBins_v7_CD_SP_pdf_elec0[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,110,0,110);
+
+       sprintf(hname_ht,"AllSBins_v1_CD_SP_scale_elec1_%s",baseline[i].c_str());
+
+      h_SBins_v1_CD_SP_scale_elec1[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,10,0,10);
+      sprintf(hname_ht,"AllSBins_v1_CD_SP_scale_elec0_%s",baseline[i].c_str());
+
+      h_SBins_v1_CD_SP_scale_elec0[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,10,0,10);
+      sprintf(hname_ht,"AllSBins_v1_CD_SP_pdf_elec1_%s",baseline[i].c_str());
+      h_SBins_v1_CD_SP_pdf_elec1[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,110,0,110);
+      sprintf(hname_ht,"AllSBins_v1_CD_SP_pdf_elec0_%s",baseline[i].c_str());
+      h_SBins_v1_CD_SP_pdf_elec0[i] = new TH2D(hname_ht,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] + EW : Wtag & Htag",20,1,21,110,0,110);
+
+
+
       
       sprintf(hname_njets,"h_NhadJets_validation_%s",baseline[i].c_str());
       sprintf(hname_nBjets,"h_NBJets_validation_%s",baseline[i].c_str());
