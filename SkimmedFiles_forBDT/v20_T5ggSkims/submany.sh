@@ -1,0 +1,38 @@
+./analyzeLightBSM input_gl2200_X1600_deltaM10.txt out_T5gg_2200_1600_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1600_deltaM30.txt out_T5gg_2200_1600_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1600_deltaM100.txt out_T5gg_2200_1600_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+./analyzeLightBSM input_gl2200_X1000_deltaM10.txt out_T5gg_2200_1000_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1000_deltaM30.txt out_T5gg_2200_1000_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1000_deltaM100.txt out_T5gg_2200_1000_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+./analyzeLightBSM input_gl2200_X700_deltaM10.txt out_T5gg_2200_700_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X700_deltaM30.txt out_T5gg_2200_700_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X700_deltaM100.txt out_T5gg_2200_700_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+./analyzeLightBSM input_gl2200_X300_deltaM10.txt out_T5gg_2200_300_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X300_deltaM30.txt out_T5gg_2200_300_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X300_deltaM100.txt out_T5gg_2200_300_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+
+./analyzeLightBSM input_gl2200_X500_deltaM10.txt out_T5gg_2200_500_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X500_deltaM30.txt out_T5gg_2200_500_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X500_deltaM100.txt out_T5gg_2200_500_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+./analyzeLightBSM input_gl2200_X1300_deltaM10.txt out_T5gg_2200_1300_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1300_deltaM30.txt out_T5gg_2200_1300_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1300_deltaM100.txt out_T5gg_2200_1300_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+./analyzeLightBSM input_gl2200_X1800_deltaM10.txt out_T5gg_2200_1800_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1800_deltaM30.txt out_T5gg_2200_1800_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X1800_deltaM100.txt out_T5gg_2200_1800_delM100.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+./analyzeLightBSM input_gl2200_X100_deltaM10.txt out_T5gg_2200_100_delM10.root FullRun2 T5bbbbZg_pprovasignalUL loose
+./analyzeLightBSM input_gl2200_X100_deltaM30.txt out_T5gg_2200_100_delM30.root FullRun2 T5bbbbZg_pprovasignalUL loose
+
+
+
+
+
+
+

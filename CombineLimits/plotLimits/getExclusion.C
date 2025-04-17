@@ -55,7 +55,7 @@ void getExclusion(TString fName){
   gr2dXsec->SetMinimum(0.0);
   gr2dXsec->Draw("COLZ");
   gr1d->Draw("C");
- gr1d->SetName("gr1d_xseclimit");
+  gr1d->SetName("gr1d_xseclimit");
   gr2dXsec->SetTitle(";m_{#tilde{g}}(GeV);m_{#tilde{#chi}_{1}^{0}}(GeV)");
   // gr2dXsec->GetXaxis()->SetTitleSize(0.05);
   // gr2dXsec->GetXaxis()->SetLabelSize(0.05);

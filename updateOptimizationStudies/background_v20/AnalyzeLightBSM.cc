@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
   AnalyzeLightBSM ana(inputFileList, outFileName, data,sample, phoID);
   cout << "dataset " << data << " " << endl;
-  // cout<<"If analyzing the lost electron estimation ? "<<"  "<<elec<<endl;
+    // cout<<"If analyzing the lost electron estimation ? "<<"  "<<elec<<endl;
   cout<<"Which pho_ID: "<<"\t"<<phoID<<endl;
   ana.EventLoop(data,inputFileList,sample,outFileName,phoID);
   Tools::Instance();
@@ -141,12 +141,33 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
   cout<<"Calculating the weight for process "<<s_cross<<" deepCSVvalue  "<<deepCSVvalue<<"\t"<<"sdata  "<<s_data<<"\t"<<"s_sample "<<s_sample<<endl;
   cout<<"Trigger efficiency flag "<<applyTrgEff<<" p0 "<<p0<<"  p1  "<<p1<<"  p2 "<< p2<<endl;
+  
   std::string s_process = s_cross;
-  TString s_Process = s_process;
+   TString s_Process = s_process;
+  if(s_Process.Contains("2018.WGJets_MonoPhoton_PtG-40to130"))
+    s_process = "2018.WGJets_MonoPhoton_PtG-40to130";
+  else if (s_Process.Contains("2018.WGJets_MonoPhoton_PtG-130"))
+    s_process =	"2018.WGJets_MonoPhoton_PtG-130";
+  else if(s_Process.Contains("2017.WGJets_MonoPhoton_PtG-40to130"))
+    s_process =	"2017.WGJets_MonoPhoton_PtG-40to130";
+  else if (s_Process.Contains("2017.WGJets_MonoPhoton_PtG-130"))
+    s_process = "2017.WGJets_MonoPhoton_PtG-130";
+
+  if(s_Process.Contains("2016postVFP.WGJets_MonoPhoton_PtG-40to130"))
+    s_process =	"2016postVFP.WGJets_MonoPhoton_PtG-40to130";
+  else if (s_Process.Contains("2016postVFP.WGJets_MonoPhoton_PtG-130"))
+    s_process = "2016postVFP.WGJets_MonoPhoton_PtG-130";
+
+  if(s_Process.Contains("2016preVFP.WGJets_MonoPhoton_PtG-40to130"))
+    s_process =	"2016preVFP.WGJets_MonoPhoton_PtG-40to130";
+  else if (s_Process.Contains("2016preVFP.WGJets_MonoPhoton_PtG-130"))
+    s_process = "2016preVFP.WGJets_MonoPhoton_PtG-130";
+  cout<<"Calculating the weight for process "<<s_process<< "   " <<"\t"<<s_Process<<"\t"<<s_data<<"\t"<<"s_sample "<<s_sample<<endl;
+    //  TString s_Process = s_process;
   double cross_section = getCrossSection(s_process);
   cout<<cross_section<<"\t"<<"analyzed process"<<"\t"<<s_cross<<endl;
  //  cout<<"Event"<<"\t"<<"par-ID "<<"\t"<<"parentID"<<"\t"<<"GenMET"<<"\t"<<"MET"<<"\t"<<"pT"<<"\t"<<"Eta"<<"\t"<<"Phi"<<"\t"<<"E"<<endl;
-
+double mva_cut =0.0, mva_cut1 =0.0;
   float met=0.0,st=0.0, njets=0, btags=0,mTPhoMet=0.0,dPhi_PhoMet=0.0,dPhi_MetJet1=0.0,PhoPt=0.0,dPhi_Pho_Jet2=0.0,dPhi_Pho_Jet1=0.0,LeadJets1Pt=0.0\
     ,LeadJets2Pt=0.0,dPhi_MetJet2=0.0;
 
@@ -158,14 +179,84 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
   reader1->AddVariable("dPhi_PhoMET_",&dPhi_PhoMet);
   reader1->AddVariable("dPhi_Met_Jet1",&dPhi_MetJet1);
   reader1->AddVariable( "ST", &st );
-  // reader1->AddVariable("PhoPt",&PhoPt);
-  // reader1->AddVariable("dPhi_Met_Jet2",&dPhi_MetJet2);
-  // reader1->AddVariable("dPhi_Pho_Jet2",&dPhi_Pho_Jet2);
-  // reader1->AddVariable("dPhi_Pho_Jet1",&dPhi_Pho_Jet1);
-  // reader1->AddVariable("LeadJets1Pt",&LeadJets1Pt);
-  // reader1->AddVariable("LeadJets2Pt",&LeadJets2Pt);
-  reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_BDT_200trees_2maxdepth.weights.xml");
+  reader1->AddVariable("PhoPt",&PhoPt);
+  reader1->AddVariable("dPhi_Met_Jet2",&dPhi_MetJet2);
+  reader1->AddVariable("dPhi_Pho_Jet2",&dPhi_Pho_Jet2);
+  reader1->AddVariable("dPhi_Pho_Jet1",&dPhi_Pho_Jet1);
+  reader1->AddVariable("LeadJets1Pt",&LeadJets1Pt);
+  reader1->AddVariable("LeadJets2Pt",&LeadJets2Pt);
 
+  TMVA::Reader *reader2 = new TMVA::Reader();
+  reader2->AddVariable( "MET", &met );
+  reader2->AddVariable( "NhadJets", &njets );
+  reader2->AddVariable( "NbJets", &btags );
+  reader2->AddVariable("mTPhoMET_",&mTPhoMet);
+  reader2->AddVariable("dPhi_PhoMET_",&dPhi_PhoMet);
+  reader2->AddVariable("dPhi_Met_Jet1",&dPhi_MetJet1);
+  reader2->AddVariable( "ST", &st );
+  reader2->AddVariable("PhoPt",&PhoPt);
+  reader2->AddVariable("dPhi_Met_Jet2",&dPhi_MetJet2);
+  reader2->AddVariable("dPhi_Pho_Jet2",&dPhi_Pho_Jet2);
+  reader2->AddVariable("dPhi_Pho_Jet1",&dPhi_Pho_Jet1);
+  reader2->AddVariable("LeadJets1Pt",&LeadJets1Pt);
+  reader2->AddVariable("LeadJets2Pt",&LeadJets2Pt);
+
+    if(s_sample.Contains("TChiNG")) {
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_TChiNG_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = -0.03;
+  }
+  if(s_sample.Contains("TChiWG")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_TChiWG_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = -0.05;
+  }
+  if(s_sample.Contains("T6ttZg")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T6ttZg_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = -0.01;
+  }
+  if(s_sample.Contains("T5ttttZg")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5ttttZg_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = -0.02;
+  }
+  if(s_sample.Contains("T5bbbbZg") && !s_sample.Contains("T5bbbbZg_2BDT") && !s_sample.Contains("T5bbbbZg_NLSP")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = 0.0;
+  }
+  if(s_sample.Contains("T5qqqqHg")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5qqqqHg_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = -0.03;
+  }
+
+  if(s_sample.Contains("T5bbbbZg_NLSP10")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_NLSP10_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+     mva_cut = 0.0;
+  }
+if(s_sample.Contains("T5bbbbZg_NLSP200")){
+    reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_NLSP200_Phopt40_MET200_13variables_200trees_2maxdepth.weights.xml");
+    mva_cut = -0.01;
+  }
+
+   if(s_sample.Contains("T5bbbbZg_2BDT_ST"))
+     {
+       reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_Phopt40_MET200_ST300to1500_13variables_200trees_2maxdepth.weights.xml");
+       reader2->BookMVA( "BDT1_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_Phopt40_MET200_ST1500_13variables_200trees_2maxdepth.weights.xml");
+       mva_cut = 0.02 ;
+       mva_cut1= -0.0;
+     }
+     if(s_sample.Contains("T5bbbbZg_2BDT_phopt"))
+     {
+       reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_Phopt40to100_MET200_13variables_200trees_2maxdepth.weights.xml");
+       reader2->BookMVA( "BDT1_200trees_2maxdepth method", "TMVAClassification_T5bbbbZg_Phopt100_MET200_13variables_200trees_2maxdepth.weights.xml");
+       mva_cut= -0.01;
+       mva_cut1 = 0.01;
+     }
+
+     if(s_sample.Contains("T5gg")){
+       reader1->BookMVA("BDT_200trees_2maxdepth method", "TMVAClassification_BDT_200trees_2maxdepth.weights.xml");
+       mva_cut = -0.03;
+     }
+
+  //reader1->BookMVA( "BDT_200trees_2maxdepth method", "TMVAClassification_BDT_200trees_2maxdepth.weights.xml");
+  
   float nsurVived=0.0;
   int searchBin=0, Tfbins=0;
   float nCR_elec =0,nCR_mu=0,nCR_Tau=0,nSR_elec =0,nSR_mu=0,nSR_Tau=0, FailIso_Elec=0,FailIso_Mu=0, FailAccept_Elec=0,FailAccept_Mu=0, FailId_Elec=0,FailId_Mu=0, PassIso_Elec=0,PassIso_Mu=0, PassAccept_Elec=0,PassAccept_Mu=0, PassId_Elec=0,PassId_Mu=0, nfakeRatePho=0,wt_LL=0.0;
@@ -233,10 +324,10 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       if(Debug)
         cout<<"===load tree entry ==="<<jentry<<endl;
-      if(s_Process.Contains("2018.WGJets_MonoPhoton_PtG-40to130UL")|| s_Process.Contains("2018.WGJets_MonoPhoton_PtG-130UL")|| s_Process.Contains("2016preVFP.WGJets_MonoPhoton_PtG-40to130UL") ||s_Process.Contains("2016preVFP.WGJets_MonoPhoton_PtG-130UL") || s_Process.Contains("2017.WGJets_MonoPhoton_PtG-40to130UL")||s_Process.Contains("2017.WGJets_MonoPhoton_PtG-130UL")|| s_Process.Contains("2016postVFP.WGJets_MonoPhoton_PtG-130UL")||s_Process.Contains("2016postVFP.WGJets_MonoPhoton_PtG-40to130UL")) //(s_data.Contains("2016") || s_data.Contains("2017") || s_data.Contains("2018") || s_sample.Contains("WGJets"))
+      if(s_Process.Contains("2018.WGJets_MonoPhoton_PtG-40to130")|| s_Process.Contains("2018.WGJets_MonoPhoton_PtG-130")|| s_Process.Contains("2016preVFP.WGJets_MonoPhoton_PtG-40to130") ||s_Process.Contains("2016preVFP.WGJets_MonoPhoton_PtG-130") || s_Process.Contains("2017.WGJets_MonoPhoton_PtG-40to130")||s_Process.Contains("2017.WGJets_MonoPhoton_PtG-130")|| s_Process.Contains("2016postVFP.WGJets_MonoPhoton_PtG-130")||s_Process.Contains("2016postVFP.WGJets_MonoPhoton_PtG-40to130")) //(s_data.Contains("2016") || s_data.Contains("2017") || s_data.Contains("2018") || s_sample.Contains("WGJets"))
       	{	  
 	  if(jentry==0)
-      	    cout<<cross_section<<"\t"<<"analyzed process"<<"\t"<<s_process<<endl;
+      	    cout<<"Alp" <<"\t"<<cross_section<<"\t"<<"analyzed process"<<"\t"<<s_process<<endl;
       	  wt = cross_section*lumiInfb*1000.0;//)/nentries; // Weight*lumiInfb*1000.0; //(cross_section*lumiInfb*1000.0)/nentries;
       	}
       else// if (s_data.Contains("2016") || s_data.Contains("2017") || s_data.Contains("2018"))// || s_sample.Contains("WGJets"))
@@ -652,6 +743,27 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     LeadJets2Pt = LeadJets2_Pt;
 
     Double_t mvaValue = reader1->EvaluateMVA( "BDT_200trees_2maxdepth method");
+     if(s_sample.Contains("T5bbbbZg_2BDT_phopt")){
+      if(bestPhoton.Pt()>40 && bestPhoton.Pt() <=100){
+        mvaValue = reader1->EvaluateMVA("BDT_200trees_2maxdepth method");
+        mva_cut = -0.01;
+      }
+      else{
+        mvaValue = reader2->EvaluateMVA("BDT1_200trees_2maxdepth method");
+        mva_cut = 0.01;
+      }
+    }
+    if(s_sample.Contains("T5bbbbZg_2BDT_ST")){
+      if(ST>300 && ST<=1500){
+        mvaValue = reader1->EvaluateMVA("BDT_200trees_2maxdepth method");
+	mva_cut = 0.02;
+      }
+      else {
+        mvaValue = reader2->EvaluateMVA("BDT1_200trees_2maxdepth method");
+        mva_cut =0.0;
+      }
+    }
+     
     if(mvaValue>0)
       cout<<mvaValue<<endl;
     FillHistogram_Kinematics(0,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
@@ -1244,16 +1356,17 @@ int AnalyzeLightBSM::getBinNoV1_ST_phopt_bjets(double pho_pt, double ST, int bje
 }
 int AnalyzeLightBSM::getBinNoV3_ST_MET_bjets(double Met, double ST, int bjets){
   int sBin=0, m_i=1,sBin1=0,n_i=0;
+  //  Treating MET as ST and ST as MET
   if(bjets==0){
-   for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+   for(int i=0;i<ST_bins.size()-1;i++){
     if(i!=0)
       m_i++;
-    if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
       {
         sBin = sBin+((m_i-1)*5);
         break;
       }
-    else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+    else if(Met >= ST_bins[ST_bins.size()-1])
       {
        	sBin = 20;
         break;
@@ -1262,25 +1375,25 @@ int AnalyzeLightBSM::getBinNoV3_ST_MET_bjets(double Met, double ST, int bjets){
    //   cout<<"sBin "<<sBin<<"\t"<<m_i<<"\t"<<Met<<"\t"<<ST<<"\t"<<METLowEdge_v3_1.size()<<"\t"<<METLowEdge_v3_1[METLowEdge_v3_1.size()-1]<<"\t"<< METLowEdge_v3_1[0]<<endl;
    if(sBin%5==0)
     {
-      for(int i=0;i<ST_bins.size()-1;i++){
+      for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
 	n_i++;
-        if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
-        else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
       }
     }
   }
 
   else {
     m_i=6;
-    for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+    for(int i=0;i<ST_bins.size()-1;i++){
       if(i!=0)
 	m_i++;
-    if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
         {
           sBin = sBin+((m_i-1)*5);
           break;
         }
-      else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+      else if(Met >= ST_bins[ST_bins.size()-1])
         {
           sBin = 45;
           break;
@@ -1289,10 +1402,10 @@ int AnalyzeLightBSM::getBinNoV3_ST_MET_bjets(double Met, double ST, int bjets){
     //cout<<"sBin "<<sBin<<"\t"<<m_i<<"\t"<<n_i<<"\t"<<Met<<"\t"<<ST<<"\t"<<METLowEdge_v3_1.size()<<"\t"<<METLowEdge_v3_1[METLowEdge_v3_1.size()-1]<<"\t"<< METLowEdge_v3_1[0]<<endl;                                                
     if(sBin%5==0)
       {
-        for(int i=0;i<ST_bins.size()-1;i++){
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
           n_i++;
-          if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
-          else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
         }
       }
 
@@ -1302,17 +1415,18 @@ int AnalyzeLightBSM::getBinNoV3_ST_MET_bjets(double Met, double ST, int bjets){
 
 int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bjets, double pho_pt){
   int sBin=0, m_i=1,sBin1=0,n_i=0;
+  //treating MET as ST and ST as MET 
   if(pho_pt<=100){
   if(bjets==0){
-   for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+   for(int i=0;i<ST_bins.size()-1;i++){
     if(i!=0)
       m_i++;
-    if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
       {
         sBin = sBin+((m_i-1)*5);
         break;
       }
-    else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+    else if(Met >= ST_bins[ST_bins.size()-1])
       {
         sBin = 20;
         break;
@@ -1320,25 +1434,25 @@ int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bj
   }                                                                                                           
    if(sBin%5==0)
      {
-       for(int i=0;i<ST_bins.size()-1;i++){
+       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
 	 n_i++;
-        if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
-        else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
        }
     }
   }
   
   else {
     m_i=6;
-    for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+    for(int i=0;i<ST_bins.size()-1;i++){
       if(i!=0)
         m_i++;
-    if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
         {
           sBin = sBin+((m_i-1)*5);
           break;
         }
-      else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+      else if(Met >= ST_bins[ST_bins.size()-1])
         {
           sBin = 45;
           break;
@@ -1346,10 +1460,10 @@ int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bj
     }
     if(sBin%5==0)
       {
-        for(int i=0;i<ST_bins.size()-1;i++){
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
           n_i++;
-          if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
-       	  else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+       	  else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
         }
       }
 
@@ -1359,15 +1473,15 @@ int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bj
   else {
     m_i=11;
     if(bjets==0){
-      for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+      for(int i=0;i<ST_bins.size()-1;i++){
 	if(i!=0)
 	  m_i++;
-	if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+	if(Met >= ST_bins[i] && Met < ST_bins[i+1])
 	  {
 	    sBin = sBin+((m_i-1)*5);
 	    break;
 	  }
-	else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+	else if(Met >= ST_bins[ST_bins.size()-1])
 	  {
 	    sBin = 70;
         break;
@@ -1375,25 +1489,25 @@ int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bj
   }
    if(sBin%5==0)
      {
-       for(int i=0;i<ST_bins.size()-1;i++){
+       for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
          n_i++;
-        if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
-        else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+        if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
        }
     }
   }
 
   else {
     m_i=16;
-    for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
+    for(int i=0;i<ST_bins.size()-1;i++){
       if(i!=0)
         m_i++;
-    if(Met >= METLowEdge_v3_1[i] && Met < METLowEdge_v3_1[i+1])
+    if(Met >= ST_bins[i] && Met < ST_bins[i+1])
         {
           sBin = sBin+((m_i-1)*5);
           break;
         }
-      else if(Met >= METLowEdge_v3_1[METLowEdge_v3_1.size()-1])
+      else if(Met >= ST_bins[ST_bins.size()-1])
         {
           sBin = 95;
           break;
@@ -1401,15 +1515,298 @@ int AnalyzeLightBSM::getBinNoV7_ST_MET_bjets_phopT(double Met, double ST, int bj
     }
     if(sBin%5==0)
       {
-        for(int i=0;i<ST_bins.size()-1;i++){
+        for(int i=0;i<METLowEdge_v3_1.size()-1;i++){
           n_i++;
-          if(ST>=ST_bins[i] && ST<ST_bins[i+1]) {sBin1=sBin+n_i; break;}
-          else if(ST>=ST_bins[ST_bins.size()-1]){sBin1=sBin+(ST_bins.size()-1); break;}
+          if(ST>=METLowEdge_v3_1[i] && ST<METLowEdge_v3_1[i+1]) {sBin1=sBin+n_i; break;}
+          else if(ST>=METLowEdge_v3_1[METLowEdge_v3_1.size()-1]){sBin1=sBin+(METLowEdge_v3_1.size()-1); break;}
         }
       }
 
   }
     
+  }
+
+  return sBin1;
+}
+int AnalyzeLightBSM::getBin_ST_MET_bjets_phopT_merge(double Met, double ST, int bjets, double pho_pt){
+  int sBin=0, m_i=1,sBin1=0,n_i=0;
+  if(pho_pt<=100){
+  if(bjets==0){
+   for(int i=0;i<ST_bins.size()-1;i++){
+    if(i!=0)
+      m_i++;
+    if(ST >= ST_bins[i] && ST < ST_bins[i+1])
+      {
+        sBin = sBin+((m_i-1)*4);
+        break;
+      }
+    else if(ST >= ST_bins[ST_bins.size()-1])
+      {
+        sBin = 16;
+        break;
+      }
+  }
+   if(sBin%4==0)
+     {
+       for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=6;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(ST >= ST_bins[i] && ST < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*4);
+          break;
+        }
+      else if(ST >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 36;
+          break;
+        }
+    }
+    if(sBin%4==0)
+      {
+        for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+          n_i++;
+          if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+          else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+else {
+    m_i=11;
+    if(bjets==0){
+      for(int i=0;i<ST_bins.size()-1;i++){
+        if(i!=0)
+          m_i++;
+        if(ST >= ST_bins[i] && ST < ST_bins[i+1])
+          {
+            sBin = sBin+((m_i-1)*4);
+            break;
+          }
+        else if(ST >= ST_bins[ST_bins.size()-1])
+          {
+            sBin = 56;
+        break;
+      }
+  }
+   if(sBin%4==0)
+     {
+       for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=16;
+    for(int i=0;i<ST_bins.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(ST >= ST_bins[i] && ST < ST_bins[i+1])
+        {
+          sBin = sBin+((m_i-1)*4);
+          break;
+        }
+      else if(ST >= ST_bins[ST_bins.size()-1])
+        {
+          sBin = 76;
+          break;
+        }
+    }
+    if(sBin%4==0)
+      {
+        for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+          n_i++;
+          if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+          else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+
+  return sBin1;
+}
+int AnalyzeLightBSM::getBin_ST_MET_bjets_phopT_merge_v1(double Met, double ST, int bjets, double pho_pt){
+  int sBin=0, m_i=1,sBin1=0,n_i=0;
+  int l_i=0;
+  if(pho_pt<=100){
+  if(bjets==0){
+   for(int i=0;i<ST_bins_v1.size()-1;i++){
+    if(i!=0)
+      m_i++;
+    if(ST >= ST_bins_v1[i] && ST < ST_bins_v1[i+1])
+      {
+	if(m_i==0)
+	  sBin=0;
+	else 
+	  sBin = sBin+i*5+1;
+        break;
+      }
+    else if(ST >= ST_bins_v1[ST_bins_v1.size()-1])
+      {
+        sBin = 21;
+        break;
+      }
+  }
+   if(sBin==0)
+     {
+       for(int i=0;i<METLowEdge_v3_merge_v1.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge_v1[i] && Met<METLowEdge_v3_merge_v1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge_v1[METLowEdge_v3_merge_v1.size()-1]){sBin1=sBin+(METLowEdge_v3_merge_v1.size()-1); break;}
+       }
+     }
+   else if (sBin<=21 && sBin>0)
+      {
+       for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+       }
+     }
+
+  }
+
+  else {
+    m_i=6;
+    for(int i=0;i<ST_bins_v1.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(ST >= ST_bins_v1[i] && ST < ST_bins_v1[i+1])
+        {
+	  if(m_i==6)
+	    sBin =26;
+	  else
+	    sBin = 32+((i-1)*5);
+          break;
+        }
+      else if(ST >= ST_bins_v1[ST_bins_v1.size()-1])
+        {
+          sBin = 47;
+          break;
+        }
+    }
+    if(sBin==26)
+     {
+       for(int i=0;i<METLowEdge_v3_merge_v1.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge_v1[i] && Met<METLowEdge_v3_merge_v1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge_v1[METLowEdge_v3_merge_v1.size()-1]){sBin1=sBin+(METLowEdge_v3_merge_v1.size()-1); break;}
+       }
+     }
+
+    if(sBin>26 && sBin<=47)
+      {
+        for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+          n_i++;
+          if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+          else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+        }
+      }
+
+  }
+
+  }
+else {
+    m_i=11;
+    if(bjets==0){
+      for(int i=0;i<ST_bins_v1.size()-1;i++){
+        if(i!=0)
+          m_i++;
+        if(ST >= ST_bins_v1[i] && ST < ST_bins_v1[i+1])
+          {
+	    if(m_i==11)
+	      sBin =52;
+	    else
+	      sBin = 58+((i-1)*5);
+          break;
+
+            // sBin = sBin+((m_i-1)*l_i);
+            // break;
+          }
+        else if(ST >= ST_bins_v1[ST_bins_v1.size()-1])
+          {
+            sBin = 73;
+        break;
+      }
+  }
+      if(sBin==52)
+     {
+       for(int i=0;i<METLowEdge_v3_merge_v1.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge_v1[i] && Met<METLowEdge_v3_merge_v1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge_v1[METLowEdge_v3_merge_v1.size()-1]){sBin1=sBin+(METLowEdge_v3_merge_v1.size()-1); break;}
+       }
+     }
+
+   if(sBin>52 && sBin<=73)
+     {
+       for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+       }
+    }
+  }
+
+  else {
+    m_i=16;
+    for(int i=0;i<ST_bins_v1.size()-1;i++){
+      if(i!=0)
+        m_i++;
+    if(ST >= ST_bins_v1[i] && ST < ST_bins_v1[i+1])
+        {
+	  if(m_i==16)
+	    sBin =78;
+	  else
+	    sBin = 78+((i-1)*5);
+          break;
+	  
+          // sBin = sBin+((m_i-1)*l_i);
+          // break;
+        }
+      else if(ST >= ST_bins_v1[ST_bins_v1.size()-1])
+        {
+          sBin = 98;
+          break;
+        }
+    }
+    if(sBin==78)
+     {
+       for(int i=0;i<METLowEdge_v3_merge_v1.size()-1;i++){
+         n_i++;
+        if(Met>=METLowEdge_v3_merge_v1[i] && Met<METLowEdge_v3_merge_v1[i+1]) {sBin1=sBin+n_i; break;}
+        else if(Met>=METLowEdge_v3_merge_v1[METLowEdge_v3_merge_v1.size()-1]){sBin1=sBin+(METLowEdge_v3_merge_v1.size()-1); break;}
+       }
+     }
+
+    if(sBin>78 && sBin<=98)
+      {
+        for(int i=0;i<METLowEdge_v3_merge.size()-1;i++){
+          n_i++;
+          if(Met>=METLowEdge_v3_merge[i] && Met<METLowEdge_v3_merge[i+1]) {sBin1=sBin+n_i; break;}
+          else if(Met>=METLowEdge_v3_merge[METLowEdge_v3_merge.size()-1]){sBin1=sBin+(METLowEdge_v3_merge.size()-1); break;}
+        }
+      }
+
+  }
+
   }
 
   return sBin1;
@@ -2366,7 +2763,7 @@ void AnalyzeLightBSM::FillHistogram_Kinematics(int i, int Njets, int btags, doub
   h_Sbins_LL_newSbins_v1[i]->Fill(searchBin,wt);
   searchBin =  getBinNoV2_ST_MET(MET,ST);
   h_Sbins_LL_newSbins_v2[i]->Fill(searchBin,wt);
-  searchBin = getBinNoV3_ST_MET_bjets (MET,ST,btags);
+  searchBin = getBinNoV3_ST_MET_bjets (ST,MET,btags);
   h_Sbins_LL_newSbins_v3[i]->Fill(searchBin,wt);
 
   searchBin = getBinNoV4_ST_Njets_bjets(Njets,btags,ST);
@@ -2376,28 +2773,34 @@ void AnalyzeLightBSM::FillHistogram_Kinematics(int i, int Njets, int btags, doub
   h_Sbins_LL_newSbins_v5[i]->Fill(searchBin,wt);
   searchBin = getBinNoV6_ST_Njets_bjets_PhopT(Njets,btags,ST,pho_Pt);
   h_Sbins_LL_newSbins_v6[i]->Fill(searchBin,wt);  
-  searchBin = getBinNoV7_ST_MET_bjets_phopT(MET,ST,btags,pho_Pt);
+  searchBin = getBinNoV7_ST_MET_bjets_phopT(ST,MET,btags,pho_Pt);
   h_Sbins_LL_newSbins_v7[i]->Fill(searchBin,wt);
+  searchBin = getBin_ST_MET_bjets_phopT_merge(MET,ST,btags,pho_Pt);
+  h_Sbins_LL_newSbins_v7_merge[i]->Fill(searchBin,wt);
   searchBin = getBinNoV8_ST_phoPT_Njetsbjets_MET(ST, pho_Pt, Njets,btags,MET);
   h_Sbins_LL_newSbins_v8[i]->Fill(searchBin,wt);
-
+  searchBin = getBin_ST_MET_bjets_phopT_merge_v1(MET,ST,btags,pho_Pt);
+  h_Sbins_LL_newSbins_v7_merge_v1[i]->Fill(searchBin,wt);
+  
   h_dPhi_METJet[i]->Fill(dphi_METJets,wt);
   h_Photon_Eta[i]->Fill(pho_eta,wt);
   h_Photon_Phi[i]->Fill(pho_phi,wt);
   h_MET_Phi[i]->Fill(METPhi, wt);
 
-  // h_ST_vs_EMObjPt[i]->Fill(pho_Pt,ST,wt);
+  h_ST_vs_EMObjPt[i]->Fill(pho_Pt,ST,wt);
   // h_Emobj_PtvsEta[i]->Fill(pho_Pt,pho_eta,wt);
   // h_Emobj_PtvsPhi[i]->Fill(pho_Pt,pho_phi,wt);
   // h_nJetsvsBjets[i]->Fill(Njets,btags,wt);
-  // h_nJetsvsMET[i]->Fill(MET,Njets,wt);
-  // h_nbJetsvsMET[i]->Fill(MET,btags,wt);
+  h_nJetsvsMET[i]->Fill(MET,Njets,wt);
+  h_nbJetsvsMET[i]->Fill(MET,btags,wt);
   // h_METvsMETPhi[i]->Fill(MET, METPhi,wt);
-  // h_STvsNjets[i]->Fill(ST, Njets,wt);
-  // h_STvsNbjets[i]->Fill(ST,btags,wt);
-  // h_METvsPhopT[i]->Fill(MET,pho_Pt,wt);
-  // h_phopTvsNjets[i]->Fill(pho_Pt,Njets,wt);
-  // h_phopTvsNbjets[i]->Fill(pho_Pt,btags,wt);
+  h_STvsNjets[i]->Fill(ST, Njets,wt);
+  h_STvsNbjets[i]->Fill(ST,btags,wt);
+  h_METvsPhopT[i]->Fill(MET,pho_Pt,wt);
+  h_phopTvsNjets[i]->Fill(pho_Pt,Njets,wt);
+  h_phopTvsNbjets[i]->Fill(pho_Pt,btags,wt);
+  h_STvsMET[i]->Fill(ST, MET,wt);
+
   // h_phopTvsMtphoMET[i]->Fill(pho_Pt,mt_phoMET,wt);
   if(btags==0)
     FR_nbtagBins[i]->Fill(1,wt);

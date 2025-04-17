@@ -44,6 +44,9 @@ class AnalyzeLightBSM : public NtupleVariables{
   int getBinNoV5_ST_Njets_bjets_MET(int, int,double, double);
   int getBinNoV6_ST_Njets_bjets_PhopT(int, int,double, double);
   int getBinNoV7_ST_MET_bjets_phopT(double, double, int , double);
+  int getBin_ST_MET_bjets_phopT_merge(double, double, int , double);
+  int getBin_ST_MET_bjets_phopT_merge_v1(double, double, int , double);
+
   int getBinNoV8_ST_phoPT_Njetsbjets_MET(double, double, int , int, double);
   int getBinNo_v1FR(double , int );
   int getBinNo_v0FR(double , double, double );
@@ -125,6 +128,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<double> METLowEdge_v2_2={100,200,300,370,450,600};
   vector<double> METLowEdge_v3={200,300,370,450,600,750,900};
   vector<double> METLowEdge_v3_1={200,300,370,450,600,750};
+  vector<double> METLowEdge_v3_merge={200,300,370,600,750};
   vector<double> METLowEdge_v3_2={200,300,370,450,600};
   vector<double> METLowEdge_v1={300,370,450,600,750,900};
   vector<double> METLowEdge_v1_1={300,370,450,600,750};
@@ -133,6 +137,8 @@ class AnalyzeLightBSM : public NtupleVariables{
   vector<double> ST_bins = {300,1000,1500,2000,2500,10000};
   vector<double> phoPt_bins = {40,100,150,200,400,10000};
   vector<double> BestPhotonPtBinLowEdge={40,70,100,120,140,160,200,240,300,450,600,1000};
+  vector<double> METLowEdge_v3_merge_v1={200,300,370,450,600,750,900};
+  vector<double> ST_bins_v1 = {300,800,1300,1800,2300,10000};
   vector<double> QMultLowedge={0,2,4,7,100};
   vector<double>  nJetsLowedge={2,5,10,20};
   vector<double>  nbtagsLowedge={0,1,10};
@@ -288,6 +294,7 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH2F *h_METvsMETPhi[60];
   TH2F *h_STvsNjets[60];
   TH2F *h_STvsNbjets[60];
+  TH2F *h_STvsMET[60];
   TH2F *h_METvsPhopT[60];
   TH2F *h_phopTvsNjets[60];
   TH2F *h_phopTvsNbjets[60];
@@ -420,7 +427,9 @@ class AnalyzeLightBSM : public NtupleVariables{
   TH1F *h_Sbins_LL_newSbins_v6[100];
   TH1F *h_Sbins_LL_newSbins_v7[100];
   TH1F *h_Sbins_LL_newSbins_v8[100];
-  
+  TH1F *h_Sbins_LL_newSbins_v7_merge[100];
+  TH1F *h_Sbins_LL_newSbins_v7_merge_v1[100];
+
   TH1F *h_TFbins_ElecLL_validation[100];
   TH1F *h_TFbins_ElecLL_validation_v1[100];
   TH1F *h_Sbins_LL_Validation_TFbins_V2[100];
@@ -1100,6 +1109,12 @@ char hist_name1[1000];
       h_Sbins_LL_newSbins_v6[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] x ST x pho_pt ",70,0,70);
       sprintf(hname_st,"h_Sbins_LL_newSbins_v7_%s",baseline[i].c_str());
       h_Sbins_LL_newSbins_v7[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_v7_merge_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_v7_merge[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+      sprintf(hname_st,"h_Sbins_LL_newSbins_v7_merge_v1_%s",baseline[i].c_str());
+      h_Sbins_LL_newSbins_v7_merge_v1[i] = new TH1F(hname_st,"search bins [ST,p_{T}^{#miss}] x [(N_{b}==0),(N_{b}==1)] x pho_pt ",150,0,150);
+
+
       sprintf(hname_st,"h_Sbins_LL_newSbins_v8_%s",baseline[i].c_str());
       h_Sbins_LL_newSbins_v8[i] = new TH1F(hname_st,"search bins SP:[0b,1b] x [(NJ=2to4),(NJ:5or6),(NJ>=7)] x MET x ST x pho_pt",150,0,150);
 
@@ -1127,8 +1142,8 @@ char hist_name1[1000];
       // // h_qmultiVsEmobjPT[i] = new TH2F(hname_st,"Pt EM-ob vs qmulti",500,0,1000,500,0,500);
       // // sprintf(hname_st,"h_qmultiVsnJets_%s",baseline[i].c_str());
       // // h_qmultiVsnJets[i] = new TH2F(hname_st,"nJets vs qmulti",30,0,30,500,0,500);
-      // sprintf(hname_st,"h_ST_vs_EMObjPt_%s",baseline[i].c_str());
-      // h_ST_vs_EMObjPt[i] = new TH2F(hname_st,"Pt EM-ob vs ST",500,0,1000,500,0,2500);
+      sprintf(hname_st,"h_ST_vs_EMObjPt_%s",baseline[i].c_str());
+      h_ST_vs_EMObjPt[i] = new TH2F(hname_st,"Pt EM-ob vs ST",500,0,1000,500,0,2500);
       // sprintf(hname_st,"h_Emobj_PtvsEta_%s",baseline[i].c_str());
       // h_Emobj_PtvsEta[i] = new TH2F(hname_st,"Pt EM-obj vs Eta EM-obj",500,0,1000,500,-5,5);
       // sprintf(hname_st,"h_Emobj_PtvsPhi_%s",baseline[i].c_str());
@@ -1138,22 +1153,25 @@ char hist_name1[1000];
 
       // sprintf(hname_st,"h_nJetsvsBjets_%s",baseline[i].c_str());
       // h_nJetsvsBjets[i] = new TH2F(hname_st,"",20,0,20,20,0,20);
-      // sprintf(hname_st,"h_nJetsvsMET_%s",baseline[i].c_str());
-      // h_nJetsvsMET[i] = new TH2F(hname_st,"",400,0,1500,20,0,20);
-      // sprintf(hname_st,"h_nbJetsvsMET_%s",baseline[i].c_str());
-      // h_nbJetsvsMET[i] = new TH2F(hname_st,"",400,0,1500,20,0,20);
+      sprintf(hname_st,"h_nJetsvsMET_%s",baseline[i].c_str());
+      h_nJetsvsMET[i] = new TH2F(hname_st,"",400,0,1500,20,0,20);
+      sprintf(hname_st,"h_nbJetsvsMET_%s",baseline[i].c_str());
+      h_nbJetsvsMET[i] = new TH2F(hname_st,"",400,0,1500,20,0,20);
       // sprintf(hname_st,"h_METvsMETPhi_%s",baseline[i].c_str());
       // h_METvsMETPhi[i] = new TH2F(hname_st,"",400,0,1500,200,-5,5);
-      // sprintf(hname_st,"h_STvsNjets_%s",baseline[i].c_str());
-      // h_STvsNjets[i]  = new TH2F (hname_st,"",500,0,2500,20,0,20);
-      // sprintf(hname_st,"h_STvsNbjets_%s",baseline[i].c_str());
-      // h_STvsNbjets[i]  = new TH2F (hname_st,"",500,0,2500,20,0,20);
-      // sprintf(hname_st,"h_METvsPhopT_%s",baseline[i].c_str());
-      // h_METvsPhopT[i]  = new TH2F(hname_st,"",400,0,1500,500,0,1000);
-      // sprintf(hname_st,"h_phopTvsNjets_%s",baseline[i].c_str());
-      // h_phopTvsNjets[i] = new TH2F(hname_st,"",500,0,1000,20,0,20);
-      // sprintf(hname_st,"h_phopTvsNbjets_%s",baseline[i].c_str());
-      // h_phopTvsNbjets[i] = new TH2F(hname_st,"",500,0,1000,20,0,20);
+      sprintf(hname_st,"h_STvsNjets_%s",baseline[i].c_str());
+      h_STvsNjets[i]  = new TH2F (hname_st,"",500,0,2500,20,0,20);
+      sprintf(hname_st,"h_STvsNbjets_%s",baseline[i].c_str());
+      h_STvsNbjets[i]  = new TH2F (hname_st,"",500,0,2500,20,0,20);
+      sprintf(hname_st,"h_METvsPhopT_%s",baseline[i].c_str());
+      h_METvsPhopT[i]  = new TH2F(hname_st,"",400,0,1500,500,0,1000);
+      sprintf(hname_st,"h_phopTvsNjets_%s",baseline[i].c_str());
+      h_phopTvsNjets[i] = new TH2F(hname_st,"",500,0,1000,20,0,20);
+      sprintf(hname_st,"h_phopTvsNbjets_%s",baseline[i].c_str());
+      h_phopTvsNbjets[i] = new TH2F(hname_st,"",500,0,1000,20,0,20);
+      sprintf(hname_st,"h_STvsMET_%s",baseline[i].c_str());
+      h_STvsMET[i]  = new TH2F (hname_st,"",500,0,3000,400,0,1500);
+
       // sprintf(hname_st,"h_phopTvsMtphoMET_%s",baseline[i].c_str());
       // h_phopTvsMtphoMET[i] = new TH2F(hname_st,"",500,0,1000,500,0,1000);
       // sprintf(hname_st,"h_nBjets_vs_qmulti_%s",baseline[i].c_str());

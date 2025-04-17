@@ -1,11 +1,3 @@
-# root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130_v1.txt",10,"2018","WGJets_MonoPhoton_PtG-130UL","Electron","mva_wp90")'
-# root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-130_v1.txt",10,"2018","WGJets_MonoPhoton_PtG-130UL","Muon","mva_wp90")'
-# root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",10,"2018","WGJets_MonoPhoton_PtG-40to130UL","Electron","mva_wp90")'
-# root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",10,"2018","WGJets_MonoPhoton_PtG-40to130UL","Muon","mva_wp90")'
-# root -l -q 'splitRunList.C("runList_finalSkims_Summer20UL18_WJetsToLNu_HT.txt",1,"2018","WJets_HTUL","Muon","mva_wp90")'
-# root -l -q 'splitRunList.C("runList_finalSkims_Summer20UL18_WJetsToLNu_HT.txt",1,"2018","WJets_HTUL","Electron","mva_wp90")'
-
-
 
 
 root -l -q 'splitRunList.C("runList_skimmed_Summer20UL18_WGJets_MonoPhoton_PtG-40to130_v1.txt",1,"2018","WGJets_MonoPhoton_PtG-40to130UL","Electron","mva_wp90")'

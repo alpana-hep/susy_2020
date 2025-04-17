@@ -1,0 +1,7 @@
+hadd -fk out_T5gg_2200_deltaM10.root out_T5gg_2200_100_delM10.root out_T5gg_2200_300_delM10.root out_T5gg_2200_500_delM10.root out_T5gg_2200_700_delM10.root  out_T5gg_2200_1000_delM10.root out_T5gg_2200_1300_delM10.root out_T5gg_2200_1600_delM10.root out_T5gg_2200_1800_delM10.root
+
+hadd -fk out_T5gg_2200_deltaM30.root out_T5gg_2200_100_delM30.root out_T5gg_2200_300_delM30.root out_T5gg_2200_500_delM30.root out_T5gg_2200_700_delM30.root  out_T5gg_2200_1000_delM30.root out_T5gg_2200_1300_delM30.root out_T5gg_2200_1600_delM30.root out_T5gg_2200_1800_delM30.root
+
+hadd -fk out_T5gg_2200_deltaM100.root  out_T5gg_2200_300_delM100.root out_T5gg_2200_500_delM100.root out_T5gg_2200_700_delM100.root  out_T5gg_2200_1000_delM100.root out_T5gg_2200_1300_delM100.root out_T5gg_2200_1600_delM100.root out_T5gg_2200_1800_delM100.root
+
+

@@ -73,7 +73,8 @@ echo "making datacards"
 mkdir dataCards
 mkdir dataCards/${outRootFile}_${hist1}
 echo "mkdir dataCards/${outRootFile}_${hist1}"
-root -l -q -b 'makeDatacard_SBins.C('${gluinoMass}','${nlspMass}',"'${outRootFile}'.root","'${hist1}'","'${hist}'")'
+root -l -q -b 'PredmakeDatacard_SBins.C('${gluinoMass}','${nlspMass}',"'${outRootFile}'.root","'${hist1}'","'${hist}'","'${anaArg}'")'
+#exit
 #rm dataCards/${outRootFile}_${hist1}/${outRootFile}_${hist}_bin1.txt
 #exit
 #!/bin/bash
@@ -122,7 +123,7 @@ rm ${outRootFile}.root
 
 
 
-ls ${currDir}
+# ls ${currDir}
 pwd
 # cd /uscms/home/kalpana/nobackup/public/work/Susy_lowPho_analysis/CMSSW_14_0_0_pre0/src/CAT_workingDirectory/SignalRegionGetLimits/datacards/
 #cmsrel CMSSW_14_1_0_pre4
@@ -146,11 +147,13 @@ combineCards.py ${currDir}/dataCards/${outRootFile}_${hist1}/*.txt > dataCard_${
 echo "calculating limit"
 mH="$(echo "${gluinoMass}+${nlspMass}*0.0001" | bc)"
 echo $mH
+#mH=2200.020
+# echo "combine -M AsymptoticLimits dataCard_${outName}_${gluinoMass}_${nlspMass}_${hist}.txt -t -1 -n ${outName}_${gluinoMass}_${nlspMass}_${hist} -m ${mH}"
+# combine -M AsymptoticLimits dataCard_${outName}_${gluinoMass}_${nlspMass}_${hist}.txt -t -1 -n ${outName}_${gluinoMass}_${nlspMass}_${hist} -m ${mH}
 
-echo "combine -M AsymptoticLimits dataCard_${outName}_${gluinoMass}_${nlspMass}_${hist}.txt -t -1 -n ${outName}_${gluinoMass}_${nlspMass}_${hist} -m ${mH}"
+                  
+echo "combine -M AsymptoticLimits dataCard_${outName}_${gluinoMass}_${nlspMass}_${hist}.txt -n ${outName}_${gluinoMass}_${nlspMass}_${hist} -m ${mH}"
 combine -M AsymptoticLimits dataCard_${outName}_${gluinoMass}_${nlspMass}_${hist}.txt -t -1 -n ${outName}_${gluinoMass}_${nlspMass}_${hist} -m ${mH}
-
-
 
 #xrdcp -f higgsCombine${outName}_${gluinoMass}_${nlspMass}_${hist}*.root root://cmseos.fnal.gov//store/user/bkansal/myProduction/limits_rootout/T5qqqqHg/${hist1}/
 #xrdcp -f higgsCombine${outName}_${gluinoMass}_${nlspMass}_${hist}*.root root://cmseos.fnal.gov//store/user/bkansal/myProduction/limits_rootout/T6ttZg/${hist1}/

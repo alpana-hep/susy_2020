@@ -1,0 +1,16 @@
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2200_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2300_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2350_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2400_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2250_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2450_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2500_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2600_200_unSkimmed.root
+root://cmseos.fnal.gov//store/group/lpcsusyhad/SusyPhotonMET/Run2ProductionV18/signals/unskimmed_SortedSignalscans/scan/T5bbbbZg/Autumn18_T5bbbbZg_2800_200_unSkimmed.root
+
+
+
+
+
+
+

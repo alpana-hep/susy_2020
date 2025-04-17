@@ -1,0 +1,17 @@
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_GJets_QCD_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_TTGJets_inc_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_TTJets_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_WGJets_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/FullRun2_ZNuNu_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/Signal_T5bbbbZg_v18_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/Signal_T5qqqqHg_v18_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/Signal_T5ttttZg_v18_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/Signal_T6ttZg_v18_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/Signal_TChiNG_v18_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/Signal_TChiWG_v18_PhoIdloose_phopt40_BL_skimsForBDT.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/out_T5gg_2200_deltaM10.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/out_T5gg_2200_deltaM30.root
+root://cmseos.fnal.gov//store/user/kalpana/ul_rootop_Analys_May2/OptmizationStudies_June24/BDTTraining_July24/InputFiles/out_T5gg_2200_deltaM100.root
+
+

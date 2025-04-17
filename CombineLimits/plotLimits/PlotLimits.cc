@@ -95,7 +95,7 @@ void PlotLimits::EventLoop(const char *data,const char *inputFileList) {
     xsecUnc = h1_xsec->GetBinError(h1_xsec->FindBin(mGl));
     if(mGl < minMomMass) continue;
     //    if(mNLSP < 10) continue;
-    cout<< quantileExpected<<"\t"<<mGl<<"\t"<<mNLSP<<endl;
+    cout<< quantileExpected<<"\t"<<mGl<<"\t"<<mNLSP<<"\t"<<limit<<endl;
     if(quantileExpected < 0){
       h2_mGlmNLSP_r->Fill(mGl,mNLSP,limit);
       h2_mGlmNLSP_XsecUL->Fill(mGl,mNLSP,xsec/limit);
@@ -114,6 +114,13 @@ void PlotLimits::EventLoop(const char *data,const char *inputFileList) {
     }
     if(abs(quantileExpected - 0.5) <= 0.0001){
       h2_mGlmNLSP_median->Fill(mGl,mNLSP,limit);
+    }
+
+     if(abs(quantileExpected - 0.025) <= 0.0001){
+      h2_mGlmNLSP_2p5pc->Fill(mGl,mNLSP,limit);
+    }
+    if(abs(quantileExpected - 0.975) <= 0.0001){
+      h2_mGlmNLSP_97p5pc->Fill(mGl,mNLSP,limit);
     }
 
     //    cout<<GluinoMass<<" "<<NLSPMass<<endl;
