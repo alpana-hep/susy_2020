@@ -8,6 +8,7 @@ scram p CMSSW CMSSW_14_0_0_pre0
 cd CMSSW_14_0_0_pre0/src
 eval `scramv1 runtime -sh`
 git clone -b LostLeptonbkg_studies https://github.com/alpana-hep/susy_2020.git .
+cp inputFiles/*.txt .
 make (run make everytime you change anything in any of the source/header file)
 ./analyzeLightBSM <filelist> <outfile> <year> <process> <which_lepton> <photon ID>
 ```
