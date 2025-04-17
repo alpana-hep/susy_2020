@@ -8,6 +8,7 @@ scram p CMSSW CMSSW_14_0_0_pre0
 cd CMSSW_14_0_0_pre0/src
 eval `scramv1 runtime -sh`
 git clone -b UL_FakeRate_bkgEstimation  https://github.com/alpana-hep/susy_2020.git .
+cp inputFiles/*.txt .
 make
 ./analyzeLightBSM <filelist> <outfile> <year <process>  <photon ID>
 ```
@@ -122,6 +123,7 @@ The output files for this studies are on lxplus
 We will be using Single electron and Egamms dataset instead of MET and DY Jets (ZLL Gamma )samples
 ```
 cd SF_TnP/
+cp inputFiles/*.txt .
 make
 ./analyzeLightBSM <filelist> <outfile> <year <process>  <photon ID>
 ```
@@ -208,6 +210,7 @@ The output files for this studies are on lxplus
 ### SF studies with considering 1 tag electron as MET
 ```
 cd SF_TnP/withtag1eMET
+cp inputFiles/*.txt .
 make
 ```
 
