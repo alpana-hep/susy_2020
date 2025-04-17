@@ -716,32 +716,20 @@ canvas_n1->SetBottomMargin(0.13);
     }
      else if(Tag.Contains("v3")) {
        Tl.SetTextSize(0.018);
-       // Tl.DrawLatex(1.5,1000,"200<p_{T}^{miss}#leq300");
-       // Tl.DrawLatex(6.5,1000,"300<p_{T}^{miss}#leq370");
-       // Tl.DrawLatex(11.5,1000,"370<p_{T}^{miss}#leq450");
-       // Tl.DrawLatex(16.5,1000,"450<p_{T}^{miss}#leq600");
-       // Tl.DrawLatex(22.5,1000,"p_{T}^{miss}>600");
-       //  Tl.DrawLatex(26.5,1000,"200<p_{T}^{miss}#leq300");
-       // Tl.DrawLatex(31.5,1000,"300<p_{T}^{miss}#leq370");
-       // Tl.DrawLatex(36.5,1000,"370<p_{T}^{miss}#leq450");
-       // Tl.DrawLatex(41.5,1000,"450<p_{T}^{miss}#leq600");
-       // Tl.DrawLatex(46.5,1000,"p_{T}^{miss}>600");
-       Tl.DrawLatex(1.5,1000,"300<S_{T}#leq10^{2}");
-       Tl.DrawLatex(6.5,1000,"10^{2}<S_{T}#leq1.5*10^{2}");
-       Tl.DrawLatex(11.5,1000,"1500<S_{T}#leq2000");
-       Tl.DrawLatex(16.5,1000,"2000<S_{T}#leq2500");
-       Tl.DrawLatex(22.5,1000,"S_{T}>2500");
-        Tl.DrawLatex(26.5,1000,"300<S_{T}#leq1000");
-       Tl.DrawLatex(31.5,1000,"1000<S_{T}#leq370");
-       Tl.DrawLatex(36.5,1000,"370<S_{T}#leq450");
-       Tl.DrawLatex(41.5,1000,"450<S_{T}#leq600");
-       Tl.DrawLatex(46.5,1000,"S_{T}>600");
-
+       Tl.DrawLatex(1.5,1000,"200<p_{T}^{miss}#leq300");
+       Tl.DrawLatex(6.5,1000,"300<p_{T}^{miss}#leq370");
+       Tl.DrawLatex(11.5,1000,"370<p_{T}^{miss}#leq450");
+       Tl.DrawLatex(16.5,1000,"450<p_{T}^{miss}#leq600");
+       Tl.DrawLatex(22.5,1000,"p_{T}^{miss}>600");
+        Tl.DrawLatex(26.5,1000,"200<p_{T}^{miss}#leq300");
+       Tl.DrawLatex(31.5,1000,"300<p_{T}^{miss}#leq370");
+       Tl.DrawLatex(36.5,1000,"370<p_{T}^{miss}#leq450");
+       Tl.DrawLatex(41.5,1000,"450<p_{T}^{miss}#leq600");
+       Tl.DrawLatex(46.5,1000,"p_{T}^{miss}>600");
        Tl.SetTextSize(0.03);
        Tl.DrawLatex(13.5,10000,"N_{jets}^{b} = 0");
        Tl.DrawLatex(39.5,10000,"N_{jets}^{b} #geq1");
 
-       
      }
 
      }

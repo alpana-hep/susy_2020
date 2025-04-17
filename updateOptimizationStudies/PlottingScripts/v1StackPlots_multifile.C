@@ -283,7 +283,7 @@ canvas_n1->SetBottomMargin(0.13);
      hist.at(i)->GetXaxis()->SetTitle(xlabel);
     //   hist.at(i)->GetXaxis()->SetRangeUser(xmin,xrange+4);
      //     cout<<i<<"\t"<<"oinside loop "<<endl;
-    hist.at(i)->SetLineWidth(line_width[i]);
+     hist.at(i)->SetLineWidth(4);//line_width[i]);
     if(i>5){
     hist.at(i)->SetLineStyle(line_style[i-6]);
   
@@ -687,8 +687,8 @@ canvas_n1->SetBottomMargin(0.13);
     TArrow *Arrow5 = new TArrow(46.0,600, 51.0,600,0.01,"<|>");
     TArrow *Arrow6 = new TArrow(49.0,600, 54.0,600,0.01,"<|>");
 
-    TArrow *Arrow_pt = new TArrow(1.0,5000,26.0,5000,0.01,"</>");
-    TArrow *Arrow_pt1 = new TArrow(26.0,5000,51.0,5000,0.01,"</>");
+    TArrow *Arrow_pt = new TArrow(1.0,25000,26.0,25000,0.01,"</>");
+    TArrow *Arrow_pt1 = new TArrow(26.0,25000,51.0,25000,0.01,"</>");
     
     Arrow_pt->Draw(); Arrow_pt1->Draw();
     Arrow1->Draw(); Arrow2->Draw(); Arrow3->Draw();
@@ -726,22 +726,21 @@ canvas_n1->SetBottomMargin(0.13);
        // Tl.DrawLatex(36.5,1000,"370<p_{T}^{miss}#leq450");
        // Tl.DrawLatex(41.5,1000,"450<p_{T}^{miss}#leq600");
        // Tl.DrawLatex(46.5,1000,"p_{T}^{miss}>600");
-       Tl.DrawLatex(1.5,1000,"300<S_{T}#leq10^{2}");
-       Tl.DrawLatex(6.5,1000,"10^{2}<S_{T}#leq1.5*10^{2}");
-       Tl.DrawLatex(11.5,1000,"1500<S_{T}#leq2000");
-       Tl.DrawLatex(16.5,1000,"2000<S_{T}#leq2500");
-       Tl.DrawLatex(22.5,1000,"S_{T}>2500");
-        Tl.DrawLatex(26.5,1000,"300<S_{T}#leq1000");
-       Tl.DrawLatex(31.5,1000,"1000<S_{T}#leq370");
-       Tl.DrawLatex(36.5,1000,"370<S_{T}#leq450");
-       Tl.DrawLatex(41.5,1000,"450<S_{T}#leq600");
-       Tl.DrawLatex(46.5,1000,"S_{T}>600");
+       Tl.DrawLatex(1.5,9000,"300<S_{T}#leq10^{3}");
+       Tl.DrawLatex(5.5,9000,"10^{3}<S_{T}#leq1500");
+       Tl.DrawLatex(10.5,9000,"1500<S_{T}#leq2000");
+       Tl.DrawLatex(15.5,9000,"2000<S_{T}#leq2500");
+       Tl.DrawLatex(21.5,9000,"S_{T}>2500");
+        Tl.DrawLatex(26.5,9000,"300<S_{T}#leq10^{3}");
+       Tl.DrawLatex(31.5,9000,"10^{3}<S_{T}#leq1500");
+       Tl.DrawLatex(36.5,9000,"1500<S_{T}#leq2000");
+       Tl.DrawLatex(41.5,9000,"2000<S_{T}#leq2500");
+       Tl.DrawLatex(46.5,9000,"S_{T}>2500");
 
        Tl.SetTextSize(0.03);
-       Tl.DrawLatex(13.5,10000,"N_{jets}^{b} = 0");
-       Tl.DrawLatex(39.5,10000,"N_{jets}^{b} #geq1");
+       Tl.DrawLatex(13.5,35000,"N_{jets}^{b} = 0");
+       Tl.DrawLatex(39.5,35000,"N_{jets}^{b} #geq1");
 
-       
      }
 
      }
@@ -842,35 +841,38 @@ canvas_n1->SetBottomMargin(0.13);
      }
 
      if(Tag.Contains("v7") && Tag.Contains("merge")){
-        TLine *line1V7=new TLine( 6.0,0.01,  6.0,900);
-       TLine *line2V7=new TLine(11.0,0.01, 11.0,900);
-       TLine *line3V7=new TLine(16.0,0.01, 16.0,900);
-       TLine *line4V7=new TLine(21.0,0.01, 21.0,900);
-       TLine *line5V7=new TLine(26.0,0.1, 26.0,900);
+       TLine *line1V7=new TLine( 5.0,0.01,  5.0,900);
+       TLine *line2V7=new TLine(9.0,0.01, 9.0,900);
+       TLine *line3V7=new TLine(13.0,0.01, 13.0,900);
+       TLine *line4V7=new TLine(17.0,0.01, 17.0,900);
+       TLine *line5V7=new TLine(21.0,0.1, 21.0,900);
        line1V7->Draw();      line2V7->Draw();  line3V7->Draw();
        line4V7->Draw();      line5V7->Draw();
-       TLine *line1V8=new TLine( 26.0,0.01,  26.0,900);
-       TLine *line2V8=new TLine(31.0,0.01, 31.0,900);
-       TLine *line3V8=new TLine(36.0,0.01, 36.0,900);
-       TLine *line4V8=new TLine(41.0,0.01, 41.0,900);
-       TLine *line5V8=new TLine(46.0,0.1, 46.0,900);
-        TLine *line6V8=new TLine(51.0,0.1, 51.0,900);
-        TLine *line7V8=new TLine(56.0,0.1, 56.0,900);
-         TLine *line8V8=new TLine(61.0,0.1, 61.0,900);
-	 TLine *line9V8=new TLine(66.0,0.1, 66.0,900);
-	 TLine *line10V8=new TLine(71.0,0.1, 71.0,900);
-	 TLine *line11V8=new TLine(76.0,0.1, 76.0,900);
-        TLine *line12V8=new TLine(81.0,0.1, 81.0,900);
-        TLine *line13V8=new TLine(86.0,0.1, 86.0,900);
-         TLine *line14V8=new TLine(91.0,0.1, 91.0,900);
-         TLine *line15V8=new TLine(96.0,0.1, 96.0,900);
-         TLine *line16V8=new TLine(101.0,0.1, 101.0,900);
+       TLine *line1V8=new TLine( 25.0,0.01,  25.0,900);
+       TLine *line2V8=new TLine(29.0,0.01, 29.0,900);
+       TLine *line3V8=new TLine(33.0,0.01, 33.0,900);
+       TLine *line4V8=new TLine(37.0,0.01, 37.0,900);
+       TLine *line5V8=new TLine(41.0,0.1, 41.0,900);
+        TLine *line6V8=new TLine(45.0,0.1, 45.0,900);
+        TLine *line7V8=new TLine(49.0,0.1, 49.0,900);
+         TLine *line8V8=new TLine(53.0,0.1, 53.0,900);
+	 TLine *line9V8=new TLine(57.0,0.1, 57.0,900);
+	 TLine *line10V8=new TLine(61.0,0.1, 61.0,900);
+	 TLine *line11V8=new TLine(65.0,0.1, 65.0,900);
+        TLine *line12V8=new TLine(69.0,0.1, 69.0,900);
+        TLine *line13V8=new TLine(73.0,0.1, 73.0,900);
+         TLine *line14V8=new TLine(77.0,0.1, 77.0,900);
+         TLine *line15V8=new TLine(81.0,0.1, 81.0,900);
+         TLine *line16V8=new TLine(85.0,0.1, 85.0,900);
+	 TLine *line17V8=new TLine(89.0,0.1, 89.0,900);
+         TLine *line18V8=new TLine(93.0,0.1, 93.0,900);
+         TLine *line19V8=new TLine(97.0,0.1, 97.0,900);
 
        line1V8->Draw();      line2V8->Draw();  line3V8->Draw();
        line4V8->Draw();      line5V8->Draw(); line6V8->Draw(); line7V8->Draw(); line8V8->Draw();
        
        line9V8->Draw();      line10V8->Draw();  line11V8->Draw();
-       line12V8->Draw();      //line13V8->Draw(); line14V8->Draw(); line15V8->Draw(); line16V8->Draw();
+       line12V8->Draw();  line13V8->Draw(); line14V8->Draw(); line15V8->Draw(); //line16V8->Draw();
 
        TLatex Tl;
        // Tl.SetTextSize(0.01);
@@ -1024,11 +1026,11 @@ canvas_n1->SetBottomMargin(0.13);
         Arrow_pt2->Draw(); Arrow_pt3->Draw();
 
        Tl.SetTextSize(0.03);
-       Tl.DrawLatex(5.5,5000,"300<p_{T}^{#gamma}+p_{T}^{Jets}#leq1500");
-       Tl.DrawLatex(45.5,5000,"p_{T}^{Jets} > 1500");
+       Tl.DrawLatex(5.5,5000,"300<S_{T}#leq1500");
+       Tl.DrawLatex(45.5,5000,"S_{T} > 1500");
        Tl.SetTextSize(0.03);
-       Tl.DrawLatex(69.5,5000,"300<p_{T}^{#gamma}+p_{T}^{Jets}#leq1500");
-       Tl.DrawLatex(113.5,5000,"p_{T}^{Jets} > 1500");
+       Tl.DrawLatex(69.5,5000,"300<S_{T}#leq1500");
+       Tl.DrawLatex(113.5,5000,"S_{T} > 1500");
        TArrow *Arrow_pt4 = new TArrow(1.0,15000,66.0,15000,0.01,"</>");
         TArrow *Arrow_pt5 = new TArrow(66.0,15000,132.0,15000,0.01,"</>");
         Arrow_pt4->Draw(); Arrow_pt5->Draw();
@@ -1221,7 +1223,7 @@ TFile *f[nfiles];
 TFile *f1[nfiles];
 
 
-void StackPlots_multifile(string pathname, string model, string gluino_m)
+void v1StackPlots_multifile(string pathname, string model, string gluino_m)
 {
   char* hname = new char[200];
   char* hname1 = new char[200];
@@ -1278,7 +1280,7 @@ void StackPlots_multifile(string pathname, string model, string gluino_m)
   vector<double> ymin ={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};//,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
   vector<double> ymax={100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};//,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000};
   vector<double> xmin ={0,0,0,0,0,0,-5,-5,-5,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0,-5,-5,0,0.9,0,0,80,0};
-  vector<double> xmax={2500,2500,20,16,1000,900,5,5,5,3,800,5,5,5,40,1,70,15,70,35,55,30,55,35,65,65,105,140,100,110};//,5,5,1000,5,5,5,1000,5,5,5,1000,5,5,5,1000,5,5,5,1000,2,400,3,100,800};
+  vector<double> xmax={2500,2500,20,16,1000,900,5,5,5,3,800,5,5,5,40,1,70,15,70,35,55,30,55,35,65,65,105,140,82,110};//,5,5,1000,5,5,5,1000,5,5,5,1000,5,5,5,1000,5,5,5,1000,2,400,3,100,800};
 
   cout<<"different vector sizes "<<endl;
   cout<<varName.size()<<"\t"<<baseline.size()<<"\t"<<xlabel.size()<<"\t"<<rebin.size()<<"\t"<<xmax.size()<<"\t"<<xmin.size()<<"\t"<<legend_texts.size()<<endl;
@@ -1415,17 +1417,18 @@ if(Model.Contains("T5gg") && Gluino_m.Contains("22001000")){
 
      
   if(Model.Contains("T5bbbbZg") && Gluino_m.Contains("2200")){
-    Nlsp_m = {"10","50","100","200","400","600","1000"};
-    legend_title={"#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 10 GeV)", "#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 50 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 100 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 200 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 400 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 600 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 1000 GeV)"};
+    Nlsp_m = {"10","100","400","1000","1500","2000"};
+    legend_title={"#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 10 GeV)", "#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 100 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 400 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 1000 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 1500 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 2000 GeV)","#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 1000 GeV)"};
     legend_title={"#tilde{g} #rightarrow b #bar{b} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G}, m_{#tilde{g}} = 2200 "};
-    legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 10 GeV","m_{#tilde{#chi}_{1}^{0}} = 50 GeV","m_{#tilde{#chi}_{1}^{0}} = 100 GeV","m_{#tilde{#chi}_{1}^{0}} = 200 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 600 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
+    legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 10 GeV","m_{#tilde{#chi}_{1}^{0}} = 100 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1500 GeV","m_{#tilde{#chi}_{1}^{0}} = 2000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
+    n_files=6;
     f[0] = new TFile("out_T5bbbbZg_2200_10.root");
-    f[1] = new TFile("out_T5bbbbZg_2200_50.root");
-    f[2] = new TFile("out_T5bbbbZg_2200_100.root");
-    f[3] = new TFile("out_T5bbbbZg_2200_200.root");
-    f[4] = new TFile("out_T5bbbbZg_2200_400.root");
-    f[5] = new TFile("out_T5bbbbZg_2200_600.root");
-    f[6] = new TFile("out_T5bbbbZg_2200_1000.root");
+    f[1] = new TFile("out_T5bbbbZg_2200_100.root");
+    f[2] = new TFile("out_T5bbbbZg_2200_400.root");
+    f[3] = new TFile("out_T5bbbbZg_2200_1000.root");
+    f[4] = new TFile("out_T5bbbbZg_2200_1500.root");
+    f[5] = new TFile("out_T5bbbbZg_2200_2000.root");
+    //    f[6] = new TFile("out_T5bbbbZg_2200_1000.root");
     f1[0] = new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_BL_BDTwith13variables_T5bbbbZg.root");
     f1[4] = new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_BL_BDTwith13variables_T5bbbbZg.root");
     f1[3] =  new TFile("FullRun2_WGJets_PhoIdloose_phopt40_BL_BDTwith13variables_T5bbbbZg.root");
@@ -1572,19 +1575,19 @@ if(Model.Contains("T5gg") && Gluino_m.Contains("22001000")){
   }
 
  else if(Model.Contains("T5qqqqHg") && Gluino_m.Contains("2200")){
-     Nlsp_m = {"127","150","200","400","600","1000"};
+   Nlsp_m = {"127","200","400","1000","1500","2000"};
      n_files=6;
-     legend_title={"#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 127 GeV)", "#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 150 GeV)", "#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 200 GeV)","#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 400 GeV)","#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 600 GeV)","#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1000 GeV)"};
+     legend_title={"#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 127 GeV)", "#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 200 GeV)", "#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 400 GeV)","#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1000 GeV)","#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1500 GeV)","#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 2000 GeV)"};
 
      legend_title={"#tilde{g} #rightarrow q #bar{q} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G}, m_{#tilde{g}} = 2200 "};
- legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 127 GeV","m_{#tilde{#chi}_{1}^{0}} = 150 GeV","m_{#tilde{#chi}_{1}^{0}} = 200 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 600 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
+ legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 127 GeV","m_{#tilde{#chi}_{1}^{0}} = 200 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1500 GeV","m_{#tilde{#chi}_{1}^{0}} = 2000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
 
     f[0] = new TFile("out_T5qqqqHg_2200_127.root");
-    f[1] = new TFile("out_T5qqqqHg_2200_150.root");
-    f[2] = new TFile("out_T5qqqqHg_2200_200.root");
-    f[3] = new TFile("out_T5qqqqHg_2200_400.root");
-    f[4] = new TFile("out_T5qqqqHg_2200_600.root");
-    f[5] = new TFile("out_T5qqqqHg_2200_1000.root");
+    f[1] = new TFile("out_T5qqqqHg_2200_200.root");
+    f[2] = new TFile("out_T5qqqqHg_2200_400.root");
+    f[3] = new TFile("out_T5qqqqHg_2200_1000.root");
+    f[4] = new TFile("out_T5qqqqHg_2200_1500.root");
+    f[5] = new TFile("out_T5qqqqHg_2200_2000.root");
     f1[0] = new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_BL_BDTwith13variables_T5qqqqHg.root");
     f1[4] = new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_BL_BDTwith13variables_T5qqqqHg.root");
     f1[3] =  new TFile("FullRun2_WGJets_PhoIdloose_phopt40_BL_BDTwith13variables_T5qqqqHg.root");
@@ -1620,20 +1623,20 @@ if(Model.Contains("T5gg") && Gluino_m.Contains("22001000")){
   }
 
  else if(Model.Contains("T5ttttZg") && Gluino_m.Contains( "2200")){
-     Nlsp_m = {"10","50","100","200","400","600","1000"};
-     n_files=7;
-     legend_title={"#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 10 GeV)", "#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 50 GeV)", "#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 100 GeV)", "#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 200 GeV)" ,"#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 400 GeV)","#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 600 GeV)","#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1000 GeV)"};
+     Nlsp_m = {"10","100","400","1000","1500","2000","1000"};
+     n_files=5;
+     legend_title={"#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde{#chi}_{1}^{0}} = 10 GeV)", "#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 100 GeV)", "#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 400 GeV)", "#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1000 GeV)" ,"#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1500 GeV)","#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} =2000 GeV)","#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/H #tilde{G} (m_{#tilde{g}} = 2200 GeV, m_{#tilde {#chi}_{1}^{0}} = 1000 GeV)"};
 
      legend_title={"#tilde{g} #rightarrow t #bar{t} #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G}, m_{#tilde{g}} = 2200 "};
-     legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 10 GeV","m_{#tilde{#chi}_{1}^{0}} = 50 GeV","m_{#tilde{#chi}_{1}^{0}} = 100 GeV","m_{#tilde{#chi}_{1}^{0}} = 200 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 600 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
+     legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 10 GeV","m_{#tilde{#chi}_{1}^{0}} = 100 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1500 GeV","m_{#tilde{#chi}_{1}^{0}} = 2000 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
 
     f[0] = new TFile("out_T5ttttZg_2200_10.root");
-    f[1] = new TFile("out_T5ttttZg_2200_50.root");    
-    f[2] = new TFile("out_T5ttttZg_2200_100.root");
-    f[3] = new TFile("out_T5ttttZg_2200_200.root");
-    f[4] = new TFile("out_T5ttttZg_2200_400.root");
-    f[5] = new TFile("out_T5ttttZg_2200_600.root");
-    f[6] = new TFile("out_T5ttttZg_2200_1000.root");    
+    f[1] = new TFile("out_T5ttttZg_2200_100.root");    
+    f[2] = new TFile("out_T5ttttZg_2200_400.root");
+    f[3] = new TFile("out_T5ttttZg_2200_1000.root");
+    f[4] = new TFile("out_T5ttttZg_2200_1500.root");
+    f[5] = new TFile("out_T5ttttZg_2200_2000.root");
+    //    f[6] = new TFile("out_T5ttttZg_2200_1000.root");    
     f1[0] = new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_BL_BDTwith13variables_T5ttttZg.root");
     f1[4] = new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_BL_BDTwith13variables_T5ttttZg.root");
     f1[3] =  new TFile("FullRun2_WGJets_PhoIdloose_phopt40_BL_BDTwith13variables_T5ttttZg.root");
@@ -1737,18 +1740,18 @@ if(Model.Contains("T5gg") && Gluino_m.Contains("22001000")){
   }
 
    else if(Model.Contains("T6ttZg") && Gluino_m.Contains( "1300")){
-     Nlsp_m = {"10","50","100","200","400","600"};
-     n_files=6;
-       legend_title={"#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 10 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 50 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 100 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 200 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 400 GeV)","#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 600 GeV)"};
-       legend_title={"#tilde{t} #rightarrow t#tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 "};
-       legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 10 GeV","m_{#tilde{#chi}_{1}^{0}} = 50 GeV","m_{#tilde{#chi}_{1}^{0}} = 100 GeV","m_{#tilde{#chi}_{1}^{0}} = 200 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 600 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
+     Nlsp_m = {"10","100","400","600","1000"};
+     n_files=5;
+       legend_title={"#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 10 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 100 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 400 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 600 GeV)", "#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 1000 GeV)","#tilde{t} #rightarrow t #tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300 GeV, m_{#tilde{#chi}_{1}^{0}} = 600 GeV)"};
+       legend_title={"#tilde{t} #rightarrow t#tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0} #rightarrow #gamma/Z #tilde{G} (m_{#tilde{g}} = 1300) "};
+       legend_texts_v1 = {"m_{#tilde{#chi}_{1}^{0}} = 10 GeV","m_{#tilde{#chi}_{1}^{0}} = 100 GeV","m_{#tilde{#chi}_{1}^{0}} = 400 GeV","m_{#tilde{#chi}_{1}^{0}} = 600 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV","m_{#tilde{#chi}_{1}^{0}} = 600 GeV","m_{#tilde{#chi}_{1}^{0}} = 1000 GeV"};
 
      f[0] = new TFile("out_T6ttZg_1300_10.root");
-     f[1] = new TFile("out_T6ttZg_1300_50.root");    
-     f[2] = new TFile("out_T6ttZg_1300_100.root");
-     f[3] = new TFile("out_T6ttZg_1300_200.root");
-     f[4] = new TFile("out_T6ttZg_1300_400.root");
-     f[5] = new TFile("out_T6ttZg_1300_600.root");
+     f[1] = new TFile("out_T6ttZg_1300_100.root");    
+     f[2] = new TFile("out_T6ttZg_1300_400.root");
+     f[3] = new TFile("out_T6ttZg_1300_600.root");
+     f[4] = new TFile("out_T6ttZg_1300_1000.root");
+     //     f[5] = new TFile("out_T6ttZg_1300_600.root");
      f1[0] = new TFile("FullRun2_TTGJets_inc_PhoIdloose_phopt40_BL_BDTwith13variables_T6ttZg.root");
     f1[4] = new TFile("FullRun2_WJetsToLNu_HT_PhoIdloose_phopt40_BL_BDTwith13variables_T6ttZg.root");
     f1[3] =  new TFile("FullRun2_WGJets_PhoIdloose_phopt40_BL_BDTwith13variables_T6ttZg.root");
@@ -2033,11 +2036,11 @@ int  n_var = varName.size();
  // 	{
  // 	  vector<TH1D*> hist_list_Njets;
  // 	  vector<TH1D*> hist_list_Bjets;
- int n_start=0;//n_var-1;
+ int n_start=0;
  for(int i_cut=0; i_cut<n_cut;i_cut++){
    // vector<TH1D*> hist_list_Njets;
    // vector<TH1D*> hist_list_Bjets;
-   for(int i_var=n_start; i_var<n_var-1;i_var++)
+   for(int i_var=n_start; i_var<n_var;i_var++)
          {
 	   vector<TH1D*> hist_list_Njets;
 	     vector<TH1D*> hist_list_Bjets; 
