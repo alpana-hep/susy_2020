@@ -125,7 +125,7 @@ cd CombineLimits
 Description of different files in the directory -
 ```
 makeDatacard_SBins.C - create the data cards
-make sure you don't give empty datacards , combine won't run.
+make sure you don't give empty bin content in datacards , combine won't run.
 worker_SP.sh - shell scripts run your analyzer script over signal models files one by one, create datacards, and run combine tool and save the output tree in a root file
 
 combine.sh - submit the jobs for all the grid points and take input the mass scan
@@ -154,7 +154,7 @@ make
 
 Create data cards-
 ```
-root -l -q -b 'makeDatacard_SBins.C(2700,1600,"T5qqqqHg_Summer16v3_2700_1600_v18.root","h_Sbins_LL_newSbins_v7_MET_200","h_Sbins_LL_newSbins_v7_MET_200","T5qqqqHg")'
+root -l -q -b 'makeDatacard_SBins.C(2200,10,"out_T5bbbbZg_2200_10.root","h_Sbins_LL_newSbins_v7_MET_200","h_Sbins_LL_newSbins_v7_MET_200","T5bbbbZg")'
 ```
 
 Run a job interactively which runs over a signal mass point, create data cards and run the combine tool
@@ -165,7 +165,7 @@ Run a job interactively which runs over a signal mass point, create data cards a
 
 Example -
 ```
-./worker_SP.sh analyzeLightBSM 2200 200 T5bbbbZg Summer16v3   h_Sbins_LL_MET_200
+./worker_SP_v1.sh analyzeLightBSM 2200 10 T5bbbbZg Summer16v3   h_Sbins_LL_MET_200
 
 ```
 Submit jobs for a signal model - taking list of different mass point as input 
@@ -178,16 +178,42 @@ Example -
 ./calcLimit.sh T5bbbbZg_MassScan.txt T5bbbbZg Summer16v3 h_Sbins_LL_MET_200
 
 ```
+OR run the following shell script to submit jobs for all models and cases
+```
+source submitJobs.sh
+```
 
-Combine all the files after running the combine tool successfully -
+For predicted limits - use Pred*root as background input -
+
+Follow the above instructions but use following scripts - rest remains the same
+```
+worker_SP.sh
+PredmakeDatacard_SBins.C
+```
+
+### For T5gg samples
+```
+cd T5gg_limits/
+make
+cp ../FullRun2*root .
+source runme1.sh
+source hadd_files.sh
+```
+
+Combine all the files after running the combine tool successfully  (only for GMSB samples)-
 
 ```
 cd plotLimits
-source hadd_files.sh
+source hadd_files.sh (OR source haddFiles-pred.sh)
 ./plotlimit in_file.txt out.root T5bbbbZg
 root -b 'getExclusion.C("out.root")'
 
 ```
+Or to run for all -
+```
+source submit.sh (OR source submit_pred.sh)
+```
+
 To make all the plots -
 ```
 cd PlottingScripts
