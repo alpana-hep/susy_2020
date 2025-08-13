@@ -764,7 +764,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	// h_selectBaselineYields_v2->Fill("lep veto",wt);
       }
     else continue;
-    FillHistogram_Kinematics(1,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(1,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
     if(isoMuonTracks ==0 &&  isoPionTracks==0 && isoElectronTracks==0) {
 
       // h_Njets_v1[2]->Fill(nHadJets,wt);
@@ -775,7 +775,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
       h_selectBaselineYields_v2->Fill("charge track veto",wt);
     }
     else continue;
-    FillHistogram_Kinematics(2,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(2,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
     if(bestPhotonIndxAmongPhotons<0) continue;
     bool bestPhoHasPxlSeed=true;
     if((*Photons_hasPixelSeed)[bestPhotonIndxAmongPhotons]<0.001) bestPhoHasPxlSeed=false;
@@ -791,8 +791,8 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 
     }
     else continue;
-    FillHistogram_Kinematics(3,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
-    if(MET>200){
+    //FillHistogram_Kinematics(3,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    if(MET>100){
 
       // h_Njets_v1[4]->Fill(nHadJets,wt);
       // h_Nbjets_v1[4]->Fill(BTags,wt);
@@ -804,7 +804,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     }
      else continue;
 
-    FillHistogram_Kinematics(4,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(4,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
     
     // if( minDR<0.3 ) {phoMatchingJetIndx=minDRindx; recoJetMatch_recoPho=true;}
     // double genmindr=99999, recojetmindr=99999;
@@ -869,7 +869,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // h_PhotonPt_v1[5]->Fill(bestPhoton.Pt(),wt);
     // h_St_v1[5]->Fill(ST,wt);
 
-    FillHistogram_Kinematics(5,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(5,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
     if(Debug)
       cout<<"had jets size() "<<"\t"<<hadJets.size()<<"\t"<<endl;
     // dPhi_METjet1 = abs(Met.DeltaPhi(hadJets[0]));
@@ -907,7 +907,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     if(ST>300){
       h_selectBaselineYields_->Fill("ST>300",wt); h_selectBaselineYields_v2->Fill("ST>300",wt);}
     else continue;
-    FillHistogram_Kinematics(6,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(6,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
     // h_Njets_v1[6]->Fill(nHadJets,wt);
     // h_Nbjets_v1[6]->Fill(BTags,wt);
     // h_MET_v1[6]->Fill(MET,wt);
@@ -935,7 +935,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // h_PhotonPt_v1[7]->Fill(bestPhoton.Pt(),wt);
     // h_St_v1[7]->Fill(ST,wt);
     h_selectBaselineYields_v2->Fill("TrigEffi",wt);
-    FillHistogram_Kinematics(7,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(7,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
 
     //recommended MET filtser for UL - taken from https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Analysis_Recommendations_should
     //check nvtx filter - less efficiency for 2016 - https://indico.cern.ch/event/1057110/#27-met-filters-performance-stu
@@ -958,7 +958,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // h_PhotonPt_v1[8]->Fill(bestPhoton.Pt(),wt);
     // h_St_v1[8]->Fill(ST,wt);
     h_selectBaselineYields_v2->Fill("Event cleaning",wt);
-    FillHistogram_Kinematics(8,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(8,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
 
     if(dPhi_METjet1 > 0.3 && dPhi_METjet2 > 0.3 )
       {
@@ -966,7 +966,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
 	h_selectBaselineYields_v2->Fill("dPhi1 & dPhi2 >= 0.3",wt);
       }
     else continue;
-    FillHistogram_Kinematics(9,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
+    //FillHistogram_Kinematics(9,nHadJets,BTags, bestPhoton.Pt(), mTPhoMET, dPhi_PhoMET, ST, wt, nPhotons, bestPhoton.Eta(),bestPhoton.Phi(),dPhi_METjet1,mvaValue);
     // h_Njets_v1[9]->Fill(nHadJets,wt);
     // h_Nbjets_v1[9]->Fill(BTags,wt);
     // h_MET_v1[9]->Fill(MET,wt);
@@ -988,7 +988,7 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     	if(MET<=200) continue;                                                                                              
       }
     
-    //    FillHistogram_Kinematics(2,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,1);
+    //    //FillHistogram_Kinematics(2,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,1);
 	 
     if(!s_sample.Contains("data") && !s_sample.Contains("signal")){
     if(Debug)
@@ -1123,13 +1123,13 @@ void AnalyzeLightBSM::EventLoop(const char *data,const char *inputFileList, cons
     // 	if(NElectrons==0 && NMuons==0)
     // 	  {
     // 	    if(flag_phoOrigin==0)
-    // 	      FillHistogram_Kinematics(2,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+    // 	      //FillHistogram_Kinematics(2,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
     // 	    else if(flag_phoOrigin==1)
-    // 	      FillHistogram_Kinematics(3,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+    // 	      //FillHistogram_Kinematics(3,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
     // 	    else if(flag_phoOrigin==2)
-    // 	      FillHistogram_Kinematics(4,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
+    // 	      //FillHistogram_Kinematics(4,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);
     // 	    else if(flag_phoOrigin==3)
-    // 	      FillHistogram_Kinematics(5,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);	  
+    // 	      //FillHistogram_Kinematics(5,nHadJets,BTags,bestPhoton.Pt(),mTPhoMET,dPhi_PhoMET,ST,wt);	  
     // 	  }
     //   }
     // }
